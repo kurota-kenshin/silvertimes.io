@@ -1,19 +1,22 @@
 # SilverTimes
 
-A modern static website for SilverTimes - a yield-bearing silver token platform backed by real assets from a reputable Hong Kong listed company.
+A modern, dark-themed static website for SilverTimes - tokenised silver with treasury-powered yield. Built with React, TypeScript, and inspired by Ethena's sleek design.
 
 ## Overview
 
+**"Tokenised silver with treasury-powered yield"**
+
 SilverTimes is the only silver token that combines:
-- Real physical backing by a HK listed company
-- Full redeemability for physical silver
-- Yield-bearing staking mechanisms
+- Real physical backing by a HK listed company (50% physical silver, 5-10% cash, 40-45% futures)
+- Full redeemability for LBMA Good Delivery bars
+- Yield-bearing staking mechanisms (2-8% target APY)
+- 0% storage fees, 0.35% redemption fee
 
 ## Tech Stack
 
 - **Framework**: React 19 with TypeScript
 - **Build Tool**: Vite 7
-- **Styling**: Tailwind CSS 4
+- **Styling**: Tailwind CSS 4 (Ethena-inspired dark theme)
 - **Deployment**: AWS S3 (static site)
 
 ## Development
@@ -65,19 +68,38 @@ aws s3 sync dist/ s3://silvertimes.io --delete
 - Fast wallet-to-wallet settlement
 - Fully redeemable for physical silver
 
+## Design Features
+
+- **Dark Theme**: Ethena-inspired design with `#0a0a0a` background
+- **Gradient Text**: Silver gradient effects for emphasis
+- **Animated Backgrounds**: Subtle glow effects and animations
+- **Responsive Layout**: Mobile-first, fully responsive design
+- **Glass Morphism**: Backdrop blur and semi-transparent cards
+- **Smooth Transitions**: Hover effects and color transitions throughout
+
 ## Project Structure
 
 ```
 src/
 ├── components/
-│   ├── Hero.tsx           # Landing hero section
-│   ├── USPs.tsx           # Unique selling propositions
-│   ├── AboutSilver.tsx    # About silver tokens
-│   ├── TargetAudience.tsx # Target personas
-│   ├── HowItWorks.tsx     # Platform explanation
-│   ├── FAQ.tsx            # Frequently asked questions
-│   └── Footer.tsx         # Footer with links
+│   ├── Navigation.tsx     # Fixed navigation header with stats
+│   ├── HeroNew.tsx        # Hero with animated background & CTA
+│   ├── TokenBacking.tsx   # 50/5-10/40-45 backing breakdown
+│   ├── MarketGraph.tsx    # Supply vs Demand visualization
+│   ├── FeatureCards.tsx   # 5 key features + CTA card
+│   ├── Tokenomics.tsx     # Token specs, fees, audits
+│   ├── HowItWorksNew.tsx  # 6-step process timeline
+│   └── Footer.tsx         # Dark footer with social links
 ├── App.tsx                # Main app component
 ├── main.tsx              # Entry point
-└── index.css             # Global styles
+└── index.css             # Global styles with gradient-text
 ```
+
+## Content Sections
+
+1. **Hero**: "Tokenised silver with treasury-powered yield"
+2. **Token Backing**: Visual breakdown of reserve allocation
+3. **Market Analysis**: Supply/demand deficit trend chart
+4. **Feature Cards**: Earn while holding, on-chain distribution, risk-managed yield, no storage fees, 24/7 liquidity
+5. **Tokenomics**: $STT specs, storage (Brinks/Horsemart), fees, audits
+6. **How It Works**: KYC → Reserves → Price Tracking → Earn → Redeem → Security
