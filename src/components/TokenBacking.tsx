@@ -4,73 +4,159 @@ export default function TokenBacking() {
       percentage: "50%",
       title: "Physical Silver",
       description: "Minimum 999 fineness stored in secure vaults",
-      color: "from-silver-400 to-silver-600"
+      color: "blue",
+      gradient: "from-blue-500/20 to-blue-600/30"
     },
     {
       percentage: "5-10%",
       title: "Cash Collateral",
       description: "Liquid reserves for operational flexibility",
-      color: "from-green-400 to-green-600"
+      color: "emerald",
+      gradient: "from-emerald-500/15 to-emerald-600/25"
     },
     {
       percentage: "40-45%",
       title: "Silver Futures",
       description: "Strategic positions for yield generation",
-      color: "from-accent-blue to-accent-purple"
+      color: "violet",
+      gradient: "from-violet-500/15 to-violet-600/25"
     }
   ]
 
   return (
-    <section className="py-32 bg-background-primary relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-silver-500 to-transparent"></div>
+    <section className="relative bg-background-primary py-32 px-4 overflow-hidden">
+      {/* Background effects - more subtle */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-500/3 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-violet-500/3 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-6xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Token Backing Overview
-            </h2>
-            <p className="text-xl text-silver-300 max-w-3xl mx-auto">
-              A hybrid reserve design combining physical silver, cash collateral, and futures strategies for optimal security and yield
-            </p>
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header - cleaner, more EV-like */}
+        <div className="text-center mb-24">
+          <div className="inline-block px-4 py-1.5 bg-blue-500/8 border border-blue-500/15 rounded-full mb-6">
+            <span className="text-xs font-medium text-blue-400 uppercase tracking-wider">Reserve Structure</span>
           </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            Asset-Backed<br className="hidden md:block" /> Tokenization
+          </h2>
+          <p className="text-base text-silver-400 max-w-2xl mx-auto">
+            A sophisticated multi-asset reserve system combining physical precious metals,<br className="hidden md:block" /> liquid collateral, and strategic market positions
+          </p>
+        </div>
 
-          {/* Backing Cards */}
-          <div className="grid md:grid-cols-3 gap-6 mb-16">
-            {backing.map((item, index) => (
-              <div
-                key={index}
-                className="bg-background-secondary border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all group"
-              >
-                <div className={`text-6xl font-bold mb-4 bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>
-                  {item.percentage}
+        {/* Main composition visualization */}
+        <div className="mb-16">
+          <div className="bg-background-secondary/40 backdrop-blur-md border border-white/5 rounded-3xl p-10">
+            {/* Interactive bar with better spacing */}
+            <div className="mb-10">
+              <div className="flex h-2.5 rounded-full overflow-hidden bg-background-primary/50 border border-white/5">
+                <div
+                  className="bg-gradient-to-r from-blue-500/50 to-blue-600/60 transition-all duration-500 hover:opacity-80"
+                  style={{ width: '50%' }}
+                ></div>
+                <div
+                  className="bg-gradient-to-r from-emerald-500/40 to-emerald-600/50 transition-all duration-500 hover:opacity-80"
+                  style={{ width: '7.5%' }}
+                ></div>
+                <div
+                  className="bg-gradient-to-r from-violet-500/40 to-violet-600/50 transition-all duration-500 hover:opacity-80"
+                  style={{ width: '42.5%' }}
+                ></div>
+              </div>
+            </div>
+
+            {/* Stats Grid - EV dashboard style */}
+            <div className="grid md:grid-cols-3 gap-8">
+              {backing.map((item, index) => (
+                <div
+                  key={index}
+                  className="group relative"
+                >
+                  {/* Glow effect on hover */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl`}></div>
+
+                  <div className="relative bg-background-primary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 group-hover:border-white/10 transition-all duration-300">
+                    {/* Minimal indicator */}
+                    <div className={`w-1 h-12 bg-gradient-to-b ${item.gradient.replace('/15', '/60').replace('/25', '/70')} rounded-full mb-6`}></div>
+
+                    {/* Percentage - larger, more prominent */}
+                    <div className="text-6xl font-bold text-white mb-3 tracking-tight">
+                      {item.percentage}
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-lg font-semibold text-white mb-2">
+                      {item.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-xs text-silver-500 leading-relaxed">
+                      {item.description}
+                    </p>
+
+                    {/* Subtle bottom accent */}
+                    <div className="mt-6 pt-4 border-t border-white/5">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-silver-600 uppercase tracking-wider">Allocation</span>
+                        <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${item.gradient.replace('/15', '/60').replace('/25', '/70')}`}></div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-2xl font-semibold text-white mb-3 group-hover:text-silver-100 transition-colors">
-                  {item.title}
-                </h3>
-                <p className="text-silver-400 leading-relaxed">
-                  {item.description}
+              ))}
+            </div>
+
+            {/* Bottom metadata - minimal */}
+            <div className="mt-10 pt-8 border-t border-white/5">
+              <div className="flex flex-wrap items-center justify-center gap-8 text-xs text-silver-600">
+                <div className="flex items-center gap-2">
+                  <div className="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                  <span>Physical Assets</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-1 h-1 rounded-full bg-blue-400/50"></div>
+                  <span>Liquid Reserves</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                  <span>Strategic Positions</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Additional details - minimal info cards */}
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-6">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <div>
+                <h4 className="text-sm font-semibold text-white mb-1">Secure Storage</h4>
+                <p className="text-xs text-silver-500 leading-relaxed">
+                  Physical silver held in tier-1 vaults with regular third-party audits and full insurance coverage
                 </p>
               </div>
-            ))}
+            </div>
           </div>
 
-          {/* Visual Breakdown */}
-          <div className="bg-background-secondary border border-white/10 rounded-2xl p-8">
-            <h3 className="text-2xl font-semibold text-white mb-6 text-center">Reserve Allocation</h3>
-            <div className="flex h-16 rounded-lg overflow-hidden">
-              <div className="bg-gradient-to-r from-silver-400 to-silver-600 flex items-center justify-center text-white font-semibold" style={{ width: '50%' }}>
-                50% Silver
+          <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-6">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
               </div>
-              <div className="bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center text-white font-semibold text-sm" style={{ width: '7.5%' }}>
-                Cash
-              </div>
-              <div className="bg-gradient-to-r from-accent-blue to-accent-purple flex items-center justify-center text-white font-semibold" style={{ width: '42.5%' }}>
-                42.5% Futures
+              <div>
+                <h4 className="text-sm font-semibold text-white mb-1">Dynamic Rebalancing</h4>
+                <p className="text-xs text-silver-500 leading-relaxed">
+                  Automated reserve management ensures optimal composition while maintaining minimum backing ratios
+                </p>
               </div>
             </div>
           </div>
