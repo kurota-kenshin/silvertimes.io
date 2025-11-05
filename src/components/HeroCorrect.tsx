@@ -41,11 +41,7 @@ export default function HeroCorrect() {
         {/* Main content area - centered */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-10 px-8 pointer-events-none">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.15] text-white mb-6">
-            Tokenised Silver
-            <br />
-            for the Internet
-            <br />
-            Economy
+            It's Silver Time.
           </h1>
 
           <button className="group px-6 py-3 bg-white text-black rounded-lg font-semibold text-base hover:bg-silver-200 transition-all inline-flex items-center gap-2 pointer-events-auto">
