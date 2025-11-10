@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useSilverPriceStore } from "../store/silverPriceStore";
 
 export default function NavEthena() {
+  const { currentPrice, isLoading } = useSilverPriceStore();
+
   return (
     <nav className="fixed top-10 left-10 right-10 z-50">
       <div className="bg-background-secondary/60 backdrop-blur-xl border border-white/10 rounded-2xl px-6 py-3">
@@ -68,8 +71,10 @@ export default function NavEthena() {
           <div className="flex items-center gap-2">
             <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 bg-background-primary/50 rounded-lg border border-white/5">
               <div className="flex items-center gap-1.5">
-                <div className="w-1.5 h-1.5 rounded-full bg-white/60"></div>
-                <span className="text-xs text-silver-300">$32.50/oz</span>
+                <div className={`w-1.5 h-1.5 rounded-full ${isLoading ? 'bg-yellow-500/60 animate-pulse' : 'bg-green-500/60'}`}></div>
+                <span className="text-xs text-silver-300">
+                  {isLoading ? '...' : currentPrice ? `$${currentPrice.toFixed(2)}/oz` : '$32.50/oz'}
+                </span>
               </div>
             </div>
             <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 bg-background-primary/50 rounded-lg border border-white/5">
