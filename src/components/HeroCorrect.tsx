@@ -1,4 +1,5 @@
 import PixelBlast from './PixelBlast'
+import { Link } from 'react-router-dom'
 
 export default function HeroCorrect() {
   const stats = [
@@ -43,17 +44,31 @@ export default function HeroCorrect() {
             It's Silver Time.
           </h1>
 
-          <button className="group px-6 py-3 bg-white text-black rounded-lg font-semibold text-base hover:bg-silver-200 transition-all inline-flex items-center gap-2 pointer-events-auto">
-            Earn with $STT
-            <svg
-              className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+          <div className="flex items-center gap-3 pointer-events-auto">
+            <Link to="/prediction" className="group px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold text-base hover:bg-blue-600 transition-all inline-flex items-center gap-2">
+              Predict & Earn
+              <svg
+                className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+
+            <button className="group px-6 py-3 bg-white text-black rounded-lg font-semibold text-base hover:bg-silver-200 transition-all inline-flex items-center gap-2">
+              Earn with $STT
+              <svg
+                className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Stats bar at bottom */}

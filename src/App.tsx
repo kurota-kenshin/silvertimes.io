@@ -8,6 +8,8 @@ import HowItWorks from './components/HowItWorks'
 import Tokenomics from './components/Tokenomics'
 import Footer from './components/Footer'
 import SilverBarPurchase from './components/SilverBarPurchase'
+import PredictionGame from './components/PredictionGame'
+import RewardsTerms from './components/RewardsTerms'
 
 function HomePage() {
   return (
@@ -30,6 +32,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<SilverBarPurchase />} />
+          <Route path="/prediction" element={<PredictionGame />} />
+          <Route path="/rewards-terms" element={<RewardsTerms />} />
         </Routes>
         <Footer />
       </div>
