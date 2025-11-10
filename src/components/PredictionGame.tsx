@@ -1,8 +1,31 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Line, LineChart } from 'recharts'
+import { useSilverPriceStore } from '../store/silverPriceStore'
 
 export default function PredictionGame() {
   const [prediction, setPrediction] = useState('')
+
+  // Use Zustand store
+  const {
+    currentPrice,
+    weeklyData: lbmaSilverData,
+    isLoading,
+    error,
+    fetchData,
+  } = useSilverPriceStore()
+
+  useEffect(() => {
+    // Initial fetch
+    fetchData()
+
+    // Refresh data every 5 minutes
+    const interval = setInterval(() => {
+      fetchData()
+    }, 5 * 60 * 1000)
+
+    return () => clearInterval(interval)
+  }, [fetchData])
 
   return (
     <section className="relative bg-background-primary py-32 px-4 overflow-hidden">
@@ -68,15 +91,84 @@ export default function PredictionGame() {
           </div>
         </div>
 
+        {/* LBMA Silver Price Chart */}
+        <div className="bg-background-secondary/40 backdrop-blur-md border border-white/5 rounded-3xl p-10 mb-16">
+          <div className="flex items-center justify-between mb-8">
+            <h3 className="text-lg font-semibold text-white">LBMA Weekly Silver Price</h3>
+            <div className="w-1 h-8 bg-gradient-to-b from-blue-500/60 to-blue-600/70 rounded-full"></div>
+          </div>
+
+          <div className="h-80 mb-6">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={lbmaSilverData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" vertical={false} />
+                <XAxis
+                  dataKey="date"
+                  stroke="#6b7280"
+                  style={{ fontSize: '11px' }}
+                  tickLine={false}
+                  axisLine={false}
+                  tickFormatter={(value) => {
+                    const date = new Date(value)
+                    return `${date.getMonth() + 1}/${date.getDate()}`
+                  }}
+                />
+                <YAxis
+                  stroke="#6b7280"
+                  style={{ fontSize: '11px' }}
+                  tickLine={false}
+                  axisLine={false}
+                  domain={['dataMin - 1', 'dataMax + 1']}
+                  label={{ value: 'USD/oz', angle: -90, position: 'insideLeft', fill: '#6b7280', style: { fontSize: '11px' } }}
+                />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: '#0a0a0a',
+                    border: '1px solid rgba(255,255,255,0.05)',
+                    borderRadius: '12px',
+                    padding: '12px'
+                  }}
+                  formatter={(value: number) => [`$${value.toFixed(2)}/oz`, 'LBMA Price']}
+                  labelFormatter={(label) => {
+                    const date = new Date(label)
+                    return `Week of ${date.toLocaleDateString()}`
+                  }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="price"
+                  stroke="#60a5fa"
+                  strokeWidth={3}
+                  dot={{ fill: '#60a5fa', r: 4, strokeWidth: 2, stroke: '#0a0a0a' }}
+                  activeDot={{ r: 6 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <p className="text-xs text-silver-600">
+              {isLoading ? 'Loading data...' : error ? 'Using fallback data' : 'Live silver price data - Updates every 5 minutes'}
+            </p>
+            <p className="text-xs text-blue-400 italic">
+              {!error && !isLoading && '🟢 Connected to live feed'}
+            </p>
+          </div>
+        </div>
+
         {/* Current Round Info */}
         <div className="grid md:grid-cols-3 gap-6 mb-16">
           <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-6">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs text-silver-600 uppercase tracking-wider">Current Price</span>
-              <div className="w-1.5 h-1.5 rounded-full bg-blue-500/50"></div>
+              <div className={`w-1.5 h-1.5 rounded-full ${isLoading ? 'bg-yellow-500/50 animate-pulse' : error ? 'bg-red-500/50' : 'bg-green-500/50'}`}></div>
             </div>
-            <div className="text-4xl font-bold text-white">$32.50</div>
-            <div className="text-xs text-silver-500 mt-1">LBMA Fixing</div>
+            <div className="text-4xl font-bold text-white">
+              {isLoading ? '...' : currentPrice ? `$${currentPrice.toFixed(2)}` : '$32.50'}
+            </div>
+            <div className="text-xs text-silver-500 mt-1">
+              {error ? 'Fallback Price' : 'Live LBMA'}
+            </div>
           </div>
           <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-6">
             <div className="flex items-center justify-between mb-2">
