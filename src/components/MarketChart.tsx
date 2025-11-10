@@ -238,27 +238,27 @@ export default function MarketChart() {
         <div className="grid md:grid-cols-3 gap-6">
           <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-6">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs text-silver-600 uppercase tracking-wider">Backing</span>
+              <span className="text-xs text-silver-600 uppercase tracking-wider">Backing Guaranteed</span>
               <div className="w-1.5 h-1.5 rounded-full bg-blue-500/50"></div>
             </div>
-            <div className="text-4xl font-bold text-white">50%</div>
-            <div className="text-xs text-silver-500 mt-1">Physical Silver</div>
+            <div className="text-4xl font-bold text-white">1:1</div>
+            <div className="text-xs text-silver-500 mt-1">Redemption</div>
           </div>
           <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-6">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs text-silver-600 uppercase tracking-wider">Yield</span>
+              <span className="text-xs text-silver-600 uppercase tracking-wider">Silver APY</span>
               <div className="w-1.5 h-1.5 rounded-full bg-blue-400/50"></div>
             </div>
-            <div className="text-4xl font-bold text-white">14%</div>
-            <div className="text-xs text-silver-500 mt-1">Silver APY</div>
+            <div className="text-4xl font-bold text-white">21.5%</div>
+            <div className="text-xs text-silver-500 mt-1">2024</div>
           </div>
           <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-6">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs text-silver-600 uppercase tracking-wider">TVL</span>
+              <span className="text-xs text-silver-600 uppercase tracking-wider">Market Deficit</span>
               <div className="w-1.5 h-1.5 rounded-full bg-blue-500/50"></div>
             </div>
-            <div className="text-4xl font-bold text-white">$10M</div>
-            <div className="text-xs text-silver-500 mt-1">Total Value Locked</div>
+            <div className="text-4xl font-bold text-white">-210.5 Moz</div>
+            <div className="text-xs text-silver-500 mt-1">2024</div>
           </div>
         </div>
       </div>
