@@ -35,14 +35,14 @@ export default function NavEthena() {
               <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 bg-background-primary/50 rounded-lg border border-white/5">
                 <div className="flex items-center gap-1.5">
                   <div className="w-1.5 h-1.5 rounded-full bg-white/60"></div>
-                  <span className="text-xs text-silver-300">$10.87B</span>
+                  <span className="text-xs text-silver-300">$32.50/oz</span>
                 </div>
               </div>
               <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 bg-background-primary/50 rounded-lg border border-white/5">
-                <span className="text-xs text-silver-300 font-medium">5.1% APY</span>
+                <span className="text-xs text-silver-300 font-medium">14% Silver APY</span>
               </div>
               <button className="px-4 py-1.5 bg-white text-black rounded-lg font-medium hover:bg-silver-200 transition-all text-sm">
-                Launch App
+                Mint now
               </button>
             </div>
           </div>
