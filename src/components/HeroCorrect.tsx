@@ -2,12 +2,11 @@ import PixelBlast from './PixelBlast'
 
 export default function HeroCorrect() {
   const stats = [
-    { value: '5.1%', label: '$STT APY' },
-    { value: '19%', label: '2024 AVG $STT APY' },
-    { value: '$9.04B', label: '$STT SUPPLY' },
-    { value: '$1.83B', label: '$STTB SUPPLY' },
-    { value: '850K', label: 'USERS' },
-    { value: '24', label: 'CHAINS' },
+    { value: '14%', label: 'Silver APY' },
+    { value: '$53.34/oz', label: 'ATH' },
+    { value: '$10M', label: 'TVL' },
+    { value: '205,000', label: '$STT SUPPLY' },
+    { value: '>1,000', label: 'USERS' },
   ]
 
   return (
@@ -59,7 +58,7 @@ export default function HeroCorrect() {
 
         {/* Stats bar at bottom */}
         <div className="absolute bottom-0 left-0 right-0 border-t border-white/10 bg-background-primary/80 backdrop-blur-sm z-20">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
             {stats.map((stat, index) => (
               <div
                 key={index}
