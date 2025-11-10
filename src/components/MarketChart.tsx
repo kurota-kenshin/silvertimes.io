@@ -31,7 +31,6 @@ export default function MarketChart() {
 
   // Calculate projection based on silver price growth
   const basePrice = 20.55
-  const currentPrice = 28.27
   const projectedPrice = 65.39
   const totalGrowth = projectedPrice / basePrice
 
