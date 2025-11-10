@@ -53,15 +53,15 @@ export default function TokenBacking() {
               <div className="flex h-2.5 rounded-full overflow-hidden bg-background-primary/50 border border-white/5">
                 <div
                   className="bg-gradient-to-r from-blue-500/50 to-blue-600/60 transition-all duration-500 hover:opacity-80"
-                  style={{ width: '50%' }}
+                  style={{ width: '33.33%' }}
                 ></div>
                 <div
                   className="bg-gradient-to-r from-emerald-500/40 to-emerald-600/50 transition-all duration-500 hover:opacity-80"
-                  style={{ width: '7.5%' }}
+                  style={{ width: '33.33%' }}
                 ></div>
                 <div
                   className="bg-gradient-to-r from-violet-500/40 to-violet-600/50 transition-all duration-500 hover:opacity-80"
-                  style={{ width: '42.5%' }}
+                  style={{ width: '33.33%' }}
                 ></div>
               </div>
             </div>
