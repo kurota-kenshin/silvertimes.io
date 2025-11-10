@@ -1,18 +1,20 @@
+import { Link } from 'react-router-dom'
+
 export default function Navigation() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background-primary/80 backdrop-blur-lg border-b border-white/10">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2">
             <div className="w-8 h-8 bg-gradient-silver rounded-full"></div>
             <span className="text-xl font-bold text-white">SilverTimes</span>
-          </div>
+          </Link>
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center gap-8">
-            <a href="#home" className="text-silver-200 hover:text-white transition-colors">Home</a>
-            <a href="#products" className="text-silver-200 hover:text-white transition-colors">Products</a>
+            <Link to="/" className="text-silver-200 hover:text-white transition-colors">Home</Link>
+            <Link to="/products" className="text-silver-200 hover:text-white transition-colors">Products</Link>
             <a href="#ecosystem" className="text-silver-200 hover:text-white transition-colors">Ecosystem</a>
             <a href="#transparency" className="text-silver-200 hover:text-white transition-colors">Transparency</a>
             <a href="#docs" className="text-silver-200 hover:text-white transition-colors">Docs</a>

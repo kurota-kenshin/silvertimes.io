@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 export default function NavEthena() {
   return (
     <nav className="fixed top-10 left-10 right-10 z-50">
@@ -5,17 +7,19 @@ export default function NavEthena() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center gap-2">
-              <img src="/ST_LOGO_DARK@2x.png" alt="SilverTimes" className="h-6" />
+              <Link to="/">
+                <img src="/ST_LOGO_DARK@2x.png" alt="SilverTimes" className="h-6" />
+              </Link>
             </div>
 
             {/* Center Navigation */}
             <div className="hidden lg:flex items-center gap-1">
-              <a href="#home" className="px-3 py-1.5 text-sm text-white hover:text-silver-200 transition-colors rounded-lg hover:bg-white/5">
+              <Link to="/" className="px-3 py-1.5 text-sm text-white hover:text-silver-200 transition-colors rounded-lg hover:bg-white/5">
                 Home
-              </a>
-              <a href="#products" className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5">
+              </Link>
+              <Link to="/products" className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5">
                 Products
-              </a>
+              </Link>
               <a href="#ecosystem" className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5">
                 Ecosystem
               </a>
