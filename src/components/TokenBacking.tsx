@@ -5,21 +5,21 @@ export default function TokenBacking() {
       title: "Physical Silver",
       description: "Minimum 999 fineness stored in secure vaults",
       color: "blue",
-      gradient: "from-blue-500/20 to-blue-600/30"
+      gradient: "from-blue-500/60 to-blue-600/70"
     },
     {
-      percentage: "5-10%",
+      percentage: "50%",
       title: "Cash Collateral",
       description: "Liquid reserves for operational flexibility",
       color: "emerald",
-      gradient: "from-emerald-500/15 to-emerald-600/25"
+      gradient: "from-emerald-500/60 to-emerald-600/70"
     },
     {
-      percentage: "40-45%",
+      percentage: "50%",
       title: "Silver Futures",
-      description: "Strategic positions for yield generation",
+      description: "Strategic positions",
       color: "violet",
-      gradient: "from-violet-500/15 to-violet-600/25"
+      gradient: "from-violet-500/60 to-violet-600/70"
     }
   ]
 
@@ -77,12 +77,12 @@ export default function TokenBacking() {
                   <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl`}></div>
 
                   <div className="relative bg-background-primary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 group-hover:border-white/10 transition-all duration-300">
-                    {/* Minimal indicator */}
-                    <div className={`w-1 h-12 bg-gradient-to-b ${item.gradient.replace('/15', '/60').replace('/25', '/70')} rounded-full mb-6`}></div>
-
-                    {/* Percentage - larger, more prominent */}
-                    <div className="text-6xl font-bold text-white mb-3 tracking-tight">
-                      {item.percentage}
+                    {/* Percentage with colored indicator */}
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className={`w-1 h-16 bg-gradient-to-b ${item.gradient.replace('/15', '/60').replace('/25', '/70')} rounded-full`}></div>
+                      <div className="text-6xl font-bold text-white tracking-tight">
+                        {item.percentage}
+                      </div>
                     </div>
 
                     {/* Title */}
@@ -94,14 +94,6 @@ export default function TokenBacking() {
                     <p className="text-xs text-silver-500 leading-relaxed">
                       {item.description}
                     </p>
-
-                    {/* Subtle bottom accent */}
-                    <div className="mt-6 pt-4 border-t border-white/5">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-silver-600 uppercase tracking-wider">Allocation</span>
-                        <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${item.gradient.replace('/15', '/60').replace('/25', '/70')}`}></div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               ))}
@@ -115,11 +107,11 @@ export default function TokenBacking() {
                   <span>Physical Assets</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-1 h-1 rounded-full bg-blue-400/50"></div>
+                  <div className="w-1 h-1 rounded-full bg-emerald-500/50"></div>
                   <span>Liquid Reserves</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-1 h-1 rounded-full bg-blue-500/50"></div>
+                  <div className="w-1 h-1 rounded-full bg-violet-500/50"></div>
                   <span>Strategic Positions</span>
                 </div>
               </div>
