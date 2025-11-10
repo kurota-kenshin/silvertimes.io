@@ -4,37 +4,37 @@ export default function Tokenomics() {
       label: "Token Peg",
       value: "$STT = 1 oz silver",
       detail: "Quoted in USDT",
-      gradient: "from-blue-500/20 to-blue-600/30"
+      gradient: "from-blue-500/60 to-blue-600/70"
     },
     {
       label: "Storage",
       value: "Brinks (London) & Horsemart (HK)",
       detail: "Monthly storage slips provided",
-      gradient: "from-blue-400/20 to-blue-500/30"
+      gradient: "from-blue-500/60 to-blue-600/70"
     },
     {
       label: "Minting Fee",
       value: "0%",
       detail: "Minimum 1 ton for minting",
-      gradient: "from-blue-500/20 to-blue-600/30"
+      gradient: "from-blue-500/60 to-blue-600/70"
     },
     {
       label: "Redemption Fee",
       value: "0.35%",
       detail: "LBMA Good Delivery bars",
-      gradient: "from-blue-400/20 to-blue-500/30"
+      gradient: "from-blue-500/60 to-blue-600/70"
     },
     {
       label: "Networks",
       value: "Ethereum & HashKey Chain",
       detail: "Open-source smart contracts",
-      gradient: "from-blue-500/20 to-blue-600/30"
+      gradient: "from-blue-500/60 to-blue-600/70"
     },
     {
       label: "Security Audit",
       value: "Certik (TBC)",
       detail: "Monthly confirmations, yearly reports",
-      gradient: "from-blue-400/20 to-blue-500/30"
+      gradient: "from-blue-500/60 to-blue-600/70"
     }
   ]
 
@@ -68,14 +68,14 @@ export default function Tokenomics() {
               className="relative group"
             >
               <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 group-hover:border-white/10 transition-all duration-300 h-full">
-                {/* Accent bar */}
-                <div className={`w-1 h-16 bg-gradient-to-b ${spec.gradient.replace('/20', '/60').replace('/30', '/70')} rounded-full mb-6`}></div>
-
                 {/* Label */}
-                <div className="text-xs text-silver-600 uppercase tracking-wider mb-2">{spec.label}</div>
+                <div className="text-xs text-silver-600 uppercase tracking-wider mb-6">{spec.label}</div>
 
-                {/* Value */}
-                <div className="text-2xl font-bold text-white mb-2">{spec.value}</div>
+                {/* Value with colored bar */}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className={`w-1 h-12 bg-gradient-to-b ${spec.gradient} rounded-full`}></div>
+                  <div className="text-2xl font-bold text-white">{spec.value}</div>
+                </div>
 
                 {/* Detail */}
                 <div className="text-xs text-silver-500">{spec.detail}</div>

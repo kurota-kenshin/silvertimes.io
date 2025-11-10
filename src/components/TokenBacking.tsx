@@ -79,7 +79,7 @@ export default function TokenBacking() {
                   <div className="relative bg-background-primary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 group-hover:border-white/10 transition-all duration-300">
                     {/* Percentage with colored indicator */}
                     <div className="flex items-center gap-4 mb-6">
-                      <div className={`w-1 h-16 bg-gradient-to-b ${item.gradient.replace('/15', '/60').replace('/25', '/70')} rounded-full`}></div>
+                      <div className={`w-1 h-16 bg-gradient-to-b ${item.gradient} rounded-full`}></div>
                       <div className="text-6xl font-bold text-white tracking-tight">
                         {item.percentage}
                       </div>
@@ -131,7 +131,7 @@ export default function TokenBacking() {
               <div>
                 <h4 className="text-sm font-semibold text-white mb-1">Secure Storage</h4>
                 <p className="text-xs text-silver-500 leading-relaxed">
-                  Physical silver held in tier-1 vaults with regular third-party audits and full insurance coverage
+                  Zero storage fees when you invest in digital silver—no costly vaults or logistics needed compared to physical silver
                 </p>
               </div>
             </div>
@@ -148,6 +148,38 @@ export default function TokenBacking() {
                 <h4 className="text-sm font-semibold text-white mb-1">Dynamic Rebalancing</h4>
                 <p className="text-xs text-silver-500 leading-relaxed">
                   Automated reserve management ensures optimal composition while maintaining minimum backing ratios
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-6">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h4 className="text-sm font-semibold text-white mb-1">Zero Storage Fee</h4>
+                <p className="text-xs text-silver-500 leading-relaxed">
+                  Enjoy zero storage fees when you invest in digital silver—no costly vaults or logistics needed compared to physical silver
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-6">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h4 className="text-sm font-semibold text-white mb-1">24/7 Trading</h4>
+                <p className="text-xs text-silver-500 leading-relaxed">
+                  Trade silver anytime, anywhere. We enables 24/7 access, letting you buy or sell instantly regardless of market hours
                 </p>
               </div>
             </div>
