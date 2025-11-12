@@ -37,25 +37,25 @@ export default function NavEthena() {
               to="/products"
               className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
             >
-              Products
+              Product
             </Link>
             <a
-              href="#ecosystem"
+              href="#about"
               className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
             >
-              Ecosystem
+              About
             </a>
             <a
-              href="#network"
+              href="#news"
               className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
             >
-              Network
+              News
             </a>
             <a
-              href="#transparency"
+              href="#blog"
               className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
             >
-              Transparency
+              Blog
             </a>
             <a
               href="https://silvertimes.gitbook.io/silvertimes-docs/"
