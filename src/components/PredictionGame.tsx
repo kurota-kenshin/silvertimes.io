@@ -5,6 +5,8 @@ import { useSilverPriceStore } from '../store/silverPriceStore'
 
 export default function PredictionGame() {
   const [prediction, setPrediction] = useState('')
+  const [activeTab, setActiveTab] = useState<'accuracy' | 'winnings' | 'weekly'>('accuracy')
+  const [selectedWeek, setSelectedWeek] = useState('2024-W45')
 
   // Use Zustand store
   const {
@@ -26,6 +28,39 @@ export default function PredictionGame() {
 
     return () => clearInterval(interval)
   }, [fetchData])
+
+  // Mock data for leaderboard
+  const accuracyLeaders = [
+    { rank: 1, address: '0x742d...4e89', predictions: 24, wins: 18, winRate: 75.0, avgError: 0.12 },
+    { rank: 2, address: '0x8f3a...2c14', predictions: 31, wins: 22, winRate: 71.0, avgError: 0.15 },
+    { rank: 3, address: '0x1b5e...7f93', predictions: 19, wins: 13, winRate: 68.4, avgError: 0.18 },
+    { rank: 4, address: '0x9d2c...3a67', predictions: 27, wins: 18, winRate: 66.7, avgError: 0.21 },
+    { rank: 5, address: '0x4e7f...8b12', predictions: 22, wins: 14, winRate: 63.6, avgError: 0.24 },
+  ]
+
+  const winningsLeaders = [
+    { rank: 1, address: '0x742d...4e89', totalWinnings: '145.5 oz', usdValue: '$4,412', wins: 18 },
+    { rank: 2, address: '0x8f3a...2c14', totalWinnings: '132.0 oz', usdValue: '$4,001', wins: 22 },
+    { rank: 3, address: '0x1b5e...7f93', totalWinnings: '98.5 oz', usdValue: '$2,986', wins: 13 },
+    { rank: 4, address: '0x9d2c...3a67', totalWinnings: '87.0 oz', usdValue: '$2,638', wins: 18 },
+    { rank: 5, address: '0x4e7f...8b12', totalWinnings: '76.5 oz', usdValue: '$2,320', wins: 14 },
+  ]
+
+  const weeklyWinners = [
+    { rank: 1, address: '0x742d...4e89', prediction: 32.45, actual: 32.47, error: 0.02, prize: '10 oz' },
+    { rank: 2, address: '0x3c8f...5d21', prediction: 32.51, actual: 32.47, error: 0.04, prize: '5 oz' },
+    { rank: 3, address: '0x6a1b...9e34', prediction: 32.39, actual: 32.47, error: 0.08, prize: '3 oz' },
+    { rank: 4, address: '0x8d4e...2f76', prediction: 32.55, actual: 32.47, error: 0.08, prize: '2 oz' },
+    { rank: 5, address: '0x1f9c...7a45', prediction: 32.38, actual: 32.47, error: 0.09, prize: '1 oz' },
+  ]
+
+  const availableWeeks = [
+    '2024-W45',
+    '2024-W44',
+    '2024-W43',
+    '2024-W42',
+    '2024-W41',
+  ]
 
   return (
     <section className="relative bg-background-primary py-32 px-4 overflow-hidden">
@@ -271,7 +306,7 @@ export default function PredictionGame() {
         </div>
 
         {/* Data, Fairness, and Admin */}
-        <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8">
+        <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 mb-16">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-1 h-12 bg-gradient-to-b from-violet-500/60 to-violet-600/70 rounded-full"></div>
             <h3 className="text-xl font-bold text-white">Data, Fairness, and Admin</h3>
@@ -290,6 +325,194 @@ export default function PredictionGame() {
                 <strong className="text-white">Compliance:</strong> Physical deliveries may require KYC and are subject to regional restrictions; terms may be updated with notice.
               </p>
             </div>
+          </div>
+        </div>
+
+        {/* Leaderboard */}
+        <div className="bg-background-secondary/40 backdrop-blur-md border border-white/5 rounded-3xl p-10">
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center gap-3">
+              <div className="w-1 h-12 bg-gradient-to-b from-yellow-500/60 to-yellow-600/70 rounded-full"></div>
+              <h3 className="text-2xl font-bold text-white">Leaderboard</h3>
+            </div>
+          </div>
+
+          {/* Tabs */}
+          <div className="flex flex-wrap gap-2 mb-8 border-b border-white/5 pb-4">
+            <button
+              onClick={() => setActiveTab('accuracy')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                activeTab === 'accuracy'
+                  ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
+                  : 'bg-background-primary/30 text-silver-400 hover:text-white border border-white/5'
+              }`}
+            >
+              Most Accurate
+            </button>
+            <button
+              onClick={() => setActiveTab('winnings')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                activeTab === 'winnings'
+                  ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                  : 'bg-background-primary/30 text-silver-400 hover:text-white border border-white/5'
+              }`}
+            >
+              Top Winnings
+            </button>
+            <button
+              onClick={() => setActiveTab('weekly')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                activeTab === 'weekly'
+                  ? 'bg-violet-500/20 text-violet-400 border border-violet-500/30'
+                  : 'bg-background-primary/30 text-silver-400 hover:text-white border border-white/5'
+              }`}
+            >
+              Weekly Winners
+            </button>
+          </div>
+
+          {/* Week Selector for Weekly Winners */}
+          {activeTab === 'weekly' && (
+            <div className="mb-6">
+              <label className="block text-xs text-silver-500 mb-2">Select Week</label>
+              <select
+                value={selectedWeek}
+                onChange={(e) => setSelectedWeek(e.target.value)}
+                className="bg-background-primary/50 border border-white/5 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-violet-500/30"
+              >
+                {availableWeeks.map((week) => (
+                  <option key={week} value={week}>
+                    {week}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          {/* Accuracy Leaderboard */}
+          {activeTab === 'accuracy' && (
+            <div className="space-y-2">
+              {/* Header */}
+              <div className="grid grid-cols-6 gap-4 px-4 py-2 text-xs text-silver-500 font-medium">
+                <div>Rank</div>
+                <div className="col-span-2">Wallet Address</div>
+                <div className="text-right">Predictions</div>
+                <div className="text-right">Win Rate</div>
+                <div className="text-right">Avg Error</div>
+              </div>
+              {/* Rows */}
+              {accuracyLeaders.map((leader) => (
+                <div
+                  key={leader.rank}
+                  className="grid grid-cols-6 gap-4 px-4 py-3 bg-background-primary/30 rounded-lg border border-white/5 hover:border-blue-500/20 transition-all"
+                >
+                  <div className="flex items-center gap-2">
+                    {leader.rank <= 3 ? (
+                      <span className="text-lg">{leader.rank === 1 ? '🥇' : leader.rank === 2 ? '🥈' : '🥉'}</span>
+                    ) : (
+                      <span className="text-sm text-silver-500">#{leader.rank}</span>
+                    )}
+                  </div>
+                  <div className="col-span-2 flex items-center">
+                    <span className="text-sm text-white font-mono">{leader.address}</span>
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <span className="text-sm text-silver-300">{leader.predictions}</span>
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <span className="text-sm text-blue-400 font-semibold">{leader.winRate}%</span>
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <span className="text-sm text-silver-300">±${leader.avgError}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Winnings Leaderboard */}
+          {activeTab === 'winnings' && (
+            <div className="space-y-2">
+              {/* Header */}
+              <div className="grid grid-cols-5 gap-4 px-4 py-2 text-xs text-silver-500 font-medium">
+                <div>Rank</div>
+                <div className="col-span-2">Wallet Address</div>
+                <div className="text-right">Total Winnings</div>
+                <div className="text-right">USD Value</div>
+              </div>
+              {/* Rows */}
+              {winningsLeaders.map((leader) => (
+                <div
+                  key={leader.rank}
+                  className="grid grid-cols-5 gap-4 px-4 py-3 bg-background-primary/30 rounded-lg border border-white/5 hover:border-emerald-500/20 transition-all"
+                >
+                  <div className="flex items-center gap-2">
+                    {leader.rank <= 3 ? (
+                      <span className="text-lg">{leader.rank === 1 ? '🥇' : leader.rank === 2 ? '🥈' : '🥉'}</span>
+                    ) : (
+                      <span className="text-sm text-silver-500">#{leader.rank}</span>
+                    )}
+                  </div>
+                  <div className="col-span-2 flex items-center">
+                    <span className="text-sm text-white font-mono">{leader.address}</span>
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <span className="text-sm text-emerald-400 font-semibold">{leader.totalWinnings}</span>
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <span className="text-sm text-silver-300">{leader.usdValue}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Weekly Winners Leaderboard */}
+          {activeTab === 'weekly' && (
+            <div className="space-y-2">
+              {/* Header */}
+              <div className="grid grid-cols-6 gap-4 px-4 py-2 text-xs text-silver-500 font-medium">
+                <div>Rank</div>
+                <div className="col-span-2">Wallet Address</div>
+                <div className="text-right">Prediction</div>
+                <div className="text-right">Error</div>
+                <div className="text-right">Prize</div>
+              </div>
+              {/* Rows */}
+              {weeklyWinners.map((winner) => (
+                <div
+                  key={winner.rank}
+                  className="grid grid-cols-6 gap-4 px-4 py-3 bg-background-primary/30 rounded-lg border border-white/5 hover:border-violet-500/20 transition-all"
+                >
+                  <div className="flex items-center gap-2">
+                    {winner.rank <= 3 ? (
+                      <span className="text-lg">{winner.rank === 1 ? '🥇' : winner.rank === 2 ? '🥈' : '🥉'}</span>
+                    ) : (
+                      <span className="text-sm text-silver-500">#{winner.rank}</span>
+                    )}
+                  </div>
+                  <div className="col-span-2 flex items-center">
+                    <span className="text-sm text-white font-mono">{winner.address}</span>
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <span className="text-sm text-silver-300">${winner.prediction}</span>
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <span className="text-sm text-violet-400 font-semibold">±${winner.error}</span>
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <span className="text-sm text-white font-semibold">{winner.prize}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Note */}
+          <div className="mt-6 pt-6 border-t border-white/5">
+            <p className="text-xs text-silver-600 text-center">
+              Demo data shown - Real leaderboard will be populated when the game goes live
+            </p>
           </div>
         </div>
       </div>
