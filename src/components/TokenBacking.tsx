@@ -131,7 +131,7 @@ export default function TokenBacking() {
               <div>
                 <h4 className="text-sm font-semibold text-white mb-1">Secure Storage</h4>
                 <p className="text-xs text-silver-500 leading-relaxed">
-                  Zero storage fees when you invest in digital silver—no costly vaults or logistics needed compared to physical silver
+                  Physical silver held in tier-1 vaults with regular third-party audits and full insurance coverage
                 </p>
               </div>
             </div>

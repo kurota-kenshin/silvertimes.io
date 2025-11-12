@@ -20,7 +20,7 @@ export default function SilverBarPurchase() {
           </h2>
           <p className="text-base text-silver-400 max-w-3xl mx-auto">
             Own physical silver delivered to your doorstep.
-            <br className="hidden md:block" /> Premium quality 999.0 fine silver
+            <br className="hidden md:block" /> Premium quality 999.9 fine silver
             bars
           </p>
         </div>
@@ -32,7 +32,7 @@ export default function SilverBarPurchase() {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-violet-500/20 rounded-3xl blur-3xl"></div>
               <img
-                src="/silver.webp"
+                src="/silver.jpeg"
                 alt="1kg Silver Bar"
                 className="relative z-10 w-full max-w-md rounded-2xl"
               />
@@ -45,30 +45,28 @@ export default function SilverBarPurchase() {
               <h3 className="text-2xl font-bold text-white mb-4">
                 1kg Fine Silver Bar
               </h3>
-              <div className="flex items-baseline gap-4 mb-6">
-                <span className="text-5xl font-bold text-white">$32.50</span>
-                <span className="text-silver-400">/oz</span>
+              <div className="mb-6">
+                <div className="flex items-baseline gap-4 mb-2">
+                  <span className="text-5xl font-bold text-white">$32.50</span>
+                  <span className="text-silver-400">/oz</span>
+                </div>
               </div>
 
               {/* Specifications */}
               <div className="space-y-4 mb-8">
                 <div className="flex items-center justify-between py-3 border-b border-white/5">
                   <span className="text-silver-400 text-sm">Weight</span>
-                  <span className="text-white font-semibold">
-                    1000g / 32.15 oz
-                  </span>
+                  <span className="text-white font-semibold">1000g</span>
                 </div>
                 <div className="flex items-center justify-between py-3 border-b border-white/5">
                   <span className="text-silver-400 text-sm">Purity</span>
                   <span className="text-white font-semibold">
-                    999.0 Fine Silver
+                    999.9 Fine Silver
                   </span>
                 </div>
                 <div className="flex items-center justify-between py-3 border-b border-white/5">
                   <span className="text-silver-400 text-sm">Mint</span>
-                  <span className="text-white font-semibold">
-                    Baird & Co, London
-                  </span>
+                  <span className="text-white font-semibold">SilverTimes</span>
                 </div>
                 <div className="flex items-center justify-between py-3 border-b border-white/5">
                   <span className="text-silver-400 text-sm">Serial Number</span>
@@ -122,13 +120,12 @@ export default function SilverBarPurchase() {
 
             <div className="space-y-4 text-sm text-silver-400">
               <p>
-                Our 1kg silver bars are manufactured by Baird & Co, one of
-                London's most prestigious precious metals refiners, established
-                in 1967. Each bar meets the strict LBMA (London Bullion Market
-                Association) Good Delivery standards.
+                Our 1kg silver bars are manufactured by SilverTimes to the
+                highest standards. Each bar meets the strict LBMA (London
+                Bullion Market Association) Good Delivery standards.
               </p>
               <p>
-                Made from 999.0 fine silver (99.9% pure), these bars feature
+                Made from 999.9 fine silver (99.99% pure), these bars feature
                 elegant stamping including the refiner's hallmark, serial
                 number, weight, and purity markings. The bars are individually
                 sealed in protective packaging to maintain their pristine
@@ -151,7 +148,7 @@ export default function SilverBarPurchase() {
                   </li>
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
-                    <span>Purity: 999.0 (99.9% pure silver)</span>
+                    <span>Purity: 999.9 (99.99% pure silver)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
@@ -159,7 +156,7 @@ export default function SilverBarPurchase() {
                   </li>
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
-                    <span>Manufacturer: Baird & Co, London</span>
+                    <span>Manufacturer: SilverTimes</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
