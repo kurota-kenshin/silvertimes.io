@@ -199,31 +199,31 @@ export default function PredictionGame() {
             <div className="flex items-start gap-3">
               <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
               <p>
-                <strong className="text-white">Benchmark:</strong> Use the official LBMA Silver Price (USD/oz); valid reference is the first fixing after the round locks, rounded to one decimal place.
+                <strong className="text-white">Benchmark:</strong> use the official LBMA Silver Price (USD/oz) on 12:00 PM London time; valid reference is the first fixing after the round locks, rounded to one decimal place.
               </p>
             </div>
             <div className="flex items-start gap-3">
               <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
               <p>
-                <strong className="text-white">Example:</strong> If Monday's fixing is USD 47.690, guesses closest to 47.7 win.
+                <strong className="text-white">Example:</strong> if Monday's fixing is USD 47.690, guesses closest to 47.7 win.
               </p>
             </div>
             <div className="flex items-start gap-3">
               <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
               <p>
-                <strong className="text-white">Access:</strong> Connect an EVM wallet to enter; one submission per wallet per round; edits allowed until lock.
+                <strong className="text-white">Access:</strong> connect an EVM wallet to enter; one submission per wallet per round; edits allowed until lock; login is mandatory before submitting any entry.
               </p>
             </div>
             <div className="flex items-start gap-3">
               <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
               <p>
-                <strong className="text-white">Schedule:</strong> Weekly rounds; submission window runs Monday–Thursday; winners are determined each Monday using that day's fixing.
+                <strong className="text-white">Schedule:</strong> weekly rounds; submission window runs Monday 12:00 PM London time –Thursday 11:59 AM London time; winners are determined each Monday using that day's fixing.
               </p>
             </div>
             <div className="flex items-start gap-3">
               <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
               <p>
-                <strong className="text-white">Scoring:</strong> Rank by absolute error to the benchmark; ties break by earliest valid submission timestamp at lock.
+                <strong className="text-white">Scoring:</strong> rank by absolute error to the benchmark; ties break by earliest valid submission timestamp at lock.
               </p>
             </div>
           </div>
