@@ -202,46 +202,58 @@ export default function AboutUs() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 text-center">
-              <div className="text-4xl font-bold text-blue-400 mb-3">50%</div>
-              <div className="text-white font-semibold mb-2">
-                Industrial Demand
+            <div className="relative bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 text-center overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent"></div>
+              <div className="relative">
+                <div className="text-5xl font-bold bg-gradient-to-br from-blue-400/90 to-blue-500/70 bg-clip-text text-transparent mb-3">50%</div>
+                <div className="text-white font-semibold mb-2">
+                  Industrial Demand
+                </div>
+                <p className="text-sm text-silver-400">
+                  Used in solar panels, EVs, and electronics
+                </p>
               </div>
-              <p className="text-sm text-silver-400">
-                Used in solar panels, EVs, and electronics
-              </p>
             </div>
 
-            <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 text-center">
-              <div className="text-4xl font-bold text-emerald-400 mb-3">
-                21.5%
+            <div className="relative bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 text-center overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent"></div>
+              <div className="relative">
+                <div className="text-5xl font-bold bg-gradient-to-br from-emerald-400/90 to-emerald-500/70 bg-clip-text text-transparent mb-3">
+                  21.5%
+                </div>
+                <div className="text-white font-semibold mb-2">Silver APY</div>
+                <p className="text-sm text-silver-400">
+                  Historical annual yield in 2024
+                </p>
               </div>
-              <div className="text-white font-semibold mb-2">Silver APY</div>
-              <p className="text-sm text-silver-400">
-                Historical annual yield in 2024
-              </p>
             </div>
 
-            <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 text-center">
-              <div className="text-4xl font-bold text-violet-400 mb-3">
-                -210M
+            <div className="relative bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 text-center overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 to-transparent"></div>
+              <div className="relative">
+                <div className="text-5xl font-bold bg-gradient-to-br from-violet-400/90 to-violet-500/70 bg-clip-text text-transparent mb-3">
+                  -210M
+                </div>
+                <div className="text-white font-semibold mb-2">
+                  Market Deficit
+                </div>
+                <p className="text-sm text-silver-400">
+                  Ounces short in 2024 supply
+                </p>
               </div>
-              <div className="text-white font-semibold mb-2">
-                Market Deficit
-              </div>
-              <p className="text-sm text-silver-400">
-                Ounces short in 2024 supply
-              </p>
             </div>
 
-            <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 text-center">
-              <div className="text-4xl font-bold text-orange-400 mb-3">
-                100%
+            <div className="relative bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 text-center overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent"></div>
+              <div className="relative">
+                <div className="text-5xl font-bold bg-gradient-to-br from-blue-400/90 to-blue-500/70 bg-clip-text text-transparent mb-3">
+                  100%
+                </div>
+                <div className="text-white font-semibold mb-2">Backed</div>
+                <p className="text-sm text-silver-400">
+                  Every token backed by real silver
+                </p>
               </div>
-              <div className="text-white font-semibold mb-2">Backed</div>
-              <p className="text-sm text-silver-400">
-                Every token backed by real silver
-              </p>
             </div>
           </div>
         </div>

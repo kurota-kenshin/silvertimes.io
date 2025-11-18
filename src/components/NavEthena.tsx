@@ -51,18 +51,18 @@ export default function NavEthena() {
             >
               About
             </Link>
-            <a
-              href="#news"
+            <Link
+              to="/news"
               className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
             >
               News
-            </a>
-            <a
-              href="#blog"
+            </Link>
+            <Link
+              to="/blog"
               className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
             >
               Blog
-            </a>
+            </Link>
             <a
               href="https://silvertimes.gitbook.io/silvertimes-docs/"
               target="_blank"

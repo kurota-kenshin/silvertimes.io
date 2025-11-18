@@ -11,6 +11,8 @@ import SilverBarPurchase from './components/SilverBarPurchase'
 import PredictionGame from './components/PredictionGame'
 import RewardsTerms from './components/RewardsTerms'
 import AboutUs from './components/AboutUs'
+import Blog from './components/Blog'
+import News from './components/News'
 
 function HomePage() {
   return (
@@ -36,6 +38,8 @@ function App() {
           <Route path="/prediction" element={<PredictionGame />} />
           <Route path="/rewards-terms" element={<RewardsTerms />} />
           <Route path="/about" element={<AboutUs />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/news" element={<News />} />
         </Routes>
         <Footer />
       </div>
