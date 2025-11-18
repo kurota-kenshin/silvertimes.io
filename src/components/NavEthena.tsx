@@ -63,14 +63,12 @@ export default function NavEthena() {
             >
               Blog
             </Link>
-            <a
-              href="https://silvertimes.gitbook.io/silvertimes-docs/"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/docs"
               className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
             >
               Docs
-            </a>
+            </Link>
           </div>
 
           {/* Right side - Stats & CTA */}

@@ -13,6 +13,7 @@ import RewardsTerms from './components/RewardsTerms'
 import AboutUs from './components/AboutUs'
 import Blog from './components/Blog'
 import News from './components/News'
+import Docs from './components/Docs'
 
 function HomePage() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/news" element={<News />} />
+          <Route path="/docs" element={<Docs />} />
         </Routes>
         <Footer />
       </div>
