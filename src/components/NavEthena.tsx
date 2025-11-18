@@ -45,12 +45,12 @@ export default function NavEthena() {
             >
               Product
             </Link>
-            <a
-              href="#about"
+            <Link
+              to="/about"
               className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
             >
               About
-            </a>
+            </Link>
             <a
               href="#news"
               className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
