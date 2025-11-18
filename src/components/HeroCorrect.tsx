@@ -1,22 +1,35 @@
-import PixelBlast from './PixelBlast'
-import { Link } from 'react-router-dom'
+import PixelBlast from "./PixelBlast";
+import { Link } from "react-router-dom";
 
 export default function HeroCorrect() {
   const stats = [
-    { value: '14%', label: 'Silver APY' },
-    { value: '$53.34/oz', label: 'ATH' },
-    { value: '$10M', label: 'TVL' },
-    { value: '205,000', label: '$STT SUPPLY' },
-    { value: '>1,000', label: 'USERS' },
-  ]
+    { value: "14%", label: "Silver APY" },
+    { value: "$53.34/oz", label: "ATH" },
+    { value: "$10M", label: "TVL" },
+    { value: "205,000", label: "$STT SUPPLY" },
+    { value: ">1,000", label: "USERS" },
+  ];
 
   return (
-    <section className="relative bg-background-primary px-4 py-4" style={{ minHeight: '98vh' }}>
+    <section
+      className="relative bg-background-primary px-4 py-4"
+      style={{ minHeight: "98vh" }}
+    >
       {/* Main container - almost full viewport */}
-      <div className="relative border border-white/10 rounded-3xl bg-background-primary/50 backdrop-blur-sm overflow-hidden" style={{ height: 'calc(98vh - 2rem)' }}>
-
+      <div
+        className="relative border border-white/10 rounded-3xl bg-background-primary/50 backdrop-blur-sm overflow-hidden"
+        style={{ height: "calc(98vh - 2rem)" }}
+      >
         {/* PixelBlast background */}
-        <div style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 0 }}>
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            zIndex: 0,
+          }}
+        >
           <PixelBlast
             variant="square"
             pixelSize={4}
@@ -45,27 +58,40 @@ export default function HeroCorrect() {
           </h1>
 
           <div className="flex items-center gap-3 pointer-events-auto">
-            <Link to="/prediction" className="group px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold text-base hover:bg-blue-600 transition-all inline-flex items-center gap-2">
-              Predict & Earn
+            <Link
+              to="/prediction"
+              className="group px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold text-base hover:bg-blue-600 transition-all inline-flex items-center gap-2"
+            >
+              Predict
               <svg
                 className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
               </svg>
             </Link>
 
             <button className="group px-6 py-3 bg-white text-black rounded-lg font-semibold text-base hover:bg-silver-200 transition-all inline-flex items-center gap-2">
-              Earn with $STT
+              Mint
               <svg
                 className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
               </svg>
             </button>
           </div>
@@ -78,8 +104,8 @@ export default function HeroCorrect() {
               <div
                 key={index}
                 className={`p-6 text-center ${
-                  index !== stats.length - 1 ? 'border-r border-white/5' : ''
-                } ${index >= 3 ? 'border-t md:border-t-0 lg:border-t-0' : ''}`}
+                  index !== stats.length - 1 ? "border-r border-white/5" : ""
+                } ${index >= 3 ? "border-t md:border-t-0 lg:border-t-0" : ""}`}
               >
                 <div className="text-3xl lg:text-4xl font-bold text-white mb-1">
                   {stat.value}
@@ -100,10 +126,15 @@ export default function HeroCorrect() {
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 14l-7 7m0 0l-7-7m7 7V3"
+            />
           </svg>
         </div>
       </div>
     </section>
-  )
+  );
 }

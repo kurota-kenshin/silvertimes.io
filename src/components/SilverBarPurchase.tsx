@@ -1,4 +1,23 @@
+"use client";
+
+import { useEffect, useMemo } from "react";
+import { useSilverPriceStore } from "../store/silverPriceStore";
+
 export default function SilverBarPurchase() {
+  const { currentPrice, isLoading, fetchData } = useSilverPriceStore();
+
+  useEffect(() => {
+    // Fetch price data when component mounts if not already loaded
+    fetchData();
+  }, [fetchData]);
+
+  // Calculate per kg price: (per oz × 35.1207465) + $65 surcharge
+  const pricePerKg = useMemo(() => {
+    if (!currentPrice) return null;
+    const calculatedKgPrice = (currentPrice * 35.1207465) + 65;
+    return parseFloat(calculatedKgPrice.toFixed(2));
+  }, [currentPrice]);
+
   return (
     <section className="relative bg-background-primary py-32 px-4 overflow-hidden">
       {/* Background effects */}
@@ -46,10 +65,30 @@ export default function SilverBarPurchase() {
                 1kg Fine Silver Bar
               </h3>
               <div className="mb-6">
-                <div className="flex items-baseline gap-4 mb-2">
-                  <span className="text-5xl font-bold text-white">$32.50</span>
-                  <span className="text-silver-400">/oz</span>
-                </div>
+                {isLoading ? (
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="h-12 w-32 bg-white/5 rounded-lg animate-pulse"></div>
+                    <span className="text-silver-400">/oz</span>
+                  </div>
+                ) : (
+                  <>
+                    <div className="flex items-baseline gap-4 mb-2">
+                      <span className="text-5xl font-bold text-white">
+                        ${currentPrice?.toFixed(2)}
+                      </span>
+                      <span className="text-silver-400">/oz</span>
+                    </div>
+                    <div className="flex items-baseline gap-4">
+                      <span className="text-3xl font-bold text-blue-400">
+                        ${pricePerKg?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      </span>
+                      <span className="text-silver-400">/kg</span>
+                    </div>
+                    <p className="text-xs text-silver-500 mt-2">
+                      Includes $65 platform fee/service surcharge
+                    </p>
+                  </>
+                )}
               </div>
 
               {/* Specifications */}
@@ -181,30 +220,29 @@ export default function SilverBarPurchase() {
                 <h4 className="text-white font-semibold mb-2">
                   Shipping Options:
                 </h4>
-                <ul className="space-y-2">
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-violet-400 mt-1.5 flex-shrink-0"></div>
-                    <span>
-                      <strong className="text-white">Standard Delivery:</strong>{" "}
-                      5-7 business days via secure courier (Free)
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-violet-400 mt-1.5 flex-shrink-0"></div>
-                    <span>
-                      <strong className="text-white">Express Delivery:</strong>{" "}
-                      2-3 business days via secure courier (+$50)
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-violet-400 mt-1.5 flex-shrink-0"></div>
-                    <span>
-                      <strong className="text-white">Vault Storage:</strong>{" "}
-                      Store securely in our partnered vaults (Brinks London or
-                      Horsemart HK)
-                    </span>
-                  </li>
-                </ul>
+
+                <div className="mb-3">
+                  <p className="font-semibold text-white mb-1">Delivery Fee</p>
+                  <p>
+                    All delivery and shipping costs for physical silver redemption
+                    (including the 1 kg bar) will be borne by the customer.
+                    Fees may vary based on destination, courier selection, and
+                    insurance requirements.
+                  </p>
+                </div>
+
+                <div>
+                  <p className="font-semibold text-white mb-1">
+                    Courier Partner Selection
+                  </p>
+                  <p>
+                    Customers may choose their preferred delivery service from
+                    SilverTimes' approved list of courier partners. SilverTimes
+                    will assist in arranging shipment but will not be liable for
+                    delays, damages, or losses once the item is handed to the
+                    courier.
+                  </p>
+                </div>
               </div>
 
               <div className="pt-4 border-t border-white/5">
@@ -249,17 +287,6 @@ export default function SilverBarPurchase() {
                     <span>
                       Orders processed within 24 hours of payment confirmation
                     </span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-violet-400 mt-1.5 flex-shrink-0"></div>
-                    <span>
-                      14-day return policy for unopened, sealed bars in original
-                      condition
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-violet-400 mt-1.5 flex-shrink-0"></div>
-                    <span>Redemption fee of 0.35% applies for returns</span>
                   </li>
                 </ul>
               </div>

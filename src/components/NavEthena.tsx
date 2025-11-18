@@ -1,8 +1,14 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import { useSilverPriceStore } from "../store/silverPriceStore";
 
 export default function NavEthena() {
-  const { currentPrice, isLoading } = useSilverPriceStore();
+  const { currentPrice, isLoading, fetchData } = useSilverPriceStore();
+
+  useEffect(() => {
+    // Fetch price data when component mounts
+    fetchData();
+  }, [fetchData]);
 
   return (
     <nav className="fixed top-10 left-10 right-10 z-50">
