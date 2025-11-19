@@ -67,27 +67,15 @@ export default function SilverBarPurchase() {
               <div className="mb-6">
                 {isLoading ? (
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="h-12 w-32 bg-white/5 rounded-lg animate-pulse"></div>
-                    <span className="text-silver-400">/oz</span>
+                    <div className="h-16 w-48 bg-white/5 rounded-lg animate-pulse"></div>
                   </div>
                 ) : (
-                  <>
-                    <div className="flex items-baseline gap-4 mb-2">
-                      <span className="text-5xl font-bold text-white">
-                        ${currentPrice?.toFixed(2)}
-                      </span>
-                      <span className="text-silver-400">/oz</span>
-                    </div>
-                    <div className="flex items-baseline gap-4">
-                      <span className="text-3xl font-bold text-blue-400">
-                        ${pricePerKg?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                      </span>
-                      <span className="text-silver-400">/kg</span>
-                    </div>
-                    <p className="text-xs text-silver-500 mt-2">
-                      Includes $65 platform fee/service surcharge
-                    </p>
-                  </>
+                  <div className="flex items-baseline gap-4">
+                    <span className="text-6xl font-bold text-white">
+                      ${pricePerKg?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </span>
+                    <span className="text-silver-400 text-lg">/kg</span>
+                  </div>
                 )}
               </div>
 

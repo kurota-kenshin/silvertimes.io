@@ -11,8 +11,8 @@ export default function NavEthena() {
   }, [fetchData]);
 
   return (
-    <nav className="fixed top-10 left-10 right-10 z-50">
-      <div className="bg-background-secondary/60 backdrop-blur-xl border border-white/10 rounded-2xl px-6 py-3">
+    <nav className="fixed top-0 left-0 right-0 z-50">
+      <div className="bg-background-secondary/60 backdrop-blur-xl border-b border-white/10 px-6 py-3">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-2">
