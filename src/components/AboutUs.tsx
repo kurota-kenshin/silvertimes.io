@@ -29,13 +29,16 @@ export default function AboutUs() {
               </div>
             </div>
 
-            {/* Right: Image */}
+            {/* Right: Video */}
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-violet-500/20 rounded-3xl blur-3xl"></div>
               <div className="relative bg-background-secondary/40 backdrop-blur-md border border-white/5 rounded-3xl overflow-hidden">
-                <img
-                  src="/silver.jpeg"
-                  alt="Silver bars"
+                <video
+                  src="/silver_video.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
                   className="w-full h-[500px] object-cover"
                 />
               </div>
