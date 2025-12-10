@@ -14,6 +14,8 @@ const ENQUIRY_TYPES = [
   "Technical Support",
 ];
 
+const CONTACT_EMAIL = "contact@silvertimes.io";
+
 export default function GetSTTModal({ isOpen, onClose }: GetSTTModalProps) {
   const [formData, setFormData] = useState({
     name: "",
@@ -21,24 +23,18 @@ export default function GetSTTModal({ isOpen, onClose }: GetSTTModalProps) {
     enquiryType: "",
     message: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const subject = encodeURIComponent(
+      `[${formData.enquiryType}] Enquiry from ${formData.name}`
+    );
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\nEnquiry Type: ${formData.enquiryType}\n\nMessage:\n${formData.message}`
+    );
 
-    setIsSubmitting(false);
-    setSubmitSuccess(true);
-
-    // Reset after showing success
-    setTimeout(() => {
-      setSubmitSuccess(false);
-      setFormData({ name: "", email: "", enquiryType: "", message: "" });
-    }, 3000);
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
   };
 
   if (!isOpen) return null;
@@ -233,146 +229,109 @@ export default function GetSTTModal({ isOpen, onClose }: GetSTTModalProps) {
 
         {/* Contact Form */}
         <div className="p-6">
-          {submitSuccess ? (
-            <div className="text-center py-8">
-              <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg
-                  className="w-8 h-8 text-green-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-white font-semibold mb-2">Message Sent!</h3>
-              <p className="text-silver-400 text-sm">
-                We'll get back to you shortly.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs text-silver-400 mb-1.5">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
-                    className="w-full px-3 py-2.5 bg-background-primary/50 border border-white/10 rounded-lg text-white text-sm placeholder:text-silver-600 focus:outline-none focus:border-blue-500/50 transition-colors"
-                    placeholder="Your name"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs text-silver-400 mb-1.5">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                    className="w-full px-3 py-2.5 bg-background-primary/50 border border-white/10 rounded-lg text-white text-sm placeholder:text-silver-600 focus:outline-none focus:border-blue-500/50 transition-colors"
-                    placeholder="you@example.com"
-                  />
-                </div>
-              </div>
-
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs text-silver-400 mb-1.5">
-                  Enquiry Type
+                  Name
                 </label>
-                <select
+                <input
+                  type="text"
                   required
-                  value={formData.enquiryType}
+                  value={formData.name}
                   onChange={(e) =>
-                    setFormData({ ...formData, enquiryType: e.target.value })
+                    setFormData({ ...formData, name: e.target.value })
                   }
-                  className="w-full px-3 py-2.5 bg-background-primary/50 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500/50 transition-colors appearance-none cursor-pointer"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "right 0.75rem center",
-                    backgroundSize: "1rem",
-                  }}
-                >
-                  <option value="" className="bg-background-secondary">
-                    Select enquiry type
-                  </option>
-                  {ENQUIRY_TYPES.map((type) => (
-                    <option
-                      key={type}
-                      value={type}
-                      className="bg-background-secondary"
-                    >
-                      {type}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-xs text-silver-400 mb-1.5">
-                  Message
-                </label>
-                <textarea
-                  required
-                  value={formData.message}
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
-                  rows={4}
-                  className="w-full px-3 py-2.5 bg-background-primary/50 border border-white/10 rounded-lg text-white text-sm placeholder:text-silver-600 focus:outline-none focus:border-blue-500/50 transition-colors resize-none"
-                  placeholder="How can we help you?"
+                  className="w-full px-3 py-2.5 bg-background-primary/50 border border-white/10 rounded-lg text-white text-sm placeholder:text-silver-600 focus:outline-none focus:border-blue-500/50 transition-colors"
+                  placeholder="Your name"
                 />
               </div>
+              <div>
+                <label className="block text-xs text-silver-400 mb-1.5">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  className="w-full px-3 py-2.5 bg-background-primary/50 border border-white/10 rounded-lg text-white text-sm placeholder:text-silver-600 focus:outline-none focus:border-blue-500/50 transition-colors"
+                  placeholder="you@example.com"
+                />
+              </div>
+            </div>
 
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full py-3 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            <div>
+              <label className="block text-xs text-silver-400 mb-1.5">
+                Enquiry Type
+              </label>
+              <select
+                required
+                value={formData.enquiryType}
+                onChange={(e) =>
+                  setFormData({ ...formData, enquiryType: e.target.value })
+                }
+                className="w-full px-3 py-2.5 bg-background-primary/50 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500/50 transition-colors appearance-none cursor-pointer"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "right 0.75rem center",
+                  backgroundSize: "1rem",
+                }}
               >
-                {isSubmitting ? (
-                  <>
-                    <svg
-                      className="w-4 h-4 animate-spin"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      />
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      />
-                    </svg>
-                    Sending...
-                  </>
-                ) : (
-                  "Send Message"
-                )}
-              </button>
-            </form>
-          )}
+                <option value="" className="bg-background-secondary">
+                  Select enquiry type
+                </option>
+                {ENQUIRY_TYPES.map((type) => (
+                  <option
+                    key={type}
+                    value={type}
+                    className="bg-background-secondary"
+                  >
+                    {type}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs text-silver-400 mb-1.5">
+                Message
+              </label>
+              <textarea
+                required
+                value={formData.message}
+                onChange={(e) =>
+                  setFormData({ ...formData, message: e.target.value })
+                }
+                rows={4}
+                className="w-full px-3 py-2.5 bg-background-primary/50 border border-white/10 rounded-lg text-white text-sm placeholder:text-silver-600 focus:outline-none focus:border-blue-500/50 transition-colors resize-none"
+                placeholder="How can we help you?"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full py-3 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-all flex items-center justify-center gap-2"
+            >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+              </svg>
+              Send Email
+            </button>
+          </form>
         </div>
       </div>
     </div>
