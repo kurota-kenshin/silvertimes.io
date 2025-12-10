@@ -1,6 +1,26 @@
 import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Line, LineChart, Legend } from 'recharts'
 import { useState } from 'react'
 
+// Financial Freedom Calculator constants
+const SILVER_APY = 0.14; // 14% APY
+const SILVER_PRICE = 32.5; // Fixed price per oz
+const CURRENT_AGE = 30; // Baseline age
+
+const AGE_OPTIONS = [40, 50, 60];
+const AMOUNT_OPTIONS = [
+  { value: 1000000, label: "$1M" },
+  { value: 5000000, label: "$5M" },
+  { value: 10000000, label: "$10M" },
+];
+
+// Pre-calculate results for all combinations to avoid re-renders
+const calculateResult = (age: number, amount: number) => {
+  const n = Math.max(0, age - CURRENT_AGE);
+  const pv = n > 0 ? amount / Math.pow(1 + SILVER_APY, n) : amount;
+  const silverOunces = pv / SILVER_PRICE;
+  return { presentValue: pv, silverOunces, sttAmount: pv, years: n };
+};
+
 // Silver price data based on historical prices (2020-2024) and projected 5-year average return (2025-2030)
 // Base: 2020 = $20.55, calculating 5-year average return from 2020-2024 data
 const silverPriceData = [
@@ -28,6 +48,26 @@ const supplyDemandData = [
 
 export default function MarketChart() {
   const [investAmount, setInvestAmount] = useState(100)
+  const [retirementAge, setRetirementAge] = useState(50)
+  const [targetAmount, setTargetAmount] = useState(1000000)
+
+  const calculation = calculateResult(retirementAge, targetAmount)
+
+  const formatNumber = (value: number) => {
+    return new Intl.NumberFormat("en-US", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(value);
+  };
+
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(value);
+  };
 
   // Calculate projection based on silver price growth
   const basePrice = 20.55
@@ -230,6 +270,128 @@ export default function MarketChart() {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Financial Freedom Calculator */}
+        <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 mb-8">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
+              How much silver do you need to own today?
+            </h3>
+          </div>
+
+          {/* Interactive Question */}
+          <div className="flex flex-wrap items-center justify-center gap-2 text-lg md:text-xl text-silver-300 mb-8">
+            <span>To retire at</span>
+            <select
+              value={retirementAge}
+              onChange={(e) => setRetirementAge(parseInt(e.target.value))}
+              className="bg-background-primary/50 border border-white/10 rounded-lg px-4 py-2 text-white font-semibold focus:outline-none focus:border-blue-500/50 transition-colors cursor-pointer appearance-none text-center"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "right 0.5rem center",
+                backgroundSize: "1rem",
+                paddingRight: "2rem",
+              }}
+            >
+              {AGE_OPTIONS.map((age) => (
+                <option key={age} value={age} className="bg-background-secondary">
+                  {age}
+                </option>
+              ))}
+            </select>
+            <span>with</span>
+            <select
+              value={targetAmount}
+              onChange={(e) => setTargetAmount(parseInt(e.target.value))}
+              className="bg-background-primary/50 border border-white/10 rounded-lg px-4 py-2 text-white font-semibold focus:outline-none focus:border-blue-500/50 transition-colors cursor-pointer appearance-none text-center"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "right 0.5rem center",
+                backgroundSize: "1rem",
+                paddingRight: "2rem",
+              }}
+            >
+              {AMOUNT_OPTIONS.map((option) => (
+                <option
+                  key={option.value}
+                  value={option.value}
+                  className="bg-background-secondary"
+                >
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Result Display */}
+          <div className="bg-gradient-to-br from-blue-500/10 to-violet-500/10 border border-white/10 rounded-xl p-6">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 text-center">
+              {/* Silver Ounces */}
+              <div className="flex flex-col items-center">
+                <div className="text-2xl md:text-3xl font-bold text-white mb-1">
+                  {formatNumber(Math.round(calculation.silverOunces))}
+                </div>
+                <div className="text-silver-400 text-xs">Ounces of .999 Silver</div>
+              </div>
+
+              {/* Equals Sign */}
+              <div className="text-xl text-silver-500">=</div>
+
+              {/* USD Investment */}
+              <div className="flex flex-col items-center">
+                <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent mb-1">
+                  {formatCurrency(calculation.presentValue)}
+                </div>
+                <div className="text-silver-400 text-xs">Investment Today</div>
+              </div>
+
+              {/* Equals Sign */}
+              <div className="text-xl text-silver-500">=</div>
+
+              {/* STT Amount */}
+              <div className="flex flex-col items-center">
+                <div className="text-2xl md:text-3xl font-bold text-emerald-400 mb-1">
+                  {formatNumber(Math.round(calculation.sttAmount))}
+                </div>
+                <div className="text-silver-400 text-xs">$STT Tokens</div>
+              </div>
+            </div>
+          </div>
+
+          {/* APY Badge */}
+          <div className="flex justify-center mt-5">
+            <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-3 py-1.5">
+              <svg
+                className="w-3.5 h-3.5 text-emerald-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                />
+              </svg>
+              <span className="text-emerald-400 font-medium text-xs">
+                Based on {(SILVER_APY * 100).toFixed(0)}% Silver APY
+              </span>
+            </div>
+          </div>
+
+          {/* Disclaimer */}
+          <div className="mt-4 text-center">
+            <p className="text-xs text-silver-600">
+              Calculation assumes {calculation.years} years to retirement. Past
+              performance does not guarantee future results. Silver price: $
+              {SILVER_PRICE.toFixed(2)}/oz.
+            </p>
           </div>
         </div>
 
