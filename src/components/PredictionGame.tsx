@@ -423,14 +423,14 @@ export default function PredictionGame() {
                 <strong className="text-white">Benchmark:</strong> use the
                 official LBMA Silver Price (USD/oz) on 12:00 PM London time;
                 valid reference is the first fixing after the round locks,
-                rounded to one decimal place.
+                rounded to two decimal places.
               </p>
             </div>
             <div className="flex items-start gap-3">
               <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
               <p>
                 <strong className="text-white">Example:</strong> if Monday's
-                fixing is USD 47.690, guesses closest to 47.7 win.
+                fixing is USD 47.690, guesses closest to 47.69 win.
               </p>
             </div>
             <div className="flex items-start gap-3">
@@ -446,8 +446,8 @@ export default function PredictionGame() {
               <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
               <p>
                 <strong className="text-white">Schedule:</strong> weekly rounds;
-                submission window runs Monday 12:00 PM London time –Thursday
-                11:59 AM London time; winners are determined each Monday using
+                submission window runs Monday 12:00 PM London time – Thursday
+                11:59 PM London time; winners are determined each Monday using
                 that day's fixing.
               </p>
             </div>
@@ -457,6 +457,25 @@ export default function PredictionGame() {
                 <strong className="text-white">Scoring:</strong> rank by
                 absolute error to the benchmark; ties break by earliest valid
                 submission timestamp at lock.
+              </p>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
+              <p>
+                <strong className="text-white">How to win:</strong> A total of
+                25 oz of silver (in the form of STT) will be distributed each
+                week to reward the top 25 participants whose predictions are
+                closest to Monday's official fixing price. Each winning
+                participant receives 1 oz of physical silver as their prize.
+              </p>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
+              <p>
+                <strong className="text-white">Rewards:</strong> Rewards will be
+                distributed in Q1 2026 after the STT token issuance is complete.
+                Winners can view their results and prize status in their profile
+                page upon logging in.
               </p>
             </div>
           </div>
