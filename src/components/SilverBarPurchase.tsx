@@ -14,7 +14,7 @@ export default function SilverBarPurchase() {
   // Calculate per kg price: (per oz × 35.1207465) + $65 surcharge
   const pricePerKg = useMemo(() => {
     if (!currentPrice) return null;
-    const calculatedKgPrice = (currentPrice * 35.1207465) + 65;
+    const calculatedKgPrice = currentPrice * 35.1207465 + 65;
     return parseFloat(calculatedKgPrice.toFixed(2));
   }, [currentPrice]);
 
@@ -72,7 +72,11 @@ export default function SilverBarPurchase() {
                 ) : (
                   <div className="flex items-baseline gap-4">
                     <span className="text-6xl font-bold text-white">
-                      ${pricePerKg?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      $
+                      {pricePerKg?.toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
                     </span>
                     <span className="text-silver-400 text-lg">/kg</span>
                   </div>
@@ -148,19 +152,18 @@ export default function SilverBarPurchase() {
             <div className="space-y-4 text-sm text-silver-400">
               <p>
                 Our 1kg silver bars are manufactured by SilverTimes to the
-                highest standards. Each bar meets the strict LBMA (London
-                Bullion Market Association) Good Delivery standards.
+                highest standards. Each bar is melted and produced from LBMA
+                (London Bullion Market Association) Good Delivery standards.
               </p>
               <p>
                 Made from 999.9 fine silver (99.99% pure), these bars feature
-                elegant stamping including the refiner's hallmark, serial
+                elegant stamping including the SilverTimes's hallmark, serial
                 number, weight, and purity markings. The bars are individually
                 sealed in protective packaging to maintain their pristine
                 condition.
               </p>
               <p>
-                Each bar comes with a certificate of authenticity and can be
-                verified through our blockchain-based tracking system, ensuring
+                Each bar comes with a certificate of authenticity, ensuring
                 complete transparency and provenance.
               </p>
 
@@ -185,11 +188,13 @@ export default function SilverBarPurchase() {
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
                     <span>Manufacturer: SilverTimes</span>
                   </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
-                    <span>Standard: LBMA Good Delivery</span>
-                  </li>
                 </ul>
+              </div>
+
+              <div className="pt-4 border-t border-white/5 mt-6">
+                <p className="text-xs text-silver-500 italic">
+                  Please note that our silver bars may display marks, abrasions, slight discoloration, or spotting due to oxidation. These features are common results of the manufacturing and handling process. They do not affect the bar's silver content or authenticity. Each bar is produced and certified by SilverTimes to meet recognized industry standards.
+                </p>
               </div>
             </div>
           </div>
@@ -212,10 +217,10 @@ export default function SilverBarPurchase() {
                 <div className="mb-3">
                   <p className="font-semibold text-white mb-1">Delivery Fee</p>
                   <p>
-                    All delivery and shipping costs for physical silver redemption
-                    (including the 1 kg bar) will be borne by the customer.
-                    Fees may vary based on destination, courier selection, and
-                    insurance requirements.
+                    All delivery and shipping costs for physical silver
+                    redemption (including the 1 kg bar) will be borne by the
+                    customer. Fees may vary based on destination, courier
+                    selection, and insurance requirements.
                   </p>
                 </div>
 
