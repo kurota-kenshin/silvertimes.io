@@ -2,17 +2,17 @@ export default function TokenBacking() {
   const backing = [
     {
       percentage: "50%",
-      title: "Physical Silver",
+      title: "Physical Silver Collateral",
       description: "Minimum 999 fineness stored in secure vaults",
       color: "blue",
       gradient: "from-blue-500/60 to-blue-600/70",
     },
     {
       percentage: "50%",
-      title: "Cash Collateral",
+      title: "Money Market Investments",
       description: "Liquid reserves for operational flexibility",
       color: "emerald",
-      gradient: "from-emerald-500/60 to-emerald-600/70",
+      gradient: "from-blue-500/60 to-blue-600/70",
     },
     {
       percentage: "50%",
@@ -62,7 +62,7 @@ export default function TokenBacking() {
                   style={{ width: "33.33%" }}
                 ></div>
                 <div
-                  className="bg-gradient-to-r from-emerald-500/40 to-emerald-600/50 transition-all duration-500 hover:opacity-80"
+                  className="bg-gradient-to-r from-blue-600/60 to-blue-600/40 transition-all duration-500 hover:opacity-80"
                   style={{ width: "33.33%" }}
                 ></div>
                 <div
@@ -237,8 +237,8 @@ export default function TokenBacking() {
                   24/7 Trading
                 </h4>
                 <p className="text-xs text-silver-500 leading-relaxed">
-                  Trade silver anytime, anywhere. We enables 24/7 access,
-                  letting you buy or sell instantly regardless of market hours
+                  Trade silver anytime, anywhere. We enable 24/7 access, letting
+                  you buy or sell instantly regardless of market hours
                 </p>
               </div>
             </div>

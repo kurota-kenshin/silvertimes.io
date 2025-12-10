@@ -1,7 +1,11 @@
+import { useState } from "react";
 import PixelBlast from "./PixelBlast";
 import { Link } from "react-router-dom";
+import GetSTTModal from "./GetSTTModal";
 
 export default function HeroCorrect() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const stats = [
     { value: "14%", label: "Silver APY" },
     { value: "$53.34/oz", label: "ATH" },
@@ -11,6 +15,8 @@ export default function HeroCorrect() {
   ];
 
   return (
+    <>
+      <GetSTTModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     <section
       className="relative bg-background-primary px-4 py-4"
       style={{ minHeight: "98vh" }}
@@ -78,8 +84,11 @@ export default function HeroCorrect() {
               </svg>
             </Link>
 
-            <button className="group px-6 py-3 bg-white text-black rounded-lg font-semibold text-base hover:bg-silver-200 transition-all inline-flex items-center gap-2">
-              Mint
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="group px-6 py-3 bg-white text-black rounded-lg font-semibold text-base hover:bg-silver-200 transition-all inline-flex items-center gap-2"
+            >
+              Get $STT
               <svg
                 className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
                 fill="none"
@@ -136,5 +145,6 @@ export default function HeroCorrect() {
         </div>
       </div>
     </section>
+    </>
   );
 }

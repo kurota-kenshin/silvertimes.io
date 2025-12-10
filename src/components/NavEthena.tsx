@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSilverPriceStore } from "../store/silverPriceStore";
+import GetSTTModal from "./GetSTTModal";
 
 export default function NavEthena() {
   const { currentPrice, isLoading, fetchData } = useSilverPriceStore();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     // Fetch price data when component mounts
@@ -11,6 +13,8 @@ export default function NavEthena() {
   }, [fetchData]);
 
   return (
+    <>
+      <GetSTTModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     <nav className="fixed top-0 left-0 right-0 z-50">
       <div className="bg-background-secondary/60 backdrop-blur-xl border-b border-white/10 px-6 py-3">
         <div className="flex items-center justify-between">
@@ -86,12 +90,16 @@ export default function NavEthena() {
                 14% Silver APY
               </span>
             </div>
-            <button className="px-4 py-1.5 bg-white text-black rounded-lg font-medium hover:bg-silver-200 transition-all text-sm">
-              Mint now
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="px-4 py-1.5 bg-white text-black rounded-lg font-medium hover:bg-silver-200 transition-all text-sm"
+            >
+              Get $STT
             </button>
           </div>
         </div>
       </div>
     </nav>
+    </>
   );
 }
