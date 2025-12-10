@@ -1,10 +1,13 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSilverPriceStore } from "../store/silverPriceStore";
+import SilverBarPurchaseModal from "./SilverBarPurchaseModal";
 
 export default function SilverBarPurchase() {
   const { currentPrice, isLoading, fetchData } = useSilverPriceStore();
+  const [quantity, setQuantity] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     // Fetch price data when component mounts if not already loaded
@@ -19,6 +22,13 @@ export default function SilverBarPurchase() {
   }, [currentPrice]);
 
   return (
+    <>
+      <SilverBarPurchaseModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        quantity={quantity}
+        pricePerKg={pricePerKg}
+      />
     <section className="relative bg-background-primary py-32 px-4 overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0 pointer-events-none">
@@ -111,23 +121,33 @@ export default function SilverBarPurchase() {
                   Quantity
                 </label>
                 <div className="flex items-center gap-4">
-                  <button className="w-12 h-12 bg-background-primary border border-white/5 rounded-lg hover:border-blue-500/30 transition-all">
+                  <button
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    className="w-12 h-12 bg-background-primary border border-white/5 rounded-lg hover:border-blue-500/30 transition-all"
+                  >
                     <span className="text-white text-xl">-</span>
                   </button>
                   <input
                     type="number"
-                    defaultValue="1"
+                    value={quantity}
+                    onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
                     min="1"
                     className="flex-1 h-12 bg-background-primary border border-white/5 rounded-lg text-white text-center font-semibold focus:outline-none focus:border-blue-500/30"
                   />
-                  <button className="w-12 h-12 bg-background-primary border border-white/5 rounded-lg hover:border-blue-500/30 transition-all">
+                  <button
+                    onClick={() => setQuantity(quantity + 1)}
+                    className="w-12 h-12 bg-background-primary border border-white/5 rounded-lg hover:border-blue-500/30 transition-all"
+                  >
                     <span className="text-white text-xl">+</span>
                   </button>
                 </div>
               </div>
 
               {/* Purchase Button */}
-              <button className="w-full py-4 bg-white text-black rounded-xl font-bold text-lg hover:bg-silver-200 transition-all mb-4">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="w-full py-4 bg-white text-black rounded-xl font-bold text-lg hover:bg-silver-200 transition-all mb-4"
+              >
                 Purchase Now
               </button>
 
@@ -380,5 +400,6 @@ export default function SilverBarPurchase() {
         </div>
       </div>
     </section>
+    </>
   );
 }
