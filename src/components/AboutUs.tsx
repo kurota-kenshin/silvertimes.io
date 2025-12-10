@@ -18,13 +18,15 @@ export default function AboutUs() {
               </h1>
               <div className="space-y-6 text-lg text-silver-300">
                 <p>
-                  SilverTimes recognizes silver's pivotal role in the future economy,
-                  poised to outperform amid green energy transitions and industrial booms.
+                  SilverTimes recognizes silver's pivotal role in the future
+                  economy, poised to outperform amid green energy transitions
+                  and industrial booms.
                 </p>
                 <p>
-                  By tokenizing silver synthetically, we democratize access, enabling users
-                  to gain exposure without the burdens of physical handling, while
-                  integrating DeFi utilities for enhanced yields and functionality.
+                  By tokenizing silver synthetically, we democratize access,
+                  enabling users to gain exposure without the burdens of
+                  physical handling, while integrating DeFi utilities for
+                  enhanced yields and functionality.
                 </p>
               </div>
             </div>
@@ -99,7 +101,9 @@ export default function AboutUs() {
             <div className="relative bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 text-center overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent"></div>
               <div className="relative">
-                <div className="text-5xl font-bold bg-gradient-to-br from-blue-400/90 to-blue-500/70 bg-clip-text text-transparent mb-3">50%</div>
+                <div className="text-5xl font-bold bg-gradient-to-br from-blue-400/90 to-blue-500/70 bg-clip-text text-transparent mb-3">
+                  50%
+                </div>
                 <div className="text-white font-semibold mb-2">
                   Industrial Demand
                 </div>
@@ -171,7 +175,8 @@ export default function AboutUs() {
                 , a major subsidiary company of ex-TSX Venture listed mining
                 company,{" "}
                 <span className="text-white font-semibold">GobiMin Inc.</span>{" "}
-                renowned for its extensive expertise in metal mining and trading.
+                renowned for its extensive expertise in metal mining, smelting
+                and trading.
               </p>
 
               <div className="grid md:grid-cols-3 gap-6 mt-8">
@@ -192,7 +197,7 @@ export default function AboutUs() {
                     </svg>
                   </div>
                   <h3 className="text-white font-semibold text-xl mb-2">
-                    Mining Expertise
+                    Metal Expertise
                   </h3>
                   <p className="text-silver-400 text-sm">
                     Operations spanning exploration, development, and
@@ -220,8 +225,8 @@ export default function AboutUs() {
                     Global Network
                   </h3>
                   <p className="text-silver-400 text-sm">
-                    Robust trading networks established across Hong Kong and
-                    China with deep market connections
+                    Robust trading networks established across India and China
+                    with deep market connections
                   </p>
                 </div>
 
@@ -252,10 +257,10 @@ export default function AboutUs() {
               </div>
 
               <p className="mt-8">
-                With this foundation of expertise and infrastructure, GobiMin
-                Inc. provides unparalleled operational acumen and supply chain
-                integrity to ensure SilverTimes' reliability and scalability as
-                we revolutionize precious metals investment.
+                With this foundation of expertise and infrastructure,
+                SilverTimes provides unparalleled operational acumen and supply
+                chain integrity to ensure reliability and scalability as we
+                revolutionize precious metals investment.
               </p>
             </div>
           </div>
