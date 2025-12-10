@@ -82,6 +82,77 @@ export default function AboutUs() {
         </div>
       </section>
 
+      {/* Why Silver Section */}
+      <section className="py-24 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Why Silver, Why Now
+            </h2>
+            <p className="text-xl text-silver-300 max-w-3xl mx-auto">
+              Silver is uniquely positioned at the intersection of precious
+              metals investment and industrial necessity
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="relative bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 text-center overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent"></div>
+              <div className="relative">
+                <div className="text-5xl font-bold bg-gradient-to-br from-blue-400/90 to-blue-500/70 bg-clip-text text-transparent mb-3">50%</div>
+                <div className="text-white font-semibold mb-2">
+                  Industrial Demand
+                </div>
+                <p className="text-sm text-silver-400">
+                  Used in solar panels, EVs, and electronics
+                </p>
+              </div>
+            </div>
+
+            <div className="relative bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 text-center overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent"></div>
+              <div className="relative">
+                <div className="text-5xl font-bold bg-gradient-to-br from-emerald-400/90 to-emerald-500/70 bg-clip-text text-transparent mb-3">
+                  21.5%
+                </div>
+                <div className="text-white font-semibold mb-2">Silver APY</div>
+                <p className="text-sm text-silver-400">
+                  Historical annual yield in 2024
+                </p>
+              </div>
+            </div>
+
+            <div className="relative bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 text-center overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 to-transparent"></div>
+              <div className="relative">
+                <div className="text-5xl font-bold bg-gradient-to-br from-violet-400/90 to-violet-500/70 bg-clip-text text-transparent mb-3">
+                  -210M
+                </div>
+                <div className="text-white font-semibold mb-2">
+                  Market Deficit
+                </div>
+                <p className="text-sm text-silver-400">
+                  Ounces short in 2024 supply
+                </p>
+              </div>
+            </div>
+
+            <div className="relative bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 text-center overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent"></div>
+              <div className="relative">
+                <div className="text-5xl font-bold bg-gradient-to-br from-blue-400/90 to-blue-500/70 bg-clip-text text-transparent mb-3">
+                  100%
+                </div>
+                <div className="text-white font-semibold mb-2">Backed</div>
+                <p className="text-sm text-silver-400">
+                  Every token backed by real silver
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Background Section */}
       <section className="py-24 px-4">
         <div className="max-w-7xl mx-auto">
@@ -186,77 +257,6 @@ export default function AboutUs() {
                 integrity to ensure SilverTimes' reliability and scalability as
                 we revolutionize precious metals investment.
               </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Silver Section */}
-      <section className="py-24 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Why Silver, Why Now
-            </h2>
-            <p className="text-xl text-silver-300 max-w-3xl mx-auto">
-              Silver is uniquely positioned at the intersection of precious
-              metals investment and industrial necessity
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="relative bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 text-center overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent"></div>
-              <div className="relative">
-                <div className="text-5xl font-bold bg-gradient-to-br from-blue-400/90 to-blue-500/70 bg-clip-text text-transparent mb-3">50%</div>
-                <div className="text-white font-semibold mb-2">
-                  Industrial Demand
-                </div>
-                <p className="text-sm text-silver-400">
-                  Used in solar panels, EVs, and electronics
-                </p>
-              </div>
-            </div>
-
-            <div className="relative bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 text-center overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent"></div>
-              <div className="relative">
-                <div className="text-5xl font-bold bg-gradient-to-br from-emerald-400/90 to-emerald-500/70 bg-clip-text text-transparent mb-3">
-                  21.5%
-                </div>
-                <div className="text-white font-semibold mb-2">Silver APY</div>
-                <p className="text-sm text-silver-400">
-                  Historical annual yield in 2024
-                </p>
-              </div>
-            </div>
-
-            <div className="relative bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 text-center overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 to-transparent"></div>
-              <div className="relative">
-                <div className="text-5xl font-bold bg-gradient-to-br from-violet-400/90 to-violet-500/70 bg-clip-text text-transparent mb-3">
-                  -210M
-                </div>
-                <div className="text-white font-semibold mb-2">
-                  Market Deficit
-                </div>
-                <p className="text-sm text-silver-400">
-                  Ounces short in 2024 supply
-                </p>
-              </div>
-            </div>
-
-            <div className="relative bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-8 text-center overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent"></div>
-              <div className="relative">
-                <div className="text-5xl font-bold bg-gradient-to-br from-blue-400/90 to-blue-500/70 bg-clip-text text-transparent mb-3">
-                  100%
-                </div>
-                <div className="text-white font-semibold mb-2">Backed</div>
-                <p className="text-sm text-silver-400">
-                  Every token backed by real silver
-                </p>
-              </div>
             </div>
           </div>
         </div>
