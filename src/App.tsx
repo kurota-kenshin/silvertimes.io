@@ -14,6 +14,7 @@ import AboutUs from './components/AboutUs'
 import Blog from './components/Blog'
 import News from './components/News'
 import Docs from './components/Docs'
+import ContactButton from './components/ContactButton'
 
 function HomePage() {
   return (
@@ -44,6 +45,7 @@ function App() {
           <Route path="/docs" element={<Docs />} />
         </Routes>
         <Footer />
+        <ContactButton />
       </div>
     </Router>
   )
