@@ -61,6 +61,7 @@ export default function MarketChart() {
   const [investAmount, setInvestAmount] = useState(100);
   const [retirementYears, setRetirementYears] = useState(20);
   const [targetAmount, setTargetAmount] = useState(1000000);
+  const [chartTab, setChartTab] = useState(1000000); // For the STT chart tabs
 
   // Fetch silver price on mount
   useEffect(() => {
@@ -70,6 +71,20 @@ export default function MarketChart() {
   // Use current price from store or fallback
   const silverPrice = currentPrice ?? FALLBACK_SILVER_PRICE;
   const calculation = calculateResult(retirementYears, targetAmount, silverPrice);
+
+  // Generate chart data for STT needed vs years
+  const generateSTTChartData = (targetAmt: number) => {
+    const years = [5, 10, 15, 20, 25, 30];
+    return years.map((year) => {
+      const result = calculateResult(year, targetAmt, silverPrice);
+      return {
+        years: year,
+        stt: Math.round(result.sttAmount),
+      };
+    });
+  };
+
+  const sttChartData = generateSTTChartData(chartTab);
 
   const formatNumber = (value: number) => {
     return new Intl.NumberFormat("en-US", {
@@ -452,6 +467,100 @@ export default function MarketChart() {
                 <div className="text-silver-400 text-xs">$STT Tokens</div>
               </div>
             </div>
+          </div>
+
+          {/* STT Chart with Tabs */}
+          <div className="mt-8">
+            {/* Tabs */}
+            <div className="flex justify-center mb-6">
+              <div className="inline-flex bg-background-primary/50 border border-white/10 rounded-lg p-1">
+                {AMOUNT_OPTIONS.map((option) => (
+                  <button
+                    key={option.value}
+                    onClick={() => setChartTab(option.value)}
+                    className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${
+                      chartTab === option.value
+                        ? "bg-blue-500 text-white"
+                        : "text-silver-400 hover:text-white"
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Chart */}
+            <div className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={sttChartData}>
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke="rgba(255,255,255,0.03)"
+                    vertical={false}
+                  />
+                  <XAxis
+                    dataKey="years"
+                    stroke="#6b7280"
+                    style={{ fontSize: "11px" }}
+                    tickLine={false}
+                    axisLine={false}
+                    tickFormatter={(value) => `${value}y`}
+                  />
+                  <YAxis
+                    stroke="#6b7280"
+                    style={{ fontSize: "11px" }}
+                    tickLine={false}
+                    axisLine={false}
+                    tickFormatter={(value) =>
+                      value >= 1000000
+                        ? `${(value / 1000000).toFixed(1)}M`
+                        : value >= 1000
+                          ? `${(value / 1000).toFixed(0)}K`
+                          : value.toString()
+                    }
+                    label={{
+                      value: "$STT",
+                      angle: -90,
+                      position: "insideLeft",
+                      fill: "#6b7280",
+                      style: { fontSize: "11px" },
+                    }}
+                  />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: "#0a0a0a",
+                      border: "1px solid rgba(255,255,255,0.05)",
+                      borderRadius: "12px",
+                      padding: "12px",
+                    }}
+                    formatter={(value: number) => [
+                      formatNumber(value) + " $STT",
+                      "Needed Today",
+                    ]}
+                    labelFormatter={(label) => `${label} years to retire`}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="stt"
+                    stroke="#10b981"
+                    strokeWidth={2.5}
+                    dot={{
+                      fill: "#10b981",
+                      r: 4,
+                      strokeWidth: 2,
+                      stroke: "#0a0a0a",
+                    }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+
+            <p className="text-xs text-silver-600 text-center mt-4">
+              $STT tokens needed today to retire with{" "}
+              {AMOUNT_OPTIONS.find((o) => o.value === chartTab)?.label} in X
+              years
+            </p>
           </div>
 
           {/* APY Badge */}
