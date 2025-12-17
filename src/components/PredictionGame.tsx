@@ -270,6 +270,243 @@ export default function PredictionGame() {
           </div>
         </div>
 
+        {/* Leaderboard */}
+        <div className="bg-background-secondary/40 backdrop-blur-md border border-white/5 rounded-3xl p-10 mb-16">
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center gap-3">
+              <div className="w-1 h-12 bg-gradient-to-b from-yellow-500/60 to-yellow-600/70 rounded-full"></div>
+              <h3 className="text-2xl font-bold text-white">Leaderboard</h3>
+            </div>
+          </div>
+
+          {/* Tabs */}
+          <div className="flex flex-wrap gap-2 mb-8 border-b border-white/5 pb-4">
+            <button
+              onClick={() => setActiveTab("accuracy")}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                activeTab === "accuracy"
+                  ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
+                  : "bg-background-primary/30 text-silver-400 hover:text-white border border-white/5"
+              }`}
+            >
+              Most Accurate
+            </button>
+            <button
+              onClick={() => setActiveTab("winnings")}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                activeTab === "winnings"
+                  ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                  : "bg-background-primary/30 text-silver-400 hover:text-white border border-white/5"
+              }`}
+            >
+              Top Winnings
+            </button>
+            <button
+              onClick={() => setActiveTab("weekly")}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                activeTab === "weekly"
+                  ? "bg-violet-500/20 text-violet-400 border border-violet-500/30"
+                  : "bg-background-primary/30 text-silver-400 hover:text-white border border-white/5"
+              }`}
+            >
+              Weekly Winners
+            </button>
+          </div>
+
+          {/* Week Selector for Weekly Winners */}
+          {activeTab === "weekly" && (
+            <div className="mb-6">
+              <label className="block text-xs text-silver-500 mb-2">
+                Select Week
+              </label>
+              <select
+                value={selectedWeek}
+                onChange={(e) => setSelectedWeek(e.target.value)}
+                className="bg-background-primary/50 border border-white/5 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-violet-500/30"
+              >
+                {availableWeeks.map((week) => (
+                  <option key={week} value={week}>
+                    {week}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          {/* Accuracy Leaderboard */}
+          {activeTab === "accuracy" && (
+            <div className="space-y-2">
+              {/* Header */}
+              <div className="grid grid-cols-6 gap-4 px-4 py-2 text-xs text-silver-500 font-medium">
+                <div>Rank</div>
+                <div className="col-span-2">Wallet Address</div>
+                <div className="text-right">Predictions</div>
+                <div className="text-right">Win Rate</div>
+                <div className="text-right">Avg Error</div>
+              </div>
+              {/* Rows */}
+              {accuracyLeaders.map((leader) => (
+                <div
+                  key={leader.rank}
+                  className="grid grid-cols-6 gap-4 px-4 py-3 bg-background-primary/30 rounded-lg border border-white/5 hover:border-blue-500/20 transition-all"
+                >
+                  <div className="flex items-center gap-2">
+                    {leader.rank <= 3 ? (
+                      <span className="text-lg">
+                        {leader.rank === 1
+                          ? "🥇"
+                          : leader.rank === 2
+                          ? "🥈"
+                          : "🥉"}
+                      </span>
+                    ) : (
+                      <span className="text-sm text-silver-500">
+                        #{leader.rank}
+                      </span>
+                    )}
+                  </div>
+                  <div className="col-span-2 flex items-center">
+                    <span className="text-sm text-white font-mono">
+                      {leader.address}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <span className="text-sm text-silver-300">
+                      {leader.predictions}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <span className="text-sm text-blue-400 font-semibold">
+                      {leader.winRate}%
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <span className="text-sm text-silver-300">
+                      ±${leader.avgError}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Winnings Leaderboard */}
+          {activeTab === "winnings" && (
+            <div className="space-y-2">
+              {/* Header */}
+              <div className="grid grid-cols-5 gap-4 px-4 py-2 text-xs text-silver-500 font-medium">
+                <div>Rank</div>
+                <div className="col-span-2">Wallet Address</div>
+                <div className="text-right">Total Winnings</div>
+                <div className="text-right">USD Value</div>
+              </div>
+              {/* Rows */}
+              {winningsLeaders.map((leader) => (
+                <div
+                  key={leader.rank}
+                  className="grid grid-cols-5 gap-4 px-4 py-3 bg-background-primary/30 rounded-lg border border-white/5 hover:border-emerald-500/20 transition-all"
+                >
+                  <div className="flex items-center gap-2">
+                    {leader.rank <= 3 ? (
+                      <span className="text-lg">
+                        {leader.rank === 1
+                          ? "🥇"
+                          : leader.rank === 2
+                          ? "🥈"
+                          : "🥉"}
+                      </span>
+                    ) : (
+                      <span className="text-sm text-silver-500">
+                        #{leader.rank}
+                      </span>
+                    )}
+                  </div>
+                  <div className="col-span-2 flex items-center">
+                    <span className="text-sm text-white font-mono">
+                      {leader.address}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <span className="text-sm text-emerald-400 font-semibold">
+                      {leader.totalWinnings}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <span className="text-sm text-silver-300">
+                      {leader.usdValue}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Weekly Winners Leaderboard */}
+          {activeTab === "weekly" && (
+            <div className="space-y-2">
+              {/* Header */}
+              <div className="grid grid-cols-6 gap-4 px-4 py-2 text-xs text-silver-500 font-medium">
+                <div>Rank</div>
+                <div className="col-span-2">Wallet Address</div>
+                <div className="text-right">Prediction</div>
+                <div className="text-right">Error</div>
+                <div className="text-right">Prize</div>
+              </div>
+              {/* Rows */}
+              {weeklyWinners.map((winner) => (
+                <div
+                  key={winner.rank}
+                  className="grid grid-cols-6 gap-4 px-4 py-3 bg-background-primary/30 rounded-lg border border-white/5 hover:border-violet-500/20 transition-all"
+                >
+                  <div className="flex items-center gap-2">
+                    {winner.rank <= 3 ? (
+                      <span className="text-lg">
+                        {winner.rank === 1
+                          ? "🥇"
+                          : winner.rank === 2
+                          ? "🥈"
+                          : "🥉"}
+                      </span>
+                    ) : (
+                      <span className="text-sm text-silver-500">
+                        #{winner.rank}
+                      </span>
+                    )}
+                  </div>
+                  <div className="col-span-2 flex items-center">
+                    <span className="text-sm text-white font-mono">
+                      {winner.address}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <span className="text-sm text-silver-300">
+                      ${winner.prediction}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <span className="text-sm text-violet-400 font-semibold">
+                      ±${winner.error}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <span className="text-sm text-white font-semibold">
+                      {winner.prize}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Note */}
+          <div className="mt-6 pt-6 border-t border-white/5">
+            <p className="text-xs text-silver-600 text-center">
+              Demo data shown - Real leaderboard will be populated when the game
+              goes live
+            </p>
+          </div>
+        </div>
+
         {/* LBMA Silver Price Chart */}
         <div className="bg-background-secondary/40 backdrop-blur-md border border-white/5 rounded-3xl p-10 mb-16">
           <div className="flex items-center justify-between mb-8">
@@ -554,243 +791,6 @@ export default function PredictionGame() {
                 restrictions; terms may be updated with notice.
               </p>
             </div>
-          </div>
-        </div>
-
-        {/* Leaderboard */}
-        <div className="bg-background-secondary/40 backdrop-blur-md border border-white/5 rounded-3xl p-10">
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-3">
-              <div className="w-1 h-12 bg-gradient-to-b from-yellow-500/60 to-yellow-600/70 rounded-full"></div>
-              <h3 className="text-2xl font-bold text-white">Leaderboard</h3>
-            </div>
-          </div>
-
-          {/* Tabs */}
-          <div className="flex flex-wrap gap-2 mb-8 border-b border-white/5 pb-4">
-            <button
-              onClick={() => setActiveTab("accuracy")}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                activeTab === "accuracy"
-                  ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
-                  : "bg-background-primary/30 text-silver-400 hover:text-white border border-white/5"
-              }`}
-            >
-              Most Accurate
-            </button>
-            <button
-              onClick={() => setActiveTab("winnings")}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                activeTab === "winnings"
-                  ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-                  : "bg-background-primary/30 text-silver-400 hover:text-white border border-white/5"
-              }`}
-            >
-              Top Winnings
-            </button>
-            <button
-              onClick={() => setActiveTab("weekly")}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                activeTab === "weekly"
-                  ? "bg-violet-500/20 text-violet-400 border border-violet-500/30"
-                  : "bg-background-primary/30 text-silver-400 hover:text-white border border-white/5"
-              }`}
-            >
-              Weekly Winners
-            </button>
-          </div>
-
-          {/* Week Selector for Weekly Winners */}
-          {activeTab === "weekly" && (
-            <div className="mb-6">
-              <label className="block text-xs text-silver-500 mb-2">
-                Select Week
-              </label>
-              <select
-                value={selectedWeek}
-                onChange={(e) => setSelectedWeek(e.target.value)}
-                className="bg-background-primary/50 border border-white/5 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-violet-500/30"
-              >
-                {availableWeeks.map((week) => (
-                  <option key={week} value={week}>
-                    {week}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
-
-          {/* Accuracy Leaderboard */}
-          {activeTab === "accuracy" && (
-            <div className="space-y-2">
-              {/* Header */}
-              <div className="grid grid-cols-6 gap-4 px-4 py-2 text-xs text-silver-500 font-medium">
-                <div>Rank</div>
-                <div className="col-span-2">Wallet Address</div>
-                <div className="text-right">Predictions</div>
-                <div className="text-right">Win Rate</div>
-                <div className="text-right">Avg Error</div>
-              </div>
-              {/* Rows */}
-              {accuracyLeaders.map((leader) => (
-                <div
-                  key={leader.rank}
-                  className="grid grid-cols-6 gap-4 px-4 py-3 bg-background-primary/30 rounded-lg border border-white/5 hover:border-blue-500/20 transition-all"
-                >
-                  <div className="flex items-center gap-2">
-                    {leader.rank <= 3 ? (
-                      <span className="text-lg">
-                        {leader.rank === 1
-                          ? "🥇"
-                          : leader.rank === 2
-                          ? "🥈"
-                          : "🥉"}
-                      </span>
-                    ) : (
-                      <span className="text-sm text-silver-500">
-                        #{leader.rank}
-                      </span>
-                    )}
-                  </div>
-                  <div className="col-span-2 flex items-center">
-                    <span className="text-sm text-white font-mono">
-                      {leader.address}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-end">
-                    <span className="text-sm text-silver-300">
-                      {leader.predictions}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-end">
-                    <span className="text-sm text-blue-400 font-semibold">
-                      {leader.winRate}%
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-end">
-                    <span className="text-sm text-silver-300">
-                      ±${leader.avgError}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Winnings Leaderboard */}
-          {activeTab === "winnings" && (
-            <div className="space-y-2">
-              {/* Header */}
-              <div className="grid grid-cols-5 gap-4 px-4 py-2 text-xs text-silver-500 font-medium">
-                <div>Rank</div>
-                <div className="col-span-2">Wallet Address</div>
-                <div className="text-right">Total Winnings</div>
-                <div className="text-right">USD Value</div>
-              </div>
-              {/* Rows */}
-              {winningsLeaders.map((leader) => (
-                <div
-                  key={leader.rank}
-                  className="grid grid-cols-5 gap-4 px-4 py-3 bg-background-primary/30 rounded-lg border border-white/5 hover:border-emerald-500/20 transition-all"
-                >
-                  <div className="flex items-center gap-2">
-                    {leader.rank <= 3 ? (
-                      <span className="text-lg">
-                        {leader.rank === 1
-                          ? "🥇"
-                          : leader.rank === 2
-                          ? "🥈"
-                          : "🥉"}
-                      </span>
-                    ) : (
-                      <span className="text-sm text-silver-500">
-                        #{leader.rank}
-                      </span>
-                    )}
-                  </div>
-                  <div className="col-span-2 flex items-center">
-                    <span className="text-sm text-white font-mono">
-                      {leader.address}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-end">
-                    <span className="text-sm text-emerald-400 font-semibold">
-                      {leader.totalWinnings}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-end">
-                    <span className="text-sm text-silver-300">
-                      {leader.usdValue}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Weekly Winners Leaderboard */}
-          {activeTab === "weekly" && (
-            <div className="space-y-2">
-              {/* Header */}
-              <div className="grid grid-cols-6 gap-4 px-4 py-2 text-xs text-silver-500 font-medium">
-                <div>Rank</div>
-                <div className="col-span-2">Wallet Address</div>
-                <div className="text-right">Prediction</div>
-                <div className="text-right">Error</div>
-                <div className="text-right">Prize</div>
-              </div>
-              {/* Rows */}
-              {weeklyWinners.map((winner) => (
-                <div
-                  key={winner.rank}
-                  className="grid grid-cols-6 gap-4 px-4 py-3 bg-background-primary/30 rounded-lg border border-white/5 hover:border-violet-500/20 transition-all"
-                >
-                  <div className="flex items-center gap-2">
-                    {winner.rank <= 3 ? (
-                      <span className="text-lg">
-                        {winner.rank === 1
-                          ? "🥇"
-                          : winner.rank === 2
-                          ? "🥈"
-                          : "🥉"}
-                      </span>
-                    ) : (
-                      <span className="text-sm text-silver-500">
-                        #{winner.rank}
-                      </span>
-                    )}
-                  </div>
-                  <div className="col-span-2 flex items-center">
-                    <span className="text-sm text-white font-mono">
-                      {winner.address}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-end">
-                    <span className="text-sm text-silver-300">
-                      ${winner.prediction}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-end">
-                    <span className="text-sm text-violet-400 font-semibold">
-                      ±${winner.error}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-end">
-                    <span className="text-sm text-white font-semibold">
-                      {winner.prize}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Note */}
-          <div className="mt-6 pt-6 border-t border-white/5">
-            <p className="text-xs text-silver-600 text-center">
-              Demo data shown - Real leaderboard will be populated when the game
-              goes live
-            </p>
           </div>
         </div>
       </div>
