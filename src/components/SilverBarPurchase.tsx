@@ -14,11 +14,11 @@ export default function SilverBarPurchase() {
     fetchData();
   }, [fetchData]);
 
-  // Calculate per kg price: (per oz × 35.1207465) + $65 surcharge
-  const pricePerKg = useMemo(() => {
+  // Calculate per 500g price: (per oz × 16.075) + $32.50 surcharge
+  const pricePerBar = useMemo(() => {
     if (!currentPrice) return null;
-    const calculatedKgPrice = currentPrice * 35.1207465 + 65;
-    return parseFloat(calculatedKgPrice.toFixed(2));
+    const calculatedPrice = currentPrice * 16.075 + 32.5;
+    return parseFloat(calculatedPrice.toFixed(2));
   }, [currentPrice]);
 
   return (
@@ -27,7 +27,7 @@ export default function SilverBarPurchase() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         quantity={quantity}
-        pricePerKg={pricePerKg}
+        pricePerBar={pricePerBar}
       />
     <section className="relative bg-background-primary py-32 px-4 overflow-hidden">
       {/* Background effects */}
@@ -45,7 +45,7 @@ export default function SilverBarPurchase() {
             </span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            Purchase 1kg Silver Bar
+            Purchase 500g Silver Bar
           </h2>
           <p className="text-base text-silver-400 max-w-3xl mx-auto">
             Own physical silver delivered to your doorstep.
@@ -62,7 +62,7 @@ export default function SilverBarPurchase() {
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-violet-500/20 rounded-3xl blur-3xl"></div>
               <img
                 src="/silver.jpeg"
-                alt="1kg Silver Bar"
+                alt="500g Silver Bar"
                 className="relative z-10 w-full max-w-md rounded-2xl"
               />
             </div>
@@ -72,7 +72,7 @@ export default function SilverBarPurchase() {
           <div className="bg-background-secondary/40 backdrop-blur-md border border-white/5 rounded-3xl p-10">
             <div className="mb-8">
               <h3 className="text-2xl font-bold text-white mb-4">
-                1kg Fine Silver Bar
+                500g Fine Silver Bar
               </h3>
               <div className="mb-6">
                 {isLoading ? (
@@ -83,12 +83,12 @@ export default function SilverBarPurchase() {
                   <div className="flex items-baseline gap-4">
                     <span className="text-6xl font-bold text-white">
                       $
-                      {pricePerKg?.toLocaleString("en-US", {
+                      {pricePerBar?.toLocaleString("en-US", {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
                     </span>
-                    <span className="text-silver-400 text-lg">/kg</span>
+                    <span className="text-silver-400 text-lg">/bar</span>
                   </div>
                 )}
               </div>
@@ -97,7 +97,7 @@ export default function SilverBarPurchase() {
               <div className="space-y-4 mb-8">
                 <div className="flex items-center justify-between py-3 border-b border-white/5">
                   <span className="text-silver-400 text-sm">Weight</span>
-                  <span className="text-white font-semibold">1000g</span>
+                  <span className="text-white font-semibold">500g</span>
                 </div>
                 <div className="flex items-center justify-between py-3 border-b border-white/5">
                   <span className="text-silver-400 text-sm">Purity</span>
@@ -171,7 +171,7 @@ export default function SilverBarPurchase() {
 
             <div className="space-y-4 text-sm text-silver-400">
               <p>
-                Our 1kg silver bars are manufactured by SilverTimes to the
+                Our 500g silver bars are manufactured by SilverTimes to the
                 highest standards. Each bar is melted and produced from LBMA
                 (London Bullion Market Association) Good Delivery standards.
               </p>
@@ -194,7 +194,7 @@ export default function SilverBarPurchase() {
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
-                    <span>Weight: 1000 grams (32.15 troy ounces)</span>
+                    <span>Weight: 500 grams (16.08 troy ounces)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
@@ -202,7 +202,7 @@ export default function SilverBarPurchase() {
                   </li>
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
-                    <span>Dimensions: Approximately 117mm x 53mm x 17mm</span>
+                    <span>Dimensions: Approximately 90mm x 45mm x 12mm</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
@@ -238,7 +238,7 @@ export default function SilverBarPurchase() {
                   <p className="font-semibold text-white mb-1">Delivery Fee</p>
                   <p>
                     All delivery and shipping costs for physical silver
-                    redemption (including the 1 kg bar) will be borne by the
+                    redemption (including the 500g bar) will be borne by the
                     customer. Fees may vary based on destination, courier
                     selection, and insurance requirements.
                   </p>

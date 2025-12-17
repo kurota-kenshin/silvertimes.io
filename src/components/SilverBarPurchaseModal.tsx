@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 interface SilverBarPurchaseModalProps {
   isOpen: boolean;
   onClose: () => void;
   quantity: number;
-  pricePerKg: number | null;
+  pricePerBar: number | null;
 }
 
 const CONTACT_EMAIL = "contact@silvertimes.io";
@@ -13,7 +14,7 @@ export default function SilverBarPurchaseModal({
   isOpen,
   onClose,
   quantity,
-  pricePerKg,
+  pricePerBar,
 }: SilverBarPurchaseModalProps) {
   const [formData, setFormData] = useState({
     name: "",
@@ -22,7 +23,7 @@ export default function SilverBarPurchaseModal({
     address: "",
   });
 
-  const totalPrice = pricePerKg ? pricePerKg * quantity : 0;
+  const totalPrice = pricePerBar ? pricePerBar * quantity : 0;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,9 +40,9 @@ export default function SilverBarPurchaseModal({
         `Phone: ${formData.phone}\n` +
         `Delivery Address: ${formData.address}\n\n` +
         `Order Details:\n` +
-        `Product: 1kg Fine Silver Bar (999.9)\n` +
+        `Product: 500g Fine Silver Bar (999.9)\n` +
         `Quantity: ${quantity}\n` +
-        `Price per kg: $${pricePerKg?.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n` +
+        `Price per bar: $${pricePerBar?.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n` +
         `Total Amount: $${totalPrice.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}\n\n` +
         `Payment Method: Cryptocurrency\n\n` +
         `Please contact me to arrange payment and delivery.`
@@ -102,17 +103,17 @@ export default function SilverBarPurchaseModal({
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
                 <span className="text-silver-400">Product</span>
-                <span className="text-white">1kg Fine Silver Bar</span>
+                <span className="text-white">500g Fine Silver Bar</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-silver-400">Quantity</span>
                 <span className="text-white">{quantity}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-silver-400">Price per kg</span>
+                <span className="text-silver-400">Price per bar</span>
                 <span className="text-white">
                   $
-                  {pricePerKg?.toLocaleString("en-US", {
+                  {pricePerBar?.toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
@@ -250,8 +251,15 @@ export default function SilverBarPurchaseModal({
             </button>
 
             <p className="text-xs text-silver-500 text-center">
-              By submitting, you agree to our terms and conditions. Delivery
-              fees will be calculated based on your location.
+              By submitting, you agree to our{" "}
+              <Link
+                to="/products"
+                className="text-blue-400 hover:text-blue-300 underline"
+                onClick={onClose}
+              >
+                Delivery Terms and Conditions
+              </Link>
+              . Delivery fees will be calculated based on your location.
             </p>
           </form>
         </div>
