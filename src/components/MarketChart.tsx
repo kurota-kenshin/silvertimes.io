@@ -8,11 +8,12 @@ import {
   LineChart,
   Legend,
 } from "recharts";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSilverPriceStore } from "../store/silverPriceStore";
 
 // Financial Freedom Calculator constants
 const SILVER_APY = 0.14; // 14% APY
-const SILVER_PRICE = 32.5; // Fixed price per oz
+const FALLBACK_SILVER_PRICE = 32.5; // Fallback price per oz
 
 const YEARS_OPTIONS = [10, 20, 30];
 const AMOUNT_OPTIONS = [
@@ -21,11 +22,11 @@ const AMOUNT_OPTIONS = [
   { value: 10000000, label: "$10M" },
 ];
 
-// Pre-calculate results for all combinations to avoid re-renders
-const calculateResult = (years: number, amount: number) => {
+// Calculate results based on years, amount, and current silver price
+const calculateResult = (years: number, amount: number, silverPrice: number) => {
   const n = Math.max(0, years);
   const pv = n > 0 ? amount / Math.pow(1 + SILVER_APY, n) : amount;
-  const silverOunces = pv / SILVER_PRICE;
+  const silverOunces = pv / silverPrice;
   // 1 STT = 1 oz of silver
   return { presentValue: pv, silverOunces, sttAmount: silverOunces, years: n };
 };
@@ -56,11 +57,19 @@ const supplyDemandData = [
 ];
 
 export default function MarketChart() {
+  const { currentPrice, fetchData } = useSilverPriceStore();
   const [investAmount, setInvestAmount] = useState(100);
   const [retirementYears, setRetirementYears] = useState(20);
   const [targetAmount, setTargetAmount] = useState(1000000);
 
-  const calculation = calculateResult(retirementYears, targetAmount);
+  // Fetch silver price on mount
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  // Use current price from store or fallback
+  const silverPrice = currentPrice ?? FALLBACK_SILVER_PRICE;
+  const calculation = calculateResult(retirementYears, targetAmount, silverPrice);
 
   const formatNumber = (value: number) => {
     return new Intl.NumberFormat("en-US", {
@@ -471,7 +480,7 @@ export default function MarketChart() {
           <div className="mt-4 text-center">
             <p className="text-xs text-silver-600">
               Past performance does not guarantee future results. Silver price:
-              ${SILVER_PRICE.toFixed(2)}/oz.
+              ${silverPrice.toFixed(2)}/oz.
             </p>
           </div>
         </div>
