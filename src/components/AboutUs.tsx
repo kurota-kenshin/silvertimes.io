@@ -50,7 +50,7 @@ export default function AboutUs() {
       </section>
 
       {/* Mission & Vision Section */}
-      <section className="py-24 px-4">
+      <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8">
             {/* Mission */}
@@ -85,7 +85,7 @@ export default function AboutUs() {
       </section>
 
       {/* Why Silver Section */}
-      <section className="py-24 px-4">
+      <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -158,7 +158,7 @@ export default function AboutUs() {
       </section>
 
       {/* Background Section */}
-      <section className="py-24 px-4">
+      <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-3xl p-12">
             <div className="flex items-center gap-3 mb-8">
@@ -268,7 +268,7 @@ export default function AboutUs() {
       </section>
 
       {/* Team Values Section */}
-      <section className="py-24 px-4 mb-32">
+      <section className="py-16 px-4 mb-16">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">

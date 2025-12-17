@@ -7,10 +7,14 @@ set -e  # Exit on error
 
 echo "🚀 Starting SilverTimes deployment..."
 
-# AWS credentials should be set in your environment or AWS CLI config
-# export AWS_ACCESS_KEY_ID=your_access_key_here
-# export AWS_SECRET_ACCESS_KEY=your_secret_key_here
-export AWS_DEFAULT_REGION=ap-southeast-1
+# Load AWS credentials from .env file
+if [ -f .env ]; then
+    export $(cat .env | xargs)
+    echo "✅ Loaded AWS credentials from .env"
+else
+    echo "❌ .env file not found!"
+    exit 1
+fi
 
 # S3 bucket name
 BUCKET_NAME="silvertimes.io"
