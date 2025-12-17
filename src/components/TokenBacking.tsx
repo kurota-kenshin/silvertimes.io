@@ -111,7 +111,7 @@ export default function TokenBacking() {
               <div className="flex flex-wrap items-center justify-center gap-8 text-xs text-silver-600">
                 <div className="flex items-center gap-2">
                   <div className="w-1 h-1 rounded-full bg-blue-500/50"></div>
-                  <span>Physical Assets</span>
+                  <span>Physical Assets & Strategic Positions</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-1 h-1 rounded-full bg-emerald-500/50"></div>
@@ -208,8 +208,8 @@ export default function TokenBacking() {
                   Zero Storage Fee
                 </h4>
                 <p className="text-xs text-silver-500 leading-relaxed">
-                  Enjoy zero storage fees when you invest in digital silver—no
-                  costly vaults or logistics needed compared to physical silver
+                  0% storage fees and streamlined infrastructure, allowing
+                  greater gross yield to flow directly to holders.
                 </p>
               </div>
             </div>
@@ -237,8 +237,9 @@ export default function TokenBacking() {
                   24/7 Trading
                 </h4>
                 <p className="text-xs text-silver-500 leading-relaxed">
-                  Trade silver anytime, anywhere. We enable 24/7 access, letting
-                  you buy or sell instantly regardless of market hours
+                  Trade silver anytime, anywhere. We enable 24/7 transferability
+                  and exchange access ensure capital remains fully liquid while
+                  generating returns.
                 </p>
               </div>
             </div>
