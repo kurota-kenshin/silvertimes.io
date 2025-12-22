@@ -63,7 +63,7 @@ export default function HeroCorrect() {
             It's Silver Time.
           </h1>
 
-          <div className="flex items-center gap-3 pointer-events-auto">
+{/* <div className="flex items-center gap-3 pointer-events-auto">
             <Link
               to="/prediction"
               className="group px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold text-base hover:bg-blue-600 transition-all inline-flex items-center gap-2"
@@ -103,7 +103,7 @@ export default function HeroCorrect() {
                 />
               </svg>
             </button>
-          </div>
+          </div> */}
         </div>
 
         {/* Stats bar at bottom */}

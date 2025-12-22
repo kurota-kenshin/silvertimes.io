@@ -37,36 +37,36 @@ export default function NavEthena() {
             >
               Home
             </Link>
-            <Link
+            {/* <Link
               to="/prediction"
               className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
             >
               Prediction
-            </Link>
-            <Link
+            </Link> */}
+            {/* <Link
               to="/products"
               className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
             >
               Product
-            </Link>
+            </Link> */}
             <Link
               to="/about"
               className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
             >
               About
             </Link>
-            <Link
+            {/* <Link
               to="/news"
               className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
             >
               News
-            </Link>
-            <Link
+            </Link> */}
+            {/* <Link
               to="/blog"
               className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
             >
               Blog
-            </Link>
+            </Link> */}
             <Link
               to="/docs"
               className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
@@ -90,12 +90,12 @@ export default function NavEthena() {
                 14% Silver APY
               </span>
             </div>
-            <button
+{/* <button
               onClick={() => setIsModalOpen(true)}
               className="px-4 py-1.5 bg-white text-black rounded-lg font-medium hover:bg-silver-200 transition-all text-sm"
             >
               Get $STT
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
