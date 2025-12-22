@@ -15,80 +15,24 @@ const documents: Document[] = [
     title: "SilverTimes Whitepaper",
     category: "Whitepaper",
     year: "2025",
-    downloadUrl: "https://silvertimes.gitbook.io/silvertimes-docs/",
+    downloadUrl: "/docs/Silvertimes whitepaper v 5_28112025.pdf",
     description: "Comprehensive overview of SilverTimes protocol and tokenomics",
   },
   {
     id: "2",
-    title: "Technical Specification Document",
+    title: "One-Pager",
     category: "Project Documents",
     year: "2025",
-    downloadUrl: "https://silvertimes.gitbook.io/silvertimes-docs/",
-    description: "Detailed technical architecture and implementation",
+    downloadUrl: "/docs/Well Charm Group Limited CI-01683 2025-12-03 17500.00 USD.pdf",
+    description: "SilverTimes project overview and key highlights",
   },
   {
     id: "3",
-    title: "2025 Annual Audit Report",
-    category: "Audit Reports",
-    year: "2025",
-    downloadUrl: "#",
-    description: "Independent third-party audit of silver reserves and smart contracts",
-  },
-  {
-    id: "4",
-    title: "2024 Annual Audit Report",
-    category: "Audit Reports",
-    year: "2024",
-    downloadUrl: "#",
-    description: "Complete audit findings and reserve verification for 2024",
-  },
-  {
-    id: "5",
-    title: "November 2025 Inventory Slip",
-    category: "Monthly Inventory",
-    year: "2025",
-    downloadUrl: "#",
-    description: "Physical silver inventory verification for November 2025",
-  },
-  {
-    id: "6",
-    title: "October 2025 Inventory Slip",
-    category: "Monthly Inventory",
-    year: "2025",
-    downloadUrl: "#",
-    description: "Physical silver inventory verification for October 2025",
-  },
-  {
-    id: "7",
-    title: "September 2025 Inventory Slip",
-    category: "Monthly Inventory",
-    year: "2025",
-    downloadUrl: "#",
-    description: "Physical silver inventory verification for September 2025",
-  },
-  {
-    id: "8",
-    title: "Q3 2025 Financial Statements",
-    category: "Financial Reports",
-    year: "2025",
-    downloadUrl: "#",
-    description: "Quarterly financial performance and reserve status",
-  },
-  {
-    id: "9",
-    title: "Smart Contract Audit Report",
-    category: "Security Reports",
-    year: "2025",
-    downloadUrl: "#",
-    description: "Comprehensive security audit by leading blockchain security firm",
-  },
-  {
-    id: "10",
-    title: "Tokenomics Model v2.0",
+    title: "Branding Guideline",
     category: "Project Documents",
     year: "2025",
-    downloadUrl: "https://silvertimes.gitbook.io/silvertimes-docs/",
-    description: "Updated economic model and token distribution mechanics",
+    downloadUrl: "/docs/SilverTimes BrandGuideline.pdf",
+    description: "Official SilverTimes brand assets and usage guidelines",
   },
 ];
 
@@ -96,13 +40,9 @@ const categories = [
   "All categories",
   "Whitepaper",
   "Project Documents",
-  "Audit Reports",
-  "Monthly Inventory",
-  "Financial Reports",
-  "Security Reports",
 ];
 
-const years = ["All years", "2025", "2024", "2023"];
+const years = ["All years", "2025"];
 
 export default function Docs() {
   const [selectedCategory, setSelectedCategory] = useState("All categories");
