@@ -9,17 +9,17 @@ export default function TokenBacking() {
     },
     {
       percentage: "50%",
-      title: "Money Market Investments",
-      description: "Liquid reserves for operational flexibility",
-      color: "emerald",
+      title: "Silver Futures",
+      description: "Strategic positions",
+      color: "blue",
       gradient: "from-blue-500/60 to-blue-600/70",
     },
     {
       percentage: "50%",
-      title: "Silver Futures",
-      description: "Strategic positions",
-      color: "violet",
-      gradient: "from-violet-500/60 to-violet-600/70",
+      title: "Money Market Investments",
+      description: "Liquid reserves for operational flexibility",
+      color: "emerald",
+      gradient: "from-emerald-500/60 to-emerald-600/70",
     },
   ];
 
@@ -66,7 +66,7 @@ export default function TokenBacking() {
                   style={{ width: "33.33%" }}
                 ></div>
                 <div
-                  className="bg-gradient-to-r from-violet-500/40 to-violet-600/50 transition-all duration-500 hover:opacity-80"
+                  className="bg-gradient-to-r from-emerald-500/50 to-emerald-600/60 transition-all duration-500 hover:opacity-80"
                   style={{ width: "33.33%" }}
                 ></div>
               </div>
@@ -116,10 +116,6 @@ export default function TokenBacking() {
                 <div className="flex items-center gap-2">
                   <div className="w-1 h-1 rounded-full bg-emerald-500/50"></div>
                   <span>Liquid Reserves</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-1 h-1 rounded-full bg-violet-500/50"></div>
-                  <span>Strategic Positions</span>
                 </div>
               </div>
             </div>
