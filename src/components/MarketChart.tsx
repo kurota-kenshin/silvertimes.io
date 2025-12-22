@@ -506,6 +506,13 @@ export default function MarketChart() {
                     tickLine={false}
                     axisLine={false}
                     tickFormatter={(value) => `${value}y`}
+                    label={{
+                      value: "Years from retiring",
+                      position: "insideBottom",
+                      offset: -5,
+                      fill: "#9ca3af",
+                      style: { fontSize: "11px" },
+                    }}
                   />
                   <YAxis
                     stroke="#6b7280"
@@ -520,10 +527,10 @@ export default function MarketChart() {
                           : value.toString()
                     }
                     label={{
-                      value: "$STT",
+                      value: "Number of STT needed today",
                       angle: -90,
                       position: "insideLeft",
-                      fill: "#6b7280",
+                      fill: "#9ca3af",
                       style: { fontSize: "11px" },
                     }}
                   />
