@@ -15,15 +15,17 @@ const documents: Document[] = [
     title: "SilverTimes Whitepaper",
     category: "Whitepaper",
     year: "2025",
-    downloadUrl: "/docs/Silvertimes whitepaper v 5_28112025.pdf",
-    description: "Comprehensive overview of SilverTimes protocol and tokenomics",
+    downloadUrl: "/docs/SilverTimes Token whitepaper_v6.pdf",
+    description:
+      "Comprehensive overview of SilverTimes protocol and tokenomics",
   },
   {
     id: "2",
     title: "One-Pager",
     category: "Project Documents",
     year: "2025",
-    downloadUrl: "/docs/Well Charm Group Limited CI-01683 2025-12-03 17500.00 USD.pdf",
+    downloadUrl:
+      "/docs/Well Charm Group Limited CI-01683 2025-12-03 17500.00 USD.pdf",
     description: "SilverTimes project overview and key highlights",
   },
   {
@@ -36,11 +38,7 @@ const documents: Document[] = [
   },
 ];
 
-const categories = [
-  "All categories",
-  "Whitepaper",
-  "Project Documents",
-];
+const categories = ["All categories", "Whitepaper", "Project Documents"];
 
 const years = ["All years", "2025"];
 
@@ -51,7 +49,9 @@ export default function Docs() {
   const [yearOpen, setYearOpen] = useState(false);
 
   const filteredDocs = documents.filter((doc) => {
-    const categoryMatch = selectedCategory === "All categories" || doc.category === selectedCategory;
+    const categoryMatch =
+      selectedCategory === "All categories" ||
+      doc.category === selectedCategory;
     const yearMatch = selectedYear === "All years" || doc.year === selectedYear;
     return categoryMatch && yearMatch;
   });
@@ -64,7 +64,8 @@ export default function Docs() {
           Docs
         </h1>
         <p className="text-xl text-silver-300 text-center max-w-3xl mx-auto mb-12">
-          Get closer to the detail with a look through our historical reports and documentation.
+          Get closer to the detail with a look through our historical reports
+          and documentation.
         </p>
 
         {/* CTA Buttons */}
@@ -100,12 +101,19 @@ export default function Docs() {
             >
               <span>{selectedYear}</span>
               <svg
-                className={`w-4 h-4 transition-transform ${yearOpen ? "rotate-180" : ""}`}
+                className={`w-4 h-4 transition-transform ${
+                  yearOpen ? "rotate-180" : ""
+                }`}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </button>
             {yearOpen && (
@@ -118,7 +126,9 @@ export default function Docs() {
                       setYearOpen(false);
                     }}
                     className={`w-full px-6 py-3 text-left hover:bg-white/5 transition-colors ${
-                      selectedYear === year ? "text-blue-400" : "text-silver-300"
+                      selectedYear === year
+                        ? "text-blue-400"
+                        : "text-silver-300"
                     }`}
                   >
                     {year}
@@ -139,12 +149,19 @@ export default function Docs() {
             >
               <span>{selectedCategory}</span>
               <svg
-                className={`w-4 h-4 transition-transform ${categoryOpen ? "rotate-180" : ""}`}
+                className={`w-4 h-4 transition-transform ${
+                  categoryOpen ? "rotate-180" : ""
+                }`}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </button>
             {categoryOpen && (
@@ -157,7 +174,9 @@ export default function Docs() {
                       setCategoryOpen(false);
                     }}
                     className={`w-full px-6 py-3 text-left hover:bg-white/5 transition-colors ${
-                      selectedCategory === category ? "text-blue-400 bg-white/5" : "text-silver-300"
+                      selectedCategory === category
+                        ? "text-blue-400 bg-white/5"
+                        : "text-silver-300"
                     }`}
                   >
                     {category}
@@ -196,7 +215,12 @@ export default function Docs() {
                   )}
                   <div className="mt-4 flex items-center gap-2 text-sm text-blue-400/80 font-medium">
                     <span>Download</span>
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -213,7 +237,12 @@ export default function Docs() {
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
                   </svg>
                 </div>
               </div>
@@ -223,7 +252,9 @@ export default function Docs() {
 
         {filteredDocs.length === 0 && (
           <div className="text-center py-20">
-            <p className="text-silver-400 text-lg">No documents found matching your filters.</p>
+            <p className="text-silver-400 text-lg">
+              No documents found matching your filters.
+            </p>
           </div>
         )}
       </div>
