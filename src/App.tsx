@@ -1,20 +1,20 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import NavEthena from './components/NavEthena'
-import HeroCorrect from './components/HeroCorrect'
-import ValueProposition from './components/ValueProposition'
-import TokenBacking from './components/TokenBacking'
-import MarketChart from './components/MarketChart'
-import HowItWorks from './components/HowItWorks'
-import Tokenomics from './components/Tokenomics'
-import Footer from './components/Footer'
-import SilverBarPurchase from './components/SilverBarPurchase'
-import PredictionGame from './components/PredictionGame'
-import RewardsTerms from './components/RewardsTerms'
-import AboutUs from './components/AboutUs'
-import Blog from './components/Blog'
-import News from './components/News'
-import Docs from './components/Docs'
-import ContactButton from './components/ContactButton'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import NavEthena from "./components/NavEthena";
+import HeroCorrect from "./components/HeroCorrect";
+import ValueProposition from "./components/ValueProposition";
+import TokenBacking from "./components/TokenBacking";
+import MarketChart from "./components/MarketChart";
+import HowItWorks from "./components/HowItWorks";
+import Tokenomics from "./components/Tokenomics";
+import Footer from "./components/Footer";
+import SilverBarPurchase from "./components/SilverBarPurchase";
+import PredictionGame from "./components/PredictionGame";
+import RewardsTerms from "./components/RewardsTerms";
+import AboutUs from "./components/AboutUs";
+import Blog from "./components/Blog";
+import News from "./components/News";
+import Docs from "./components/Docs";
+// import ContactButton from './components/ContactButton'
 
 function HomePage() {
   return (
@@ -26,7 +26,7 @@ function HomePage() {
       <HowItWorks />
       <Tokenomics />
     </>
-  )
+  );
 }
 
 function App() {
@@ -45,10 +45,10 @@ function App() {
           <Route path="/docs" element={<Docs />} />
         </Routes>
         <Footer />
-        <ContactButton />
+        {/* <ContactButton /> */}
       </div>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
