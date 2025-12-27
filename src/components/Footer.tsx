@@ -121,7 +121,7 @@ export default function Footer() {
               </li> */}
               <li>
                 <a
-                  href="/about"
+                  href="mailto:marketing@silvertimes.io"
                   className="text-xs text-silver-500 hover:text-white transition-colors"
                 >
                   Contact
