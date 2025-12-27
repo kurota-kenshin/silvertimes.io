@@ -76,7 +76,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="#"
+                  href="/docs"
                   className="text-xs text-silver-500 hover:text-white transition-colors"
                 >
                   How It Works
@@ -97,7 +97,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="#"
+                  href="/about"
                   className="text-xs text-silver-500 hover:text-white transition-colors"
                 >
                   About Us
@@ -121,7 +121,7 @@ export default function Footer() {
               </li> */}
               <li>
                 <a
-                  href="#"
+                  href="/about"
                   className="text-xs text-silver-500 hover:text-white transition-colors"
                 >
                   Contact
@@ -146,7 +146,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="#"
+                  href="/docs"
                   className="text-xs text-silver-500 hover:text-white transition-colors"
                 >
                   Documentation
