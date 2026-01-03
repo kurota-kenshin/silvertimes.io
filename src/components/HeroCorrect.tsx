@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import PixelBlast from "./PixelBlast";
 // import { Link } from "react-router-dom";
 import GetSTTModal from "./GetSTTModal";
-import { useSilverPriceStore } from "../store/silverPriceStore";
+import { useSilverPriceStore, getFormattedAPY } from "../store/silverPriceStore";
 
 export default function HeroCorrect() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,10 +19,10 @@ export default function HeroCorrect() {
     : "$32.50/oz";
 
   const stats = [
-    { value: "14%", label: "Silver APY" },
+    { value: getFormattedAPY(), label: "Silver APY" },
     { value: priceDisplay, label: "Current Price" },
     { value: "$10M", label: "TVL" },
-    { value: "205,000", label: "$STT SUPPLY" },
+    { value: "130,000", label: "$STT SUPPLY" },
     { value: ">1,000", label: "USERS" },
   ];
 

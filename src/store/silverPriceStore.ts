@@ -1,12 +1,45 @@
 import { create } from 'zustand'
 import { fetchSilverPriceData, PriceData } from '../services/silverPriceService'
 
+// Historical silver prices for 5-year average APY calculation (annual averages)
+const HISTORICAL_SILVER_PRICES = [
+  { year: 2020, price: 20.55 },
+  { year: 2021, price: 25.14 },
+  { year: 2022, price: 21.73 },
+  { year: 2023, price: 23.35 },
+  { year: 2024, price: 28.27 },
+];
+
+// Calculate 5-year CAGR (Compound Annual Growth Rate)
+export function calculateFiveYearAPY(): number {
+  const startPrice = HISTORICAL_SILVER_PRICES[0].price; // 2020
+  const endPrice = HISTORICAL_SILVER_PRICES[HISTORICAL_SILVER_PRICES.length - 1].price; // 2024
+  const years = HISTORICAL_SILVER_PRICES.length - 1; // 4 years
+
+  // CAGR formula: (EndValue/StartValue)^(1/years) - 1
+  const cagr = Math.pow(endPrice / startPrice, 1 / years) - 1;
+  return cagr;
+}
+
+// Get formatted APY string (e.g., "8%" or "8.3%")
+export function getFormattedAPY(): string {
+  const apy = calculateFiveYearAPY() * 100;
+  // Round to nearest integer if close, otherwise show one decimal
+  return apy % 1 < 0.1 || apy % 1 > 0.9
+    ? `${Math.round(apy)}%`
+    : `${apy.toFixed(1)}%`;
+}
+
+// Get the APY as a decimal for calculations
+export const SILVER_APY = calculateFiveYearAPY();
+
 interface SilverPriceState {
   currentPrice: number | null
   weeklyData: PriceData[]
   isLoading: boolean
   error: string | null
   lastUpdated: Date | null
+  silverAPY: number
 
   // Actions
   fetchData: () => Promise<void>
@@ -35,6 +68,7 @@ export const useSilverPriceStore = create<SilverPriceState>((set) => ({
   isLoading: true,
   error: null,
   lastUpdated: null,
+  silverAPY: SILVER_APY,
 
   fetchData: async () => {
     set({ isLoading: true, error: null })

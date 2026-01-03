@@ -58,9 +58,17 @@ const blogPosts: BlogPost[] = [
     image: "/silver.jpeg",
     excerpt: "Exploring how STT holders can earn yields through DeFi integration.",
   },
+  {
+    id: "7",
+    title: "Weekly Market Summary: Silver Surges on Industrial Demand",
+    category: "Weekly Market Summary",
+    date: "22 November 2025",
+    image: "/silver.jpeg",
+    excerpt: "This week's silver market recap: prices climb as electronics and solar sectors drive unprecedented demand.",
+  },
 ];
 
-const categories = ["All topics", "Industry Insights", "Technology", "Market Analysis", "Investment"];
+const categories = ["All topics", "Industry Insights", "Technology", "Market Analysis", "Investment", "Weekly Market Summary"];
 const years = ["All years", "2025", "2024", "2023"];
 
 export default function Blog() {

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useSilverPriceStore } from "../store/silverPriceStore";
+import { useSilverPriceStore, getFormattedAPY } from "../store/silverPriceStore";
 import GetSTTModal from "./GetSTTModal";
 
 export default function NavEthena() {
@@ -87,7 +87,7 @@ export default function NavEthena() {
             </div>
             <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 bg-background-primary/50 rounded-lg border border-white/5">
               <span className="text-xs text-silver-300 font-medium">
-                14% Silver APY
+                {getFormattedAPY()} Silver APY
               </span>
             </div>
 {/* <button
