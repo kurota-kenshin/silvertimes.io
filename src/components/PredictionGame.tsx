@@ -661,7 +661,8 @@ export default function PredictionGame() {
                   axisLine={false}
                   tickFormatter={(value) => {
                     const date = new Date(value);
-                    return `${date.getMonth() + 1}/${date.getDate()}`;
+                    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                    return `${date.getDate()} ${months[date.getMonth()]}`;
                   }}
                 />
                 <YAxis
