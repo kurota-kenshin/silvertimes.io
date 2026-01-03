@@ -81,13 +81,13 @@ export default function NavEthena() {
               <div className="flex items-center gap-1.5">
                 <div className={`w-1.5 h-1.5 rounded-full ${isLoading ? 'bg-yellow-500/60 animate-pulse' : 'bg-green-500/60'}`}></div>
                 <span className="text-xs text-silver-300">
-                  {isLoading ? '...' : currentPrice ? `$${currentPrice.toFixed(2)}/oz` : '$32.50/oz'}
+                  {isLoading ? '...' : currentPrice ? `$${currentPrice.toFixed(2)}/oz` : '$73.50/oz'}
                 </span>
               </div>
             </div>
             <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 bg-background-primary/50 rounded-lg border border-white/5">
               <span className="text-xs text-silver-300 font-medium">
-                {getFormattedAPY()} Silver APY
+                {getFormattedAPY(currentPrice)} Silver APY
               </span>
             </div>
 {/* <button

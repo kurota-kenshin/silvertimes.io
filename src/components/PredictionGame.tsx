@@ -235,38 +235,45 @@ export default function PredictionGame() {
 
         {/* Prediction Input Section */}
         <div className="bg-background-secondary/40 backdrop-blur-md border border-white/5 rounded-3xl p-10 mb-16">
-          <div className="max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-white mb-6 text-center">
-              Enter Your Prediction
-            </h3>
+          <div className="max-w-md mx-auto text-center">
+            {/* Title with Tooltip */}
+            <div className="flex items-center justify-center gap-2 mb-8">
+              <h3 className="text-2xl font-bold text-white">
+                Guess Silver Price, Win STT
+              </h3>
+              <div className="relative group">
+                <div className="w-5 h-5 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center cursor-help">
+                  <span className="text-xs text-blue-400 font-medium">i</span>
+                </div>
+                {/* Tooltip */}
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-4 py-3 bg-[#1a1a2e] border border-white/10 rounded-xl text-sm text-silver-300 whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 shadow-xl">
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rotate-45 w-2 h-2 bg-[#1a1a2e] border-r border-b border-white/10"></div>
+                  Enter Your Prediction on {nextMonday} LBMA Silver Price per Ounce.
+                </div>
+              </div>
+            </div>
 
-            <div className="mb-8">
-              <label className="block text-sm text-silver-400 mb-3">
-                Next Monday's LBMA Silver Price (USD/oz)
-              </label>
+            {/* Price Input */}
+            <div className="mb-6">
               <div className="relative">
-                <span className="absolute left-5 top-1/2 -translate-y-1/2 text-2xl font-bold text-white/50">
+                <span className="absolute left-5 top-1/2 -translate-y-1/2 text-3xl font-bold text-white/50">
                   $
                 </span>
                 <input
                   type="number"
-                  step="0.1"
+                  step="0.01"
                   value={prediction}
                   onChange={(e) => setPrediction(e.target.value)}
-                  placeholder={currentPrice ? currentPrice.toFixed(2) : "32.5"}
-                  className="w-full bg-background-primary/50 border border-white/5 rounded-2xl pl-12 pr-5 py-5 text-2xl font-bold text-white focus:outline-none focus:border-blue-500/30 focus:bg-background-primary/80 transition-all"
+                  placeholder={currentPrice ? currentPrice.toFixed(2) : "73.50"}
+                  className="w-full bg-background-primary/50 border border-white/10 rounded-2xl pl-14 pr-5 py-5 text-3xl font-bold text-white text-center focus:outline-none focus:border-blue-500/30 focus:bg-background-primary/80 transition-all placeholder:text-white/30"
                 />
               </div>
             </div>
 
-            <button className="w-full py-4 bg-blue-500 text-white rounded-xl font-bold text-lg hover:bg-blue-600 transition-all mb-4">
+            {/* Submit Button */}
+            <button className="w-full py-4 bg-blue-500 text-white rounded-xl font-bold text-lg hover:bg-blue-600 transition-all">
               Connect Wallet to Submit
             </button>
-
-            <p className="text-xs text-silver-500 text-center">
-              Connect your EVM wallet to participate. One submission per wallet
-              per round.
-            </p>
           </div>
         </div>
 

@@ -16,10 +16,10 @@ export default function HeroCorrect() {
     ? "..."
     : currentPrice
     ? `$${currentPrice.toFixed(2)}/oz`
-    : "$32.50/oz";
+    : "$73.50/oz";
 
   const stats = [
-    { value: getFormattedAPY(), label: "Silver APY" },
+    { value: getFormattedAPY(currentPrice), label: "Silver APY" },
     { value: priceDisplay, label: "Current Price" },
     { value: "$10M", label: "TVL" },
     { value: "130,000", label: "$STT SUPPLY" },

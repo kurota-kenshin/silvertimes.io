@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 import { useSilverPriceStore, SILVER_APY } from "../store/silverPriceStore";
 
 // Financial Freedom Calculator constants
-const FALLBACK_SILVER_PRICE = 32.5; // Fallback price per oz
+const FALLBACK_SILVER_PRICE = 73.5; // Fallback price per oz
 
 const YEARS_OPTIONS = [10, 20, 30];
 const AMOUNT_OPTIONS = [
