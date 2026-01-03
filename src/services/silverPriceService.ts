@@ -1,6 +1,6 @@
 /**
  * Silver Price Service
- * Handles fetching live silver price data from external APIs
+ * Handles fetching live silver price data from Metals-API (LBMA prices)
  */
 
 export interface PriceData {
@@ -13,16 +13,26 @@ export interface SilverPriceResponse {
   weeklyData: PriceData[]
 }
 
+// Metals-API credentials (free tier)
+const METALS_API_TOKEN = '6Io5S5Wmr9LNIBoIySJr73SDK1NTfRofUbCpMgJK'
+const METALS_API_USER_ID = '121858'
+
 /**
- * Fetch current silver price from Coinbase public API
- * Uses XAG-USD (Silver to USD) spot price
- * This is a FREE public API with no authentication required
+ * Fetch current silver price from Metals-API
+ * Uses XAG (Silver) with USD base - returns LBMA silver price
  */
 export const fetchCurrentSilverPrice = async (): Promise<number> => {
   try {
-    const response = await fetch(
-      'https://api.coinbase.com/v2/prices/XAG-USD/spot'
-    )
+    const formData = new FormData()
+    formData.append('_token', METALS_API_TOKEN)
+    formData.append('user_id', METALS_API_USER_ID)
+    formData.append('base', 'USD')
+    formData.append('symbols', 'XAG')
+
+    const response = await fetch('https://metals-api.com/api/latest', {
+      method: 'POST',
+      body: formData,
+    })
 
     if (!response.ok) {
       throw new Error(`API error: ${response.status}`)
@@ -30,14 +40,18 @@ export const fetchCurrentSilverPrice = async (): Promise<number> => {
 
     const data = await response.json()
 
-    if (!data.data?.amount) {
+    if (!data.success || !data.rates?.XAG) {
       throw new Error('No silver price data in response')
     }
 
-    // Convert to number and round to 2 decimal places
-    return parseFloat(parseFloat(data.data.amount).toFixed(2))
+    // Metals-API returns rate as 1/price (how much silver per 1 USD)
+    // So we need to invert it to get USD per oz
+    const silverPrice = 1 / data.rates.XAG
+
+    // Round to 2 decimal places
+    return parseFloat(silverPrice.toFixed(2))
   } catch (error) {
-    console.error('Error fetching silver price from Coinbase:', error)
+    console.error('Error fetching silver price from Metals-API:', error)
     throw error
   }
 }
