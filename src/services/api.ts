@@ -6,6 +6,41 @@ interface ApiOptions {
   token?: string;
 }
 
+// Types for leaderboard data
+export interface AccuracyLeader {
+  _id: string;
+  walletAddress?: string;
+  email?: string;
+  totalPredictions: number;
+  totalWins: number;
+}
+
+export interface WeeklyWinner {
+  _id: string;
+  userId: {
+    _id: string;
+    walletAddress?: string;
+    email?: string;
+  };
+  predictedPrice: number;
+  error?: number;
+  rank?: number;
+  prize?: number;
+}
+
+export interface RoundInfo {
+  _id: string;
+  weekIdentifier: string;
+  submissionStartDate: string;
+  submissionEndDate: string;
+  resultDate: string;
+  status: 'open' | 'locked' | 'completed' | 'voided';
+  actualPrice?: number;
+  totalParticipants: number;
+  prizePool: number;
+  winnersCount: number;
+}
+
 async function apiRequest<T>(endpoint: string, options: ApiOptions = {}): Promise<T> {
   const { method = 'GET', body, token } = options;
 
@@ -64,8 +99,11 @@ export const predictionsApi = {
       { token }
     ),
 
-  getLeaderboard: (type: 'accuracy' | 'winnings' | 'weekly', weekId?: string) =>
-    apiRequest<{ leaders: any[] }>(
+  getLeaderboard: (type: 'accuracy' | 'weekly', weekId?: string) =>
+    apiRequest<{ leaders: AccuracyLeader[] | WeeklyWinner[] }>(
       `/predictions/leaderboard?type=${type}${weekId ? `&weekId=${weekId}` : ''}`
     ),
+
+  getCompletedRounds: (limit = 10) =>
+    apiRequest<{ rounds: RoundInfo[] }>(`/predictions/rounds/completed?limit=${limit}`),
 };

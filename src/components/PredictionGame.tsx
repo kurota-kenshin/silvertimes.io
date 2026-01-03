@@ -11,18 +11,48 @@ import {
 } from "recharts";
 import { usePrivy } from "@privy-io/react-auth";
 import { useSilverPriceStore } from "../store/silverPriceStore";
-import { predictionsApi } from "../services/api";
+import {
+  predictionsApi,
+  AccuracyLeader,
+  WeeklyWinner,
+  RoundInfo,
+} from "../services/api";
+
+// Helper to format address/email for display
+const formatAddress = (user: { walletAddress?: string; email?: string }) => {
+  if (user.walletAddress) {
+    return `${user.walletAddress.slice(0, 6)}...${user.walletAddress.slice(-4)}`;
+  }
+  if (user.email) {
+    return user.email.length > 20
+      ? `${user.email.slice(0, 17)}...`
+      : user.email;
+  }
+  return "Anonymous";
+};
+
+// Helper to get tier based on rank
+const getTier = (rank: number): string => {
+  if (rank <= 10) return "Tier 1";
+  if (rank <= 25) return "Tier 2";
+  return "Tier 3";
+};
 
 export default function PredictionGame() {
   const [prediction, setPrediction] = useState("");
-  const [activeTab, setActiveTab] = useState<
-    "accuracy" | "winnings" | "weekly"
-  >("accuracy");
-  const [selectedWeek, setSelectedWeek] = useState("2024-W45");
+  const [activeTab, setActiveTab] = useState<"accuracy" | "weekly">("accuracy");
+  const [selectedWeek, setSelectedWeek] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [existingPrediction, setExistingPrediction] = useState<number | null>(null);
+
+  // Leaderboard data
+  const [accuracyLeaders, setAccuracyLeaders] = useState<AccuracyLeader[]>([]);
+  const [weeklyWinners, setWeeklyWinners] = useState<WeeklyWinner[]>([]);
+  const [completedRounds, setCompletedRounds] = useState<RoundInfo[]>([]);
+  const [currentRound, setCurrentRound] = useState<RoundInfo | null>(null);
+  const [leaderboardLoading, setLeaderboardLoading] = useState(true);
 
   // Privy auth
   const { ready, authenticated, login, getAccessToken, user } = usePrivy();
@@ -128,138 +158,54 @@ export default function PredictionGame() {
     return `${day}/${month}`;
   }, []);
 
-  // Mock data for leaderboard
-  const accuracyLeaders = [
-    {
-      rank: 1,
-      address: "0x742d...4e89",
-      predictions: 24,
-      wins: 18,
-      winRate: 75.0,
-      avgError: 0.12,
-    },
-    {
-      rank: 2,
-      address: "0x8f3a...2c14",
-      predictions: 31,
-      wins: 22,
-      winRate: 71.0,
-      avgError: 0.15,
-    },
-    {
-      rank: 3,
-      address: "0x1b5e...7f93",
-      predictions: 19,
-      wins: 13,
-      winRate: 68.4,
-      avgError: 0.18,
-    },
-    {
-      rank: 4,
-      address: "0x9d2c...3a67",
-      predictions: 27,
-      wins: 18,
-      winRate: 66.7,
-      avgError: 0.21,
-    },
-    {
-      rank: 5,
-      address: "0x4e7f...8b12",
-      predictions: 22,
-      wins: 14,
-      winRate: 63.6,
-      avgError: 0.24,
-    },
-  ];
+  // Fetch leaderboard data and current round info
+  useEffect(() => {
+    const fetchLeaderboardData = async () => {
+      setLeaderboardLoading(true);
+      try {
+        // Fetch accuracy leaderboard, completed rounds, and current round in parallel
+        const [accuracyRes, roundsRes, currentRoundRes] = await Promise.all([
+          predictionsApi.getLeaderboard("accuracy"),
+          predictionsApi.getCompletedRounds(10),
+          predictionsApi.getCurrentRound(),
+        ]);
 
-  const winningsLeaders = [
-    {
-      rank: 1,
-      address: "0x742d...4e89",
-      totalWinnings: "145.5 oz",
-      usdValue: "$4,412",
-      wins: 18,
-    },
-    {
-      rank: 2,
-      address: "0x8f3a...2c14",
-      totalWinnings: "132.0 oz",
-      usdValue: "$4,001",
-      wins: 22,
-    },
-    {
-      rank: 3,
-      address: "0x1b5e...7f93",
-      totalWinnings: "98.5 oz",
-      usdValue: "$2,986",
-      wins: 13,
-    },
-    {
-      rank: 4,
-      address: "0x9d2c...3a67",
-      totalWinnings: "87.0 oz",
-      usdValue: "$2,638",
-      wins: 18,
-    },
-    {
-      rank: 5,
-      address: "0x4e7f...8b12",
-      totalWinnings: "76.5 oz",
-      usdValue: "$2,320",
-      wins: 14,
-    },
-  ];
+        setAccuracyLeaders(accuracyRes.leaders as AccuracyLeader[]);
+        setCompletedRounds(roundsRes.rounds);
+        setCurrentRound(currentRoundRes.round);
 
-  const weeklyWinners = [
-    {
-      rank: 1,
-      address: "0x742d...4e89",
-      prediction: 32.45,
-      actual: 32.47,
-      error: 0.02,
-      prize: "10 oz",
-    },
-    {
-      rank: 2,
-      address: "0x3c8f...5d21",
-      prediction: 32.51,
-      actual: 32.47,
-      error: 0.04,
-      prize: "5 oz",
-    },
-    {
-      rank: 3,
-      address: "0x6a1b...9e34",
-      prediction: 32.39,
-      actual: 32.47,
-      error: 0.08,
-      prize: "3 oz",
-    },
-    {
-      rank: 4,
-      address: "0x8d4e...2f76",
-      prediction: 32.55,
-      actual: 32.47,
-      error: 0.08,
-      prize: "2 oz",
-    },
-    {
-      rank: 5,
-      address: "0x1f9c...7a45",
-      prediction: 32.38,
-      actual: 32.47,
-      error: 0.09,
-      prize: "1 oz",
-    },
-  ];
+        // Set default selected week to most recent completed round
+        if (roundsRes.rounds.length > 0) {
+          setSelectedWeek(roundsRes.rounds[0].weekIdentifier);
+        }
+      } catch (err) {
+        console.error("Failed to fetch leaderboard data:", err);
+      } finally {
+        setLeaderboardLoading(false);
+      }
+    };
 
-  const availableWeeks = [
-    "2024-W45",
-    "2024-W44",
-    "2024-W43",
-    "2024-W42",
-    "2024-W41",
-  ];
+    fetchLeaderboardData();
+  }, []);
+
+  // Fetch weekly winners when selected week changes
+  useEffect(() => {
+    const fetchWeeklyWinners = async () => {
+      if (!selectedWeek) return;
+
+      try {
+        const res = await predictionsApi.getLeaderboard("weekly", selectedWeek);
+        setWeeklyWinners(res.leaders as WeeklyWinner[]);
+      } catch (err) {
+        console.error("Failed to fetch weekly winners:", err);
+        setWeeklyWinners([]);
+      }
+    };
+
+    if (activeTab === "weekly") {
+      fetchWeeklyWinners();
+    }
+  }, [selectedWeek, activeTab]);
 
   return (
     <section className="relative bg-background-primary py-32 px-4 overflow-hidden">
@@ -421,16 +367,6 @@ export default function PredictionGame() {
               Most Accurate
             </button>
             <button
-              onClick={() => setActiveTab("winnings")}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                activeTab === "winnings"
-                  ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-                  : "bg-background-primary/30 text-silver-400 hover:text-white border border-white/5"
-              }`}
-            >
-              Top Winnings
-            </button>
-            <button
               onClick={() => setActiveTab("weekly")}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTab === "weekly"
@@ -453,11 +389,15 @@ export default function PredictionGame() {
                 onChange={(e) => setSelectedWeek(e.target.value)}
                 className="bg-background-primary/50 border border-white/5 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-violet-500/30"
               >
-                {availableWeeks.map((week) => (
-                  <option key={week} value={week}>
-                    {week}
-                  </option>
-                ))}
+                {completedRounds.length === 0 ? (
+                  <option value="">No completed rounds yet</option>
+                ) : (
+                  completedRounds.map((round) => (
+                    <option key={round.weekIdentifier} value={round.weekIdentifier}>
+                      {round.weekIdentifier}
+                    </option>
+                  ))
+                )}
               </select>
             </div>
           )}
@@ -466,107 +406,53 @@ export default function PredictionGame() {
           {activeTab === "accuracy" && (
             <div className="space-y-2">
               {/* Header */}
-              <div className="grid grid-cols-6 gap-4 px-4 py-2 text-xs text-silver-500 font-medium">
-                <div>Rank</div>
-                <div className="col-span-2">Wallet Address</div>
-                <div className="text-right">Predictions</div>
-                <div className="text-right">Win Rate</div>
-                <div className="text-right">Avg Error</div>
-              </div>
-              {/* Rows */}
-              {accuracyLeaders.map((leader) => (
-                <div
-                  key={leader.rank}
-                  className="grid grid-cols-6 gap-4 px-4 py-3 bg-background-primary/30 rounded-lg border border-white/5 hover:border-blue-500/20 transition-all"
-                >
-                  <div className="flex items-center gap-2">
-                    {leader.rank <= 3 ? (
-                      <span className="text-lg">
-                        {leader.rank === 1
-                          ? "🥇"
-                          : leader.rank === 2
-                          ? "🥈"
-                          : "🥉"}
-                      </span>
-                    ) : (
-                      <span className="text-sm text-silver-500">
-                        #{leader.rank}
-                      </span>
-                    )}
-                  </div>
-                  <div className="col-span-2 flex items-center">
-                    <span className="text-sm text-white font-mono">
-                      {leader.address}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-end">
-                    <span className="text-sm text-silver-300">
-                      {leader.predictions}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-end">
-                    <span className="text-sm text-blue-400 font-semibold">
-                      {leader.winRate}%
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-end">
-                    <span className="text-sm text-silver-300">
-                      ±${leader.avgError}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Winnings Leaderboard */}
-          {activeTab === "winnings" && (
-            <div className="space-y-2">
-              {/* Header */}
               <div className="grid grid-cols-5 gap-4 px-4 py-2 text-xs text-silver-500 font-medium">
                 <div>Rank</div>
-                <div className="col-span-2">Wallet Address</div>
-                <div className="text-right">Total Winnings</div>
-                <div className="text-right">USD Value</div>
+                <div className="col-span-2">User</div>
+                <div className="text-right">Predictions</div>
+                <div className="text-right">Wins</div>
               </div>
               {/* Rows */}
-              {winningsLeaders.map((leader) => (
-                <div
-                  key={leader.rank}
-                  className="grid grid-cols-5 gap-4 px-4 py-3 bg-background-primary/30 rounded-lg border border-white/5 hover:border-emerald-500/20 transition-all"
-                >
-                  <div className="flex items-center gap-2">
-                    {leader.rank <= 3 ? (
-                      <span className="text-lg">
-                        {leader.rank === 1
-                          ? "🥇"
-                          : leader.rank === 2
-                          ? "🥈"
-                          : "🥉"}
-                      </span>
-                    ) : (
-                      <span className="text-sm text-silver-500">
-                        #{leader.rank}
-                      </span>
-                    )}
-                  </div>
-                  <div className="col-span-2 flex items-center">
-                    <span className="text-sm text-white font-mono">
-                      {leader.address}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-end">
-                    <span className="text-sm text-emerald-400 font-semibold">
-                      {leader.totalWinnings}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-end">
-                    <span className="text-sm text-silver-300">
-                      {leader.usdValue}
-                    </span>
-                  </div>
-                </div>
-              ))}
+              {leaderboardLoading ? (
+                <div className="text-center py-8 text-silver-500">Loading leaderboard...</div>
+              ) : accuracyLeaders.length === 0 ? (
+                <div className="text-center py-8 text-silver-500">No predictions yet. Be the first!</div>
+              ) : (
+                accuracyLeaders.map((leader, index) => {
+                  const rank = index + 1;
+                  return (
+                    <div
+                      key={leader._id}
+                      className="grid grid-cols-5 gap-4 px-4 py-3 bg-background-primary/30 rounded-lg border border-white/5 hover:border-blue-500/20 transition-all"
+                    >
+                      <div className="flex items-center gap-2">
+                        {rank <= 3 ? (
+                          <span className="text-lg">
+                            {rank === 1 ? "🥇" : rank === 2 ? "🥈" : "🥉"}
+                          </span>
+                        ) : (
+                          <span className="text-sm text-silver-500">#{rank}</span>
+                        )}
+                      </div>
+                      <div className="col-span-2 flex items-center">
+                        <span className="text-sm text-white font-mono">
+                          {formatAddress(leader)}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-end">
+                        <span className="text-sm text-silver-300">
+                          {leader.totalPredictions}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-end">
+                        <span className="text-sm text-blue-400 font-semibold">
+                          {leader.totalWins}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
             </div>
           )}
 
@@ -576,62 +462,75 @@ export default function PredictionGame() {
               {/* Header */}
               <div className="grid grid-cols-6 gap-4 px-4 py-2 text-xs text-silver-500 font-medium">
                 <div>Rank</div>
-                <div className="col-span-2">Wallet Address</div>
+                <div className="col-span-2">User</div>
                 <div className="text-right">Prediction</div>
                 <div className="text-right">Error</div>
-                <div className="text-right">Prize</div>
+                <div className="text-right">Tier</div>
               </div>
               {/* Rows */}
-              {weeklyWinners.map((winner) => (
-                <div
-                  key={winner.rank}
-                  className="grid grid-cols-6 gap-4 px-4 py-3 bg-background-primary/30 rounded-lg border border-white/5 hover:border-violet-500/20 transition-all"
-                >
-                  <div className="flex items-center gap-2">
-                    {winner.rank <= 3 ? (
-                      <span className="text-lg">
-                        {winner.rank === 1
-                          ? "🥇"
-                          : winner.rank === 2
-                          ? "🥈"
-                          : "🥉"}
-                      </span>
-                    ) : (
-                      <span className="text-sm text-silver-500">
-                        #{winner.rank}
-                      </span>
-                    )}
-                  </div>
-                  <div className="col-span-2 flex items-center">
-                    <span className="text-sm text-white font-mono">
-                      {winner.address}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-end">
-                    <span className="text-sm text-silver-300">
-                      ${winner.prediction}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-end">
-                    <span className="text-sm text-violet-400 font-semibold">
-                      ±${winner.error}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-end">
-                    <span className="text-sm text-white font-semibold">
-                      {winner.prize}
-                    </span>
-                  </div>
-                </div>
-              ))}
+              {completedRounds.length === 0 ? (
+                <div className="text-center py-8 text-silver-500">No completed rounds yet</div>
+              ) : weeklyWinners.length === 0 ? (
+                <div className="text-center py-8 text-silver-500">No winners for this round</div>
+              ) : (
+                weeklyWinners.map((winner) => {
+                  const rank = winner.rank || 0;
+                  const tier = getTier(rank);
+                  return (
+                    <div
+                      key={winner._id}
+                      className="grid grid-cols-6 gap-4 px-4 py-3 bg-background-primary/30 rounded-lg border border-white/5 hover:border-violet-500/20 transition-all"
+                    >
+                      <div className="flex items-center gap-2">
+                        {rank <= 3 ? (
+                          <span className="text-lg">
+                            {rank === 1 ? "🥇" : rank === 2 ? "🥈" : "🥉"}
+                          </span>
+                        ) : (
+                          <span className="text-sm text-silver-500">#{rank}</span>
+                        )}
+                      </div>
+                      <div className="col-span-2 flex items-center">
+                        <span className="text-sm text-white font-mono">
+                          {winner.userId ? formatAddress(winner.userId) : "Anonymous"}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-end">
+                        <span className="text-sm text-silver-300">
+                          ${winner.predictedPrice.toFixed(2)}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-end">
+                        <span className="text-sm text-violet-400 font-semibold">
+                          ±${winner.error?.toFixed(2) || "N/A"}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-end">
+                        <span
+                          className={`text-xs px-2 py-1 rounded-full font-medium ${
+                            tier === "Tier 1"
+                              ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+                              : "bg-silver-500/20 text-silver-300 border border-silver-500/30"
+                          }`}
+                        >
+                          {tier}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
             </div>
           )}
 
           {/* Note */}
           <div className="mt-6 pt-6 border-t border-white/5">
             <p className="text-xs text-silver-600 text-center">
-              Demo data shown - Real leaderboard will be populated when the game
-              goes live
+              {leaderboardLoading
+                ? "Loading..."
+                : accuracyLeaders.length === 0
+                ? "Leaderboard will be populated once predictions are submitted"
+                : "Live leaderboard data"}
             </p>
           </div>
         </div>
@@ -771,8 +670,10 @@ export default function PredictionGame() {
               </span>
               <div className="w-1.5 h-1.5 rounded-full bg-violet-500/50"></div>
             </div>
-            <div className="text-4xl font-bold text-white">847</div>
-            <div className="text-xs text-silver-500 mt-1">Unique Wallets</div>
+            <div className="text-4xl font-bold text-white">
+              {currentRound?.totalParticipants || 0}
+            </div>
+            <div className="text-xs text-silver-500 mt-1">This Round</div>
           </div>
         </div>
 
