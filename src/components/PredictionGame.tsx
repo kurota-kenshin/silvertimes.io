@@ -9,7 +9,9 @@ import {
   Line,
   LineChart,
 } from "recharts";
+import { usePrivy } from "@privy-io/react-auth";
 import { useSilverPriceStore } from "../store/silverPriceStore";
+import { predictionsApi } from "../services/api";
 
 export default function PredictionGame() {
   const [prediction, setPrediction] = useState("");
@@ -17,6 +19,13 @@ export default function PredictionGame() {
     "accuracy" | "winnings" | "weekly"
   >("accuracy");
   const [selectedWeek, setSelectedWeek] = useState("2024-W45");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [existingPrediction, setExistingPrediction] = useState<number | null>(null);
+
+  // Privy auth
+  const { ready, authenticated, login, getAccessToken, user } = usePrivy();
 
   // Use Zustand store
   const {
@@ -38,6 +47,73 @@ export default function PredictionGame() {
 
     return () => clearInterval(interval);
   }, [fetchData]);
+
+  // Fetch user's existing prediction when authenticated
+  useEffect(() => {
+    const fetchExistingPrediction = async () => {
+      if (authenticated) {
+        try {
+          const token = await getAccessToken();
+          if (token) {
+            const { prediction } = await predictionsApi.getMyPrediction(token);
+            if (prediction) {
+              setExistingPrediction(prediction.predictedPrice);
+              setPrediction(prediction.predictedPrice.toString());
+            }
+          }
+        } catch (err) {
+          // No existing prediction, that's fine
+        }
+      }
+    };
+    fetchExistingPrediction();
+  }, [authenticated, getAccessToken]);
+
+  // Handle prediction submission
+  const handleSubmit = async () => {
+    if (!authenticated) {
+      login();
+      return;
+    }
+
+    const priceValue = parseFloat(prediction);
+    if (isNaN(priceValue) || priceValue <= 0) {
+      setSubmitError("Please enter a valid price");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+    setSubmitSuccess(false);
+
+    try {
+      const token = await getAccessToken();
+      if (!token) {
+        throw new Error("Not authenticated");
+      }
+
+      await predictionsApi.submit(token, priceValue);
+      setSubmitSuccess(true);
+      setExistingPrediction(priceValue);
+    } catch (err: any) {
+      setSubmitError(err.message || "Failed to submit prediction");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Get display address for logged in user
+  const displayAddress = useMemo(() => {
+    if (!user) return null;
+    if (user.wallet?.address) {
+      const addr = user.wallet.address;
+      return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
+    }
+    if (user.email?.address) {
+      return user.email.address;
+    }
+    return "Connected";
+  }, [user]);
 
   // Calculate next Monday's date
   const nextMonday = useMemo(() => {
@@ -193,25 +269,40 @@ export default function PredictionGame() {
         <div className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] bg-violet-500/3 rounded-full blur-3xl"></div>
       </div>
 
-      {/* Demo Notice - Fixed at top */}
-      <div className="fixed top-24 left-10 right-10 z-40 bg-blue-500/10 border border-blue-500/30 backdrop-blur-md rounded-xl p-4">
+      {/* Status Notice - Fixed at top */}
+      <div className={`fixed top-24 left-10 right-10 z-40 backdrop-blur-md rounded-xl p-4 ${
+        authenticated
+          ? "bg-green-500/10 border border-green-500/30"
+          : "bg-blue-500/10 border border-blue-500/30"
+      }`}>
         <div className="flex items-center justify-center gap-2">
           <svg
-            className="w-5 h-5 text-blue-400"
+            className={`w-5 h-5 ${authenticated ? "text-green-400" : "text-blue-400"}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
+            {authenticated ? (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            ) : (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            )}
           </svg>
-          <p className="text-sm text-blue-300 font-medium">
-            Pure frontend demo - This is a preview of the prediction game
-            interface
+          <p className={`text-sm font-medium ${authenticated ? "text-green-300" : "text-blue-300"}`}>
+            {authenticated
+              ? `Connected as ${displayAddress} - Submit your prediction below`
+              : "Connect your wallet or sign in with email to participate"
+            }
           </p>
         </div>
       </div>
@@ -270,9 +361,40 @@ export default function PredictionGame() {
               </div>
             </div>
 
+            {/* Error/Success Messages */}
+            {submitError && (
+              <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-sm">
+                {submitError}
+              </div>
+            )}
+            {submitSuccess && (
+              <div className="mb-4 p-3 bg-green-500/10 border border-green-500/30 rounded-xl text-green-400 text-sm">
+                {existingPrediction ? "Prediction updated successfully!" : "Prediction submitted successfully!"}
+              </div>
+            )}
+
             {/* Submit Button */}
-            <button className="w-full py-4 bg-blue-500 text-white rounded-xl font-bold text-lg hover:bg-blue-600 transition-all">
-              Connect Wallet to Submit
+            <button
+              onClick={handleSubmit}
+              disabled={isSubmitting || !ready}
+              className={`w-full py-4 rounded-xl font-bold text-lg transition-all ${
+                isSubmitting
+                  ? "bg-blue-500/50 text-white/50 cursor-not-allowed"
+                  : "bg-blue-500 text-white hover:bg-blue-600"
+              }`}
+            >
+              {!ready ? (
+                "Loading..."
+              ) : isSubmitting ? (
+                "Submitting..."
+              ) : authenticated ? (
+                <span className="flex items-center justify-center gap-2">
+                  {existingPrediction ? "Update Prediction" : "Submit Prediction"}
+                  <span className="text-sm font-normal text-blue-200">({displayAddress})</span>
+                </span>
+              ) : (
+                "Connect to Submit"
+              )}
             </button>
           </div>
         </div>

@@ -13,9 +13,9 @@ export interface SilverPriceResponse {
   weeklyData: PriceData[]
 }
 
-// Metals-API credentials (free tier)
-const METALS_API_TOKEN = '6Io5S5Wmr9LNIBoIySJr73SDK1NTfRofUbCpMgJK'
-const METALS_API_USER_ID = '121858'
+// Metals-API credentials from environment variables
+const METALS_API_TOKEN = import.meta.env.VITE_METALS_API_TOKEN || ''
+const METALS_API_USER_ID = import.meta.env.VITE_METALS_API_USER_ID || ''
 
 /**
  * Fetch current silver price from Metals-API
