@@ -1,10 +1,19 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8182';
 
+const ACCESS_TOKEN_KEY = 'silvertimes_access_token';
+
 interface ApiOptions {
   method?: string;
   body?: any;
   token?: string;
 }
+
+// Access token management
+export const accessTokenManager = {
+  get: (): string | null => localStorage.getItem(ACCESS_TOKEN_KEY),
+  set: (token: string) => localStorage.setItem(ACCESS_TOKEN_KEY, token),
+  clear: () => localStorage.removeItem(ACCESS_TOKEN_KEY),
+};
 
 // Types for leaderboard data
 export interface AccuracyLeader {
@@ -52,6 +61,12 @@ async function apiRequest<T>(endpoint: string, options: ApiOptions = {}): Promis
     headers['Authorization'] = `Bearer ${token}`;
   }
 
+  // Add access token for protected endpoints
+  const accessToken = accessTokenManager.get();
+  if (accessToken) {
+    headers['X-Access-Token'] = accessToken;
+  }
+
   const response = await fetch(`${API_URL}${endpoint}`, {
     method,
     headers,
@@ -65,6 +80,46 @@ async function apiRequest<T>(endpoint: string, options: ApiOptions = {}): Promis
 
   return response.json();
 }
+
+// Access API (launch password protection)
+export const accessApi = {
+  verifyPassword: async (password: string) => {
+    const response = await fetch(`${API_URL}/access/verify`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    });
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ message: 'Invalid password' }));
+      throw new Error(error.message || 'Invalid password');
+    }
+    const data = await response.json();
+    if (data.accessToken) {
+      accessTokenManager.set(data.accessToken);
+    }
+    return data as { success: boolean; accessToken: string; expiresAt: number };
+  },
+
+  validateToken: async () => {
+    const token = accessTokenManager.get();
+    if (!token) return { valid: false };
+    try {
+      const response = await fetch(`${API_URL}/access/validate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ accessToken: token }),
+      });
+      const data = await response.json();
+      if (!data.valid) {
+        accessTokenManager.clear();
+      }
+      return data as { valid: boolean };
+    } catch {
+      accessTokenManager.clear();
+      return { valid: false };
+    }
+  },
+};
 
 // Auth API
 export const authApi = {
