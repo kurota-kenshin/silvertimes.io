@@ -47,8 +47,8 @@ export const fetchCurrentSilverPrice = async (): Promise<number> => {
  * Legacy function for backwards compatibility
  */
 export const fetchWeeklySilverData = async (
-  currentPrice: number,
-  weeks: number = 12
+  _currentPrice: number,
+  _weeks: number = 12
 ): Promise<PriceData[]> => {
   const data = await fetchSilverPriceData()
   return data.weeklyData

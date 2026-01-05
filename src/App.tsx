@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import SilverBarPurchase from "./components/SilverBarPurchase";
 import PredictionGame from "./components/PredictionGame";
 import PasswordGate from "./components/PasswordGate";
+import Profile from "./components/Profile";
 import RewardsTerms from "./components/RewardsTerms";
 import AboutUs from "./components/AboutUs";
 import Blog from "./components/Blog";
@@ -40,6 +41,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<SilverBarPurchase />} />
           <Route path="/prediction" element={<PasswordGate><PredictionGame /></PasswordGate>} />
+          <Route path="/profile" element={<PasswordGate><Profile /></PasswordGate>} />
           <Route path="/rewards-terms" element={<RewardsTerms />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/blog" element={<Blog />} />

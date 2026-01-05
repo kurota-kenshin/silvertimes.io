@@ -80,7 +80,7 @@ export default function PredictionGame() {
 
   // Fetch user's existing prediction when authenticated
   useEffect(() => {
-    const fetchExistingPrediction = async () => {
+    const fetchUserData = async () => {
       if (authenticated) {
         try {
           const token = await getAccessToken();
@@ -94,9 +94,13 @@ export default function PredictionGame() {
         } catch (err) {
           // No existing prediction, that's fine
         }
+      } else {
+        // Reset when logged out
+        setExistingPrediction(null);
+        setPrediction("");
       }
     };
-    fetchExistingPrediction();
+    fetchUserData();
   }, [authenticated, getAccessToken]);
 
   // Handle prediction submission
@@ -342,6 +346,16 @@ export default function PredictionGame() {
                 "Connect to Submit"
               )}
             </button>
+
+            {/* Link to profile */}
+            {authenticated && (
+              <Link
+                to="/profile"
+                className="mt-4 block text-center text-sm text-blue-400 hover:text-blue-300 transition-colors"
+              >
+                View My Profile & History →
+              </Link>
+            )}
           </div>
         </div>
 

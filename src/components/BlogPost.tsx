@@ -91,6 +91,15 @@ const silverParadigmShiftContent = (
         The climax of the year occurred in December. Following a decisive technical breakout above the $50 multi-year resistance level in October—a level that had capped prices since the 1980 Hunt Brothers squeeze and the 2011 peak—prices went parabolic. On Sunday, December 28, amidst thin holiday trading, silver futures spiked to an intraday all-time high of approximately $84.00 per ounce. This move shattered the previous nominal record of $49.45, psychologically liberating the market from forty-five years of resistance.
       </p>
 
+      {/* Silver Price Action 2025 Chart */}
+      <div className="my-10">
+        <img
+          src="/press/press_1/3.jpeg"
+          alt="Silver Price Action 2025"
+          className="w-full rounded-2xl border border-white/10"
+        />
+      </div>
+
       <h3 className="text-2xl font-semibold text-white mb-4 mt-8">1.2 The "Christmas Rally" Phenomenon: Anatomy of a Squeeze</h3>
 
       <p className="text-silver-300 leading-relaxed mb-6">
@@ -119,6 +128,15 @@ const silverParadigmShiftContent = (
       <p className="text-silver-300 leading-relaxed mb-6">
         This deficit is not a mere accounting abstraction; it represents a physical drawdown of above-ground stocks. For five consecutive years, the world has consumed significantly more silver than it has produced. In 2024 alone, the deficit was estimated at roughly 149 million ounces. While the 2025 deficit was projected to narrow slightly to roughly 95-117 million ounces, the cumulative effect of these consecutive shortfalls has been the draining of global vaults.
       </p>
+
+      {/* Market Balance Chart */}
+      <div className="my-10">
+        <img
+          src="/press/press_1/2.jpeg"
+          alt="Market Balance Less ETPs (2019-2024)"
+          className="w-full rounded-2xl border border-white/10"
+        />
+      </div>
 
       <p className="text-silver-300 leading-relaxed mb-6">
         The concept of "above-ground stocks" has historically been used by bearish analysts to argue that there is plenty of silver available to meet demand. However, the events of 2025 proved that much of this inventory is "sticky"—it is held by long-term investors, locked in ETFs, or utilized in industrial forms (like silverware or decorative items) that are not easily recyclable or mobilized. The "free float"—liquid silver available for immediate delivery to exchanges like the LBMA or COMEX—effectively evaporated in late 2025, leaving the market vulnerable to the price shocks we witnessed.
@@ -171,6 +189,15 @@ const silverParadigmShiftContent = (
       <p className="text-silver-300 leading-relaxed mb-6">
         The defining narrative of the 2025 silver market was the breakdown of the "Paper Market" (futures and derivatives) due to the exhaustion of the "Physical Market." This disconnect manifested visibly in the three major global vaults: COMEX (New York), LBMA (London), and the SGE/SHFE (Shanghai).
       </p>
+
+      {/* COMEX Vault Physical Squeeze */}
+      <div className="my-10">
+        <img
+          src="/press/press_1/5.jpeg"
+          alt="2025 Silver Rally: Physical Squeeze - COMEX Vault"
+          className="w-full rounded-2xl border border-white/10"
+        />
+      </div>
 
       <h3 className="text-2xl font-semibold text-white mb-4 mt-8">3.1 COMEX: The Emptying of New York</h3>
 
@@ -233,6 +260,15 @@ const silverParadigmShiftContent = (
       <p className="text-silver-300 leading-relaxed mb-6">
         In 2025, silver graduated from being a mere commodity to a matter of national security. The geopolitical tensions between the United States and China began to manifest directly in the silver market, further tightening supply.
       </p>
+
+      {/* Global Silver Tug-of-War */}
+      <div className="my-10">
+        <img
+          src="/press/press_1/4.jpeg"
+          alt="Global Silver Tug-of-War: USA vs China"
+          className="w-full rounded-2xl border border-white/10"
+        />
+      </div>
 
       <h3 className="text-2xl font-semibold text-white mb-4 mt-8">4.1 US Critical Mineral Designation</h3>
 
