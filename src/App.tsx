@@ -13,6 +13,7 @@ import PasswordGate from "./components/PasswordGate";
 import RewardsTerms from "./components/RewardsTerms";
 import AboutUs from "./components/AboutUs";
 import Blog from "./components/Blog";
+import BlogPost from "./components/BlogPost";
 import News from "./components/News";
 import Docs from "./components/Docs";
 // import ContactButton from './components/ContactButton'
@@ -42,6 +43,7 @@ function App() {
           <Route path="/rewards-terms" element={<RewardsTerms />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:postId" element={<BlogPost />} />
           <Route path="/news" element={<News />} />
           <Route path="/docs" element={<Docs />} />
         </Routes>

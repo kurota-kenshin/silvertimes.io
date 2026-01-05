@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { blogPostsData } from "./BlogPost";
 
 interface BlogPost {
   id: string;
@@ -9,67 +11,18 @@ interface BlogPost {
   excerpt: string;
 }
 
-const blogPosts: BlogPost[] = [
-  {
-    id: "1",
-    title: "The Future of Silver in Green Energy",
-    category: "Industry Insights",
-    date: "15 November 2025",
-    image: "/silver.jpeg",
-    excerpt: "Exploring how silver's unique properties make it essential for solar panels and sustainable energy solutions.",
-  },
-  {
-    id: "2",
-    title: "Understanding Synthetic Silver Tokenization",
-    category: "Technology",
-    date: "10 November 2025",
-    image: "/silver.jpeg",
-    excerpt: "A deep dive into how blockchain technology enables fractional ownership of precious metals.",
-  },
-  {
-    id: "3",
-    title: "Silver Market Deficit: What It Means for Investors",
-    category: "Market Analysis",
-    date: "5 November 2025",
-    image: "/silver.jpeg",
-    excerpt: "Analyzing the 210 million ounce deficit and its implications for silver prices.",
-  },
-  {
-    id: "4",
-    title: "DeFi Meets Precious Metals",
-    category: "Technology",
-    date: "1 November 2025",
-    image: "/silver.jpeg",
-    excerpt: "How decentralized finance is revolutionizing traditional precious metals investment.",
-  },
-  {
-    id: "5",
-    title: "The Industrial Silver Revolution",
-    category: "Industry Insights",
-    date: "28 October 2025",
-    image: "/silver.jpeg",
-    excerpt: "From EVs to electronics: tracking silver's growing role in modern technology.",
-  },
-  {
-    id: "6",
-    title: "Yield Opportunities with Tokenized Silver",
-    category: "Investment",
-    date: "20 October 2025",
-    image: "/silver.jpeg",
-    excerpt: "Exploring how STT holders can earn yields through DeFi integration.",
-  },
-  {
-    id: "7",
-    title: "Weekly Market Summary: Silver Surges on Industrial Demand",
-    category: "Weekly Market Summary",
-    date: "22 November 2025",
-    image: "/silver.jpeg",
-    excerpt: "This week's silver market recap: prices climb as electronics and solar sectors drive unprecedented demand.",
-  },
-];
+// Transform blogPostsData to match the listing format
+const blogPosts: BlogPost[] = blogPostsData.map((post) => ({
+  id: post.id,
+  title: post.title,
+  category: post.category,
+  date: post.date,
+  image: post.mainImage,
+  excerpt: post.excerpt,
+}));
 
-const categories = ["All topics", "Industry Insights", "Technology", "Market Analysis", "Investment", "Weekly Market Summary"];
-const years = ["All years", "2025", "2024", "2023"];
+const categories = ["All topics", "Market Analysis", "Industry Insights", "Technology", "Investment"];
+const years = ["All years", "2026", "2025", "2024"];
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("All topics");
@@ -177,42 +130,41 @@ export default function Blog() {
       <div className="max-w-7xl mx-auto px-4 pb-32">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredPosts.map((post) => (
-            <article
-              key={post.id}
-              className="group bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-3xl overflow-hidden hover:border-white/10 transition-all cursor-pointer"
-            >
-              {/* Image */}
-              <div className="relative h-64 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-violet-500/10"></div>
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-
-              {/* Content */}
-              <div className="p-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-xs text-blue-400/80 font-medium">{post.category}</span>
-                  <span className="text-xs text-silver-500">•</span>
-                  <span className="text-xs text-silver-500">{post.date}</span>
+            <Link to={`/blog/${post.id}`} key={post.id}>
+              <article className="group bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-3xl overflow-hidden hover:border-white/10 transition-all cursor-pointer h-full">
+                {/* Image */}
+                <div className="relative h-64 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-violet-500/10"></div>
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
                 </div>
 
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400/90 transition-colors">
-                  {post.title}
-                </h3>
+                {/* Content */}
+                <div className="p-8">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="text-xs text-blue-400/80 font-medium">{post.category}</span>
+                    <span className="text-xs text-silver-500">•</span>
+                    <span className="text-xs text-silver-500">{post.date}</span>
+                  </div>
 
-                <p className="text-sm text-silver-400 leading-relaxed">{post.excerpt}</p>
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400/90 transition-colors">
+                    {post.title}
+                  </h3>
 
-                <div className="mt-6 flex items-center gap-2 text-sm text-blue-400/80 font-medium group-hover:gap-3 transition-all">
-                  <span>Read more</span>
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
+                  <p className="text-sm text-silver-400 leading-relaxed">{post.excerpt}</p>
+
+                  <div className="mt-6 flex items-center gap-2 text-sm text-blue-400/80 font-medium group-hover:gap-3 transition-all">
+                    <span>Read more</span>
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
                 </div>
-              </div>
-            </article>
+              </article>
+            </Link>
           ))}
         </div>
 
