@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import { useEffect } from "react";
 
 interface BlogPostData {
   id: string;
@@ -596,6 +597,67 @@ export const blogPostsData: BlogPostData[] = [
 export default function BlogPost() {
   const { postId } = useParams<{ postId: string }>();
   const post = blogPostsData.find((p) => p.id === postId);
+
+  // Update meta tags for social sharing
+  useEffect(() => {
+    if (post) {
+      // Update title
+      document.title = "SilverTimes - The Great Silver Paradigm Shift";
+
+      // Update or create meta description
+      let metaDescription = document.querySelector('meta[name="description"]');
+      if (!metaDescription) {
+        metaDescription = document.createElement('meta');
+        metaDescription.setAttribute('name', 'description');
+        document.head.appendChild(metaDescription);
+      }
+      metaDescription.setAttribute('content', '2025 was the year silver broke free. This report offers retail investors and industry observers a data-driven understanding of why silver has evolved into the world\'s most critical strategic metal.');
+
+      // Open Graph meta tags
+      const ogTags = [
+        { property: 'og:title', content: 'SilverTimes - The Great Silver Paradigm Shift' },
+        { property: 'og:description', content: '2025 was the year silver broke free. This report offers retail investors and industry observers a data-driven understanding of why silver has evolved into the world\'s most critical strategic metal.' },
+        { property: 'og:image', content: `${window.location.origin}${post.mainImage}` },
+        { property: 'og:url', content: window.location.href },
+        { property: 'og:type', content: 'article' },
+      ];
+
+      // Twitter Card meta tags
+      const twitterTags = [
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: 'SilverTimes - The Great Silver Paradigm Shift' },
+        { name: 'twitter:description', content: '2025 was the year silver broke free. This report offers retail investors and industry observers a data-driven understanding of why silver has evolved into the world\'s most critical strategic metal.' },
+        { name: 'twitter:image', content: `${window.location.origin}${post.mainImage}` },
+      ];
+
+      // Set OG tags
+      ogTags.forEach(({ property, content }) => {
+        let tag = document.querySelector(`meta[property="${property}"]`);
+        if (!tag) {
+          tag = document.createElement('meta');
+          tag.setAttribute('property', property);
+          document.head.appendChild(tag);
+        }
+        tag.setAttribute('content', content);
+      });
+
+      // Set Twitter tags
+      twitterTags.forEach(({ name, content }) => {
+        let tag = document.querySelector(`meta[name="${name}"]`);
+        if (!tag) {
+          tag = document.createElement('meta');
+          tag.setAttribute('name', name);
+          document.head.appendChild(tag);
+        }
+        tag.setAttribute('content', content);
+      });
+    }
+
+    // Cleanup: restore default title when leaving
+    return () => {
+      document.title = "SilverTimes - It's Silver Time.";
+    };
+  }, [post]);
 
   if (!post) {
     return (

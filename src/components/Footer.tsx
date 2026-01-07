@@ -192,7 +192,7 @@ export default function Footer() {
         <div className="border-t border-white/5 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-6">
             <div className="text-xs text-silver-600">
-              <p>&copy; 2025 SilverTimes. All rights reserved.</p>
+              <p>© 2026 SilverTimes. All rights reserved.</p>
             </div>
             <div className="flex gap-8 text-xs text-silver-600">
               <a href="#" className="hover:text-white transition-colors">
