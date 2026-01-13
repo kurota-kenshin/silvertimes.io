@@ -22,6 +22,8 @@ export interface AccuracyLeader {
   email?: string;
   totalPredictions: number;
   totalWins: number;
+  avgError?: number;
+  bestRank?: number;
 }
 
 export interface WeeklyWinner {

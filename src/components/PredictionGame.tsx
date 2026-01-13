@@ -423,8 +423,8 @@ export default function PredictionGame() {
               <div className="grid grid-cols-5 gap-4 px-4 py-2 text-xs text-silver-500 font-medium">
                 <div>Rank</div>
                 <div className="col-span-2">User</div>
-                <div className="text-right">Predictions</div>
-                <div className="text-right">Wins</div>
+                <div className="text-right">Avg Error</div>
+                <div className="text-right">Tier</div>
               </div>
               {/* Rows */}
               {leaderboardLoading ? (
@@ -434,6 +434,9 @@ export default function PredictionGame() {
               ) : (
                 accuracyLeaders.map((leader, index) => {
                   const rank = index + 1;
+                  const bestRank = leader.bestRank;
+                  const tier = bestRank && bestRank <= 10 ? "Tier 1" : bestRank && bestRank <= 25 ? "Tier 2" : "Unranked";
+                  const tierColor = bestRank && bestRank <= 10 ? "text-yellow-400" : bestRank && bestRank <= 25 ? "text-silver-300" : "text-silver-500";
                   return (
                     <div
                       key={leader._id}
@@ -441,8 +444,8 @@ export default function PredictionGame() {
                     >
                       <div className="flex items-center gap-2">
                         {rank <= 3 ? (
-                          <span className="text-lg">
-                            {rank === 1 ? "🥇" : rank === 2 ? "🥈" : "🥉"}
+                          <span className={`text-sm font-semibold ${rank === 1 ? "text-yellow-400" : rank === 2 ? "text-silver-300" : "text-amber-600"}`}>
+                            #{rank}
                           </span>
                         ) : (
                           <span className="text-sm text-silver-500">#{rank}</span>
@@ -454,13 +457,13 @@ export default function PredictionGame() {
                         </span>
                       </div>
                       <div className="flex items-center justify-end">
-                        <span className="text-sm text-silver-300">
-                          {leader.totalPredictions}
+                        <span className="text-sm text-blue-400 font-semibold">
+                          {leader.avgError !== undefined ? `+$${leader.avgError.toFixed(2)}` : "-"}
                         </span>
                       </div>
                       <div className="flex items-center justify-end">
-                        <span className="text-sm text-blue-400 font-semibold">
-                          {leader.totalWins}
+                        <span className={`text-sm font-medium ${tierColor}`}>
+                          {tier}
                         </span>
                       </div>
                     </div>
