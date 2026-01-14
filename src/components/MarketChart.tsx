@@ -14,9 +14,8 @@ import { useSilverPriceStore, SILVER_APY } from "../store/silverPriceStore";
 // Financial Freedom Calculator constants
 const FALLBACK_SILVER_PRICE = 73.5; // Fallback price per oz
 
-const YEARS_OPTIONS = [10, 20, 30];
+const YEARS_OPTIONS = [10, 20];
 const AMOUNT_OPTIONS = [
-  { value: 1000000, label: "$1M" },
   { value: 5000000, label: "$5M" },
   { value: 10000000, label: "$10M" },
 ];
@@ -52,9 +51,9 @@ const supplyDemandData = [
 export default function MarketChart() {
   const { currentPrice, fetchData } = useSilverPriceStore();
   const [investAmount, setInvestAmount] = useState(100);
-  const [retirementYears, setRetirementYears] = useState(20);
-  const [targetAmount, setTargetAmount] = useState(1000000);
-  const [chartTab, setChartTab] = useState(1000000); // For the STT chart tabs
+  const [retirementYears, setRetirementYears] = useState(10);
+  const [targetAmount, setTargetAmount] = useState(5000000);
+  const [chartTab, setChartTab] = useState(5000000); // For the STT chart tabs
 
   // Fetch silver price on mount
   useEffect(() => {
