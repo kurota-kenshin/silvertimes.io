@@ -30,20 +30,14 @@ const calculateResult = (years: number, amount: number, silverPrice: number) => 
   return { presentValue: pv, silverOunces, sttAmount: silverOunces, years: n };
 };
 
-// Silver price data based on historical prices (2020-2024) and projected 5-year average return (2025-2030)
-// Base: 2020 = $20.55, calculating 5-year average return from 2020-2024 data
-const silverPriceData = [
+// Silver price data - historical prices (2020-2025), 2026 uses live price
+const historicalSilverPrices = [
   { year: "2020", price: 20.55 },
   { year: "2021", price: 25.14 },
   { year: "2022", price: 21.73 },
   { year: "2023", price: 23.35 },
   { year: "2024", price: 28.27 },
-  { year: "2025", price: 32.5 }, // Projected
-  { year: "2026", price: 37.38 }, // Projected based on ~15% average annual growth
-  { year: "2027", price: 42.99 }, // Projected
-  { year: "2028", price: 49.44 }, // Projected
-  { year: "2029", price: 56.86 }, // Projected
-  { year: "2030", price: 65.39 }, // Projected
+  { year: "2025", price: 73.50 }, // Silver surged in 2025
 ];
 
 // Supply and Demand data from the provided table (2020-2024)
@@ -71,6 +65,16 @@ export default function MarketChart() {
   const silverPrice = currentPrice ?? FALLBACK_SILVER_PRICE;
   const calculation = calculateResult(retirementYears, targetAmount, silverPrice);
 
+  // Silver price chart data with current live price for 2026 and projections to 2030
+  const silverPriceData = [
+    ...historicalSilverPrices,
+    { year: "2026", price: silverPrice },
+    { year: "2027", price: silverPrice * Math.pow(1 + SILVER_APY, 1) },
+    { year: "2028", price: silverPrice * Math.pow(1 + SILVER_APY, 2) },
+    { year: "2029", price: silverPrice * Math.pow(1 + SILVER_APY, 3) },
+    { year: "2030", price: silverPrice * Math.pow(1 + SILVER_APY, 4) },
+  ];
+
   // Generate chart data for STT needed vs years
   const generateSTTChartData = (targetAmt: number) => {
     const years = [5, 10, 15, 20, 25, 30];
@@ -92,10 +96,9 @@ export default function MarketChart() {
     }).format(value);
   };
 
-  // Calculate projection based on silver price growth
-  const basePrice = 20.55;
-  const projectedPrice = 65.39;
-  const totalGrowth = projectedPrice / basePrice;
+  // Calculate projection based on silver price growth (2020 to current)
+  const basePrice = 20.55; // 2020 price
+  const totalGrowth = silverPrice / basePrice;
 
   const currentValue = (investAmount * totalGrowth).toFixed(2);
   const gain = (investAmount * (totalGrowth - 1)).toFixed(2);
@@ -246,7 +249,7 @@ export default function MarketChart() {
               </div>
 
               <p className="text-xs text-silver-600 text-center">
-                Historical silver performance during 2020-2025
+                Silver price: historical (2020-2026) and projected (2027-2030)
               </p>
             </div>
           </div>
