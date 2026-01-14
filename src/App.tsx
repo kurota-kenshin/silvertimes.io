@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavEthena from "./components/NavEthena";
 import HeroCorrect from "./components/HeroCorrect";
+import YouTubeSection from "./components/YouTubeSection";
 import ValueProposition from "./components/ValueProposition";
 import TokenBacking from "./components/TokenBacking";
 import MarketChart from "./components/MarketChart";
@@ -23,6 +24,7 @@ function HomePage() {
   return (
     <>
       <HeroCorrect />
+      <YouTubeSection />
       <ValueProposition />
       <TokenBacking />
       <MarketChart />
