@@ -437,7 +437,7 @@ export default function MarketChart() {
               {/* Silver Ounces */}
               <div className="flex flex-col items-center">
                 <div className="text-2xl md:text-3xl font-bold text-white mb-1">
-                  {formatNumber(Math.round(calculation.silverOunces))}
+                  {calculation.silverOunces.toFixed(4)}
                 </div>
                 <div className="text-silver-400 text-xs">
                   Ounces of .999 Silver
@@ -461,7 +461,7 @@ export default function MarketChart() {
               {/* STT Amount */}
               <div className="flex flex-col items-center">
                 <div className="text-2xl md:text-3xl font-bold text-emerald-400 mb-1">
-                  {formatNumber(Math.round(calculation.sttAmount))}
+                  {calculation.sttAmount.toFixed(4)}
                 </div>
                 <div className="text-silver-400 text-xs">$STT Tokens</div>
               </div>

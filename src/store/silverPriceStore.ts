@@ -7,7 +7,7 @@ const HISTORICAL_SILVER_PRICES = [
   { year: 2022, price: 21.73 },
   { year: 2023, price: 23.35 },
   { year: 2024, price: 28.27 },
-  { year: 2025, price: 73.50 },  // 2025 avg (silver surged 147% in 2025)
+  { year: 2025, price: 73.50 },  // 2025 avg (silver surged in 2025)
 ];
 
 // Current fallback price for 2026 (updated from live data)
@@ -15,13 +15,8 @@ const FALLBACK_CURRENT_PRICE = 73.50;
 
 // Calculate 5-year average APY using Simple Average method
 // Sum of annual percentage returns divided by number of years
-// Includes current year (2026) using live price
-export function calculateFiveYearAPY(currentPrice?: number | null): number {
+export function calculateFiveYearAPY(_currentPrice?: number | null): number {
   const prices = [...HISTORICAL_SILVER_PRICES];
-
-  // Add 2026 with current live price or fallback
-  const price2026 = currentPrice ?? FALLBACK_CURRENT_PRICE;
-  prices.push({ year: 2026, price: price2026 });
 
   const annualReturns: number[] = [];
 
