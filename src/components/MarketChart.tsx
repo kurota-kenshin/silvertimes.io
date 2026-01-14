@@ -92,15 +92,6 @@ export default function MarketChart() {
     }).format(value);
   };
 
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(value);
-  };
-
   // Calculate projection based on silver price growth
   const basePrice = 20.55;
   const projectedPrice = 65.39;
@@ -450,7 +441,7 @@ export default function MarketChart() {
               {/* USD Investment */}
               <div className="flex flex-col items-center">
                 <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent mb-1">
-                  {formatCurrency(calculation.presentValue)}
+                  ${calculation.presentValue.toFixed(2)}
                 </div>
                 <div className="text-silver-400 text-xs">Investment Today</div>
               </div>
