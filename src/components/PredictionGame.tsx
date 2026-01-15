@@ -22,16 +22,21 @@ import {
   Badge,
 } from "../services/api";
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8182';
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8182";
 
 // Calculate Simple Moving Average
-function calculateSMA(data: { price: number }[], period: number): (number | null)[] {
+function calculateSMA(
+  data: { price: number }[],
+  period: number
+): (number | null)[] {
   const result: (number | null)[] = [];
   for (let i = 0; i < data.length; i++) {
     if (i < period - 1) {
       result.push(null);
     } else {
-      const sum = data.slice(i - period + 1, i + 1).reduce((acc, d) => acc + d.price, 0);
+      const sum = data
+        .slice(i - period + 1, i + 1)
+        .reduce((acc, d) => acc + d.price, 0);
       result.push(sum / period);
     }
   }
@@ -39,7 +44,10 @@ function calculateSMA(data: { price: number }[], period: number): (number | null
 }
 
 // Calculate RSI (Relative Strength Index)
-function calculateRSI(data: { price: number }[], period = 14): (number | null)[] {
+function calculateRSI(
+  data: { price: number }[],
+  period = 14
+): (number | null)[] {
   const result: (number | null)[] = [];
   const gains: number[] = [];
   const losses: number[] = [];
@@ -64,7 +72,7 @@ function calculateRSI(data: { price: number }[], period = 14): (number | null)[]
         result.push(100);
       } else {
         const rs = avgGain / avgLoss;
-        result.push(100 - (100 / (1 + rs)));
+        result.push(100 - 100 / (1 + rs));
       }
     }
   }
@@ -74,7 +82,9 @@ function calculateRSI(data: { price: number }[], period = 14): (number | null)[]
 // Helper to format address/email for display
 const formatAddress = (user: { walletAddress?: string; email?: string }) => {
   if (user.walletAddress) {
-    return `${user.walletAddress.slice(0, 6)}...${user.walletAddress.slice(-4)}`;
+    return `${user.walletAddress.slice(0, 6)}...${user.walletAddress.slice(
+      -4
+    )}`;
   }
   if (user.email) {
     return user.email.length > 20
@@ -93,7 +103,12 @@ const getTier = (rank: number): string => {
 
 // Countdown timer hook
 const useCountdown = (targetDate: Date) => {
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -166,7 +181,9 @@ const SilverRainCelebration = ({ onComplete }: { onComplete: () => void }) => {
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="text-center animate-bounce-in">
           <div className="text-6xl mb-4">🎉</div>
-          <div className="text-2xl font-bold text-white mb-2">Prediction Locked!</div>
+          <div className="text-2xl font-bold text-white mb-2">
+            Prediction Locked!
+          </div>
           <div className="text-silver-400">Good luck, Oracle!</div>
         </div>
       </div>
@@ -175,7 +192,13 @@ const SilverRainCelebration = ({ onComplete }: { onComplete: () => void }) => {
 };
 
 // Minting animation component
-const MintingAnimation = ({ price, onComplete }: { price: string; onComplete: () => void }) => {
+const MintingAnimation = ({
+  price,
+  onComplete,
+}: {
+  price: string;
+  onComplete: () => void;
+}) => {
   useEffect(() => {
     const timer = setTimeout(onComplete, 2500);
     return () => clearTimeout(timer);
@@ -188,16 +211,31 @@ const MintingAnimation = ({ price, onComplete }: { price: string; onComplete: ()
         <div className="relative w-32 h-32 mx-auto mb-6">
           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-silver-300 to-silver-500 animate-spin-slow shadow-2xl shadow-silver-500/30">
             <div className="absolute inset-2 rounded-full bg-gradient-to-br from-silver-200 to-silver-400 flex items-center justify-center">
-              <span className="text-2xl font-bold text-background-primary">${price}</span>
+              <span className="text-2xl font-bold text-background-primary">
+                ${price}
+              </span>
             </div>
           </div>
         </div>
-        <p className="text-xl font-bold text-white mb-2">Minting Your Prediction</p>
-        <p className="text-silver-400 text-sm">Locking in your oracle forecast...</p>
+        <p className="text-xl font-bold text-white mb-2">
+          Minting Your Prediction
+        </p>
+        <p className="text-silver-400 text-sm">
+          Locking in your oracle forecast...
+        </p>
         <div className="mt-4 flex justify-center gap-1">
-          <div className="w-2 h-2 rounded-full bg-blue-400 animate-bounce" style={{ animationDelay: "0ms" }}></div>
-          <div className="w-2 h-2 rounded-full bg-blue-400 animate-bounce" style={{ animationDelay: "150ms" }}></div>
-          <div className="w-2 h-2 rounded-full bg-blue-400 animate-bounce" style={{ animationDelay: "300ms" }}></div>
+          <div
+            className="w-2 h-2 rounded-full bg-blue-400 animate-bounce"
+            style={{ animationDelay: "0ms" }}
+          ></div>
+          <div
+            className="w-2 h-2 rounded-full bg-blue-400 animate-bounce"
+            style={{ animationDelay: "150ms" }}
+          ></div>
+          <div
+            className="w-2 h-2 rounded-full bg-blue-400 animate-bounce"
+            style={{ animationDelay: "300ms" }}
+          ></div>
         </div>
       </div>
     </div>
@@ -223,10 +261,14 @@ const ShareOverlay = ({
     let url = "";
     switch (platform) {
       case "twitter":
-        url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+        url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+          shareText
+        )}&url=${encodeURIComponent(shareUrl)}`;
         break;
       case "telegram":
-        url = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
+        url = `https://t.me/share/url?url=${encodeURIComponent(
+          shareUrl
+        )}&text=${encodeURIComponent(shareText)}`;
         break;
       case "copy":
         navigator.clipboard.writeText(`${shareText}\n${shareUrl}`);
@@ -240,7 +282,10 @@ const ShareOverlay = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+      onClick={onClose}
+    >
       <div
         className="bg-background-secondary border border-white/10 rounded-3xl p-8 max-w-md w-full mx-4"
         onClick={(e) => e.stopPropagation()}
@@ -248,16 +293,22 @@ const ShareOverlay = ({
         {/* Share Card Preview */}
         <div className="bg-gradient-to-br from-blue-500/20 to-violet-500/20 border border-white/10 rounded-2xl p-6 mb-6">
           <div className="text-center">
-            <div className="text-xs text-silver-500 uppercase tracking-wider mb-2">My Prediction</div>
+            <div className="text-xs text-silver-500 uppercase tracking-wider mb-2">
+              My Prediction
+            </div>
             <div className="text-4xl font-bold text-white mb-2">${price}</div>
             <div className="text-sm text-silver-400">Silver Price Forecast</div>
             <div className="mt-4 pt-4 border-t border-white/10">
-              <span className="text-xs text-blue-400">{userName} on SilverTimes</span>
+              <span className="text-xs text-blue-400">
+                {userName} on SilverTimes
+              </span>
             </div>
           </div>
         </div>
 
-        <p className="text-center text-white font-semibold mb-4">Share Your Prediction</p>
+        <p className="text-center text-white font-semibold mb-4">
+          Share Your Prediction
+        </p>
 
         {/* Share buttons */}
         <div className="flex gap-3 justify-center mb-6">
@@ -266,7 +317,7 @@ const ShareOverlay = ({
             className="flex items-center gap-2 px-4 py-3 bg-[#1DA1F2]/20 border border-[#1DA1F2]/30 rounded-xl text-[#1DA1F2] hover:bg-[#1DA1F2]/30 transition-all"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
             </svg>
             <span className="text-sm font-medium">X</span>
           </button>
@@ -275,7 +326,7 @@ const ShareOverlay = ({
             className="flex items-center gap-2 px-4 py-3 bg-[#0088cc]/20 border border-[#0088cc]/30 rounded-xl text-[#0088cc] hover:bg-[#0088cc]/30 transition-all"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+              <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
             </svg>
             <span className="text-sm font-medium">Telegram</span>
           </button>
@@ -283,8 +334,18 @@ const ShareOverlay = ({
             onClick={() => handleShare("copy")}
             className="flex items-center gap-2 px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white hover:bg-white/20 transition-all"
           >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+              />
             </svg>
             <span className="text-sm font-medium">Copy</span>
           </button>
@@ -302,46 +363,69 @@ const ShareOverlay = ({
 };
 
 // Sentiment Gauge Component
-const SentimentGauge = ({ avgPrediction, currentPrice }: { avgPrediction: number | null; currentPrice: number }) => {
+const SentimentGauge = ({
+  avgPrediction,
+  currentPrice,
+}: {
+  avgPrediction: number | null;
+  currentPrice: number;
+}) => {
   const sentiment = useMemo(() => {
-    if (!avgPrediction) return { label: "Neutral", color: "text-silver-400", angle: 0 };
+    if (!avgPrediction)
+      return { label: "Neutral", color: "text-silver-400", angle: 0 };
     const diff = ((avgPrediction - currentPrice) / currentPrice) * 100;
-    if (diff > 3) return { label: "Very Bullish", color: "text-emerald-400", angle: 70 };
-    if (diff > 1) return { label: "Bullish", color: "text-emerald-300", angle: 40 };
-    if (diff < -3) return { label: "Very Bearish", color: "text-rose-400", angle: -70 };
-    if (diff < -1) return { label: "Bearish", color: "text-rose-300", angle: -40 };
+    if (diff > 3)
+      return { label: "Very Bullish", color: "text-emerald-400", angle: 70 };
+    if (diff > 1)
+      return { label: "Bullish", color: "text-emerald-300", angle: 40 };
+    if (diff < -3)
+      return { label: "Very Bearish", color: "text-rose-400", angle: -70 };
+    if (diff < -1)
+      return { label: "Bearish", color: "text-rose-300", angle: -40 };
     return { label: "Neutral", color: "text-silver-400", angle: 0 };
   }, [avgPrediction, currentPrice]);
 
   return (
     <div className="bg-background-secondary/40 backdrop-blur-md border border-white/5 rounded-2xl p-6">
-      <div className="text-xs text-silver-500 uppercase tracking-wider mb-3">Community Sentiment</div>
+      <div className="text-xs text-silver-500 uppercase tracking-wider mb-3">
+        Community Sentiment
+      </div>
 
       {/* Gauge visualization */}
       <div className="relative h-16 mb-4">
         <div className="absolute inset-x-0 bottom-0 h-8 overflow-hidden">
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-16 border-t-4 border-gradient rounded-t-full"
-               style={{ borderColor: "rgba(255,255,255,0.1)" }}>
-          </div>
+          <div
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-16 border-t-4 border-gradient rounded-t-full"
+            style={{ borderColor: "rgba(255,255,255,0.1)" }}
+          ></div>
         </div>
         {/* Needle */}
         <div
           className="absolute bottom-0 left-1/2 origin-bottom transition-transform duration-700"
-          style={{ transform: `translateX(-50%) rotate(${sentiment.angle}deg)` }}
+          style={{
+            transform: `translateX(-50%) rotate(${sentiment.angle}deg)`,
+          }}
         >
           <div className="w-0.5 h-12 bg-gradient-to-t from-white to-white/50 rounded-full"></div>
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-white shadow-lg"></div>
         </div>
         {/* Labels */}
-        <div className="absolute bottom-0 left-2 text-xs text-rose-400">Bearish</div>
-        <div className="absolute bottom-0 right-2 text-xs text-emerald-400">Bullish</div>
+        <div className="absolute bottom-0 left-2 text-xs text-rose-400">
+          Bearish
+        </div>
+        <div className="absolute bottom-0 right-2 text-xs text-emerald-400">
+          Bullish
+        </div>
       </div>
 
       <div className="text-center">
-        <span className={`text-lg font-bold ${sentiment.color}`}>{sentiment.label}</span>
+        <span className={`text-lg font-bold ${sentiment.color}`}>
+          {sentiment.label}
+        </span>
         {avgPrediction && (
           <div className="text-xs text-silver-500 mt-1">
-            Avg. Prediction: <span className="text-white">${avgPrediction.toFixed(2)}</span>
+            Avg. Prediction:{" "}
+            <span className="text-white">${avgPrediction.toFixed(2)}</span>
           </div>
         )}
       </div>
@@ -357,14 +441,18 @@ export default function PredictionGame() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [existingPrediction, setExistingPrediction] = useState<number | null>(null);
+  const [existingPrediction, setExistingPrediction] = useState<number | null>(
+    null
+  );
   const [showMinting, setShowMinting] = useState(false);
   const [showShare, setShowShare] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
   const [avgPrediction, setAvgPrediction] = useState<number | null>(null);
 
   // Technical indicators state
-  const [dailyPriceData, setDailyPriceData] = useState<{ date: string; price: number }[]>([]);
+  const [dailyPriceData, setDailyPriceData] = useState<
+    { date: string; price: number }[]
+  >([]);
   const [showMA20, setShowMA20] = useState(false);
   const [showMA50, setShowMA50] = useState(false);
   const [showRSI, setShowRSI] = useState(false);
@@ -586,9 +674,10 @@ export default function PredictionGame() {
   const enhancedChartData = useMemo(() => {
     // Use daily data if available and indicators are enabled
     if (dailyPriceData.length > 0 && (showMA20 || showMA50 || showRSI)) {
-      const ma20Values = showMA20 ? calculateSMA(dailyPriceData, 20) : [];
-      const ma50Values = showMA50 ? calculateSMA(dailyPriceData, 50) : [];
-      const rsiValues = showRSI ? calculateRSI(dailyPriceData, 14) : [];
+      // Calculate indicators on full dataset first
+      const ma20Values = calculateSMA(dailyPriceData, 20);
+      const ma50Values = calculateSMA(dailyPriceData, 50);
+      const rsiValues = calculateRSI(dailyPriceData, 14);
 
       return dailyPriceData.map((item, index) => ({
         ...item,
@@ -612,13 +701,16 @@ export default function PredictionGame() {
     return lastRSI;
   }, [dailyPriceData, showRSI]);
 
-  const silverPrice = currentPrice ?? 73.50;
+  const silverPrice = currentPrice ?? 73.5;
 
   return (
     <section className="relative bg-background-primary min-h-screen overflow-hidden">
       {/* Minting Animation */}
       {showMinting && (
-        <MintingAnimation price={prediction} onComplete={handleMintingComplete} />
+        <MintingAnimation
+          price={prediction}
+          onComplete={handleMintingComplete}
+        />
       )}
 
       {/* Silver Rain Celebration */}
@@ -670,8 +762,9 @@ export default function PredictionGame() {
               </span>
             </h1>
             <p className="text-base text-silver-400 max-w-2xl mx-auto">
-              Join the community of silver oracles. Submit your prediction before Thursday 11:59 PM.
-              Results locked Monday 12:00 PM using LBMA oracles.
+              Join the community of silver oracles. Submit your prediction
+              before Thursday 11:59 PM. Results locked Monday 12:00 PM using
+              LBMA oracles.
             </p>
           </div>
 
@@ -680,8 +773,18 @@ export default function PredictionGame() {
             {/* Live Price */}
             <div className="bg-background-secondary/40 backdrop-blur-md border border-white/5 rounded-2xl p-6">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs text-silver-500 uppercase tracking-wider">Current Spot Price</span>
-                <div className={`w-2 h-2 rounded-full ${isLoading ? "bg-yellow-500 animate-pulse" : error ? "bg-red-500" : "bg-emerald-500 animate-pulse"}`}></div>
+                <span className="text-xs text-silver-500 uppercase tracking-wider">
+                  Current Spot Price
+                </span>
+                <div
+                  className={`w-2 h-2 rounded-full ${
+                    isLoading
+                      ? "bg-yellow-500 animate-pulse"
+                      : error
+                      ? "bg-red-500"
+                      : "bg-emerald-500 animate-pulse"
+                  }`}
+                ></div>
               </div>
               <div className="text-3xl md:text-4xl font-bold text-white">
                 ${silverPrice.toFixed(2)}
@@ -691,29 +794,46 @@ export default function PredictionGame() {
 
             {/* Countdown */}
             <div className="bg-background-secondary/40 backdrop-blur-md border border-white/5 rounded-2xl p-6">
-              <div className="text-xs text-silver-500 uppercase tracking-wider mb-2">Prediction Lock-in</div>
+              <div className="text-xs text-silver-500 uppercase tracking-wider mb-2">
+                Prediction Lock-in
+              </div>
               <div className="flex items-baseline gap-1 text-white">
-                <span className="text-2xl md:text-3xl font-bold">{String(countdown.days).padStart(2, "0")}</span>
+                <span className="text-2xl md:text-3xl font-bold">
+                  {String(countdown.days).padStart(2, "0")}
+                </span>
                 <span className="text-silver-500 text-sm">d</span>
-                <span className="text-xl md:text-2xl font-bold ml-1">{String(countdown.hours).padStart(2, "0")}</span>
+                <span className="text-xl md:text-2xl font-bold ml-1">
+                  {String(countdown.hours).padStart(2, "0")}
+                </span>
                 <span className="text-silver-500 text-sm">h</span>
-                <span className="text-xl md:text-2xl font-bold ml-1">{String(countdown.minutes).padStart(2, "0")}</span>
+                <span className="text-xl md:text-2xl font-bold ml-1">
+                  {String(countdown.minutes).padStart(2, "0")}
+                </span>
                 <span className="text-silver-500 text-sm">m</span>
               </div>
-              <div className="text-xs text-silver-500 mt-1">Until Thursday 23:59 UTC</div>
+              <div className="text-xs text-silver-500 mt-1">
+                Until Thursday 23:59 UTC
+              </div>
             </div>
 
             {/* Participants */}
             <div className="bg-background-secondary/40 backdrop-blur-md border border-white/5 rounded-2xl p-6">
-              <div className="text-xs text-silver-500 uppercase tracking-wider mb-2">This Week's Oracles</div>
+              <div className="text-xs text-silver-500 uppercase tracking-wider mb-2">
+                This Week's Oracles
+              </div>
               <div className="text-3xl md:text-4xl font-bold text-white">
                 {currentRound?.totalParticipants || 0}
               </div>
-              <div className="text-xs text-silver-500 mt-1">Predictions submitted</div>
+              <div className="text-xs text-silver-500 mt-1">
+                Predictions submitted
+              </div>
             </div>
 
             {/* Sentiment Gauge */}
-            <SentimentGauge avgPrediction={avgPrediction} currentPrice={silverPrice} />
+            <SentimentGauge
+              avgPrediction={avgPrediction}
+              currentPrice={silverPrice}
+            />
           </div>
         </div>
       </div>
@@ -722,16 +842,19 @@ export default function PredictionGame() {
       <div className="relative z-10 px-4 pb-16">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-5 gap-6">
-
             {/* ===== LEFT: ANALYSIS ZONE (3 cols) ===== */}
             <div className="lg:col-span-3 space-y-6">
               {/* Interactive Chart */}
               <div className="bg-background-secondary/40 backdrop-blur-md border border-white/5 rounded-3xl p-6 md:p-8">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <h3 className="text-lg font-semibold text-white">LBMA Silver Price</h3>
+                    <h3 className="text-lg font-semibold text-white">
+                      LBMA Silver Price
+                    </h3>
                     <p className="text-xs text-silver-500">
-                      {(showMA20 || showMA50 || showRSI) ? "Daily data with technical indicators" : "Weekly historical data"}
+                      {showMA20 || showMA50 || showRSI
+                        ? "Daily data with technical indicators"
+                        : "Weekly historical data"}
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
@@ -742,7 +865,9 @@ export default function PredictionGame() {
 
                 {/* Technical Indicators Toggle */}
                 <div className="flex flex-wrap items-center gap-2 mb-4">
-                  <span className="text-xs text-silver-500 mr-2">Indicators:</span>
+                  <span className="text-xs text-silver-500 mr-2">
+                    Indicators:
+                  </span>
                   <button
                     onClick={() => setShowMA20(!showMA20)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
@@ -773,39 +898,68 @@ export default function PredictionGame() {
                   >
                     RSI
                   </button>
-                  {showRSI && currentRSI !== null && (
-                    <span className={`ml-2 text-xs font-medium ${
-                      currentRSI > 70 ? "text-rose-400" : currentRSI < 30 ? "text-emerald-400" : "text-silver-400"
-                    }`}>
-                      RSI: {currentRSI.toFixed(1)} {currentRSI > 70 ? "(Overbought)" : currentRSI < 30 ? "(Oversold)" : ""}
-                    </span>
-                  )}
                 </div>
 
-                <div className="h-72 md:h-80">
+                {/* Main Price Chart */}
+                <div className="h-72 md:h-92">
                   <ResponsiveContainer width="100%" height="100%">
                     <ComposedChart data={enhancedChartData}>
                       <defs>
-                        <linearGradient id="silverGradient" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#60a5fa" stopOpacity={0.3} />
-                          <stop offset="95%" stopColor="#60a5fa" stopOpacity={0} />
+                        <linearGradient
+                          id="silverGradient"
+                          x1="0"
+                          y1="0"
+                          x2="0"
+                          y2="1"
+                        >
+                          <stop
+                            offset="5%"
+                            stopColor="#60a5fa"
+                            stopOpacity={0.3}
+                          />
+                          <stop
+                            offset="95%"
+                            stopColor="#60a5fa"
+                            stopOpacity={0}
+                          />
                         </linearGradient>
                       </defs>
-                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" vertical={false} />
+                      <CartesianGrid
+                        strokeDasharray="3 3"
+                        stroke="rgba(255,255,255,0.03)"
+                        vertical={false}
+                      />
                       <XAxis
                         dataKey="date"
                         stroke="#6b7280"
                         style={{ fontSize: "10px" }}
                         tickLine={false}
                         axisLine={false}
+                        interval={
+                          showMA20 || showMA50 || showRSI
+                            ? 6
+                            : "preserveStartEnd"
+                        }
                         tickFormatter={(value) => {
                           const date = new Date(value);
-                          const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                          const months = [
+                            "Jan",
+                            "Feb",
+                            "Mar",
+                            "Apr",
+                            "May",
+                            "Jun",
+                            "Jul",
+                            "Aug",
+                            "Sep",
+                            "Oct",
+                            "Nov",
+                            "Dec",
+                          ];
                           return `${date.getDate()} ${months[date.getMonth()]}`;
                         }}
                       />
                       <YAxis
-                        yAxisId="price"
                         stroke="#6b7280"
                         style={{ fontSize: "10px" }}
                         tickLine={false}
@@ -813,18 +967,6 @@ export default function PredictionGame() {
                         domain={["dataMin - 2", "dataMax + 2"]}
                         tickFormatter={(value) => `$${value}`}
                       />
-                      {showRSI && (
-                        <YAxis
-                          yAxisId="rsi"
-                          orientation="right"
-                          stroke="#8b5cf6"
-                          style={{ fontSize: "10px" }}
-                          tickLine={false}
-                          axisLine={false}
-                          domain={[0, 100]}
-                          tickFormatter={(value) => `${value}`}
-                        />
-                      )}
                       <Tooltip
                         contentStyle={{
                           backgroundColor: "#0a0a0a",
@@ -833,10 +975,12 @@ export default function PredictionGame() {
                           padding: "12px",
                         }}
                         formatter={(value: number, name: string) => {
-                          if (name === "price") return [`$${value.toFixed(2)}/oz`, "Price"];
-                          if (name === "ma20") return [`$${value.toFixed(2)}`, "MA20"];
-                          if (name === "ma50") return [`$${value.toFixed(2)}`, "MA50"];
-                          if (name === "rsi") return [value.toFixed(1), "RSI"];
+                          if (name === "price")
+                            return [`$${value.toFixed(2)}/oz`, "Price"];
+                          if (name === "ma20")
+                            return [`$${value.toFixed(2)}`, "MA20"];
+                          if (name === "ma50")
+                            return [`$${value.toFixed(2)}`, "MA50"];
                           return [value, name];
                         }}
                         labelFormatter={(label) => {
@@ -845,7 +989,6 @@ export default function PredictionGame() {
                         }}
                       />
                       <Area
-                        yAxisId="price"
                         type="monotone"
                         dataKey="price"
                         stroke="#60a5fa"
@@ -854,69 +997,194 @@ export default function PredictionGame() {
                       />
                       {showMA20 && (
                         <Line
-                          yAxisId="price"
                           type="monotone"
                           dataKey="ma20"
                           stroke="#10b981"
                           strokeWidth={1.5}
                           dot={false}
                           connectNulls
+                          isAnimationActive={false}
                         />
                       )}
                       {showMA50 && (
                         <Line
-                          yAxisId="price"
                           type="monotone"
                           dataKey="ma50"
                           stroke="#f97316"
                           strokeWidth={1.5}
                           dot={false}
                           connectNulls
+                          isAnimationActive={false}
                         />
                       )}
-                      {showRSI && (
+                      {/* Reference line for current price */}
+                      <ReferenceLine
+                        y={silverPrice}
+                        stroke="#8b5cf6"
+                        strokeDasharray="5 5"
+                        label={{
+                          value: "Current",
+                          fill: "#8b5cf6",
+                          fontSize: 10,
+                        }}
+                      />
+                    </ComposedChart>
+                  </ResponsiveContainer>
+                </div>
+
+                {/* RSI Chart - Separate Panel */}
+                {showRSI && (
+                  <div className="h-48 mt-2 border-t border-white/5 pt-2">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-xs text-silver-500">RSI (14)</span>
+                      {currentRSI !== null && (
+                        <span
+                          className={`text-xs font-medium ${
+                            currentRSI > 70
+                              ? "text-rose-400"
+                              : currentRSI < 30
+                              ? "text-emerald-400"
+                              : "text-silver-400"
+                          }`}
+                        >
+                          {currentRSI.toFixed(1)}{" "}
+                          {currentRSI > 70
+                            ? "Overbought"
+                            : currentRSI < 30
+                            ? "Oversold"
+                            : ""}
+                        </span>
+                      )}
+                    </div>
+                    <ResponsiveContainer width="100%" height="85%">
+                      <ComposedChart data={enhancedChartData}>
+                        <CartesianGrid
+                          strokeDasharray="3 3"
+                          stroke="rgba(255,255,255,0.03)"
+                          vertical={false}
+                        />
+                        <XAxis
+                          dataKey="date"
+                          stroke="#6b7280"
+                          style={{ fontSize: "10px" }}
+                          tickLine={false}
+                          axisLine={false}
+                          interval={6}
+                          tickFormatter={(value) => {
+                            const date = new Date(value);
+                            const months = [
+                              "Jan",
+                              "Feb",
+                              "Mar",
+                              "Apr",
+                              "May",
+                              "Jun",
+                              "Jul",
+                              "Aug",
+                              "Sep",
+                              "Oct",
+                              "Nov",
+                              "Dec",
+                            ];
+                            return `${date.getDate()} ${
+                              months[date.getMonth()]
+                            }`;
+                          }}
+                        />
+                        <YAxis
+                          stroke="#6b7280"
+                          style={{ fontSize: "10px" }}
+                          tickLine={false}
+                          axisLine={false}
+                          domain={[0, 100]}
+                          ticks={[30, 50, 70]}
+                          tickFormatter={(value) => `${value}`}
+                        />
+                        <Tooltip
+                          contentStyle={{
+                            backgroundColor: "#0a0a0a",
+                            border: "1px solid rgba(255,255,255,0.1)",
+                            borderRadius: "8px",
+                            padding: "8px",
+                          }}
+                          formatter={(value: number) => [
+                            value.toFixed(1),
+                            "RSI",
+                          ]}
+                          labelFormatter={(label) => {
+                            const date = new Date(label);
+                            return date.toLocaleDateString();
+                          }}
+                        />
                         <Line
-                          yAxisId="rsi"
                           type="monotone"
                           dataKey="rsi"
                           stroke="#8b5cf6"
                           strokeWidth={1.5}
                           dot={false}
                           connectNulls
+                          isAnimationActive={false}
                         />
-                      )}
-                      {/* Reference line for current price */}
-                      <ReferenceLine
-                        yAxisId="price"
-                        y={silverPrice}
-                        stroke="#8b5cf6"
-                        strokeDasharray="5 5"
-                        label={{ value: "Current", fill: "#8b5cf6", fontSize: 10 }}
-                      />
-                      {/* RSI overbought/oversold lines */}
-                      {showRSI && (
-                        <>
-                          <ReferenceLine yAxisId="rsi" y={70} stroke="#ef4444" strokeDasharray="3 3" strokeOpacity={0.5} />
-                          <ReferenceLine yAxisId="rsi" y={30} stroke="#22c55e" strokeDasharray="3 3" strokeOpacity={0.5} />
-                        </>
-                      )}
-                    </ComposedChart>
-                  </ResponsiveContainer>
-                </div>
+                        {/* Overbought/Oversold reference lines */}
+                        <ReferenceLine
+                          y={70}
+                          stroke="#ef4444"
+                          strokeDasharray="3 3"
+                          strokeOpacity={0.5}
+                        />
+                        <ReferenceLine
+                          y={30}
+                          stroke="#22c55e"
+                          strokeDasharray="3 3"
+                          strokeOpacity={0.5}
+                        />
+                        <ReferenceLine
+                          y={50}
+                          stroke="#6b7280"
+                          strokeDasharray="2 2"
+                          strokeOpacity={0.3}
+                        />
+                      </ComposedChart>
+                    </ResponsiveContainer>
+                  </div>
+                )}
 
                 {/* Legend */}
                 <div className="mt-4 flex items-center justify-between text-xs text-silver-500">
                   <div className="flex items-center gap-4">
-                    <span>{isLoading ? "Loading..." : error ? "Using fallback data" : "Live data - Updates every 5 min"}</span>
+                    <span>
+                      {isLoading
+                        ? "Loading..."
+                        : error
+                        ? "Using fallback data"
+                        : "Live data - Updates every 5 min"}
+                    </span>
                     {(showMA20 || showMA50 || showRSI) && (
                       <div className="flex items-center gap-3">
-                        {showMA20 && <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-emerald-500"></span> MA20</span>}
-                        {showMA50 && <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-orange-500"></span> MA50</span>}
-                        {showRSI && <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-violet-500"></span> RSI</span>}
+                        {showMA20 && (
+                          <span className="flex items-center gap-1">
+                            <span className="w-3 h-0.5 bg-emerald-500"></span>{" "}
+                            MA20
+                          </span>
+                        )}
+                        {showMA50 && (
+                          <span className="flex items-center gap-1">
+                            <span className="w-3 h-0.5 bg-orange-500"></span>{" "}
+                            MA50
+                          </span>
+                        )}
+                        {showRSI && (
+                          <span className="flex items-center gap-1">
+                            <span className="w-3 h-0.5 bg-violet-500"></span>{" "}
+                            RSI
+                          </span>
+                        )}
                       </div>
                     )}
                   </div>
-                  <span className="text-emerald-400">{!error && !isLoading && "Connected"}</span>
+                  <span className="text-emerald-400">
+                    {!error && !isLoading && "Connected"}
+                  </span>
                 </div>
               </div>
 
@@ -926,8 +1194,12 @@ export default function PredictionGame() {
                   <div className="flex items-center gap-3">
                     <div className="w-1 h-10 bg-gradient-to-b from-yellow-500/60 to-yellow-600/70 rounded-full"></div>
                     <div>
-                      <h3 className="text-lg font-semibold text-white">Leaderboard</h3>
-                      <p className="text-xs text-silver-500">Top silver oracles</p>
+                      <h3 className="text-lg font-semibold text-white">
+                        Leaderboard
+                      </h3>
+                      <p className="text-xs text-silver-500">
+                        Top silver oracles
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -968,7 +1240,10 @@ export default function PredictionGame() {
                         <option value="">No completed rounds yet</option>
                       ) : (
                         completedRounds.map((round) => (
-                          <option key={round.weekIdentifier} value={round.weekIdentifier}>
+                          <option
+                            key={round.weekIdentifier}
+                            value={round.weekIdentifier}
+                          >
                             {round.weekIdentifier}
                           </option>
                         ))
@@ -983,24 +1258,40 @@ export default function PredictionGame() {
                   <div className="grid grid-cols-12 gap-2 px-3 py-2 text-xs text-silver-500 font-medium sticky top-0 bg-background-secondary/80 backdrop-blur-sm rounded-lg">
                     <div className="col-span-1">#</div>
                     <div className="col-span-3">Oracle</div>
-                    <div className="col-span-2 text-right">{activeTab === "accuracy" ? "Avg Error" : "Prediction"}</div>
+                    <div className="col-span-2 text-right">
+                      {activeTab === "accuracy" ? "Avg Error" : "Prediction"}
+                    </div>
                     <div className="col-span-2 text-center">Streak</div>
                     <div className="col-span-2 text-right">Last Guess</div>
                     <div className="col-span-2 text-right">Tier</div>
                   </div>
 
                   {/* Accuracy Leaders */}
-                  {activeTab === "accuracy" && (
-                    leaderboardLoading ? (
-                      <div className="text-center py-8 text-silver-500">Loading...</div>
+                  {activeTab === "accuracy" &&
+                    (leaderboardLoading ? (
+                      <div className="text-center py-8 text-silver-500">
+                        Loading...
+                      </div>
                     ) : accuracyLeaders.length === 0 ? (
-                      <div className="text-center py-8 text-silver-500">No predictions yet</div>
+                      <div className="text-center py-8 text-silver-500">
+                        No predictions yet
+                      </div>
                     ) : (
                       accuracyLeaders.map((leader, index) => {
                         const rank = index + 1;
                         const bestRank = leader.bestRank;
-                        const tier = bestRank && bestRank <= 10 ? "Tier 1" : bestRank && bestRank <= 25 ? "Tier 2" : "-";
-                        const tierColor = bestRank && bestRank <= 10 ? "text-yellow-400" : bestRank && bestRank <= 25 ? "text-silver-300" : "text-silver-600";
+                        const tier =
+                          bestRank && bestRank <= 10
+                            ? "Tier 1"
+                            : bestRank && bestRank <= 25
+                            ? "Tier 2"
+                            : "-";
+                        const tierColor =
+                          bestRank && bestRank <= 10
+                            ? "text-yellow-400"
+                            : bestRank && bestRank <= 25
+                            ? "text-silver-300"
+                            : "text-silver-600";
                         const streak = leader.currentStreak || 0;
                         return (
                           <div
@@ -1009,15 +1300,27 @@ export default function PredictionGame() {
                           >
                             <div className="col-span-1 flex items-center">
                               {rank <= 3 ? (
-                                <span className={`text-sm font-bold ${rank === 1 ? "text-yellow-400" : rank === 2 ? "text-silver-300" : "text-amber-600"}`}>
+                                <span
+                                  className={`text-sm font-bold ${
+                                    rank === 1
+                                      ? "text-yellow-400"
+                                      : rank === 2
+                                      ? "text-silver-300"
+                                      : "text-amber-600"
+                                  }`}
+                                >
                                   {rank === 1 ? "🥇" : rank === 2 ? "🥈" : "🥉"}
                                 </span>
                               ) : (
-                                <span className="text-sm text-silver-500">{rank}</span>
+                                <span className="text-sm text-silver-500">
+                                  {rank}
+                                </span>
                               )}
                             </div>
                             <div className="col-span-3 flex items-center">
-                              <span className="text-sm text-white font-mono truncate">{formatAddress(leader)}</span>
+                              <span className="text-sm text-white font-mono truncate">
+                                {formatAddress(leader)}
+                              </span>
                             </div>
                             <div className="col-span-2 flex items-center justify-end">
                               <span className="text-sm text-blue-400 font-medium">
@@ -1030,31 +1333,40 @@ export default function PredictionGame() {
                                   {streak}🔥
                                 </span>
                               ) : (
-                                <span className="text-sm text-silver-600">-</span>
+                                <span className="text-sm text-silver-600">
+                                  -
+                                </span>
                               )}
                             </div>
                             <div className="col-span-2 flex items-center justify-end">
                               <span className="text-sm text-silver-400">
-                                {leader.lastPredictedPrice ? `$${leader.lastPredictedPrice.toFixed(2)}` : "-"}
+                                {leader.lastPredictedPrice
+                                  ? `$${leader.lastPredictedPrice.toFixed(2)}`
+                                  : "-"}
                               </span>
                             </div>
                             <div className="col-span-2 flex items-center justify-end">
-                              <span className={`text-xs px-2 py-1 rounded-full font-medium ${tierColor} bg-white/5`}>
+                              <span
+                                className={`text-xs px-2 py-1 rounded-full font-medium ${tierColor} bg-white/5`}
+                              >
                                 {tier}
                               </span>
                             </div>
                           </div>
                         );
                       })
-                    )
-                  )}
+                    ))}
 
                   {/* Weekly Winners */}
-                  {activeTab === "weekly" && (
-                    completedRounds.length === 0 ? (
-                      <div className="text-center py-8 text-silver-500">No completed rounds yet</div>
+                  {activeTab === "weekly" &&
+                    (completedRounds.length === 0 ? (
+                      <div className="text-center py-8 text-silver-500">
+                        No completed rounds yet
+                      </div>
                     ) : weeklyWinners.length === 0 ? (
-                      <div className="text-center py-8 text-silver-500">No winners for this round</div>
+                      <div className="text-center py-8 text-silver-500">
+                        No winners for this round
+                      </div>
                     ) : (
                       weeklyWinners.map((winner) => {
                         const rank = winner.rank || 0;
@@ -1066,14 +1378,20 @@ export default function PredictionGame() {
                           >
                             <div className="col-span-1 flex items-center">
                               {rank <= 3 ? (
-                                <span className="text-sm">{rank === 1 ? "🥇" : rank === 2 ? "🥈" : "🥉"}</span>
+                                <span className="text-sm">
+                                  {rank === 1 ? "🥇" : rank === 2 ? "🥈" : "🥉"}
+                                </span>
                               ) : (
-                                <span className="text-sm text-silver-500">{rank}</span>
+                                <span className="text-sm text-silver-500">
+                                  {rank}
+                                </span>
                               )}
                             </div>
                             <div className="col-span-3 flex items-center">
                               <span className="text-sm text-white font-mono truncate">
-                                {winner.userId ? formatAddress(winner.userId) : "Anonymous"}
+                                {winner.userId
+                                  ? formatAddress(winner.userId)
+                                  : "Anonymous"}
                               </span>
                             </div>
                             <div className="col-span-2 flex items-center justify-end">
@@ -1088,17 +1406,20 @@ export default function PredictionGame() {
                               <span className="text-sm text-silver-600">-</span>
                             </div>
                             <div className="col-span-2 flex items-center justify-end">
-                              <span className={`text-xs px-2 py-1 rounded-full font-medium ${
-                                tier === "Tier 1" ? "text-yellow-400 bg-yellow-500/10" : "text-silver-300 bg-silver-500/10"
-                              }`}>
+                              <span
+                                className={`text-xs px-2 py-1 rounded-full font-medium ${
+                                  tier === "Tier 1"
+                                    ? "text-yellow-400 bg-yellow-500/10"
+                                    : "text-silver-300 bg-silver-500/10"
+                                }`}
+                              >
                                 {tier}
                               </span>
                             </div>
                           </div>
                         );
                       })
-                    )
-                  )}
+                    ))}
                 </div>
               </div>
             </div>
@@ -1108,7 +1429,9 @@ export default function PredictionGame() {
               {/* Prediction Input Card */}
               <div className="bg-gradient-to-br from-background-secondary/60 to-background-secondary/40 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-8 sticky top-24">
                 <div className="text-center mb-6">
-                  <h3 className="text-xl font-bold text-white mb-2">Your Prediction</h3>
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    Your Prediction
+                  </h3>
                   <p className="text-sm text-silver-400">
                     Predict {nextMonday} LBMA Silver Price
                   </p>
@@ -1118,8 +1441,18 @@ export default function PredictionGame() {
                 {!authenticated && (
                   <div className="mb-6 p-4 bg-blue-500/10 border border-blue-500/20 rounded-xl">
                     <div className="flex items-center gap-2 text-blue-400 text-sm">
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
                       </svg>
                       Connect wallet to participate
                     </div>
@@ -1130,12 +1463,24 @@ export default function PredictionGame() {
                   <div className="mb-6 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2 text-emerald-400 text-sm">
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
                         </svg>
                         Connected
                       </div>
-                      <span className="text-xs text-silver-400 font-mono">{displayAddress}</span>
+                      <span className="text-xs text-silver-400 font-mono">
+                        {displayAddress}
+                      </span>
                     </div>
                   </div>
                 )}
@@ -1146,7 +1491,9 @@ export default function PredictionGame() {
                     Your Price Prediction (USD/oz)
                   </label>
                   <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-bold text-white/50">$</span>
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-bold text-white/50">
+                      $
+                    </span>
                     <input
                       type="number"
                       step="0.01"
@@ -1173,7 +1520,8 @@ export default function PredictionGame() {
                           : "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20"
                       }`}
                     >
-                      {adj > 0 ? "+" : ""}{adj}
+                      {adj > 0 ? "+" : ""}
+                      {adj}
                     </button>
                   ))}
                 </div>
@@ -1190,7 +1538,9 @@ export default function PredictionGame() {
                     className="w-full bg-background-primary/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500/50 transition-all placeholder:text-silver-600 resize-none h-20"
                     maxLength={200}
                   />
-                  <div className="text-right text-xs text-silver-600 mt-1">{reasoning.length}/200</div>
+                  <div className="text-right text-xs text-silver-600 mt-1">
+                    {reasoning.length}/200
+                  </div>
                 </div>
 
                 {/* Error/Success Messages */}
@@ -1217,13 +1567,29 @@ export default function PredictionGame() {
                   ) : isSubmitting ? (
                     <span className="flex items-center justify-center gap-2">
                       <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                          fill="none"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                        />
                       </svg>
                       Minting...
                     </span>
                   ) : authenticated ? (
-                    existingPrediction ? "Update Prediction" : "Lock In Prediction"
+                    existingPrediction ? (
+                      "Update Prediction"
+                    ) : (
+                      "Lock In Prediction"
+                    )
                   ) : (
                     "Connect to Predict"
                   )}
@@ -1232,8 +1598,12 @@ export default function PredictionGame() {
                 {/* Existing Prediction Notice */}
                 {existingPrediction && (
                   <div className="mt-4 p-3 bg-violet-500/10 border border-violet-500/20 rounded-xl text-center">
-                    <span className="text-xs text-silver-400">Current prediction: </span>
-                    <span className="text-sm text-violet-400 font-bold">${existingPrediction.toFixed(2)}</span>
+                    <span className="text-xs text-silver-400">
+                      Current prediction:{" "}
+                    </span>
+                    <span className="text-sm text-violet-400 font-bold">
+                      ${existingPrediction.toFixed(2)}
+                    </span>
                   </div>
                 )}
 
@@ -1252,28 +1622,56 @@ export default function PredictionGame() {
               <div className="bg-gradient-to-br from-emerald-500/10 to-blue-500/10 backdrop-blur-md border border-emerald-500/20 rounded-3xl p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center">
-                    <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <svg
+                      className="w-5 h-5 text-emerald-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
                     </svg>
                   </div>
                   <div>
-                    <div className="text-xs text-silver-500 uppercase tracking-wider">Tiered Rewards</div>
-                    <div className="text-lg font-bold text-white">Weekly Prizes</div>
+                    <div className="text-xs text-silver-500 uppercase tracking-wider">
+                      Tiered Rewards
+                    </div>
+                    <div className="text-lg font-bold text-white">
+                      Weekly Prizes
+                    </div>
                   </div>
                 </div>
                 <div className="space-y-2 text-xs text-silver-400">
-                  <p><span className="text-yellow-400 font-semibold">Top 10:</span> Share the weekly reward pool</p>
-                  <p><span className="text-violet-400 font-semibold">All Participants:</span> "Silver Times Contributor" NFT badge (POAP)</p>
+                  <p>
+                    <span className="text-yellow-400 font-semibold">
+                      Top 10:
+                    </span>{" "}
+                    Share the weekly reward pool
+                  </p>
+                  <p>
+                    <span className="text-violet-400 font-semibold">
+                      All Participants:
+                    </span>{" "}
+                    "Silver Times Contributor" NFT badge (POAP)
+                  </p>
                 </div>
               </div>
 
               {/* Quick Rules */}
               <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-6">
-                <h4 className="text-sm font-semibold text-white mb-4">Quick Rules</h4>
+                <h4 className="text-sm font-semibold text-white mb-4">
+                  Quick Rules
+                </h4>
                 <div className="space-y-3 text-xs text-silver-400">
                   <div className="flex items-start gap-2">
                     <div className="w-1 h-1 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
-                    <span>Submissions: Mon 12:00 PM - Thu 11:59 PM (London)</span>
+                    <span>
+                      Submissions: Mon 12:00 PM - Thu 11:59 PM (London)
+                    </span>
                   </div>
                   <div className="flex items-start gap-2">
                     <div className="w-1 h-1 rounded-full bg-blue-400 mt-1.5 flex-shrink-0"></div>
@@ -1301,9 +1699,19 @@ export default function PredictionGame() {
                 <h3 className="text-base font-bold text-white">Game Rules</h3>
               </div>
               <div className="space-y-3 text-xs text-silver-400">
-                <p><strong className="text-white">Benchmark:</strong> LBMA Silver Price (USD/oz) at 12:00 PM London time, rounded to two decimals.</p>
-                <p><strong className="text-white">Scoring:</strong> Rank by absolute error; ties break by earliest submission.</p>
-                <p><strong className="text-white">Access:</strong> Connect an EVM wallet; one submission per wallet per round.</p>
+                <p>
+                  <strong className="text-white">Benchmark:</strong> LBMA Silver
+                  Price (USD/oz) at 12:00 PM London time, rounded to two
+                  decimals.
+                </p>
+                <p>
+                  <strong className="text-white">Scoring:</strong> Rank by
+                  absolute error; ties break by earliest submission.
+                </p>
+                <p>
+                  <strong className="text-white">Access:</strong> Connect an EVM
+                  wallet; one submission per wallet per round.
+                </p>
               </div>
             </div>
 
@@ -1311,13 +1719,24 @@ export default function PredictionGame() {
             <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-6">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-1 h-8 bg-gradient-to-b from-emerald-500/60 to-emerald-600/70 rounded-full"></div>
-                <h3 className="text-base font-bold text-white">Prizes & Rewards</h3>
+                <h3 className="text-base font-bold text-white">
+                  Prizes & Rewards
+                </h3>
               </div>
               <div className="space-y-3 text-xs text-silver-400">
-                <p><strong className="text-white">Top 10:</strong> Share the weekly reward pool.</p>
-                <p><strong className="text-white">Participation:</strong> "Silver Times Contributor" NFT badge (POAP).</p>
                 <p>
-                  <Link to="/rewards-terms" className="text-blue-400 hover:text-blue-300 underline">
+                  <strong className="text-white">Top 10:</strong> Share the
+                  weekly reward pool.
+                </p>
+                <p>
+                  <strong className="text-white">Participation:</strong> "Silver
+                  Times Contributor" NFT badge (POAP).
+                </p>
+                <p>
+                  <Link
+                    to="/rewards-terms"
+                    className="text-blue-400 hover:text-blue-300 underline"
+                  >
                     View full rewards T&C →
                   </Link>
                 </p>
@@ -1328,12 +1747,23 @@ export default function PredictionGame() {
             <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-6">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-1 h-8 bg-gradient-to-b from-violet-500/60 to-violet-600/70 rounded-full"></div>
-                <h3 className="text-base font-bold text-white">Data & Fairness</h3>
+                <h3 className="text-base font-bold text-white">
+                  Data & Fairness
+                </h3>
               </div>
               <div className="space-y-3 text-xs text-silver-400">
-                <p><strong className="text-white">Source:</strong> Licensed LBMA feeds; rounds voided if benchmark unavailable.</p>
-                <p><strong className="text-white">Compliance:</strong> Physical deliveries may require KYC and regional restrictions.</p>
-                <p><strong className="text-white">Rewards:</strong> Distributed Q1 2026 after STT token issuance.</p>
+                <p>
+                  <strong className="text-white">Source:</strong> Licensed LBMA
+                  feeds; rounds voided if benchmark unavailable.
+                </p>
+                <p>
+                  <strong className="text-white">Compliance:</strong> Physical
+                  deliveries may require KYC and regional restrictions.
+                </p>
+                <p>
+                  <strong className="text-white">Rewards:</strong> Distributed
+                  Q1 2026 after STT token issuance.
+                </p>
               </div>
             </div>
           </div>
@@ -1346,11 +1776,15 @@ export default function PredictionGame() {
           <div className="max-w-7xl mx-auto px-4 py-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-6">
-                <div className="text-xs text-silver-500 uppercase tracking-wider">Your Performance</div>
+                <div className="text-xs text-silver-500 uppercase tracking-wider">
+                  Your Performance
+                </div>
                 <div className="flex items-center gap-4">
                   <div className="text-center">
                     <div className="text-lg font-bold text-white">
-                      {userStats.currentRank ? `#${userStats.currentRank}` : "-"}
+                      {userStats.currentRank
+                        ? `#${userStats.currentRank}`
+                        : "-"}
                     </div>
                     <div className="text-xs text-silver-500">Rank</div>
                   </div>
@@ -1364,7 +1798,9 @@ export default function PredictionGame() {
                   <div className="w-px h-8 bg-white/10"></div>
                   <div className="text-center">
                     <div className="text-lg font-bold text-orange-400">
-                      {userStats.currentStreak > 0 ? `${userStats.currentStreak}🔥` : "-"}
+                      {userStats.currentStreak > 0
+                        ? `${userStats.currentStreak}🔥`
+                        : "-"}
                     </div>
                     <div className="text-xs text-silver-500">Streak</div>
                   </div>
@@ -1386,7 +1822,9 @@ export default function PredictionGame() {
                       className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-500/20 to-amber-500/20 border border-yellow-500/30 flex items-center justify-center"
                       title={getBadgeLabel(badge.type)}
                     >
-                      <span className="text-sm">{getBadgeIcon(badge.type)}</span>
+                      <span className="text-sm">
+                        {getBadgeIcon(badge.type)}
+                      </span>
                     </div>
                   ))
                 ) : (
