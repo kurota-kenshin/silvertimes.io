@@ -15,6 +15,13 @@ export const accessTokenManager = {
   clear: () => localStorage.removeItem(ACCESS_TOKEN_KEY),
 };
 
+// Badge types
+export interface Badge {
+  type: 'silver_tongue' | 'moon_shot' | 'steady_hand' | 'broadcaster' | 'contributor';
+  earnedAt: string;
+  metadata?: Record<string, unknown>;
+}
+
 // Types for leaderboard data
 export interface AccuracyLeader {
   _id: string;
@@ -24,6 +31,9 @@ export interface AccuracyLeader {
   totalWins: number;
   avgError?: number;
   bestRank?: number;
+  currentStreak?: number;
+  lastPredictedPrice?: number;
+  badges?: Badge[];
 }
 
 export interface WeeklyWinner {
@@ -50,6 +60,20 @@ export interface RoundInfo {
   totalParticipants: number;
   prizePool: number;
   winnersCount: number;
+  avgPrediction?: number;
+}
+
+// User stats for personal stats bar
+export interface UserStats {
+  totalPredictions: number;
+  totalWins: number;
+  avgError: number;
+  bestRank: number | null;
+  currentStreak: number;
+  longestStreak: number;
+  lastPredictedPrice: number | null;
+  badges: Badge[];
+  currentRank: number | null;
 }
 
 async function apiRequest<T>(endpoint: string, options: ApiOptions = {}): Promise<T> {
@@ -135,7 +159,7 @@ export const authApi = {
 // Predictions API
 export const predictionsApi = {
   getCurrentRound: () =>
-    apiRequest<{ round: any; isOpen: boolean }>('/predictions/round/current'),
+    apiRequest<{ round: RoundInfo; isOpen: boolean }>('/predictions/round/current'),
 
   submit: (token: string, predictedPrice: number) =>
     apiRequest<{ success: boolean; prediction: any }>('/predictions/submit', {
@@ -163,4 +187,13 @@ export const predictionsApi = {
 
   getCompletedRounds: (limit = 10) =>
     apiRequest<{ rounds: RoundInfo[] }>(`/predictions/rounds/completed?limit=${limit}`),
+
+  getMyStats: (token: string) =>
+    apiRequest<{ stats: UserStats }>('/predictions/my-stats', { token }),
+
+  trackShare: (token: string) =>
+    apiRequest<{ success: boolean; newShareCount: number; badgeEarned?: string }>(
+      '/predictions/track-share',
+      { method: 'POST', token }
+    ),
 };
