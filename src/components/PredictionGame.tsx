@@ -674,17 +674,21 @@ export default function PredictionGame() {
   const enhancedChartData = useMemo(() => {
     // Use daily data if available and indicators are enabled
     if (dailyPriceData.length > 0 && (showMA20 || showMA50 || showRSI)) {
-      // Calculate indicators on full dataset first
+      // Calculate indicators on full dataset first (includes extra days for MA50)
       const ma20Values = calculateSMA(dailyPriceData, 20);
       const ma50Values = calculateSMA(dailyPriceData, 50);
       const rsiValues = calculateRSI(dailyPriceData, 14);
 
-      return dailyPriceData.map((item, index) => ({
+      // Map indicators to full dataset
+      const fullData = dailyPriceData.map((item, index) => ({
         ...item,
         ma20: showMA20 ? ma20Values[index] : undefined,
         ma50: showMA50 ? ma50Values[index] : undefined,
         rsi: showRSI ? rsiValues[index] : undefined,
       }));
+
+      // Only display the last 90 days (indicators calculated on full data)
+      return fullData.slice(-90);
     }
 
     // Otherwise use weekly data
