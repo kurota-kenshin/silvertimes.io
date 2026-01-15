@@ -180,11 +180,10 @@ const SilverRainCelebration = ({ onComplete }: { onComplete: () => void }) => {
       {/* Center celebration text */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="text-center animate-bounce-in">
-          <div className="text-6xl mb-4">🎉</div>
           <div className="text-2xl font-bold text-white mb-2">
-            Prediction Locked!
+            Prediction Locked
           </div>
-          <div className="text-silver-400">Good luck, Oracle!</div>
+          <div className="text-silver-400">Good luck, Oracle</div>
         </div>
       </div>
     </div>
