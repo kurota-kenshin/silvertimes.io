@@ -28,110 +28,205 @@ const silverMarketBrief100HorizonContent = (
           <span className="text-green-400 font-semibold">Market Outlook:</span>
           <span className="text-white font-bold">Bullish (Vertical Phase)</span>
         </div>
+        <p className="text-silver-300 leading-relaxed">
+          Silver has entered a "Vertical Phase" of its bull market. As the metal
+          breaches historic psychological barriers, the defining theme of early
+          2026 is the decoupling of physical supply from paper derivatives.
+        </p>
       </div>
     </section>
 
-    {/* Market Performance */}
-    <section className="mb-12">
-      <h2 className="text-3xl font-bold text-white mb-6">Market Performance</h2>
-
-      <p className="text-silver-300 leading-relaxed mb-6">
-        Silver futures (SI=F) closed at $97.29 on Friday, January 17, delivering
-        a week-over-week gain of approximately 7.1% (from $90.81 at the January
-        10 close). The contract has now risen for three consecutive weeks and
-        sits roughly 2.8% below the psychological $100 level. Despite
-        intra-session volatility tied to dollar swings, each dip was absorbed by
-        substantial physical and speculative bid interest.
-      </p>
-    </section>
-
-    {/* Structural Drivers */}
-    <section className="mb-12">
-      <h2 className="text-3xl font-bold text-white mb-6">Structural Drivers</h2>
-
-      <div className="space-y-6">
-        <div>
-          <h3 className="text-xl font-semibold text-white mb-3">
-            Physical Shortage Intensifies
-          </h3>
-          <p className="text-silver-300 leading-relaxed">
-            COMEX registered silver inventories slipped to 27.3 Moz (down ~4 Moz
-            WoW), their lowest reading since early 2020. London lease rates
-            remain elevated (1-month SIFO ~4%), confirming that bullion banks
-            are competing for deliverable metal. Shanghai premiums stayed firm
-            near $3/oz above the international benchmark, signalling continued
-            Chinese industrial demand.
-          </p>
-        </div>
-
-        <div>
-          <h3 className="text-xl font-semibold text-white mb-3">
-            Investment Flows Accelerate
-          </h3>
-          <p className="text-silver-300 leading-relaxed">
-            iShares Silver Trust (SLV) added ~18 tonnes last week; Sprott
-            Physical Silver Trust (PSLV) recorded its eighth straight week of
-            positive unit creation. Retail coin/bar demand, though off its
-            December peak, remains above seasonal norms.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    {/* BCOM Rebalancing */}
+    {/* 1. Market Performance: Early 2026 Review */}
     <section className="mb-12">
       <h2 className="text-3xl font-bold text-white mb-6">
-        BCOM January 2026 Rebalancing
+        1. Market Performance: Early 2026 Review
       </h2>
 
       <p className="text-silver-300 leading-relaxed mb-6">
-        Bloomberg formally published the new BCOM weights on January 10;
-        implementation runs January 9-14. Gold's target weight falls from 16.39%
-        to 14.14%; silver rises from 4.07% to 4.29%. The mechanical selling in
-        gold and buying in silver is now largely complete. Traders noted heavy
-        BCOM-related silver buying in the January 13-14 window, which coincided
-        with the break above $93. This structural bid is a tailwind now embedded
-        in index-tracker positioning for 2026.
+        The first two weeks of 2026 have seen silver outperform nearly all major
+        asset classes.
       </p>
-    </section>
-
-    {/* Technical Outlook */}
-    <section className="mb-12">
-      <h2 className="text-3xl font-bold text-white mb-6">Technical Outlook</h2>
 
       <div className="space-y-4 text-silver-300">
         <p className="leading-relaxed">
-          <span className="text-white font-semibold">Trend:</span> Daily RSI(14)
-          at 71 is overbought but not divergent; weekly RSI remains in its
-          mid-60s, suggesting the rally has room to extend.
+          <span className="text-white font-semibold">Year-to-Date Gains:</span>{" "}
+          Building on a stellar 150% gain in 2025, silver has surged an
+          additional 22% YTD.
         </p>
         <p className="leading-relaxed">
-          <span className="text-white font-semibold">Key Levels:</span>{" "}
-          Immediate resistance at $100 (psychological + round-number supply);
-          support at $93 (prior breakout) and $88 (20-DMA).
+          <span className="text-white font-semibold">Record Highs:</span> After
+          a brief dip to $74 during index rebalancing, the metal touched a new
+          all-time high of $93.12 on January 14.
         </p>
         <p className="leading-relaxed">
-          <span className="text-white font-semibold">Momentum:</span> MACD
-          histogram is expanding on the weekly chart, indicative of strong trend
-          strength. A daily close above $100 could trigger momentum-driven
-          buying toward $108-$110.
+          <span className="text-white font-semibold">Gold/Silver Ratio:</span>{" "}
+          Silver is outperforming gold by a factor of 4:1, dropping the ratio to
+          a decade-low of 50.
         </p>
       </div>
     </section>
 
-    {/* Conclusion */}
+    {/* 2. Structural Drivers of the Surge */}
     <section className="mb-12">
-      <h2 className="text-3xl font-bold text-white mb-6">Conclusion</h2>
+      <h2 className="text-3xl font-bold text-white mb-6">
+        2. Structural Drivers of the Surge
+      </h2>
 
-      <p className="text-silver-300 leading-relaxed mb-6">
-        The supply-demand imbalance, now in its sixth consecutive year, shows no
-        sign of resolution. Inventory drawdowns, sustained ETF inflows, and the
-        BCOM rebalancing have tightened the available float precisely when
-        industrial offtake (solar, EVs, AI hardware) is structurally rising. We
-        maintain a Bullish (Vertical Phase) outlook: any pullback toward $93-$95
-        represents an accumulation opportunity, while a decisive break above
-        $100 targets the $108-$110 zone in the near term.
+      {/* A. Global Inventory Squeeze */}
+      <div className="mb-8">
+        <h3 className="text-2xl font-semibold text-white mb-4">
+          A. Global Inventory Squeeze
+        </h3>
+        <p className="text-silver-300 leading-relaxed mb-4">
+          A systemic "drain" is occurring across the three primary trading hubs:
+        </p>
+        <ul className="space-y-3 text-silver-300">
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>
+              <strong className="text-white">COMEX:</strong> Registered stocks
+              are at a critical 28M oz, while delivery demands for the March
+              contract exceed 500M oz.
+            </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>
+              <strong className="text-white">LBMA (London):</strong> Over 85% of
+              holdings are held by ETFs and private wealth, leaving the physical
+              "float" for industrial clearing dangerously thin.
+            </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>
+              <strong className="text-white">Shanghai (SGE):</strong> SGE
+              premiums have ballooned to +$10/oz over London spot, signaling an
+              acute localized shortage in Asia.
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      {/* B. ETF "HODL" Mentality */}
+      <div className="mb-8">
+        <h3 className="text-2xl font-semibold text-white mb-4">
+          B. ETF "HODL" Mentality
+        </h3>
+        <p className="text-silver-300 leading-relaxed mb-4">
+          Contrary to previous rallies, ETF investors are not selling into the
+          current strength.
+        </p>
+        <ul className="space-y-3 text-silver-300">
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>
+              <strong className="text-white">Stability:</strong> Holdings in
+              SLV, SIVR, and PSLV remain stable, with only a small net outflow
+              of roughly $300 million.
+            </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>
+              <strong className="text-white">Market Impact:</strong> This "HODL"
+              mentality is removing the primary liquidity buffer that
+              traditionally dampens price spikes.
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      {/* C. Policy Pivot: The "Tariff Floor" */}
+      <div className="mb-8">
+        <h3 className="text-2xl font-semibold text-white mb-4">
+          C. Policy Pivot: The "Tariff Floor"
+        </h3>
+        <p className="text-silver-300 leading-relaxed mb-4">
+          On January 15, President Trump postponed new percentage-based tariffs
+          on processed critical minerals (including silver).
+        </p>
+        <ul className="space-y-3 text-silver-300">
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>
+              <strong className="text-white">Market Reaction:</strong> Silver
+              initially plunged to a low of $86.25, but the dip was aggressively
+              bought back to $91.68 by Friday's close.
+            </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>
+              <strong className="text-white">Psychological Safety Net:</strong>{" "}
+              The administration's proposal of "Price Floors" to protect
+              domestic miners signaled that the US government values silver at
+              high prices. Traders now interpret this as a fundamental price
+              floor.
+            </span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    {/* 3. The BCOM Rebalancing Paradox */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        3. The BCOM Rebalancing Paradox
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        Typically, the Bloomberg Commodity Index (BCOM) rebalancing in early
+        January triggers heavy selling of previous winners.
       </p>
+
+      <ul className="space-y-3 text-silver-300">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">The Absorption:</strong> While an
+            estimated $7.1B of silver was slated for sale, new buyers
+            immediately absorbed the volume.
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Modest Net Change:</strong> Index
+            funds sold roughly 13,000 contracts, but net open interest only fell
+            by about 4,000. This highlights that the physical squeeze remains
+            the predominant force driving prices.
+          </span>
+        </li>
+      </ul>
+    </section>
+
+    {/* 4. Technical Outlook: The Path to $100 */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        4. Technical Outlook: The Path to $100
+      </h2>
+
+      <div className="space-y-4 text-silver-300">
+        <p className="leading-relaxed">
+          <span className="text-white font-semibold">Elliott Wave Count:</span>{" "}
+          We are in the terminal Sub-wave v of Major Wave III, the "blow-off"
+          stage.
+        </p>
+        <p className="leading-relaxed">
+          <span className="text-white font-semibold">Golden Target:</span> The
+          1.618 Fibonacci Extension projects a target of $100.15.
+        </p>
+        <p className="leading-relaxed">
+          <span className="text-white font-semibold">Critical Support:</span>{" "}
+          The "Line in the Sand" for the bull market is $84.00.
+        </p>
+        <p className="leading-relaxed">
+          <span className="text-white font-semibold">RSI Warning:</span> The RSI
+          is near 88, signaling the market is "historically overbought". Expect
+          high volatility near the $100 level.
+        </p>
+      </div>
     </section>
 
     {/* Bottom Chart */}
@@ -145,14 +240,28 @@ const silverMarketBrief100HorizonContent = (
       </div>
     </section>
 
+    {/* Conclusion */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">Conclusion</h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        The combination of China's export ban and the COMEX inventory drain has
+        created a "perfect storm". While the RSI suggests a cooling period is
+        due, the fundamental scarcity suggests any dip toward $84–$86 will be
+        aggressively bought.
+      </p>
+    </section>
+
     {/* Disclaimer */}
     <section className="mb-12">
       <div className="bg-background-secondary/30 border border-white/10 rounded-2xl p-6">
         <h3 className="text-lg font-semibold text-white mb-3">Disclaimer</h3>
         <p className="text-silver-400 text-sm leading-relaxed">
-          This material is for informational purposes only and does not
-          constitute investment advice. Past performance is not indicative of
-          future results.
+          The information provided in this article is for informational purposes
+          only and does not constitute financial, investment, or legal advice.
+          Trading in commodities involves significant risk. You should consult
+          with a qualified financial advisor before making any investment
+          decisions.
         </p>
       </div>
     </section>
@@ -165,33 +274,36 @@ const silverMarketBrief100HorizonContent = (
         <ul className="space-y-3 text-silver-400 text-sm">
           <li>
             <a
-              href="https://finance.yahoo.com/quote/SI=F/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-400 hover:text-blue-300"
-            >
-              Yahoo Finance - Silver Futures (SI=F)
-            </a>
-          </li>
-          <li>
-            <a
               href="https://www.cmegroup.com/markets/metals/precious/silver.html"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-400 hover:text-blue-300"
             >
-              CME Group - COMEX Silver Futures
+              COMEX
             </a>
+            , accessed on January 18, 2026
           </li>
           <li>
             <a
-              href="https://www.bloomberg.com/professional/indices/bloomberg-commodity-index-bcom/"
+              href="https://www.lbma.org.uk/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-400 hover:text-blue-300"
             >
-              Bloomberg Commodity Index (BCOM)
+              London Bullion Market Association (LBMA)
             </a>
+            , accessed on January 18, 2026
+          </li>
+          <li>
+            <a
+              href="https://www.sge.com.cn/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:text-blue-300"
+            >
+              Shanghai Gold Exchange (SGE)
+            </a>
+            , accessed on January 18, 2026
           </li>
         </ul>
       </div>
