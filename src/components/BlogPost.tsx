@@ -42,28 +42,37 @@ const silverMarketBrief100HorizonContent = (
         1. Market Performance: Early 2026 Review
       </h2>
 
-      <p className="text-silver-300 leading-relaxed mb-6">
+      <p className="text-silver-300 leading-relaxed mb-4">
         The first two weeks of 2026 have seen silver outperform nearly all major
         asset classes.
       </p>
 
-      <div className="space-y-4 text-silver-300">
-        <p className="leading-relaxed">
-          <span className="text-white font-semibold">Year-to-Date Gains:</span>{" "}
-          Building on a stellar 150% gain in 2025, silver has surged an
-          additional 22% YTD.
-        </p>
-        <p className="leading-relaxed">
-          <span className="text-white font-semibold">Record Highs:</span> After
-          a brief dip to $74 during index rebalancing, the metal touched a new
-          all-time high of $93.12 on January 14.
-        </p>
-        <p className="leading-relaxed">
-          <span className="text-white font-semibold">Gold/Silver Ratio:</span>{" "}
-          Silver is outperforming gold by a factor of 4:1, dropping the ratio to
-          a decade-low of 50.
-        </p>
-      </div>
+      <ul className="space-y-3 text-silver-300">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Year-to-Date Gains:</strong> Building
+            on a stellar 150% gain in 2025, silver has surged an additional 22%
+            YTD.
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Record Highs:</strong> After a brief
+            dip to $74 during index rebalancing, the metal touched a new
+            all-time high of $93.12 on January 14.
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Gold/Silver Ratio:</strong> Silver is
+            outperforming gold by a factor of 4:1, dropping the ratio to a
+            decade-low of 50.
+          </span>
+        </li>
+      </ul>
     </section>
 
     {/* 2. Structural Drivers of the Surge */}
@@ -207,26 +216,37 @@ const silverMarketBrief100HorizonContent = (
         4. Technical Outlook: The Path to $100
       </h2>
 
-      <div className="space-y-4 text-silver-300">
-        <p className="leading-relaxed">
-          <span className="text-white font-semibold">Elliott Wave Count:</span>{" "}
-          We are in the terminal Sub-wave v of Major Wave III, the "blow-off"
-          stage.
-        </p>
-        <p className="leading-relaxed">
-          <span className="text-white font-semibold">Golden Target:</span> The
-          1.618 Fibonacci Extension projects a target of $100.15.
-        </p>
-        <p className="leading-relaxed">
-          <span className="text-white font-semibold">Critical Support:</span>{" "}
-          The "Line in the Sand" for the bull market is $84.00.
-        </p>
-        <p className="leading-relaxed">
-          <span className="text-white font-semibold">RSI Warning:</span> The RSI
-          is near 88, signaling the market is "historically overbought". Expect
-          high volatility near the $100 level.
-        </p>
-      </div>
+      <ul className="space-y-3 text-silver-300">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Elliott Wave Count:</strong> We are
+            in the terminal Sub-wave v of Major Wave III, the "blow-off" stage.
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Golden Target:</strong> The 1.618
+            Fibonacci Extension projects a target of $100.15.
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Critical Support:</strong> The "Line
+            in the Sand" for the bull market is $84.00.
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">RSI Warning:</strong> The RSI is near
+            88, signaling the market is "historically overbought". Expect high
+            volatility near the $100 level.
+          </span>
+        </li>
+      </ul>
     </section>
 
     {/* Bottom Chart */}
