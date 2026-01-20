@@ -16,6 +16,141 @@ const Cite = ({ n }: { n: number }) => (
   <sup className="text-blue-400 text-xs ml-0.5 cursor-pointer hover:text-blue-300">[{n}]</sup>
 );
 
+// Blog post content for "Silver Market Brief: The $100 Horizon"
+const silverMarketBrief100HorizonContent = (
+  <>
+    {/* Market Outlook Banner */}
+    <section className="mb-12">
+      <div className="bg-gradient-to-br from-green-500/20 to-emerald-500/10 border border-green-500/30 rounded-2xl p-8 mb-8">
+        <div className="flex items-center gap-3 mb-2">
+          <span className="text-green-400 font-semibold">Market Outlook:</span>
+          <span className="text-white font-bold">Bullish (Vertical Phase)</span>
+        </div>
+      </div>
+
+      {/* Main Chart */}
+      <div className="my-10">
+        <img
+          src="/press/press_2/chart.jpeg"
+          alt="Silver Market Chart - January 2026"
+          className="w-full rounded-2xl border border-white/10"
+        />
+      </div>
+    </section>
+
+    {/* Market Performance */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">Market Performance</h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Silver futures (SI=F) closed at $97.29 on Friday, January 17, delivering a week-over-week gain of approximately 7.1% (from $90.81 at the January 10 close). The contract has now risen for three consecutive weeks and sits roughly 2.8% below the psychological $100 level. Despite intra-session volatility tied to dollar swings, each dip was absorbed by substantial physical and speculative bid interest.
+      </p>
+    </section>
+
+    {/* Structural Drivers */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">Structural Drivers</h2>
+
+      <div className="space-y-6">
+        <div>
+          <h3 className="text-xl font-semibold text-white mb-3">Physical Shortage Intensifies</h3>
+          <p className="text-silver-300 leading-relaxed">
+            COMEX registered silver inventories slipped to 27.3 Moz (down ~4 Moz WoW), their lowest reading since early 2020. London lease rates remain elevated (1-month SIFO ~4%), confirming that bullion banks are competing for deliverable metal. Shanghai premiums stayed firm near $3/oz above the international benchmark, signalling continued Chinese industrial demand.
+          </p>
+        </div>
+
+        <div>
+          <h3 className="text-xl font-semibold text-white mb-3">Investment Flows Accelerate</h3>
+          <p className="text-silver-300 leading-relaxed">
+            iShares Silver Trust (SLV) added ~18 tonnes last week; Sprott Physical Silver Trust (PSLV) recorded its eighth straight week of positive unit creation. Retail coin/bar demand, though off its December peak, remains above seasonal norms.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* BCOM Rebalancing */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">BCOM January 2026 Rebalancing</h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Bloomberg formally published the new BCOM weights on January 10; implementation runs January 9-14. Gold's target weight falls from 16.39% to 14.14%; silver rises from 4.07% to 4.29%. The mechanical selling in gold and buying in silver is now largely complete. Traders noted heavy BCOM-related silver buying in the January 13-14 window, which coincided with the break above $93. This structural bid is a tailwind now embedded in index-tracker positioning for 2026.
+      </p>
+    </section>
+
+    {/* Technical Outlook */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">Technical Outlook</h2>
+
+      <div className="space-y-4 text-silver-300">
+        <p className="leading-relaxed">
+          <span className="text-white font-semibold">Trend:</span> Daily RSI(14) at 71 is overbought but not divergent; weekly RSI remains in its mid-60s, suggesting the rally has room to extend.
+        </p>
+        <p className="leading-relaxed">
+          <span className="text-white font-semibold">Key Levels:</span> Immediate resistance at $100 (psychological + round-number supply); support at $93 (prior breakout) and $88 (20-DMA).
+        </p>
+        <p className="leading-relaxed">
+          <span className="text-white font-semibold">Momentum:</span> MACD histogram is expanding on the weekly chart, indicative of strong trend strength. A daily close above $100 could trigger momentum-driven buying toward $108-$110.
+        </p>
+      </div>
+    </section>
+
+    {/* Conclusion */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">Conclusion</h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        The supply-demand imbalance, now in its sixth consecutive year, shows no sign of resolution. Inventory drawdowns, sustained ETF inflows, and the BCOM rebalancing have tightened the available float precisely when industrial offtake (solar, EVs, AI hardware) is structurally rising. We maintain a Bullish (Vertical Phase) outlook: any pullback toward $93-$95 represents an accumulation opportunity, while a decisive break above $100 targets the $108-$110 zone in the near term.
+      </p>
+    </section>
+
+    {/* Bottom Chart */}
+    <section className="mb-12">
+      <div className="my-10">
+        <img
+          src="/press/press_2/chart.jpeg"
+          alt="Silver Market Technical Analysis Chart"
+          className="w-full rounded-2xl border border-white/10"
+        />
+      </div>
+    </section>
+
+    {/* Disclaimer */}
+    <section className="mb-12">
+      <div className="bg-background-secondary/30 border border-white/10 rounded-2xl p-6">
+        <h3 className="text-lg font-semibold text-white mb-3">Disclaimer</h3>
+        <p className="text-silver-400 text-sm leading-relaxed">
+          This material is for informational purposes only and does not constitute investment advice. Past performance is not indicative of future results.
+        </p>
+      </div>
+    </section>
+
+    {/* References */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">References</h2>
+
+      <div className="bg-background-secondary/30 border border-white/10 rounded-2xl p-8">
+        <ul className="space-y-3 text-silver-400 text-sm">
+          <li>
+            <a href="https://finance.yahoo.com/quote/SI=F/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
+              Yahoo Finance - Silver Futures (SI=F)
+            </a>
+          </li>
+          <li>
+            <a href="https://www.cmegroup.com/markets/metals/precious/silver.html" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
+              CME Group - COMEX Silver Futures
+            </a>
+          </li>
+          <li>
+            <a href="https://www.bloomberg.com/professional/indices/bloomberg-commodity-index-bcom/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
+              Bloomberg Commodity Index (BCOM)
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </>
+);
+
 // Blog post content for "The Great Silver Paradigm Shift"
 const silverParadigmShiftContent = (
   <>
@@ -583,6 +718,15 @@ const silverParadigmShiftContent = (
 );
 
 export const blogPostsData: BlogPostData[] = [
+  {
+    id: "silver-market-brief-100-horizon",
+    title: "Silver Market Brief: The $100 Horizon",
+    category: "Market Analysis",
+    date: "Monday, January 19, 2026",
+    mainImage: "/press/press_2/main.jpeg",
+    excerpt: "Silver futures closed at $97.29, delivering a 7.1% weekly gain. With COMEX inventories at multi-year lows and the BCOM rebalancing complete, we maintain a Bullish (Vertical Phase) outlook targeting $108-$110.",
+    content: silverMarketBrief100HorizonContent,
+  },
   {
     id: "the-great-silver-paradigm-shift",
     title: "The Great Silver Paradigm Shift: A Comprehensive Analysis of the 2025 Market Repricing and the Christmas Rally",
