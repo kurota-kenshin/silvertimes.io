@@ -1945,8 +1945,22 @@ export default function BlogPost() {
   // Update meta tags for social sharing
   useEffect(() => {
     if (post) {
+      // Define meta content based on post ID
+      const metaContent =
+        post.id === "silver-market-brief-100-horizon"
+          ? {
+              title: "SilverTimes - Silver Market Brief EP1",
+              description:
+                "Silver price continues to surge in 2026. Read on for our January Silver Market Brief.",
+            }
+          : {
+              title: "SilverTimes - The Great Silver Paradigm Shift",
+              description:
+                "2025 was the year silver broke free. This report offers retail investors and industry observers a data-driven understanding of why silver has evolved into the world's most critical strategic metal.",
+            };
+
       // Update title
-      document.title = "SilverTimes - The Great Silver Paradigm Shift";
+      document.title = metaContent.title;
 
       // Update or create meta description
       let metaDescription = document.querySelector('meta[name="description"]');
@@ -1955,21 +1969,17 @@ export default function BlogPost() {
         metaDescription.setAttribute("name", "description");
         document.head.appendChild(metaDescription);
       }
-      metaDescription.setAttribute(
-        "content",
-        "2025 was the year silver broke free. This report offers retail investors and industry observers a data-driven understanding of why silver has evolved into the world's most critical strategic metal."
-      );
+      metaDescription.setAttribute("content", metaContent.description);
 
       // Open Graph meta tags
       const ogTags = [
         {
           property: "og:title",
-          content: "SilverTimes - The Great Silver Paradigm Shift",
+          content: metaContent.title,
         },
         {
           property: "og:description",
-          content:
-            "2025 was the year silver broke free. This report offers retail investors and industry observers a data-driven understanding of why silver has evolved into the world's most critical strategic metal.",
+          content: metaContent.description,
         },
         {
           property: "og:image",
@@ -1984,12 +1994,11 @@ export default function BlogPost() {
         { name: "twitter:card", content: "summary_large_image" },
         {
           name: "twitter:title",
-          content: "SilverTimes - The Great Silver Paradigm Shift",
+          content: metaContent.title,
         },
         {
           name: "twitter:description",
-          content:
-            "2025 was the year silver broke free. This report offers retail investors and industry observers a data-driven understanding of why silver has evolved into the world's most critical strategic metal.",
+          content: metaContent.description,
         },
         {
           name: "twitter:image",
