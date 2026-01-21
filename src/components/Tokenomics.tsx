@@ -8,7 +8,7 @@ export default function Tokenomics() {
     },
     {
       label: "Storage",
-      value: "Brinks (London) & Horsemart (HK)",
+      value: "Brinks (London)",
       detail: "Monthly storage slips provided",
       gradient: "from-blue-500/60 to-blue-600/70"
     },
@@ -26,7 +26,7 @@ export default function Tokenomics() {
     },
     {
       label: "Networks",
-      value: "Ethereum & HashKey Chain",
+      value: "Ethereum",
       detail: "Open-source smart contracts",
       gradient: "from-blue-500/60 to-blue-600/70"
     },
