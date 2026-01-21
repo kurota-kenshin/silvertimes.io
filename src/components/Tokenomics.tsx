@@ -20,8 +20,8 @@ export default function Tokenomics() {
     },
     {
       label: "Redemption Fee",
-      value: "0.35%",
-      detail: "LBMA Good Delivery bars",
+      value: "0%",
+      detail: "SilverTimes certified bars",
       gradient: "from-blue-500/60 to-blue-600/70"
     },
     {
