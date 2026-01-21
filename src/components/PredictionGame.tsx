@@ -632,30 +632,23 @@ export default function PredictionGame() {
     return "Connected";
   }, [user]);
 
-  // Fetch leaderboard data, current round info, predictions, and recent winners
-  // Also refresh every 5 minutes (synced with price updates)
+  // Fetch leaderboard data, current round info, and recent winners
+  // Refresh every 5 minutes (synced with price updates)
   useEffect(() => {
     const fetchLeaderboardData = async () => {
       setLeaderboardLoading(true);
       try {
-        const [
-          accuracyRes,
-          roundsRes,
-          currentRoundRes,
-          predictionsRes,
-          recentWinnersRes,
-        ] = await Promise.all([
-          predictionsApi.getLeaderboard("accuracy"),
-          predictionsApi.getCompletedRounds(10),
-          predictionsApi.getCurrentRound(),
-          predictionsApi.getRoundPredictions(),
-          predictionsApi.getRecentWinners(),
-        ]);
+        const [accuracyRes, roundsRes, currentRoundRes, recentWinnersRes] =
+          await Promise.all([
+            predictionsApi.getLeaderboard("accuracy"),
+            predictionsApi.getCompletedRounds(10),
+            predictionsApi.getCurrentRound(),
+            predictionsApi.getRecentWinners(),
+          ]);
 
         setAccuracyLeaders(accuracyRes.leaders as AccuracyLeader[]);
         setCompletedRounds(roundsRes.rounds);
         setCurrentRound(currentRoundRes.round);
-        setChartPredictions(predictionsRes.predictions);
         setRecentWinners(recentWinnersRes.winners);
 
         // Calculate average prediction from current round data if available
@@ -676,6 +669,23 @@ export default function PredictionGame() {
     fetchLeaderboardData();
     // Refresh every 5 minutes (synced with price updates)
     const interval = setInterval(fetchLeaderboardData, 5 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Fetch predictions for chart - refresh every 10 seconds for live updates
+  useEffect(() => {
+    const fetchPredictions = async () => {
+      try {
+        const res = await predictionsApi.getRoundPredictions();
+        setChartPredictions(res.predictions);
+      } catch (err) {
+        console.error("Failed to fetch predictions:", err);
+      }
+    };
+
+    fetchPredictions();
+    // Refresh every 10 seconds for exciting live updates
+    const interval = setInterval(fetchPredictions, 10 * 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -1218,8 +1228,8 @@ export default function PredictionGame() {
                       {predictionDotsData.length > 0 && (
                         <>
                           <span className="flex items-center gap-1">
-                            <span className="w-2 h-2 rounded-full bg-yellow-400 opacity-60"></span>{" "}
-                            Predictions ({predictionDotsData.length})
+                            <span className="w-2 h-2 rounded-full bg-yellow-400 opacity-60 animate-pulse"></span>{" "}
+                            Predictions ({predictionDotsData.length}) - Live
                           </span>
                           {existingPrediction && (
                             <span className="flex items-center gap-1">
