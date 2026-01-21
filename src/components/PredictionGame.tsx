@@ -20,6 +20,8 @@ import {
   RoundInfo,
   UserStats,
   Badge,
+  ChartPrediction,
+  RecentWinners,
 } from "../services/api";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8182";
@@ -466,6 +468,16 @@ export default function PredictionGame() {
   // User stats for personal stats bar
   const [userStats, setUserStats] = useState<UserStats | null>(null);
 
+  // Chart predictions (dots showing what people predicted)
+  const [chartPredictions, setChartPredictions] = useState<ChartPrediction[]>(
+    []
+  );
+
+  // Recent winners for announcement
+  const [recentWinners, setRecentWinners] = useState<RecentWinners | null>(
+    null
+  );
+
   // Privy auth
   const { ready, authenticated, login, getAccessToken, user } = usePrivy();
 
@@ -620,20 +632,31 @@ export default function PredictionGame() {
     return "Connected";
   }, [user]);
 
-  // Fetch leaderboard data and current round info
+  // Fetch leaderboard data, current round info, predictions, and recent winners
+  // Also refresh every 5 minutes (synced with price updates)
   useEffect(() => {
     const fetchLeaderboardData = async () => {
       setLeaderboardLoading(true);
       try {
-        const [accuracyRes, roundsRes, currentRoundRes] = await Promise.all([
+        const [
+          accuracyRes,
+          roundsRes,
+          currentRoundRes,
+          predictionsRes,
+          recentWinnersRes,
+        ] = await Promise.all([
           predictionsApi.getLeaderboard("accuracy"),
           predictionsApi.getCompletedRounds(10),
           predictionsApi.getCurrentRound(),
+          predictionsApi.getRoundPredictions(),
+          predictionsApi.getRecentWinners(),
         ]);
 
         setAccuracyLeaders(accuracyRes.leaders as AccuracyLeader[]);
         setCompletedRounds(roundsRes.rounds);
         setCurrentRound(currentRoundRes.round);
+        setChartPredictions(predictionsRes.predictions);
+        setRecentWinners(recentWinnersRes.winners);
 
         // Calculate average prediction from current round data if available
         if (currentRoundRes.round?.avgPrediction) {
@@ -651,6 +674,9 @@ export default function PredictionGame() {
     };
 
     fetchLeaderboardData();
+    // Refresh every 5 minutes (synced with price updates)
+    const interval = setInterval(fetchLeaderboardData, 5 * 60 * 1000);
+    return () => clearInterval(interval);
   }, []);
 
   // Fetch weekly winners when selected week changes
@@ -703,6 +729,21 @@ export default function PredictionGame() {
     const lastRSI = rsiValues[rsiValues.length - 1];
     return lastRSI;
   }, [dailyPriceData, showRSI]);
+
+  // Prepare prediction dots data for the chart
+  // Each prediction gets plotted at today's date with its predicted price
+  const predictionDotsData = useMemo(() => {
+    if (chartPredictions.length === 0) return [];
+    const today = new Date().toISOString().split("T")[0];
+    // Add small random X offset to prevent exact overlap, but keep them clustered
+    return chartPredictions.map((p) => ({
+      date: today,
+      predictedPrice: p.price,
+      // Small visual offset for scatter effect (±2 days visual spread)
+      xOffset: (Math.random() - 0.5) * 4,
+      isUserPrediction: existingPrediction === p.price,
+    }));
+  }, [chartPredictions, existingPrediction]);
 
   const silverPrice = currentPrice ?? 73.5;
 
@@ -1031,6 +1072,17 @@ export default function PredictionGame() {
                           fontSize: 10,
                         }}
                       />
+                      {/* Prediction dots - rendered as reference lines at prediction prices */}
+                      {predictionDotsData.map((pred, idx) => (
+                        <ReferenceLine
+                          key={idx}
+                          y={pred.predictedPrice}
+                          stroke={pred.isUserPrediction ? "#22c55e" : "#fbbf24"}
+                          strokeWidth={pred.isUserPrediction ? 2 : 1}
+                          strokeOpacity={pred.isUserPrediction ? 0.8 : 0.3}
+                          strokeDasharray={pred.isUserPrediction ? "0" : "2 2"}
+                        />
+                      ))}
                     </ComposedChart>
                   </ResponsiveContainer>
                 </div>
@@ -1154,7 +1206,7 @@ export default function PredictionGame() {
 
                 {/* Legend */}
                 <div className="mt-4 flex items-center justify-between text-xs text-silver-500">
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 flex-wrap">
                     <span>
                       {isLoading
                         ? "Loading..."
@@ -1162,34 +1214,170 @@ export default function PredictionGame() {
                         ? "Using fallback data"
                         : "Live data - Updates every 5 min"}
                     </span>
-                    {(showMA20 || showMA50 || showRSI) && (
-                      <div className="flex items-center gap-3">
-                        {showMA20 && (
+                    <div className="flex items-center gap-3">
+                      {predictionDotsData.length > 0 && (
+                        <>
                           <span className="flex items-center gap-1">
-                            <span className="w-3 h-0.5 bg-emerald-500"></span>{" "}
-                            MA20
+                            <span className="w-2 h-2 rounded-full bg-yellow-400 opacity-60"></span>{" "}
+                            Predictions ({predictionDotsData.length})
                           </span>
-                        )}
-                        {showMA50 && (
-                          <span className="flex items-center gap-1">
-                            <span className="w-3 h-0.5 bg-orange-500"></span>{" "}
-                            MA50
-                          </span>
-                        )}
-                        {showRSI && (
-                          <span className="flex items-center gap-1">
-                            <span className="w-3 h-0.5 bg-violet-500"></span>{" "}
-                            RSI
-                          </span>
-                        )}
-                      </div>
-                    )}
+                          {existingPrediction && (
+                            <span className="flex items-center gap-1">
+                              <span className="w-2 h-2 rounded-full bg-emerald-500 ring-1 ring-white"></span>{" "}
+                              Your prediction
+                            </span>
+                          )}
+                        </>
+                      )}
+                      {showMA20 && (
+                        <span className="flex items-center gap-1">
+                          <span className="w-3 h-0.5 bg-emerald-500"></span>{" "}
+                          MA20
+                        </span>
+                      )}
+                      {showMA50 && (
+                        <span className="flex items-center gap-1">
+                          <span className="w-3 h-0.5 bg-orange-500"></span>{" "}
+                          MA50
+                        </span>
+                      )}
+                      {showRSI && (
+                        <span className="flex items-center gap-1">
+                          <span className="w-3 h-0.5 bg-violet-500"></span>{" "}
+                          RSI
+                        </span>
+                      )}
+                    </div>
                   </div>
                   <span className="text-emerald-400">
                     {!error && !isLoading && "Connected"}
                   </span>
                 </div>
               </div>
+
+              {/* Winners Announcement Section */}
+              {recentWinners && recentWinners.winners.length > 0 && (
+                <div className="bg-gradient-to-br from-yellow-500/10 via-amber-500/5 to-orange-500/10 backdrop-blur-md border border-yellow-500/20 rounded-3xl p-6 md:p-8 relative overflow-hidden">
+                  {/* Decorative elements */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-500/10 rounded-full blur-3xl"></div>
+                  <div className="absolute bottom-0 left-0 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl"></div>
+
+                  <div className="relative">
+                    {/* Header */}
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-xl flex items-center justify-center shadow-lg shadow-yellow-500/20">
+                          <svg
+                            className="w-5 h-5 text-black"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-bold text-white">
+                            Weekly Winners
+                          </h3>
+                          <p className="text-xs text-silver-400">
+                            {recentWinners.weekIdentifier} • Actual Price:{" "}
+                            <span className="text-yellow-400 font-semibold">
+                              ${recentWinners.actualPrice.toFixed(2)}
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-xs text-silver-500">
+                          Participants
+                        </div>
+                        <div className="text-lg font-bold text-white">
+                          {recentWinners.totalParticipants}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Winners Grid - Top 5 */}
+                    <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
+                      {recentWinners.winners.slice(0, 5).map((winner, index) => (
+                        <div
+                          key={index}
+                          className={`relative p-4 rounded-2xl border transition-all ${
+                            index === 0
+                              ? "bg-gradient-to-br from-yellow-500/20 to-amber-500/10 border-yellow-500/30 col-span-1 sm:col-span-1"
+                              : "bg-background-primary/30 border-white/5"
+                          }`}
+                        >
+                          {/* Rank Badge */}
+                          <div
+                            className={`absolute -top-2 -left-2 w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold shadow-lg ${
+                              index === 0
+                                ? "bg-gradient-to-br from-yellow-400 to-amber-500 text-black"
+                                : index === 1
+                                ? "bg-gradient-to-br from-gray-300 to-gray-400 text-black"
+                                : index === 2
+                                ? "bg-gradient-to-br from-amber-600 to-amber-700 text-white"
+                                : "bg-background-secondary text-silver-400 border border-white/10"
+                            }`}
+                          >
+                            {index + 1}
+                          </div>
+
+                          <div className="pt-2">
+                            {/* Oracle Name */}
+                            <div className="text-xs text-silver-400 mb-1 truncate font-mono">
+                              {winner.walletAddress
+                                ? `${winner.walletAddress.slice(0, 6)}...${winner.walletAddress.slice(-4)}`
+                                : winner.email
+                                ? winner.email.length > 12
+                                  ? `${winner.email.slice(0, 10)}...`
+                                  : winner.email
+                                : "Anonymous"}
+                            </div>
+
+                            {/* Prediction */}
+                            <div
+                              className={`text-lg font-bold ${
+                                index === 0 ? "text-yellow-400" : "text-white"
+                              }`}
+                            >
+                              ${winner.predictedPrice.toFixed(2)}
+                            </div>
+
+                            {/* Error */}
+                            <div className="text-xs text-emerald-400">
+                              ±${winner.error.toFixed(2)}
+                            </div>
+
+                            {/* Prize */}
+                            <div className="mt-2 text-xs text-silver-500">
+                              Prize:{" "}
+                              <span className="text-amber-400 font-semibold">
+                                {winner.prize.toFixed(2)} oz
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* See more link */}
+                    {recentWinners.winners.length > 5 && (
+                      <div className="mt-4 text-center">
+                        <button
+                          onClick={() => {
+                            setActiveTab("weekly");
+                            setSelectedWeek(recentWinners.weekIdentifier);
+                          }}
+                          className="text-sm text-yellow-400 hover:text-yellow-300 transition-colors"
+                        >
+                          See all {recentWinners.winners.length} winners →
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
 
               {/* Leaderboard */}
               <div className="bg-background-secondary/40 backdrop-blur-md border border-white/5 rounded-3xl p-6 md:p-8">

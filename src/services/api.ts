@@ -63,6 +63,27 @@ export interface RoundInfo {
   avgPrediction?: number;
 }
 
+// Prediction for chart dots
+export interface ChartPrediction {
+  price: number;
+}
+
+// Recent winners announcement
+export interface RecentWinners {
+  weekIdentifier: string;
+  actualPrice: number;
+  resultDate: string;
+  totalParticipants: number;
+  winners: {
+    rank: number;
+    walletAddress?: string;
+    email?: string;
+    predictedPrice: number;
+    error: number;
+    prize: number;
+  }[];
+}
+
 // User stats for personal stats bar
 export interface UserStats {
   totalPredictions: number;
@@ -196,4 +217,12 @@ export const predictionsApi = {
       '/predictions/track-share',
       { method: 'POST', token }
     ),
+
+  getRoundPredictions: (roundId?: string) =>
+    apiRequest<{ predictions: ChartPrediction[] }>(
+      `/predictions/round/predictions${roundId ? `?roundId=${roundId}` : ''}`
+    ),
+
+  getRecentWinners: () =>
+    apiRequest<{ winners: RecentWinners | null }>('/predictions/recent-winners'),
 };
