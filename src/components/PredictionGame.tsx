@@ -434,6 +434,275 @@ const SentimentGauge = ({
   );
 };
 
+// Dynamic Timeline Component
+// Shows: Open → Closed → Results/Open (spans ~10 days for full cycle visibility)
+const DynamicTimeline = () => {
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  // Update time every second for smooth animation
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Calculate timeline data
+  const timelineData = useMemo(() => {
+    const now = currentTime;
+    const dayOfWeek = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+
+    // Get this week's Monday at 12:00 PM
+    const thisMonday = new Date(now);
+    const daysFromMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+    thisMonday.setDate(now.getDate() + daysFromMonday);
+    thisMonday.setHours(12, 0, 0, 0);
+
+    // This week's Thursday 23:59 (submission deadline)
+    const thisThursday = new Date(thisMonday);
+    thisThursday.setDate(thisMonday.getDate() + 3);
+    thisThursday.setHours(23, 59, 59, 999);
+
+    // Next Monday 12:00 PM (results + new round opens)
+    const nextMonday = new Date(thisMonday);
+    nextMonday.setDate(thisMonday.getDate() + 7);
+    nextMonday.setHours(12, 0, 0, 0);
+
+    // Next Thursday 23:59 (next submission deadline)
+    const nextThursday = new Date(nextMonday);
+    nextThursday.setDate(nextMonday.getDate() + 3);
+    nextThursday.setHours(23, 59, 59, 999);
+
+    // Timeline spans from this Monday to next Thursday (10.5 days)
+    const timelineStart = thisMonday;
+    const timelineEnd = nextThursday;
+    const totalSpan = timelineEnd.getTime() - timelineStart.getTime();
+
+    // Key positions as percentages
+    const thisThursdayPercent =
+      ((thisThursday.getTime() - timelineStart.getTime()) / totalSpan) * 100;
+    const nextMondayPercent =
+      ((nextMonday.getTime() - timelineStart.getTime()) / totalSpan) * 100;
+
+    // Current position as percentage
+    const elapsed = now.getTime() - timelineStart.getTime();
+    const progressPercent = Math.max(
+      0,
+      Math.min(100, (elapsed / totalSpan) * 100)
+    );
+
+    // Is submission currently open?
+    const isSubmissionOpen =
+      (now >= thisMonday && now <= thisThursday) ||
+      (now >= nextMonday && now <= nextThursday);
+
+    // Generate day markers
+    const dayMarkers: {
+      label: string;
+      date: number;
+      position: number;
+      isOpen: boolean;
+      isResultDay: boolean;
+      isDeadline: boolean;
+    }[] = [];
+
+    const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    for (let i = 0; i <= 10; i++) {
+      const date = new Date(thisMonday);
+      date.setDate(thisMonday.getDate() + i);
+      const dayIndex = (1 + i) % 7; // Monday = 1
+      const actualDayIndex = dayIndex === 0 ? 6 : dayIndex - 1; // Convert to 0-indexed Mon-Sun
+
+      const position =
+        ((date.getTime() - timelineStart.getTime()) / totalSpan) * 100;
+
+      // Determine if this day is in an open period
+      const isOpen =
+        (i >= 0 && i <= 3) || // Mon-Thu of this week
+        (i >= 7 && i <= 10); // Mon-Thu of next week
+
+      // Is this a result/new round day (Monday)?
+      const isResultDay = i === 7;
+
+      // Is this the deadline day (Thursday)?
+      const isDeadline = i === 3;
+
+      if (position >= 0 && position <= 100) {
+        dayMarkers.push({
+          label: days[actualDayIndex],
+          date: date.getDate(),
+          position,
+          isOpen,
+          isResultDay,
+          isDeadline,
+        });
+      }
+    }
+
+    return {
+      progressPercent,
+      thisThursdayPercent,
+      nextMondayPercent,
+      isSubmissionOpen,
+      dayMarkers,
+      thisMonday,
+      thisThursday,
+      nextMonday,
+      nextThursday,
+    };
+  }, [currentTime]);
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
+  };
+
+  return (
+    <div className="mt-8 bg-background-secondary/40 backdrop-blur-md border border-white/5 rounded-2xl p-6">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-3">
+          <div
+            className={`w-2 h-2 rounded-full ${
+              timelineData.isSubmissionOpen
+                ? "bg-emerald-400 animate-pulse"
+                : "bg-rose-400"
+            }`}
+          ></div>
+          <span className="text-sm font-medium text-white">
+            {timelineData.isSubmissionOpen
+              ? "Submissions Open"
+              : "Submissions Closed - Awaiting Results"}
+          </span>
+        </div>
+        <span className="text-xs text-silver-500">
+          {formatDate(timelineData.thisMonday)} -{" "}
+          {formatDate(timelineData.nextThursday)}
+        </span>
+      </div>
+
+      {/* Timeline Bar */}
+      <div className="relative h-3 mb-2">
+        {/* Background track */}
+        <div className="absolute inset-0 rounded-full bg-background-primary/60 border border-white/5"></div>
+
+        {/* This week: Open period (Mon-Thu) */}
+        <div
+          className="absolute top-0 left-0 h-full rounded-l-full bg-gradient-to-r from-emerald-500/60 to-emerald-400/50"
+          style={{ width: `${timelineData.thisThursdayPercent}%` }}
+        ></div>
+
+        {/* Closed period (Fri-Sun) */}
+        <div
+          className="absolute top-0 h-full bg-gradient-to-r from-rose-500/30 to-rose-400/20"
+          style={{
+            left: `${timelineData.thisThursdayPercent}%`,
+            width: `${timelineData.nextMondayPercent - timelineData.thisThursdayPercent}%`,
+          }}
+        ></div>
+
+        {/* Next week: Open period (Mon-Thu) */}
+        <div
+          className="absolute top-0 h-full rounded-r-full bg-gradient-to-r from-emerald-500/60 to-emerald-400/50"
+          style={{
+            left: `${timelineData.nextMondayPercent}%`,
+            width: `${100 - timelineData.nextMondayPercent}%`,
+          }}
+        ></div>
+
+        {/* Thursday deadline marker */}
+        <div
+          className="absolute top-1/2 -translate-y-1/2 z-10"
+          style={{ left: `${timelineData.thisThursdayPercent}%` }}
+        >
+          <div className="w-0.5 h-5 -ml-px bg-gradient-to-b from-yellow-400 to-yellow-400/20"></div>
+        </div>
+
+        {/* Next Monday - Results Day marker */}
+        <div
+          className="absolute top-1/2 -translate-y-1/2 z-10"
+          style={{ left: `${timelineData.nextMondayPercent}%` }}
+        >
+          <div className="w-0.5 h-5 -ml-px bg-gradient-to-b from-blue-400 to-blue-400/20"></div>
+        </div>
+
+        {/* Current position indicator */}
+        <div
+          className="absolute top-1/2 -translate-y-1/2 z-20 transition-all duration-1000"
+          style={{ left: `${timelineData.progressPercent}%` }}
+        >
+          {/* Glow effect */}
+          <div className="absolute -inset-2 bg-white/20 rounded-full blur-md"></div>
+          {/* Marker */}
+          <div className="relative w-4 h-4 -ml-2 bg-white rounded-full border-2 border-blue-400 shadow-lg shadow-blue-500/30"></div>
+          {/* "Now" label */}
+          <div className="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap">
+            <span className="text-[10px] font-medium text-blue-400 bg-background-secondary/90 px-1.5 py-0.5 rounded border border-blue-400/30">
+              Now
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Day labels */}
+      <div className="relative h-10 mt-4">
+        {timelineData.dayMarkers.map((marker, index) => (
+          <div
+            key={index}
+            className="absolute -translate-x-1/2 text-center"
+            style={{ left: `${marker.position}%` }}
+          >
+            {/* Special label for Deadline/Results */}
+            {(marker.isDeadline || marker.isResultDay) && (
+              <div
+                className={`text-[8px] font-medium mb-0.5 ${
+                  marker.isDeadline ? "text-yellow-400" : "text-blue-400"
+                }`}
+              >
+                {marker.isDeadline ? "Deadline" : "Results"}
+              </div>
+            )}
+            <div
+              className={`text-[10px] font-medium ${
+                marker.isResultDay
+                  ? "text-blue-400"
+                  : marker.isDeadline
+                  ? "text-yellow-400"
+                  : marker.isOpen
+                  ? "text-emerald-400/80"
+                  : "text-silver-500"
+              }`}
+            >
+              {marker.label}
+            </div>
+            <div className="text-[9px] text-silver-600">{marker.date}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Legend */}
+      <div className="flex items-center justify-center gap-4 sm:gap-6 mt-2 pt-3 border-t border-white/5 flex-wrap">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-2 rounded-sm bg-gradient-to-r from-emerald-500/60 to-emerald-400/50"></div>
+          <span className="text-[10px] text-silver-400">Open</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-2 rounded-sm bg-gradient-to-r from-rose-500/30 to-rose-400/20"></div>
+          <span className="text-[10px] text-silver-400">Closed</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-0.5 h-3 bg-yellow-400"></div>
+          <span className="text-[10px] text-silver-400">Deadline (Thu 23:59)</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-0.5 h-3 bg-blue-400"></div>
+          <span className="text-[10px] text-silver-400">Results (Mon 12:00)</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default function PredictionGame() {
   const [prediction, setPrediction] = useState("");
   const [reasoning, setReasoning] = useState("");
@@ -889,6 +1158,9 @@ export default function PredictionGame() {
               currentPrice={silverPrice}
             />
           </div>
+
+          {/* Dynamic Timeline */}
+          <DynamicTimeline />
         </div>
       </div>
 
