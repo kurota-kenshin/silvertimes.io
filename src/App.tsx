@@ -19,6 +19,7 @@ import BlogPost from "./components/BlogPost";
 import News from "./components/News";
 import Docs from "./components/Docs";
 import Terms from "./components/Terms";
+import Privacy from "./components/Privacy";
 // import ContactButton from './components/ContactButton'
 
 function HomePage() {
@@ -52,6 +53,7 @@ function App() {
           <Route path="/news" element={<News />} />
           <Route path="/docs" element={<Docs />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
         </Routes>
         <Footer />
         {/* <ContactButton /> */}
