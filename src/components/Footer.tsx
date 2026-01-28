@@ -195,7 +195,7 @@ export default function Footer() {
               <p>© 2026 SilverTimes. All rights reserved.</p>
             </div>
             <div className="flex gap-8 text-xs text-silver-600">
-              <a href="#" className="hover:text-white transition-colors">
+              <a href="/terms" className="hover:text-white transition-colors">
                 Terms of Service
               </a>
               <a href="#" className="hover:text-white transition-colors">
