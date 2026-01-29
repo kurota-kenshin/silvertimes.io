@@ -1068,6 +1068,23 @@ export default function PredictionGame() {
     return buckets;
   }, [chartPredictions, existingPrediction]);
 
+  // Compute Y-axis domain that includes prediction prices, capped at ±50% of chart range
+  const yAxisDomain = useMemo(() => {
+    const chartPrices = enhancedChartData.map((d: any) => d.price).filter(Boolean);
+    if (chartPrices.length === 0) return ["dataMin - 4", "dataMax + 6"];
+    const chartMin = Math.min(...chartPrices);
+    const chartMax = Math.max(...chartPrices);
+    const range = chartMax - chartMin;
+    // Allow predictions to extend the axis up to 30% beyond chart range
+    const capMin = chartMin - range * 0.3;
+    const capMax = chartMax + range * 0.3;
+    const predPrices = chartPredictions.map((p) => p.price);
+    const allPrices = [...chartPrices, ...predPrices.filter((p) => p >= capMin && p <= capMax)];
+    const min = Math.min(...allPrices);
+    const max = Math.max(...allPrices);
+    return [min - 4, max + 6];
+  }, [enhancedChartData, chartPredictions]);
+
   const silverPrice = currentPrice ?? 73.5;
 
   return (
@@ -1337,7 +1354,7 @@ export default function PredictionGame() {
                         style={{ fontSize: "10px" }}
                         tickLine={false}
                         axisLine={false}
-                        domain={["dataMin - 4", "dataMax + 6"]}
+                        domain={yAxisDomain as any}
                         tickFormatter={(value) => `$${value}`}
                         width={50}
                       />
