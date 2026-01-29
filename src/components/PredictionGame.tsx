@@ -10,6 +10,7 @@ import {
   Area,
   Line,
   ComposedChart,
+  ReferenceArea,
 } from "recharts";
 import { usePrivy } from "@privy-io/react-auth";
 import { useSilverPriceStore } from "../store/silverPriceStore";
@@ -29,7 +30,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8182";
 // Calculate Simple Moving Average
 function calculateSMA(
   data: { price: number }[],
-  period: number
+  period: number,
 ): (number | null)[] {
   const result: (number | null)[] = [];
   for (let i = 0; i < data.length; i++) {
@@ -48,7 +49,7 @@ function calculateSMA(
 // Calculate RSI (Relative Strength Index)
 function calculateRSI(
   data: { price: number }[],
-  period = 14
+  period = 14,
 ): (number | null)[] {
   const result: (number | null)[] = [];
   const gains: number[] = [];
@@ -85,7 +86,7 @@ function calculateRSI(
 const formatAddress = (user: { walletAddress?: string; email?: string }) => {
   if (user.walletAddress) {
     return `${user.walletAddress.slice(0, 6)}...${user.walletAddress.slice(
-      -4
+      -4,
     )}`;
   }
   if (user.email) {
@@ -263,12 +264,12 @@ const ShareOverlay = ({
     switch (platform) {
       case "twitter":
         url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-          shareText
+          shareText,
         )}&url=${encodeURIComponent(shareUrl)}`;
         break;
       case "telegram":
         url = `https://t.me/share/url?url=${encodeURIComponent(
-          shareUrl
+          shareUrl,
         )}&text=${encodeURIComponent(shareText)}`;
         break;
       case "copy":
@@ -486,7 +487,7 @@ const DynamicTimeline = () => {
     const elapsed = now.getTime() - timelineStart.getTime();
     const progressPercent = Math.max(
       0,
-      Math.min(100, (elapsed / totalSpan) * 100)
+      Math.min(100, (elapsed / totalSpan) * 100),
     );
 
     // Is submission currently open?
@@ -667,10 +668,10 @@ const DynamicTimeline = () => {
                 marker.isResultDay
                   ? "text-blue-400"
                   : marker.isDeadline
-                  ? "text-yellow-400"
-                  : marker.isOpen
-                  ? "text-emerald-400/80"
-                  : "text-silver-500"
+                    ? "text-yellow-400"
+                    : marker.isOpen
+                      ? "text-emerald-400/80"
+                      : "text-silver-500"
               }`}
             >
               {marker.label}
@@ -692,11 +693,15 @@ const DynamicTimeline = () => {
         </div>
         <div className="flex items-center gap-2">
           <div className="w-0.5 h-3 bg-yellow-400"></div>
-          <span className="text-[10px] text-silver-400">Deadline (Thu 23:59)</span>
+          <span className="text-[10px] text-silver-400">
+            Deadline (Thu 23:59)
+          </span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-0.5 h-3 bg-blue-400"></div>
-          <span className="text-[10px] text-silver-400">Results (Mon 12:00)</span>
+          <span className="text-[10px] text-silver-400">
+            Results (Mon 12:00)
+          </span>
         </div>
       </div>
     </div>
@@ -712,7 +717,7 @@ export default function PredictionGame() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [existingPrediction, setExistingPrediction] = useState<number | null>(
-    null
+    null,
   );
   const [showMinting, setShowMinting] = useState(false);
   const [showShare, setShowShare] = useState(false);
@@ -739,12 +744,12 @@ export default function PredictionGame() {
 
   // Chart predictions (dots showing what people predicted)
   const [chartPredictions, setChartPredictions] = useState<ChartPrediction[]>(
-    []
+    [],
   );
 
   // Recent winners for announcement
   const [recentWinners, setRecentWinners] = useState<RecentWinners | null>(
-    null
+    null,
   );
 
   // Privy auth
@@ -1024,6 +1029,45 @@ export default function PredictionGame() {
     }));
   }, [chartPredictions, existingPrediction]);
 
+  // Build histogram buckets for Volume Profile-style display
+  const predictionHistogram = useMemo(() => {
+    if (chartPredictions.length === 0) return [];
+    const prices = chartPredictions.map((p) => p.price);
+    const min = Math.min(...prices);
+    const max = Math.max(...prices);
+    const range = max - min;
+    // Use ~20 buckets, minimum bucket size of $0.25
+    const bucketSize = Math.max(0.25, range / 20);
+    const bucketStart = Math.floor(min / bucketSize) * bucketSize;
+    const bucketEnd = Math.ceil(max / bucketSize) * bucketSize;
+    const buckets: {
+      priceMin: number;
+      priceMax: number;
+      priceMid: number;
+      count: number;
+      hasUserPrediction: boolean;
+    }[] = [];
+    for (let b = bucketStart; b < bucketEnd; b += bucketSize) {
+      const bMin = b;
+      const bMax = b + bucketSize;
+      const matching = prices.filter((p) => p >= bMin && p < bMax);
+      const hasUser =
+        existingPrediction !== null &&
+        existingPrediction >= bMin &&
+        existingPrediction < bMax;
+      if (matching.length > 0) {
+        buckets.push({
+          priceMin: bMin,
+          priceMax: bMax,
+          priceMid: (bMin + bMax) / 2,
+          count: matching.length,
+          hasUserPrediction: hasUser,
+        });
+      }
+    }
+    return buckets;
+  }, [chartPredictions, existingPrediction]);
+
   const silverPrice = currentPrice ?? 73.5;
 
   return (
@@ -1104,8 +1148,8 @@ export default function PredictionGame() {
                     isLoading
                       ? "bg-yellow-500 animate-pulse"
                       : error
-                      ? "bg-red-500"
-                      : "bg-emerald-500 animate-pulse"
+                        ? "bg-red-500"
+                        : "bg-emerald-500 animate-pulse"
                   }`}
                 ></div>
               </div>
@@ -1227,9 +1271,12 @@ export default function PredictionGame() {
                 </div>
 
                 {/* Main Price Chart */}
-                <div className="h-72 md:h-92">
+                <div className="h-80 md:h-[420px]">
                   <ResponsiveContainer width="100%" height="100%">
-                    <ComposedChart data={enhancedChartData}>
+                    <ComposedChart
+                      data={enhancedChartData}
+                      margin={{ top: 20, right: 20, bottom: 5, left: 10 }}
+                    >
                       <defs>
                         <linearGradient
                           id="silverGradient"
@@ -1252,8 +1299,7 @@ export default function PredictionGame() {
                       </defs>
                       <CartesianGrid
                         strokeDasharray="3 3"
-                        stroke="rgba(255,255,255,0.03)"
-                        vertical={false}
+                        stroke="rgba(255,255,255,0.05)"
                       />
                       <XAxis
                         dataKey="date"
@@ -1286,12 +1332,14 @@ export default function PredictionGame() {
                         }}
                       />
                       <YAxis
+                        orientation="right"
                         stroke="#6b7280"
                         style={{ fontSize: "10px" }}
                         tickLine={false}
                         axisLine={false}
-                        domain={["dataMin - 2", "dataMax + 2"]}
+                        domain={["dataMin - 4", "dataMax + 6"]}
                         tickFormatter={(value) => `$${value}`}
+                        width={50}
                       />
                       <Tooltip
                         contentStyle={{
@@ -1354,17 +1402,55 @@ export default function PredictionGame() {
                           fontSize: 10,
                         }}
                       />
-                      {/* Prediction dots - rendered as reference lines at prediction prices */}
-                      {predictionDotsData.map((pred, idx) => (
-                        <ReferenceLine
-                          key={idx}
-                          y={pred.predictedPrice}
-                          stroke={pred.isUserPrediction ? "#22c55e" : "#fbbf24"}
-                          strokeWidth={pred.isUserPrediction ? 2 : 1}
-                          strokeOpacity={pred.isUserPrediction ? 0.8 : 0.3}
-                          strokeDasharray={pred.isUserPrediction ? "0" : "2 2"}
-                        />
-                      ))}
+                      {/* Prediction histogram - Volume Profile style bars on the right */}
+                      {predictionHistogram.map((bucket, i) => {
+                        const maxCount = Math.max(
+                          ...predictionHistogram.map((b) => b.count),
+                        );
+                        const widthFraction = bucket.count / maxCount;
+                        return (
+                          <ReferenceArea
+                            key={`hist-${i}`}
+                            y1={bucket.priceMin}
+                            y2={bucket.priceMax}
+                            fill={
+                              bucket.hasUserPrediction ? "#22c55e" : "#4ade80"
+                            }
+                            fillOpacity={bucket.hasUserPrediction ? 0.7 : 0.35}
+                            stroke="none"
+                            ifOverflow="hidden"
+                            shape={(props: any) => {
+                              const { x, y, width, height } = props;
+                              if (!width || !height) return <rect />;
+                              const barWidth = Math.max(
+                                width * 0.2 * widthFraction,
+                                2,
+                              );
+                              const barHeight = Math.max(
+                                Math.abs(height) - 1,
+                                2,
+                              );
+                              return (
+                                <rect
+                                  x={x + width - barWidth}
+                                  y={y}
+                                  width={barWidth}
+                                  height={barHeight}
+                                  fill={
+                                    bucket.hasUserPrediction
+                                      ? "#22c55e"
+                                      : "#4ade80"
+                                  }
+                                  fillOpacity={
+                                    bucket.hasUserPrediction ? 0.7 : 0.35
+                                  }
+                                  rx={2}
+                                />
+                              );
+                            }}
+                          />
+                        );
+                      })}
                     </ComposedChart>
                   </ResponsiveContainer>
                 </div>
@@ -1380,16 +1466,16 @@ export default function PredictionGame() {
                             currentRSI > 70
                               ? "text-rose-400"
                               : currentRSI < 30
-                              ? "text-emerald-400"
-                              : "text-silver-400"
+                                ? "text-emerald-400"
+                                : "text-silver-400"
                           }`}
                         >
                           {currentRSI.toFixed(1)}{" "}
                           {currentRSI > 70
                             ? "Overbought"
                             : currentRSI < 30
-                            ? "Oversold"
-                            : ""}
+                              ? "Oversold"
+                              : ""}
                         </span>
                       )}
                     </div>
@@ -1493,19 +1579,19 @@ export default function PredictionGame() {
                       {isLoading
                         ? "Loading..."
                         : error
-                        ? "Using fallback data"
-                        : "Live data - Updates every 5 min"}
+                          ? "Using fallback data"
+                          : "Live data - Updates every 5 min"}
                     </span>
                     <div className="flex items-center gap-3">
                       {predictionDotsData.length > 0 && (
                         <>
                           <span className="flex items-center gap-1">
-                            <span className="w-2 h-2 rounded-full bg-yellow-400 opacity-60 animate-pulse"></span>{" "}
-                            Predictions ({predictionDotsData.length}) - Live
+                            <span className="w-3 h-2 rounded-sm bg-green-400 opacity-40"></span>{" "}
+                            Predictions ({predictionDotsData.length})
                           </span>
                           {existingPrediction && (
                             <span className="flex items-center gap-1">
-                              <span className="w-2 h-2 rounded-full bg-emerald-500 ring-1 ring-white"></span>{" "}
+                              <span className="w-3 h-2 rounded-sm bg-emerald-500 opacity-70"></span>{" "}
                               Your prediction
                             </span>
                           )}
@@ -1519,14 +1605,12 @@ export default function PredictionGame() {
                       )}
                       {showMA50 && (
                         <span className="flex items-center gap-1">
-                          <span className="w-3 h-0.5 bg-orange-500"></span>{" "}
-                          MA50
+                          <span className="w-3 h-0.5 bg-orange-500"></span> MA50
                         </span>
                       )}
                       {showRSI && (
                         <span className="flex items-center gap-1">
-                          <span className="w-3 h-0.5 bg-violet-500"></span>{" "}
-                          RSI
+                          <span className="w-3 h-0.5 bg-violet-500"></span> RSI
                         </span>
                       )}
                     </div>
@@ -1581,66 +1665,68 @@ export default function PredictionGame() {
 
                     {/* Winners Grid - Top 5 */}
                     <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
-                      {recentWinners.winners.slice(0, 5).map((winner, index) => (
-                        <div
-                          key={index}
-                          className={`relative p-4 rounded-2xl border transition-all ${
-                            index === 0
-                              ? "bg-gradient-to-br from-yellow-500/20 to-amber-500/10 border-yellow-500/30 col-span-1 sm:col-span-1"
-                              : "bg-background-primary/30 border-white/5"
-                          }`}
-                        >
-                          {/* Rank Badge */}
+                      {recentWinners.winners
+                        .slice(0, 5)
+                        .map((winner, index) => (
                           <div
-                            className={`absolute -top-2 -left-2 w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold shadow-lg ${
+                            key={index}
+                            className={`relative p-4 rounded-2xl border transition-all ${
                               index === 0
-                                ? "bg-gradient-to-br from-yellow-400 to-amber-500 text-black"
-                                : index === 1
-                                ? "bg-gradient-to-br from-gray-300 to-gray-400 text-black"
-                                : index === 2
-                                ? "bg-gradient-to-br from-amber-600 to-amber-700 text-white"
-                                : "bg-background-secondary text-silver-400 border border-white/10"
+                                ? "bg-gradient-to-br from-yellow-500/20 to-amber-500/10 border-yellow-500/30 col-span-1 sm:col-span-1"
+                                : "bg-background-primary/30 border-white/5"
                             }`}
                           >
-                            {index + 1}
-                          </div>
-
-                          <div className="pt-2">
-                            {/* Oracle Name */}
-                            <div className="text-xs text-silver-400 mb-1 truncate font-mono">
-                              {winner.walletAddress
-                                ? `${winner.walletAddress.slice(0, 6)}...${winner.walletAddress.slice(-4)}`
-                                : winner.email
-                                ? winner.email.length > 12
-                                  ? `${winner.email.slice(0, 10)}...`
-                                  : winner.email
-                                : "Anonymous"}
-                            </div>
-
-                            {/* Prediction */}
+                            {/* Rank Badge */}
                             <div
-                              className={`text-lg font-bold ${
-                                index === 0 ? "text-yellow-400" : "text-white"
+                              className={`absolute -top-2 -left-2 w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold shadow-lg ${
+                                index === 0
+                                  ? "bg-gradient-to-br from-yellow-400 to-amber-500 text-black"
+                                  : index === 1
+                                    ? "bg-gradient-to-br from-gray-300 to-gray-400 text-black"
+                                    : index === 2
+                                      ? "bg-gradient-to-br from-amber-600 to-amber-700 text-white"
+                                      : "bg-background-secondary text-silver-400 border border-white/10"
                               }`}
                             >
-                              ${winner.predictedPrice.toFixed(2)}
+                              {index + 1}
                             </div>
 
-                            {/* Error */}
-                            <div className="text-xs text-emerald-400">
-                              ±${winner.error.toFixed(2)}
-                            </div>
+                            <div className="pt-2">
+                              {/* Oracle Name */}
+                              <div className="text-xs text-silver-400 mb-1 truncate font-mono">
+                                {winner.walletAddress
+                                  ? `${winner.walletAddress.slice(0, 6)}...${winner.walletAddress.slice(-4)}`
+                                  : winner.email
+                                    ? winner.email.length > 12
+                                      ? `${winner.email.slice(0, 10)}...`
+                                      : winner.email
+                                    : "Anonymous"}
+                              </div>
 
-                            {/* Prize */}
-                            <div className="mt-2 text-xs text-silver-500">
-                              Prize:{" "}
-                              <span className="text-amber-400 font-semibold">
-                                {winner.prize.toFixed(2)} oz
-                              </span>
+                              {/* Prediction */}
+                              <div
+                                className={`text-lg font-bold ${
+                                  index === 0 ? "text-yellow-400" : "text-white"
+                                }`}
+                              >
+                                ${winner.predictedPrice.toFixed(2)}
+                              </div>
+
+                              {/* Error */}
+                              <div className="text-xs text-emerald-400">
+                                ±${winner.error.toFixed(2)}
+                              </div>
+
+                              {/* Prize */}
+                              <div className="mt-2 text-xs text-silver-500">
+                                Prize:{" "}
+                                <span className="text-amber-400 font-semibold">
+                                  {winner.prize.toFixed(2)} oz
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        ))}
                     </div>
 
                     {/* See more link */}
@@ -1757,14 +1843,14 @@ export default function PredictionGame() {
                           bestRank && bestRank <= 10
                             ? "Tier 1"
                             : bestRank && bestRank <= 25
-                            ? "Tier 2"
-                            : "-";
+                              ? "Tier 2"
+                              : "-";
                         const tierColor =
                           bestRank && bestRank <= 10
                             ? "text-yellow-400"
                             : bestRank && bestRank <= 25
-                            ? "text-silver-300"
-                            : "text-silver-600";
+                              ? "text-silver-300"
+                              : "text-silver-600";
                         const streak = leader.currentStreak || 0;
                         return (
                           <div
@@ -1778,8 +1864,8 @@ export default function PredictionGame() {
                                     rank === 1
                                       ? "text-yellow-400"
                                       : rank === 2
-                                      ? "text-silver-300"
-                                      : "text-amber-600"
+                                        ? "text-silver-300"
+                                        : "text-amber-600"
                                   }`}
                                 >
                                   {rank === 1 ? "🥇" : rank === 2 ? "🥈" : "🥉"}
@@ -2031,8 +2117,8 @@ export default function PredictionGame() {
                     isSubmitting
                       ? "bg-blue-500/50 text-white/50 cursor-not-allowed"
                       : authenticated
-                      ? "bg-gradient-to-r from-blue-500 to-violet-500 text-white hover:from-blue-600 hover:to-violet-600 shadow-lg shadow-blue-500/25"
-                      : "bg-blue-500 text-white hover:bg-blue-600"
+                        ? "bg-gradient-to-r from-blue-500 to-violet-500 text-white hover:from-blue-600 hover:to-violet-600 shadow-lg shadow-blue-500/25"
+                        : "bg-blue-500 text-white hover:bg-blue-600"
                   }`}
                 >
                   {!ready ? (
