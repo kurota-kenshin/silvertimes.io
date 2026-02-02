@@ -2063,13 +2063,13 @@ const silverJanuary2026BlowOffContent = (
                 <td className="py-3 px-4">CME Silver Margin</td>
                 <td className="py-3 px-4">11%</td>
                 <td className="py-3 px-4">15%</td>
-                <td className="py-3 px-4 text-red-400">+36.4%</td>
+                <td className="py-3 px-4 text-green-400">+36.4%</td>
               </tr>
               <tr className="border-b border-white/5">
                 <td className="py-3 px-4">LBMA Silver Margin</td>
                 <td className="py-3 px-4">11%</td>
                 <td className="py-3 px-4">17%</td>
-                <td className="py-3 px-4 text-red-400">+54.5%</td>
+                <td className="py-3 px-4 text-green-400">+54.5%</td>
               </tr>
             </tbody>
           </table>
