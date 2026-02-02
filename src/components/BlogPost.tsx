@@ -1914,7 +1914,323 @@ const silverParadigmShiftContent = (
   </>
 );
 
+// Blog post content for "Silver Market Brief: Anatomy of the January 2026 Blow-Off and Reset"
+const silverJanuary2026BlowOffContent = (
+  <>
+    {/* The Core Theme */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        The Core Theme: The 2026 Debasement Trade
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        The explosive rally in the first four weeks of 2026 was defined by the "debasement trade"—a systemic flight from the U.S. dollar and paper assets toward "hard" stores of value. This trade was fueled by a unique convergence of fiscal instability and political rupture:
+      </p>
+
+      <div className="mb-6">
+        <h3 className="text-2xl font-semibold text-white mb-4">
+          The J.P. Morgan Trigger
+        </h3>
+        <p className="text-silver-300 leading-relaxed">
+          On January 22, 2026, President Trump filed a $5 billion lawsuit against J.P. Morgan and CEO Jamie Dimon, alleging political "debanking".<Cite n={1} /> This unprecedented attack on the nation's largest lender signaled a complete breakdown in the relationship between Washington and Wall Street, sparking fears that the financial system was becoming a tool for political retribution.<Cite n={3} />
+        </p>
+      </div>
+
+      <div>
+        <h3 className="text-2xl font-semibold text-white mb-4">
+          Monetary Erasure
+        </h3>
+        <p className="text-silver-300 leading-relaxed">
+          Combined with public criticisms of the Federal Reserve's independence, investors sought insulation in assets that could not be "printed" or frozen. This rotated capital out of overextended AI tech stocks into the metals complex, pushing gold past $5,600, silver past $120 and copper to a record $14,500/ton.
+        </p>
+      </div>
+    </section>
+
+    {/* Emptied silver vault image */}
+    <section className="mb-12">
+      <div className="my-10">
+        <img
+          src="/press/press_3/3.jpg"
+          alt="Emptied silver vault"
+          className="w-full rounded-2xl border border-white/10"
+        />
+      </div>
+    </section>
+
+    {/* The Perfect Storm */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        The Perfect Storm: Debasement Meets Physical Scarcity
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        The debasement trade did not happen in a vacuum; it collided with the most acute physical silver shortage in history, creating a positive feedback loop that propelled the price to an intraday high of $121.75 on January 29.
+      </p>
+
+      <div className="mb-8">
+        <h3 className="text-2xl font-semibold text-white mb-4">
+          1. The Inventory Free Fall
+        </h3>
+        <p className="text-silver-300 leading-relaxed">
+          In mid-January, a "physical run" on Wall Street saw 33.45 million ounces withdrawn from COMEX registered warehouses in just seven days—a 26% disappearance of deliverable inventory in one week.<Cite n={5} /> By January 27, registered stocks fell to a critical 107.7 million ounces.<Cite n={7} />
+        </p>
+      </div>
+
+      <div className="mb-8">
+        <h3 className="text-2xl font-semibold text-white mb-4">
+          2. The Paper System Fracture
+        </h3>
+        <p className="text-silver-300 leading-relaxed">
+          The "paper game" began to collapse as the coverage ratio fell to 14.2% (Registered inventory vs. 760 million ounces of open interest).<Cite n={7} /> With commercial short positions totaling 231 million ounces—over double the available deliverable supply—shorts were trapped in a vertical squeeze.
+        </p>
+      </div>
+
+      <div>
+        <h3 className="text-2xl font-semibold text-white mb-4">
+          3. The Eastern Magnet
+        </h3>
+        <p className="text-silver-300 leading-relaxed">
+          Shanghai spot premiums exploded to over +$12/oz above London (LBMA) benchmarks, creating an unstoppable one-way flow of physical metal from West to East.<Cite n={9} /> This prompted LBMA lease rates to spike to 39%, effectively ending the economic viability of short-selling.<Cite n={11} />
+        </p>
+      </div>
+    </section>
+
+    {/* UK & China flags image */}
+    <section className="mb-12">
+      <div className="my-10">
+        <img
+          src="/press/press_3/2.jpg"
+          alt="UK and China flags"
+          className="w-full rounded-2xl border border-white/10"
+        />
+      </div>
+    </section>
+
+    {/* The Pivot */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        The Pivot: The "Warsh Shock" and the Margin Hammer
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        On January 30, the "debasement trade" hit an abrupt wall through two coordinated catalysts.
+      </p>
+
+      <div className="mb-8">
+        <h3 className="text-2xl font-semibold text-white mb-4">
+          1. The Warsh Nomination
+        </h3>
+        <p className="text-silver-300 leading-relaxed mb-4">
+          President Trump's nomination of Kevin Warsh to succeed Jerome Powell as Fed Chair removed the expectation of a "politicized Fed". Warsh is perceived as a monetary hawk who prioritizes inflation control and Fed independence.
+        </p>
+        <ul className="space-y-3 text-silver-300">
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>
+              <strong className="text-white">Interest Rate Outlook:</strong> The market immediately priced in higher rates for longer and a potential reduction in the Fed's balance sheet.<Cite n={12} />
+            </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>
+              <strong className="text-white">Currency Rebound:</strong> The U.S. Dollar Index (DXY) surged 0.8% above the 97 mark, crushing the "debasement" narrative and raising the opportunity cost of holding non-yielding metals.
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 className="text-2xl font-semibold text-white mb-4">
+          2. The CME "Kill Switch"
+        </h3>
+        <p className="text-silver-300 leading-relaxed mb-4">
+          To contain the "metal mania," the CME Group and LBMA implemented a 36% margin hike, which stimulated vigorous market reactions.<Cite n={13} />
+        </p>
+
+        {/* Margin Table */}
+        <div className="overflow-x-auto mb-6">
+          <table className="w-full text-sm text-silver-300 border-collapse">
+            <thead>
+              <tr className="border-b border-white/10">
+                <th className="text-left py-3 px-4 text-white font-semibold">Tier</th>
+                <th className="text-left py-3 px-4 text-white font-semibold">Old Margin</th>
+                <th className="text-left py-3 px-4 text-white font-semibold">New Margin</th>
+                <th className="text-left py-3 px-4 text-white font-semibold">Change (%)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-white/5">
+                <td className="py-3 px-4">CME Silver Margin</td>
+                <td className="py-3 px-4">11%</td>
+                <td className="py-3 px-4">15%</td>
+                <td className="py-3 px-4 text-red-400">+36.4%</td>
+              </tr>
+              <tr className="border-b border-white/5">
+                <td className="py-3 px-4">LBMA Silver Margin</td>
+                <td className="py-3 px-4">11%</td>
+                <td className="py-3 px-4">17%</td>
+                <td className="py-3 px-4 text-red-400">+54.5%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p className="text-silver-300 leading-relaxed">
+          This forced a violent liquidation of levered positions. Silver spot dropped by 36% and silver futures plummeted 31.4% in a single session to settle at $78.53—the worst daily decline since March 1980.
+        </p>
+      </div>
+    </section>
+
+    {/* Bull-bear fight image */}
+    <section className="mb-12">
+      <div className="my-10">
+        <img
+          src="/press/press_3/1.jpg"
+          alt="Bull vs Bear"
+          className="w-full rounded-2xl border border-white/10"
+        />
+      </div>
+    </section>
+
+    {/* Foundation Check */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Foundation Check: Is the Silver Bull Dead?
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Despite the "liquidity-driven washout," the structural foundation of the silver market remains remarkably bullish.<Cite n={13} />
+      </p>
+
+      <ul className="space-y-3 text-silver-300">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Supply Scarcity:</strong> China's reclassification of silver as a strategic material (effective Jan 1) and its subsequent export controls remain in place, permanently fragmenting global supply.<Cite n={16} />
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Inelastic Demand:</strong> The photovoltaic (PV) industry requires 120–125 million ounces in 2026 to meet 665 GW of capacity. Silver now represents 29% of solar module costs, yet substitution remains years away from scaling.
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Structural Deficit:</strong> The market enters its fifth consecutive year of deficit, with mine supply unable to respond to prices due to its status as a by-product of base metal mining.
+          </span>
+        </li>
+      </ul>
+    </section>
+
+    {/* Consolidation Period */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Consolidation Period
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Using Elliott Wave Theory and the Fibonacci sequence from the foundation low price of $28.31 to the Jan peak $121.75, we identify the support floor for the current consolidation phase.<Cite n={12} />
+      </p>
+
+      <ul className="space-y-3 text-silver-300 mb-6">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Golden Ratio Support ($64.02):</strong> The 0.618 retracement serves as the critical structural floor for the next three months.
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Psychological Pivot ($75.00):</strong> The 50% retracement level where the market is currently attempting to stabilize.
+          </span>
+        </li>
+      </ul>
+
+      <div className="bg-gradient-to-br from-blue-500/10 to-violet-500/10 border border-white/10 rounded-2xl p-8">
+        <h3 className="text-xl font-semibold text-white mb-4">Outlook</h3>
+        <p className="text-silver-300 leading-relaxed">
+          The "Warsh Shock" has purged the speculative froth from the debasement trade, but it has not resolved the physical shortage. We expect a "base-building" period between $64 and $75 and wait for the structural deficit to reassert price control again.
+        </p>
+      </div>
+    </section>
+
+    {/* Works Cited */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">Works cited</h2>
+
+      <div className="bg-background-secondary/30 border border-white/10 rounded-2xl p-8">
+        <ol className="space-y-4 text-silver-400 text-sm list-decimal list-inside">
+          <li>
+            <a href="https://www.bullionvault.com/gold-news/gold-price-news/gold-5000-silver-100-012320261" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">Silver $100, Gold $5000 as Trump's 'Rupture' Turns on J.P.Morgan - BullionVault</a>, accessed on January 31, 2026
+          </li>
+          <li>
+            <a href="https://www.bnnbloomberg.ca/business/2026/01/26/trumps-jpmorgan-lawsuit-underscores-his-growing-clash-with-wall-street/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">Trump's JPMorgan lawsuit underscores his growing clash with Wall Street - BNN Bloomberg</a>, accessed on January 31, 2026
+          </li>
+          <li>
+            <a href="https://www.thehindu.com/news/international/trump-sues-jpmorgan-for-5-billion-alleges-the-bank-closed-his-accounts-for-political-reasons/article70539926.ece" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">Trump sues JPMorgan for $5 billion, alleges the bank closed his accounts for political reasons - The Hindu</a>, accessed on January 31, 2026
+          </li>
+          <li>
+            <a href="https://m.economictimes.com/markets/us-stocks/news/trumps-lawsuit-against-jpmorgan-highlights-rising-tensions-between-wall-street-and-washington/articleshow/127597639.cms" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">Trump's lawsuit against JPMorgan highlights rising tensions between Wall Street and Washington</a>, accessed on January 31, 2026
+          </li>
+          <li>
+            <a href="https://www.tradingkey.com/analysis/commodities/metal/261487879-2026-silver-physical-squeeze-strategic-asset-tradingkey" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">2026 Silver Run: When the Paper Game Collapses and Silver ...</a>, accessed on January 31, 2026
+          </li>
+          <li>
+            <a href="https://www.investing.com/analysis/silver-how-structural-deficits-are-setting-up-a-onceinageneration-move-200674048" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">Silver: How Structural Deficits Are Setting Up a Once-in-a-Generation Move | Investing.com</a>, accessed on January 31, 2026
+          </li>
+          <li>
+            <a href="https://news.futunn.com/en/post/68085549/120-spot-silver-and-new-york-silver-futures-hit-new" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">$120! Spot silver and New York silver futures hit new highs together ...</a>, accessed on January 31, 2026
+          </li>
+          <li>
+            <a href="https://www.mitrade.com/au/insights/commodity-analysis/precious-metal/beincrypto-XAGUSD-202601291358" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">The Silver Short Squeeze: Only 14% of Futures Are Covered - Mitrade</a>, accessed on January 31, 2026
+          </li>
+          <li>
+            <a href="https://www.youtube.com/watch?v=DgB5_ri0K1w" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">Silver Hits $100 in Shanghai | The $12 Arbitrage Gap That Will DRAIN Every Western Vault</a>, accessed on January 31, 2026
+          </li>
+          <li>
+            <a href="https://inproved.com/silver-s-holiday-basis-china-s-premiums-ignite-vaults-drain-and-two-curves-tell-one-story" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">Silver's Holiday Basis: China's Premiums Ignite, Vaults Drain, and Two Curves Tell One Story - InProved</a>, accessed on January 31, 2026
+          </li>
+          <li>
+            <a href="https://www.gate.com/news/detail/17256813" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">Silver leasing rates surge 39%! Banks refuse to le | MarketWhisper on Gate Square</a>, accessed on January 31, 2026
+          </li>
+          <li>
+            <a href="https://www.canadianminingreport.com/blog/kevin-warsh-fed-chair-nomination-sparks-precious-metals-crash-what-it-means-for-gold-and-silver-investors-in-2026" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">Kevin Warsh Fed Chair Nomination: Gold and Silver Crash Today ...</a>, accessed on January 31, 2026
+          </li>
+          <li>
+            <a href="https://m.economictimes.com/markets/commodities/news/cme-raises-gold-silver-margins-after-prices-plunge-to-historical-lows/articleshow/127816113.cms" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">CME raises gold, silver margins after steepest single-day plunges in decades</a>, accessed on January 31, 2026
+          </li>
+          <li>
+            <a href="https://upstox.com/news/market-news/commodities/gold-and-silver-price-crash-why-precious-metals-witnessed-one-of-the-worst-corrections-in-decades-on-friday-january-30/article-188626/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">Silver price crash: Why precious metals witnessed one of the worst corrections in decades on Friday, January 30 - Upstox</a>, accessed on January 31, 2026
+          </li>
+          <li>
+            <a href="https://m.economictimes.com/markets/stocks/news/gold-plunges-12-in-biggest-single-day-selloff-key-levels-to-watch-on-budget-day-2026/articleshow/127814942.cms" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">Gold plunges 12% in biggest single-day selloff. Key levels to watch on Budget Day 2026</a>, accessed on January 31, 2026
+          </li>
+          <li>
+            <a href="https://discoveryalert.com.au/silver-prices-2026-surge-monetary-precious-metal/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">Silver Prices Surpass $100: Supply Chain & Fed Policy - Discovery Alert</a>, accessed on January 31, 2026
+          </li>
+          <li>
+            <a href="https://bullionworld.in/documents/special-articles/2026/Jan-2026/Silver-Elliott-Wave-Journey.pdf" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">Silver's Elliott Wave Journey: 2026 Correction Ahead ... - Bullion World</a>, accessed on January 31, 2026
+          </li>
+        </ol>
+      </div>
+    </section>
+  </>
+);
+
 export const blogPostsData: BlogPostData[] = [
+  {
+    id: "silver-january-2026-blow-off-reset",
+    title: "Silver Market Brief: Anatomy of the January 2026 Blow-Off and Reset",
+    category: "Market Analysis",
+    date: "Friday, January 31, 2026",
+    mainImage: "/press/press_3/cover.png",
+    excerpt:
+      "Silver hit $121.75 before crashing 36% in a single session. We dissect the debasement trade, the Warsh Shock, and what the structural deficit means for the consolidation ahead.",
+    content: silverJanuary2026BlowOffContent,
+  },
   {
     id: "silver-market-brief-100-horizon",
     title: "Silver Market Brief: The $100 Horizon",
@@ -1947,7 +2263,13 @@ export default function BlogPost() {
     if (post) {
       // Define meta content based on post ID
       const metaContent =
-        post.id === "silver-market-brief-100-horizon"
+        post.id === "silver-january-2026-blow-off-reset"
+          ? {
+              title: "SilverTimes - Anatomy of the January 2026 Blow-Off and Reset",
+              description:
+                "Silver hit $121.75 before crashing 36% in a single session. We dissect the debasement trade, the Warsh Shock, and what the structural deficit means for the consolidation ahead.",
+            }
+          : post.id === "silver-market-brief-100-horizon"
           ? {
               title: "SilverTimes - Silver Market Brief EP1",
               description:
