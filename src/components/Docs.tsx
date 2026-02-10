@@ -24,8 +24,7 @@ const documents: Document[] = [
     title: "One-Pager",
     category: "Project Documents",
     year: "2025",
-    downloadUrl:
-      "/docs/Well Charm Group Limited CI-01683 2025-12-03 17500.00 USD.pdf",
+    downloadUrl: "https://stt-onepapger.my.canva.site/",
     description: "SilverTimes project overview and key highlights",
   },
   {
