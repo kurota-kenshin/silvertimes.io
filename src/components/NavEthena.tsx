@@ -40,12 +40,12 @@ export default function NavEthena() {
               >
                 Home
               </Link>
-              {/* <Link
-              to="/prediction"
-              className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
-            >
-              Prediction
-            </Link> */}
+              <Link
+                to="/prediction"
+                className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
+              >
+                Prediction
+              </Link>
               {/* <Link
               to="/products"
               className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"

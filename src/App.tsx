@@ -44,7 +44,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<SilverBarPurchase />} />
-          <Route path="/prediction" element={<PasswordGate><PredictionGame /></PasswordGate>} />
+          <Route path="/prediction" element={<PredictionGame />} />
           <Route path="/profile" element={<PasswordGate><Profile /></PasswordGate>} />
           <Route path="/rewards-terms" element={<RewardsTerms />} />
           <Route path="/about" element={<AboutUs />} />
