@@ -2337,8 +2337,9 @@ export default function PredictionGame() {
                   deliveries may require KYC and regional restrictions.
                 </p>
                 <p>
-                  <strong className="text-white">Rewards:</strong> Distributed
-                  Q1 2026 after STT token issuance.
+                  <strong className="text-white">Rewards:</strong> Rewards will
+                  be distributed in Q2 2026 when STT is minted. In the meantime,
+                  you may check your winnings in your profile.
                 </p>
               </div>
             </div>
