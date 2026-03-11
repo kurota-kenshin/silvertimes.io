@@ -863,6 +863,11 @@ export default function PredictionGame() {
       return;
     }
 
+    if (!reasoning.trim()) {
+      setSubmitError("Please enter your reasoning for the prediction");
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitError(null);
     setSubmitSuccess(false);
@@ -1147,7 +1152,7 @@ export default function PredictionGame() {
               Predict the Monday Price.
               <br />
               <span className="bg-gradient-to-r from-blue-400 via-violet-400 to-emerald-400 bg-clip-text text-transparent">
-                Earn Status. Win $STT.
+                Win $STT.
               </span>
             </h1>
             <p className="text-base text-silver-400 max-w-2xl mx-auto">
@@ -2107,20 +2112,63 @@ export default function PredictionGame() {
                   ))}
                 </div>
 
-                {/* Reasoning Field (Optional) */}
+                {/* Reasoning Field (Required) */}
                 <div className="mb-6">
                   <label className="block text-xs text-silver-500 mb-2 uppercase tracking-wider">
-                    Your Reasoning (Optional)
+                    Your Reasoning <span className="text-red-400">*</span>
                   </label>
                   <textarea
                     value={reasoning}
                     onChange={(e) => setReasoning(e.target.value)}
-                    placeholder="What's driving your prediction?"
+                    placeholder="What's driving your prediction? (Required)"
                     className="w-full bg-background-primary/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500/50 transition-all placeholder:text-silver-600 resize-none h-20"
                     maxLength={200}
+                    required
                   />
                   <div className="text-right text-xs text-silver-600 mt-1">
                     {reasoning.length}/200
+                  </div>
+                </div>
+
+                {/* Social Follow Requirement */}
+                <div className="mb-6 p-4 bg-background-primary/50 border border-white/10 rounded-xl">
+                  <p className="text-xs text-silver-400 mb-3 uppercase tracking-wider">
+                    Join our community to be eligible for rewards
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <a
+                      href="https://t.me/SilverTimesToken"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 bg-[#229ED9]/10 border border-[#229ED9]/30 rounded-lg text-[#229ED9] text-sm font-medium hover:bg-[#229ED9]/20 transition-all"
+                    >
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                      </svg>
+                      Join Telegram
+                    </a>
+                    <a
+                      href="https://x.com/SilvertimesSTT"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white text-sm font-medium hover:bg-white/10 transition-all"
+                    >
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                      </svg>
+                      Follow on X
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/company/silvertimes/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 bg-[#0A66C2]/10 border border-[#0A66C2]/30 rounded-lg text-[#0A66C2] text-sm font-medium hover:bg-[#0A66C2]/20 transition-all"
+                    >
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                      </svg>
+                      Follow on LinkedIn
+                    </a>
                   </div>
                 </div>
 
@@ -2292,6 +2340,31 @@ export default function PredictionGame() {
                 <p>
                   <strong className="text-white">Access:</strong> Connect an EVM
                   wallet; one submission per wallet per round.
+                </p>
+                <p className="pt-2 border-t border-white/10">
+                  <strong className="text-white">Eligibility:</strong> To receive rewards, you must:
+                </p>
+                <p className="pl-2">
+                  a) Join{" "}
+                  <a href="https://t.me/SilverTimesToken" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">
+                    Telegram
+                  </a>
+                </p>
+                <p className="pl-2">
+                  b) Follow{" "}
+                  <a href="https://x.com/SilvertimesSTT" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">
+                    @SilvertimesSTT
+                  </a>{" "}
+                  on X
+                </p>
+                <p className="pl-2">
+                  c) Follow on{" "}
+                  <a href="https://www.linkedin.com/company/silvertimes/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">
+                    LinkedIn
+                  </a>
+                </p>
+                <p className="text-silver-500 italic">
+                  Silver Times may verify eligibility at any time. Failure to meet requirements results in disqualification.
                 </p>
               </div>
             </div>

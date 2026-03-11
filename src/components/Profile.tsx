@@ -199,8 +199,18 @@ export default function Profile() {
           </div>
         </div>
 
-        {/* Stats Grid - Only Tier and Avg Error */}
-        <div className="grid grid-cols-2 gap-4 mb-8">
+        {/* Stats Grid */}
+        <div className="grid grid-cols-3 gap-4 mb-8">
+          {/* Total Winnings - Prominent */}
+          <div className="bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 backdrop-blur-md border border-emerald-500/20 rounded-2xl p-6">
+            <p className="text-xs text-emerald-400 uppercase tracking-wider mb-2">Total Winnings</p>
+            <p className="text-3xl font-bold text-emerald-400">
+              {parseFloat(stats.totalPrize) > 0 ? `${stats.totalPrize} oz` : "0 oz"}
+            </p>
+            <p className="text-xs text-silver-600 mt-1">
+              {stats.totalWins} win{stats.totalWins !== 1 ? 's' : ''} (Top 25)
+            </p>
+          </div>
           <div className="bg-background-secondary/40 backdrop-blur-md border border-white/5 rounded-2xl p-6">
             <p className="text-xs text-silver-500 uppercase tracking-wider mb-2">Your Tier</p>
             <p className={`text-3xl font-bold ${stats.tierColor}`}>{stats.tier}</p>
