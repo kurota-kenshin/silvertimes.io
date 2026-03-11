@@ -1070,7 +1070,9 @@ export default function PredictionGame() {
 
   // Compute Y-axis domain that includes prediction prices, capped at ±50% of chart range
   const yAxisDomain = useMemo(() => {
-    const chartPrices = enhancedChartData.map((d: any) => d.price).filter(Boolean);
+    const chartPrices = enhancedChartData
+      .map((d: any) => d.price)
+      .filter(Boolean);
     if (chartPrices.length === 0) return ["dataMin - 4", "dataMax + 6"];
     const chartMin = Math.min(...chartPrices);
     const chartMax = Math.max(...chartPrices);
@@ -1079,7 +1081,10 @@ export default function PredictionGame() {
     const capMin = chartMin - range * 0.3;
     const capMax = chartMax + range * 0.3;
     const predPrices = chartPredictions.map((p) => p.price);
-    const allPrices = [...chartPrices, ...predPrices.filter((p) => p >= capMin && p <= capMax)];
+    const allPrices = [
+      ...chartPrices,
+      ...predPrices.filter((p) => p >= capMin && p <= capMax),
+    ];
     const min = Math.min(...allPrices);
     const max = Math.max(...allPrices);
     return [min - 4, max + 6];
@@ -2224,7 +2229,7 @@ export default function PredictionGame() {
                 <div className="space-y-2 text-xs text-silver-400">
                   <p>
                     <span className="text-yellow-400 font-semibold">
-                      Top 10:
+                      Top 50:
                     </span>{" "}
                     Share the weekly reward pool
                   </p>
