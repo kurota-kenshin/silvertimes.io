@@ -11,7 +11,7 @@ export default function HeroNew() {
         <div className="max-w-5xl mx-auto text-center">
           {/* Main Heading */}
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight">
-            <span className="gradient-text">Tokenised Silver</span>
+            <span className="gradient-text">Tokenized Silver</span>
             <br />
             <span className="text-white">with Treasury-Powered Yield</span>
           </h1>

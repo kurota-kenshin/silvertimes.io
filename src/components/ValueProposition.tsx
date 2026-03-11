@@ -1,33 +1,33 @@
 export default function ValueProposition() {
   const benefits = [
     {
-      title: "Earn While Holding Silver",
+      title: "Fractional Ownership",
       description:
-        "Turn traditionally non-yielding silver into an income-bearing allocation with an integrated yield stream atop spot exposure",
+        "Gain access to silver exposure with lower entry barriers",
       gradient: "from-blue-500/15 to-blue-600/25",
     },
     {
-      title: "Programmatic, On-Chain Distribution",
+      title: "Transparent and Secure",
       description:
-        "Yield credited via smart contracts and full on-chain visibility",
-      gradient: "from-blue-400/15 to-blue-500/25",
-    },
-    {
-      title: "Risk-Managed Yield Engine",
-      description:
-        "Hybrid design combining physical reserves, treasury bonds, and futures strategies to target prudent, durable yield",
-      gradient: "from-blue-500/15 to-blue-600/25",
-    },
-    {
-      title: "Keep More of the Yield",
-      description:
-        "0% storage fees and streamlined infrastructure, allowing greater gross yield to flow directly to holders",
+        "Verifiable on-chain & 1:1 value backed",
       gradient: "from-blue-400/15 to-blue-500/25",
     },
     {
       title: "Liquidity Without Lockups",
       description:
-        "24/7 transferability and exchange access ensure capital remains fully liquid while generating returns.",
+        "24/7 transferability while ensuring capital liquidity",
+      gradient: "from-blue-500/15 to-blue-600/25",
+    },
+    {
+      title: "Zero Storage Cost",
+      description:
+        "Institutional-grade security with no holding fees",
+      gradient: "from-blue-400/15 to-blue-500/25",
+    },
+    {
+      title: "Issued on Ethereum",
+      description:
+        "ERC-20 token standard chosen for broad accessibility",
       gradient: "from-blue-500/15 to-blue-600/25",
     },
   ];
@@ -49,8 +49,8 @@ export default function ValueProposition() {
             </span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            Tokenised Silver With
-            <br className="hidden md:block" /> Sustainable Yield
+            Tokenized Silver Backed
+            <br className="hidden md:block" /> by Physical Assets
           </h2>
           <p className="text-base text-silver-400 max-w-3xl mx-auto">
             Transforming precious metals into productive digital assets

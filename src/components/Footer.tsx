@@ -19,7 +19,7 @@ export default function Footer() {
               />
             </div>
             <p className="text-xs text-silver-500 mb-8 leading-relaxed">
-              Tokenised silver with sustainable yield. Backed by real assets.
+              Tokenized silver with sustainable yield. Backed by real assets.
             </p>
             {/* Social Links */}
             <div className="flex gap-3">

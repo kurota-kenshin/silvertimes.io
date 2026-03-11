@@ -18,7 +18,7 @@ export default function HeroEthena() {
           <div className="space-y-8">
             {/* Main Heading */}
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-              <span className="text-white">Tokenised Silver</span>
+              <span className="text-white">Tokenized Silver</span>
               <br />
               <span className="text-white">for the Internet</span>
               <br />

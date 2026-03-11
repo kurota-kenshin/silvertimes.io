@@ -24,7 +24,7 @@ export default function HeroFinal() {
           {/* Left - Text content */}
           <div className="space-y-8 z-10">
             <h1 className="text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.1] text-white">
-              Tokenised Silver
+              Tokenized Silver
               <br />
               for the Internet
               <br />

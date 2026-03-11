@@ -124,7 +124,7 @@ export default function MarketChart() {
             <br className="hidden md:block" /> Modern Economy
           </h2>
           <p className="text-base text-silver-400 max-w-3xl mx-auto">
-            Store value in tokenised silver backed by physical assets,
+            Store value in tokenized silver backed by physical assets,
             <br className="hidden md:block" /> generating yield while preserving
             purchasing power
           </p>
