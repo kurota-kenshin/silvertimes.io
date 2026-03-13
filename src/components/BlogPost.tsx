@@ -1915,6 +1915,429 @@ const silverParadigmShiftContent = (
 );
 
 // Blog post content for "Silver Market Brief: Anatomy of the January 2026 Blow-Off and Reset"
+// Blog post content for "Monday Alpha: Silver's War Premium vs. The Liquidity Crunch"
+const silverWarPremiumContent = (
+  <>
+    {/* Market Outlook Banner */}
+    <section className="mb-12">
+      <div className="bg-gradient-to-br from-yellow-500/20 to-amber-500/10 border border-yellow-500/30 rounded-2xl p-8 mb-8">
+        <div className="flex items-center gap-3 mb-2">
+          <span className="text-yellow-400 font-semibold">Sentiment:</span>
+          <span className="text-white font-bold">⚠️ Neutral (Short-term caution, long-term bullish)</span>
+        </div>
+      </div>
+    </section>
+
+    {/* The Bottom Line Up Front */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        The Bottom Line Up Front
+      </h2>
+
+      <ul className="space-y-3 text-silver-300">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            Iran conflict escalation drives energy prices higher, creating near-term inflation pressure but also potential liquidity concerns as Gulf states may need to fund defense spending
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            Federal Reserve faces a dilemma: War requires fiscal stimulus, but inflation remains elevated — expect rate cuts delayed, then aggressive in Q3-Q4
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            Technical setup: Support at $75, resistance at $98-103 — watch for a potential dip to $75-80 before the next leg up
+          </span>
+        </li>
+      </ul>
+    </section>
+
+    {/* 1. The Geopolitical Catalyst */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        1. The Geopolitical Catalyst
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        The Iran conflict has entered a critical phase, with the Strait of Hormuz (handling 20% of global oil flows) now a primary concern.<Cite n={1} /> Shipping costs for VLCCs have surged 275% since late February, from $120,000/day to over $450,000/day.<Cite n={2} />
+      </p>
+
+      <h3 className="text-2xl font-semibold text-white mb-4">
+        Why this matters for silver:
+      </h3>
+      <ul className="space-y-3 text-silver-300 mb-6">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            Energy inflation directly impacts mining costs (AISC: $15.75-18.25/oz for major producers)<Cite n={3} />
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            Safe-haven demand typically flows to precious metals during Middle East conflicts
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            However, this conflict differs from historical precedents — silver enters at elevated levels (already hit $121.67/oz ATH in January 2026)<Cite n={4} />
+          </span>
+        </li>
+      </ul>
+
+      <p className="text-silver-300 leading-relaxed">
+        The market is pricing in a contained conflict, but escalation risk remains significant.
+      </p>
+    </section>
+
+    {/* 2. The Liquidity Trap: Gulf Positioning */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        2. The Liquidity Trap: Gulf Positioning
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        <strong className="text-white">The risk:</strong> Gulf Cooperation Council sovereign wealth funds control $4.8-5 trillion in assets.<Cite n={5} /> While historical behavior suggests counter-cyclical investing (buying during crises), the current conflict presents unique challenges:
+      </p>
+
+      <ul className="space-y-3 text-silver-300 mb-6">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Defense spending may require liquidity</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Oil infrastructure repair needs capital deployment</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Regional economic disruption could redirect funds domestically</span>
+        </li>
+      </ul>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        <strong className="text-white">The comparison:</strong> Recall March 2020 — gold and silver both sold off sharply as liquidity crunch hit before the subsequent rally. A similar dynamic could play out here if Gulf states need to raise cash quickly.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        However, precious metals represent a small portion of SWF portfolios. Even significant liquidation would be absorbed by strong physical demand and chronic supply deficits.
+      </p>
+
+      <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-6">
+        <p className="text-blue-400 font-semibold">
+          Watch for: Any announcements from PIF, ADIA, or Mubadala regarding asset reallocation.
+        </p>
+      </div>
+    </section>
+
+    {/* Gulf SWF image */}
+    <section className="mb-12">
+      <div className="my-10">
+        <img
+          src="/press/press_4/1.png"
+          alt="Gulf sovereign wealth funds"
+          className="w-full rounded-2xl border border-white/10"
+        />
+      </div>
+    </section>
+
+    {/* 3. The Fed & The Dollar: The Long-Term Tailwind */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        3. The Fed & The Dollar: The Long-Term Tailwind
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Despite near-term liquidity concerns, the fundamental picture remains constructive:
+      </p>
+
+      <div className="mb-8">
+        <h3 className="text-2xl font-semibold text-white mb-4">
+          Federal Reserve policy dilemma:
+        </h3>
+        <ul className="space-y-3 text-silver-300">
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>
+              Current Fed Funds Rate: 3.64%<Cite n={6} />
+            </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>
+              Market expects two more cuts by year-end (to 3.0-3.25%)<Cite n={7} />
+            </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>
+              War-related spending adds to already elevated deficits (5.8% of GDP)<Cite n={8} />
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <div className="mb-8">
+        <h3 className="text-2xl font-semibold text-white mb-4">
+          The debasement thesis:
+        </h3>
+        <ul className="space-y-3 text-silver-300">
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>
+              Dollar share of global reserves: 58.4% (down from 71% in 2000)<Cite n={9} />
+            </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>
+              Central banks accumulated over 1,000 tonnes of gold over the past 18 months, making gold the largest reserve asset by value<Cite n={10} />
+            </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>
+              M2 growth may accelerate to fund war expenditures
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        <strong className="text-white">Historical precedent:</strong> During the 1970s debasement era, silver surged 3,100% (from $1.50 to $48).<Cite n={11} /> While current conditions differ, the mechanism — expanding money supply supporting real assets — remains relevant.
+      </p>
+
+      <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-6">
+        <p className="text-emerald-400 font-semibold">
+          The play: If Fed is forced to monetize debt (yield curve control discussion emerging), silver benefits from negative real rates.
+        </p>
+      </div>
+    </section>
+
+    {/* Fed chart image */}
+    <section className="mb-12">
+      <div className="my-10">
+        <img
+          src="/press/press_4/2.png"
+          alt="Federal Reserve policy impact"
+          className="w-full rounded-2xl border border-white/10"
+        />
+      </div>
+    </section>
+
+    {/* 4. Technical Outlook: The Week Ahead */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        4. Technical Outlook: The Week Ahead
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Silver currently trades at ~$84/oz (March 8, 2026), down ~31% from January's all-time high of $121.67.<Cite n={12} />
+      </p>
+
+      {/* Technical levels table */}
+      <div className="overflow-x-auto mb-6">
+        <table className="w-full text-sm text-silver-300 border-collapse">
+          <thead>
+            <tr className="border-b border-white/10">
+              <th className="text-left py-3 px-4 text-white font-semibold">Level</th>
+              <th className="text-left py-3 px-4 text-white font-semibold">Price</th>
+              <th className="text-left py-3 px-4 text-white font-semibold">Significance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4 text-red-400">Resistance 2</td>
+              <td className="py-3 px-4">$98-103</td>
+              <td className="py-3 px-4">Major resistance zone</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4 text-yellow-400">Current</td>
+              <td className="py-3 px-4">~$84</td>
+              <td className="py-3 px-4">March 8, 2026</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4 text-green-400">Support 1</td>
+              <td className="py-3 px-4">$75-80</td>
+              <td className="py-3 px-4">Accumulation zone</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4 text-green-400">Support 2</td>
+              <td className="py-3 px-4">$75</td>
+              <td className="py-3 px-4">Critical support</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul className="space-y-3 text-silver-300">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Gold-to-Silver Ratio:</strong> Currently approximately 61-62 — moderate, suggesting balanced precious metals allocation<Cite n={13} />
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Volatility note:</strong> February 2026 saw the most violent silver volatility since 1987. Expect elevated intraday moves.<Cite n={14} />
+          </span>
+        </li>
+      </ul>
+    </section>
+
+    {/* 5. The Trader's Playbook */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        5. The Trader's Playbook
+      </h2>
+
+      {/* Short-term */}
+      <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-6 mb-6">
+        <h3 className="text-xl font-semibold text-yellow-400 mb-3">
+          Short-term (This week): ⚠️ Cautious
+        </h3>
+        <ul className="space-y-2 text-silver-300">
+          <li className="flex items-start gap-3">
+            <span className="text-yellow-400 mt-1">•</span>
+            <span>Watch for Gulf liquidity concerns to pressure prices toward $75-80</span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-yellow-400 mt-1">•</span>
+            <span>Consider taking profits on any rally to $90-95</span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-yellow-400 mt-1">•</span>
+            <span>Set stop-losses below $75</span>
+          </li>
+        </ul>
+      </div>
+
+      {/* Medium-term */}
+      <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-6 mb-6">
+        <h3 className="text-xl font-semibold text-emerald-400 mb-3">
+          Medium-term (Q2-Q3 2026): ✅ Accumulate on dips
+        </h3>
+        <ul className="space-y-2 text-silver-300">
+          <li className="flex items-start gap-3">
+            <span className="text-emerald-400 mt-1">•</span>
+            <span>Target $75-80 zone</span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-emerald-400 mt-1">•</span>
+            <span>Fed rate cuts + fiscal expansion = bullish environment</span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-emerald-400 mt-1">•</span>
+            <span>Supply deficit of 67 million ounces (6th consecutive year) provides fundamental support<Cite n={15} /></span>
+          </li>
+        </ul>
+      </div>
+
+      {/* Long-term */}
+      <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-6 mb-6">
+        <h3 className="text-xl font-semibold text-blue-400 mb-3">
+          Long-term (Q4 2026+): 🚀 Bullish
+        </h3>
+        <ul className="space-y-2 text-silver-300">
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>USD debasement thesis intact</span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>Target: $95-120 base case, $150-180 bull case if conflict extends</span>
+          </li>
+        </ul>
+      </div>
+
+      <p className="text-silver-400 italic">
+        Position sizing: Given elevated volatility, maintain 5-10% allocation to silver with tactical adjustment room.
+      </p>
+    </section>
+
+    {/* Key Takeaways */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Key Takeaways
+      </h2>
+
+      <div className="bg-gradient-to-br from-blue-500/10 to-violet-500/10 border border-blue-500/20 rounded-2xl p-8">
+        <ul className="space-y-4 text-silver-300">
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1 font-bold">1.</span>
+            <span>
+              <strong className="text-white">Near-term risk:</strong> Gulf liquidity concerns could trigger a sell-off to $75-80
+            </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1 font-bold">2.</span>
+            <span>
+              <strong className="text-white">The real play:</strong> Fed forced to cut rates and monetize debt = silver upside
+            </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1 font-bold">3.</span>
+            <span>
+              <strong className="text-white">Technical setup:</strong> Buy the dip, watch $75 as critical support
+            </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1 font-bold">4.</span>
+            <span>
+              <strong className="text-white">Fundamentals:</strong> Sixth consecutive supply deficit, recovering investment demand, dedollarization tailwind
+            </span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    {/* Sources & Verification */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Sources & Verification
+      </h2>
+
+      <div className="bg-background-secondary/50 rounded-2xl p-6">
+        <div className="space-y-2 text-sm text-silver-400">
+          <p>[1] Strait of Hormuz: ~20% of global oil flows — Reuters, EIA, IEA</p>
+          <p>[2] VLCC shipping costs: 275% surge — Reuters, Bloomberg, Market Watch</p>
+          <p>[3] Silver mining AISC: $15.75-18.25/oz — Pan American Silver 2026 Guidance</p>
+          <p>[4] Silver ATH: $121.67/oz — APMEX, CNBC, Fortune, Forbes</p>
+          <p>[5] Gulf SWF assets: $4.8-5 trillion — Deloitte Middle East, Global SWF</p>
+          <p>[6] Fed Funds Rate: 3.64% — Federal Reserve Economic Data (FRED)</p>
+          <p>[7] Rate cut expectations — Market expectations, Goldman Sachs</p>
+          <p>[8] US deficit: 5.8% of GDP — CBO Budget Outlook 2026-2036</p>
+          <p>[9] Dollar share: 58.4% — IISS, IMF, St. Louis Fed</p>
+          <p>[10] Central bank gold: 1,000+ tonnes — World Gold Council</p>
+          <p>[11] 1970s silver: $1.50 to $48 — Macrotrends, USAGOLD</p>
+          <p>[12] Current silver: ~$84/oz — Trading Economics, APMEX</p>
+          <p>[13] Gold-to-Silver Ratio: ~61-62 — LongtermTrends, JM Bullion</p>
+          <p>[14] Volatility: Feb 2026 — BullionVault, CNBC, Kitco</p>
+          <p>[15] Supply deficit: 67M oz — Silver Institute</p>
+        </div>
+      </div>
+    </section>
+
+    {/* Disclaimer */}
+    <section className="mb-12">
+      <div className="border-t border-white/10 pt-8">
+        <p className="text-silver-500 text-sm italic mb-4">
+          This briefing is for informational purposes only and does not constitute investment advice. Past performance is not indicative of future results.
+        </p>
+        <p className="text-silver-400 font-medium">
+          Next Update: Friday, March 13, 2026
+        </p>
+      </div>
+    </section>
+  </>
+);
+
 const silverJanuary2026BlowOffContent = (
   <>
     {/* The Core Theme */}
@@ -2222,6 +2645,16 @@ const silverJanuary2026BlowOffContent = (
 
 export const blogPostsData: BlogPostData[] = [
   {
+    id: "silver-war-premium-liquidity-crunch",
+    title: "Monday Alpha: Silver's War Premium vs. The Liquidity Crunch",
+    category: "Market Analysis",
+    date: "March 9, 2026",
+    mainImage: "/press/press_4/cover.png",
+    excerpt:
+      "Iran conflict escalation drives energy prices higher. We analyze the near-term liquidity concerns, Fed policy dilemma, and technical setup with support at $75 and resistance at $98-103.",
+    content: silverWarPremiumContent,
+  },
+  {
     id: "silver-january-2026-blow-off-reset",
     title: "Silver Market Brief: Anatomy of the January 2026 Blow-Off and Reset",
     category: "Market Analysis",
@@ -2263,7 +2696,13 @@ export default function BlogPost() {
     if (post) {
       // Define meta content based on post ID
       const metaContent =
-        post.id === "silver-january-2026-blow-off-reset"
+        post.id === "silver-war-premium-liquidity-crunch"
+          ? {
+              title: "SilverTimes - Monday Alpha: Silver's War Premium vs. The Liquidity Crunch",
+              description:
+                "Iran conflict escalation drives energy prices higher. We analyze the near-term liquidity concerns, Fed policy dilemma, and technical setup.",
+            }
+          : post.id === "silver-january-2026-blow-off-reset"
           ? {
               title: "SilverTimes - Anatomy of the January 2026 Blow-Off and Reset",
               description:
