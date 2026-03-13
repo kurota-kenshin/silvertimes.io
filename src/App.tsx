@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import NavEthena from "./components/NavEthena";
 import HeroCorrect from "./components/HeroCorrect";
 import YouTubeSection from "./components/YouTubeSection";
@@ -22,6 +23,16 @@ import Terms from "./components/Terms";
 import Privacy from "./components/Privacy";
 // import ContactButton from './components/ContactButton'
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function HomePage() {
   return (
     <>
@@ -39,6 +50,7 @@ function HomePage() {
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="min-h-screen bg-background-primary">
         <NavEthena />
         <Routes>

@@ -16,6 +16,7 @@ import { usePrivy } from "@privy-io/react-auth";
 import { useSilverPriceStore } from "../store/silverPriceStore";
 import {
   predictionsApi,
+  authApi,
   AccuracyLeader,
   WeeklyWinner,
   RoundInfo,
@@ -23,6 +24,7 @@ import {
   Badge,
   ChartPrediction,
   RecentWinners,
+  SocialHandles,
 } from "../services/api";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8182";
@@ -99,9 +101,12 @@ const formatAddress = (user: { walletAddress?: string; email?: string }) => {
 
 // Helper to get tier based on rank
 const getTier = (rank: number): string => {
+  if (rank === 1) return "Gold";
+  if (rank === 2) return "Silver";
+  if (rank === 3) return "Bronze";
   if (rank <= 10) return "Tier 1";
-  if (rank <= 25) return "Tier 2";
-  return "Tier 3";
+  if (rank <= 20) return "Tier 2";
+  return "";
 };
 
 // Countdown timer hook
@@ -752,6 +757,9 @@ export default function PredictionGame() {
     null,
   );
 
+  // Social handles for suggestion prompt
+  const [userSocials, setUserSocials] = useState<SocialHandles | null>(null);
+
   // Privy auth
   const { ready, authenticated, login, getAccessToken, user } = usePrivy();
 
@@ -823,10 +831,11 @@ export default function PredictionGame() {
         try {
           const token = await getAccessToken();
           if (token) {
-            // Fetch prediction and stats in parallel
-            const [predictionRes, statsRes] = await Promise.all([
+            // Fetch prediction, stats, and socials in parallel
+            const [predictionRes, statsRes, socialsRes] = await Promise.all([
               predictionsApi.getMyPrediction(token),
               predictionsApi.getMyStats(token),
+              authApi.getSocials(token),
             ]);
 
             if (predictionRes.prediction) {
@@ -837,6 +846,10 @@ export default function PredictionGame() {
             if (statsRes.stats) {
               setUserStats(statsRes.stats);
             }
+
+            if (socialsRes.socials) {
+              setUserSocials(socialsRes.socials);
+            }
           }
         } catch {
           // No existing prediction or stats
@@ -845,6 +858,7 @@ export default function PredictionGame() {
         setExistingPrediction(null);
         setPrediction("");
         setUserStats(null);
+        setUserSocials(null);
       }
     };
     fetchUserData();
@@ -1152,7 +1166,7 @@ export default function PredictionGame() {
               Predict the Monday Price.
               <br />
               <span className="bg-gradient-to-r from-blue-400 via-violet-400 to-emerald-400 bg-clip-text text-transparent">
-                Win $STT.
+                Win USDT.
               </span>
             </h1>
             <p className="text-base text-silver-400 max-w-2xl mx-auto">
@@ -1747,8 +1761,8 @@ export default function PredictionGame() {
                               {/* Prize */}
                               <div className="mt-2 text-xs text-silver-500">
                                 Prize:{" "}
-                                <span className="text-amber-400 font-semibold">
-                                  {winner.prize.toFixed(2)} oz
+                                <span className="text-emerald-400 font-semibold">
+                                  {winner.prize.toFixed(2)} USDT
                                 </span>
                               </div>
                             </div>
@@ -1865,19 +1879,20 @@ export default function PredictionGame() {
                     ) : (
                       accuracyLeaders.map((leader, index) => {
                         const rank = index + 1;
-                        const bestRank = leader.bestRank;
-                        const tier =
-                          bestRank && bestRank <= 10
-                            ? "Tier 1"
-                            : bestRank && bestRank <= 25
-                              ? "Tier 2"
-                              : "-";
+                        // Tier is based on current leaderboard position, not all-time bestRank
+                        const tier = getTier(rank);
                         const tierColor =
-                          bestRank && bestRank <= 10
+                          rank === 1
                             ? "text-yellow-400"
-                            : bestRank && bestRank <= 25
+                            : rank === 2
                               ? "text-silver-300"
-                              : "text-silver-600";
+                              : rank === 3
+                                ? "text-amber-600"
+                                : rank <= 10
+                                  ? "text-blue-400"
+                                  : rank <= 20
+                                    ? "text-violet-400"
+                                    : "text-silver-600";
                         const streak = leader.currentStreak || 0;
                         return (
                           <div
@@ -1933,7 +1948,19 @@ export default function PredictionGame() {
                             </div>
                             <div className="col-span-2 flex items-center justify-end">
                               <span
-                                className={`text-xs px-2 py-1 rounded-full font-medium ${tierColor} bg-white/5`}
+                                className={`text-xs px-2 py-1 rounded-full font-medium ${tierColor} ${
+                                  tier === "Gold"
+                                    ? "bg-yellow-500/10"
+                                    : tier === "Silver"
+                                      ? "bg-silver-500/10"
+                                      : tier === "Bronze"
+                                        ? "bg-amber-500/10"
+                                        : tier === "Tier 1"
+                                          ? "bg-blue-500/10"
+                                          : tier === "Tier 2"
+                                            ? "bg-violet-500/10"
+                                            : "bg-white/5"
+                                }`}
                               >
                                 {tier}
                               </span>
@@ -1994,9 +2021,15 @@ export default function PredictionGame() {
                             <div className="col-span-2 flex items-center justify-end">
                               <span
                                 className={`text-xs px-2 py-1 rounded-full font-medium ${
-                                  tier === "Tier 1"
+                                  tier === "Gold"
                                     ? "text-yellow-400 bg-yellow-500/10"
-                                    : "text-silver-300 bg-silver-500/10"
+                                    : tier === "Silver"
+                                      ? "text-silver-300 bg-silver-500/10"
+                                      : tier === "Bronze"
+                                        ? "text-amber-600 bg-amber-500/10"
+                                        : tier === "Tier 1"
+                                          ? "text-blue-400 bg-blue-500/10"
+                                          : "text-violet-400 bg-violet-500/10"
                                 }`}
                               >
                                 {tier}
@@ -2245,6 +2278,26 @@ export default function PredictionGame() {
                     View My Profile & History →
                   </Link>
                 )}
+
+                {/* Social Handles Suggestion */}
+                {authenticated && userSocials && !userSocials.twitterHandle && !userSocials.telegramHandle && !userSocials.linkedinHandle && (
+                  <Link
+                    to="/profile"
+                    className="mt-4 block p-3 bg-violet-500/10 border border-violet-500/20 rounded-xl hover:bg-violet-500/15 transition-colors"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center flex-shrink-0">
+                        <svg className="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-xs text-violet-400 font-medium">Add your social handles</p>
+                        <p className="text-[10px] text-silver-500">Connect X, Telegram, or LinkedIn</p>
+                      </div>
+                    </div>
+                  </Link>
+                )}
               </div>
 
               {/* Tiered Rewards Card */}
@@ -2277,9 +2330,9 @@ export default function PredictionGame() {
                 <div className="space-y-2 text-xs text-silver-400">
                   <p>
                     <span className="text-yellow-400 font-semibold">
-                      Top 50:
+                      Top 20:
                     </span>{" "}
-                    Share the weekly reward pool
+                    Share 100 USDT weekly
                   </p>
                   <p>
                     <span className="text-violet-400 font-semibold">
@@ -2379,8 +2432,8 @@ export default function PredictionGame() {
               </div>
               <div className="space-y-3 text-xs text-silver-400">
                 <p>
-                  <strong className="text-white">Top 10:</strong> Share the
-                  weekly reward pool.
+                  <strong className="text-white">Top 20:</strong> Share 100
+                  USDT weekly.
                 </p>
                 <p>
                   <strong className="text-white">Participation:</strong> "Silver
@@ -2462,9 +2515,9 @@ export default function PredictionGame() {
                   <div className="w-px h-8 bg-white/10"></div>
                   <div className="text-center">
                     <div className="text-lg font-bold text-emerald-400">
-                      {userStats.bestRank ? `#${userStats.bestRank}` : "-"}
+                      {userStats.lastWeekRank ? `#${userStats.lastWeekRank}` : "-"}
                     </div>
-                    <div className="text-xs text-silver-500">Best Rank</div>
+                    <div className="text-xs text-silver-500">Last Week</div>
                   </div>
                 </div>
               </div>

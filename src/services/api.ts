@@ -90,6 +90,7 @@ export interface UserStats {
   totalWins: number;
   avgError: number;
   bestRank: number | null;
+  lastWeekRank: number | null;
   currentStreak: number;
   longestStreak: number;
   lastPredictedPrice: number | null;
@@ -168,6 +169,13 @@ export const accessApi = {
   },
 };
 
+// Social handles interface
+export interface SocialHandles {
+  twitterHandle?: string;
+  telegramHandle?: string;
+  linkedinHandle?: string;
+}
+
 // Auth API
 export const authApi = {
   getMe: (token: string) =>
@@ -175,6 +183,16 @@ export const authApi = {
 
   verify: (token: string) =>
     apiRequest<{ valid: boolean; userId: string }>('/auth/verify', { token }),
+
+  getSocials: (token: string) =>
+    apiRequest<{ socials: SocialHandles | null }>('/auth/socials', { token }),
+
+  updateSocials: (token: string, socials: SocialHandles) =>
+    apiRequest<{ success: boolean; user: any }>('/auth/update-socials', {
+      method: 'POST',
+      body: socials,
+      token,
+    }),
 };
 
 // Predictions API
