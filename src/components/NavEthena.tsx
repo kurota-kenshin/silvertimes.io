@@ -4,14 +4,15 @@ import {
   useSilverPriceStore,
   getFormattedAPY,
 } from "../store/silverPriceStore";
+import { usePrivy } from "@privy-io/react-auth";
 import GetSTTModal from "./GetSTTModal";
 
 export default function NavEthena() {
   const { currentPrice, isLoading, fetchData } = useSilverPriceStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { ready, authenticated, login } = usePrivy();
 
   useEffect(() => {
-    // Fetch price data when component mounts
     fetchData();
   }, [fetchData]);
 
@@ -46,24 +47,12 @@ export default function NavEthena() {
               >
                 Prediction
               </Link>
-              {/* <Link
-              to="/products"
-              className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
-            >
-              Product
-            </Link> */}
               <Link
                 to="/about"
                 className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
               >
                 About
               </Link>
-              {/* <Link
-              to="/news"
-              className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
-            >
-              News
-            </Link> */}
               <Link
                 to="/blog"
                 className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
@@ -78,15 +67,15 @@ export default function NavEthena() {
               </Link>
             </div>
 
-            {/* Right side - Stats & CTA */}
+            {/* Right side - Stats & Profile */}
             <div className="flex items-center gap-2">
               <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 bg-background-primary/50 rounded-lg border border-white/5">
                 <div className="flex items-center gap-1.5">
                   <div
                     className={`w-1.5 h-1.5 rounded-full ${
                       isLoading
-                        ? "bg-yellow-500/60 animate-pulse"
-                        : "bg-green-500/60"
+                        ? "bg-brand-sky/60 animate-pulse"
+                        : "bg-brand-teal/60"
                     }`}
                   ></div>
                   <span className="text-xs text-silver-300">
@@ -103,12 +92,16 @@ export default function NavEthena() {
                   {getFormattedAPY(currentPrice)} Silver APY
                 </span>
               </div>
-              {/* <button
-              onClick={() => setIsModalOpen(true)}
-              className="px-4 py-1.5 bg-white text-black rounded-lg font-medium hover:bg-silver-200 transition-all text-sm"
-            >
-              Get $STT
-            </button> */}
+
+              {/* Sign In Button - only when not authenticated */}
+              {ready && !authenticated && (
+                <button
+                  onClick={login}
+                  className="px-4 py-1.5 bg-brand-blue hover:bg-brand-blue/90 text-white rounded-lg font-medium transition-colors text-sm"
+                >
+                  Sign In
+                </button>
+              )}
             </div>
           </div>
         </div>

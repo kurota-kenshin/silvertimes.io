@@ -12,6 +12,13 @@ export default {
           secondary: '#111111',
           tertiary: '#1a1a1a',
         },
+        brand: {
+          sky: '#90E0EF',
+          blue: '#6596FE',
+          teal: '#77D6E3',
+          dark: '#1E1E1E',
+          surface: '#2B2B2B',
+        },
         silver: {
           50: '#f8f9fa',
           100: '#e9ecef',
@@ -25,13 +32,12 @@ export default {
           900: '#212529',
         },
         accent: {
-          blue: '#60a5fa',
+          blue: '#6596FE',
         },
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-silver': 'linear-gradient(135deg, #c9cdd1 0%, #6c757d 50%, #888e95 100%)',
-        'gradient-accent': 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
       },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',

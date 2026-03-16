@@ -1,170 +1,151 @@
 # SilverTimes Design System
 
-## Design Inspiration
+## Design Philosophy
 
-The SilverTimes website is inspired by [Ethena.fi](https://ethena.fi/), featuring a modern, dark-themed design optimized for cryptocurrency and DeFi audiences.
+- **Minimal** - Clean, professional, no visual clutter
+- **Brand-aligned** - All colors from the SilverTimes Brand Guidelines
+- **Guided** - Users always know what to do next
+- **NO EMOJIS** - Never use emojis in any UI component. Use styled text or SVG icons only.
 
-## Color Palette
+## Brand Colors (from BrandGuideline.pdf)
 
-### Background Colors
-- **Primary**: `#0a0a0a` - Main background
-- **Secondary**: `#111111` - Card backgrounds
-- **Tertiary**: `#1a1a1a` - Hover states
+### Primary Colors
+- **Brand Sky:** `#90E0EF` - Highlights, top ranks, celebrations
+- **Brand Blue:** `#6596FE` - Primary actions, links, selected states, CTA buttons
+- **Brand Teal:** `#77D6E3` - Secondary accents, positive indicators, success states
 
-### Silver Colors
-- **50**: `#f8f9fa` - Lightest text
-- **100**: `#e9ecef` - Light text
-- **200**: `#c9cdd1` - Secondary text
-- **300-500**: Mid-tone silvers for UI elements
-- **600-900**: Dark silvers for depth
+### Dark Backgrounds
+- **Primary (Dark):** `#1E1E1E` - Main page background
+- **Surface:** `#2B2B2B` - Card backgrounds
+- **Tertiary:** `#404040` - Hover states, elevated surfaces
 
-### Accent Colors
-- **Blue**: `#3b82f6` - Primary accent
-- **Cyan**: `#06b6d4` - Secondary accent
-- **Purple**: `#8b5cf6` - Tertiary accent
+### Greyscale
+- `#696969` - Muted text, disabled states
+- `#919191` - Secondary text
+- `#A8A8A8` - Tertiary text, borders
+- `#C4C4C4` - Light text
+- `#D9D9D9` - Lightest UI text
 
-### Gradients
-```css
-/* Silver Gradient */
-linear-gradient(135deg, #c9cdd1 0%, #6c757d 50%, #888e95 100%)
+### Color Usage Rules
+- Maximum 3 accent colors (sky, blue, teal) in any single view
+- Use greyscale for all non-accent text and borders
+- No emerald, violet, rose, amber, yellow, orange from generic Tailwind palette
+- Gradients should be subtle and only use brand colors
 
-/* Accent Gradient */
-linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)
-
-/* Gradient Text Class */
-.gradient-text {
-  background: linear-gradient(135deg, #c9cdd1 0%, #ffffff 50%, #888e95 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+### Tailwind Custom Classes
+```
+brand-sky:     #90E0EF
+brand-blue:    #6596FE
+brand-teal:    #77D6E3
+brand-dark:    #1E1E1E
+brand-darker:  #161616
+brand-surface: #2B2B2B
 ```
 
 ## Typography
 
-- **Font Family**: System fonts (-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', etc.)
-- **Headings**: Bold (700) with tight line-height
-- **Body**: Regular (400) with relaxed line-height
-- **Antialiasing**: Enabled for smooth rendering
+- **Headings:** Bold (700), tight line-height
+- **Body:** Regular (400), relaxed line-height
+- **Antialiasing:** Enabled for smooth rendering
 
 ### Type Scale
-- **H1**: 5xl-8xl (3rem-6rem) - Hero headlines
-- **H2**: 4xl-5xl (2.25rem-3rem) - Section titles
-- **H3**: 2xl-3xl (1.5rem-1.875rem) - Card titles
-- **Body**: base-xl (1rem-1.25rem) - Standard text
-- **Small**: sm-xs (0.875rem-0.75rem) - Labels and captions
+- **H1:** 3xl-4xl - Page titles
+- **H2:** xl-2xl - Section titles
+- **H3:** lg - Card titles
+- **Body:** sm-base - Standard text
+- **Small:** xs - Labels and captions
 
 ## Components
 
-### Cards
-- **Background**: `bg-background-secondary`
-- **Border**: `border border-white/10`
-- **Radius**: `rounded-2xl` (16px)
-- **Padding**: `p-8` (2rem)
-- **Hover**: `hover:border-white/20 hover:bg-background-tertiary`
+### Cards (matching home page)
+```
+bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-6
+```
+or with gradient tint:
+```
+bg-gradient-to-br from-brand-blue/10 to-brand-teal/5 backdrop-blur-md border border-brand-teal/15 rounded-2xl p-8
+```
+- Use `rounded-2xl` (never `rounded-3xl`)
+- Subtle `backdrop-blur-sm` or `backdrop-blur-md`
+- `border-white/5` or `border-white/10` for borders
 
 ### Buttons
-**Primary**:
-- Background: White
-- Text: Black
-- Hover: `bg-silver-200`
-- Transform: `hover:scale-105`
-
-**Secondary**:
-- Border: `border-2 border-white/20`
-- Text: White
-- Hover: `bg-white/10 border-white/40`
-
-### Navigation
-- **Position**: Fixed top with backdrop blur
-- **Background**: `bg-background-primary/80 backdrop-blur-lg`
-- **Border**: `border-b border-white/10`
-- **Height**: 20 (5rem)
-
-### Animations
-```javascript
-// Pulse Slow
-animation: 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-
-// Bounce (scroll indicator)
-animation: 'bounce'
-
-// Transitions
-transition: 'all 0.3s ease'
+**Primary (CTA):**
+```
+bg-brand-blue hover:bg-brand-blue/90 text-white font-semibold rounded-lg px-6 py-3
 ```
 
-## Layout
+**Secondary:**
+```
+bg-brand-surface border border-silver-700 text-white hover:border-silver-600 rounded-lg px-4 py-2
+```
 
-### Container
-- Max Width: 7xl (80rem / 1280px) for most sections
-- Padding: `px-4` (1rem horizontal)
-- Margin: `mx-auto` (centered)
+### Tab Navigation
+```
+Tab bar: border-b border-silver-800
+Active tab: text-white border-b-2 border-brand-blue
+Inactive tab: text-silver-400 hover:text-white
+```
 
-### Grid Systems
-- **2 columns**: `md:grid-cols-2`
-- **3 columns**: `lg:grid-cols-3`
-- **4 columns**: `md:grid-cols-4`
-- **Gap**: 6-8 (1.5rem-2rem)
+### Rank Badges (NO emojis)
+- Rank #1: `bg-brand-sky/20 text-brand-sky font-bold` with text "#1"
+- Rank #2: `bg-silver-300/20 text-silver-300 font-bold` with text "#2"
+- Rank #3: `bg-silver-500/20 text-silver-400 font-bold` with text "#3"
+- Other ranks: plain text
 
-### Spacing
-- **Section**: `py-32` (8rem vertical)
-- **Component**: `mb-16` (4rem margin bottom)
-- **Elements**: `gap-4` to `gap-8` (1rem-2rem)
+### Navigation
+- Fixed top, `bg-[#1E1E1E]/95`
+- `border-b border-silver-800`
+- Profile avatar button (top-right) when signed in
+
+## Layout Patterns
+
+### Tab-based Pages (Prediction)
+```
+[Compact Hero Row]
+[Tab Bar]
+[Tab Content - single panel, no side-by-side columns]
+```
+
+### Step-based Flow (Predict tab)
+```
+Step 1: Connect -> Step 2: Predict -> Step 3: Share
+```
+- Clear numbered steps
+- Only show the current step's content
+- Minimal text per step
+
+### Profile Page
+```
+[Header + user info inline]
+[Winnings Hero Card - full width, prominent]
+[Current Round + Stats row]
+[Prediction History table]
+```
 
 ## Effects
 
-### Glow Effects
-```html
-<div className="absolute w-96 h-96 bg-accent-blue/10 rounded-full blur-3xl"></div>
-```
+### Allowed (matching home page style)
+- `backdrop-blur-sm` / `backdrop-blur-md` on cards
+- Subtle background blur orbs at very low opacity (`bg-brand-blue/5`, `bg-brand-teal/5`)
+- Subtle gradient tints on cards (`from-brand-blue/10 to-brand-teal/5`)
+- `border border-white/5` or `border-white/10` for card borders
+- `rounded-2xl` for main cards
+- Gradient CTA buttons (`from-brand-blue to-brand-teal`)
+- Gradient accent bars (`bg-gradient-to-b from-brand-blue/60 to-brand-blue/20`)
+- Gradient text on hero headings
+- Subtle transitions: `transition-colors`, `transition-all`
+- Hover color/border changes
+- Loading spinners (CSS only)
+- Animated pulse dots for live indicators
 
-### Glass Morphism
-```html
-<div className="bg-background-secondary/50 backdrop-blur-sm border border-white/10"></div>
-```
-
-### Hover Transforms
-- Scale: `hover:scale-105`
-- Rotate: `group-hover:scale-110 transition-transform`
-- Color: `hover:text-white transition-colors`
-
-## Accessibility
-
-- **Contrast Ratios**: All text meets WCAG AA standards
-- **Focus States**: Visible focus rings on interactive elements
-- **Semantic HTML**: Proper heading hierarchy and landmarks
-- **Responsive**: Mobile-first, fully responsive design
-
-## Design Principles
-
-1. **Dark First**: Dark theme optimized for reduced eye strain
-2. **Minimalist**: Clean design with purposeful whitespace
-3. **Modern**: Gradient effects and glass morphism
-4. **Trustworthy**: Professional design for financial platform
-5. **Performance**: Optimized animations and transitions
-6. **Responsive**: Mobile-first, works on all devices
-
-## Icon Usage
-
-Emojis are used for visual interest and quick recognition:
-- 🪙 💎 - Token/Currency
-- 🏦 🏛️ - Banking/Security
-- 📊 📈 - Analytics/Growth
-- 🔒 🛡️ - Security/Protection
-- ⚡ ⚙️ - Technology/Systems
-- ✅ 🔍 - Verification/Transparency
+### NOT Allowed
+- Particle animations / confetti / rain celebrations
+- Heavy glass morphism (keep it subtle like home page)
+- Emojis
 
 ## Responsive Breakpoints
-
-- **sm**: 640px
-- **md**: 768px
-- **lg**: 1024px
-- **xl**: 1280px
-- **2xl**: 1536px
-
-## Browser Support
-
-- Chrome/Edge: Last 2 versions
-- Firefox: Last 2 versions
-- Safari: Last 2 versions
-- Mobile: iOS 12+, Android 8+
+- **sm:** 640px
+- **md:** 768px
+- **lg:** 1024px
+- **xl:** 1280px
