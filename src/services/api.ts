@@ -193,6 +193,16 @@ export const authApi = {
       body: socials,
       token,
     }),
+
+  getWithdrawWallet: (token: string) =>
+    apiRequest<{ wallet: string | null }>('/auth/withdraw-wallet', { token }),
+
+  updateWithdrawWallet: (token: string, walletAddress: string) =>
+    apiRequest<{ success: boolean }>('/auth/withdraw-wallet', {
+      method: 'POST',
+      body: { walletAddress },
+      token,
+    }),
 };
 
 // Predictions API

@@ -14,6 +14,14 @@ export default function ProfileContent() {
   const [socialForm, setSocialForm] = useState<SocialHandles>({});
   const [savingSocials, setSavingSocials] = useState(false);
 
+  // Withdrawal wallet
+  const [withdrawWallet, setWithdrawWallet] = useState<string | null>(null);
+  const [editingWallet, setEditingWallet] = useState(false);
+  const [walletInput, setWalletInput] = useState("");
+  const [savingWallet, setSavingWallet] = useState(false);
+  const [walletError, setWalletError] = useState<string | null>(null);
+  const [walletSaved, setWalletSaved] = useState(false);
+
   const { authenticated, getAccessToken, user, logout } = usePrivy();
 
   const displayAddress = useMemo(() => {
@@ -51,11 +59,12 @@ export default function ProfileContent() {
         try {
           const token = await getAccessToken();
           if (token) {
-            const [predictionRes, historyRes, roundRes, socialsRes] = await Promise.all([
+            const [predictionRes, historyRes, roundRes, socialsRes, walletRes] = await Promise.all([
               predictionsApi.getMyPrediction(token),
               predictionsApi.getMyHistory(token, 20),
               predictionsApi.getCurrentRound(),
               authApi.getSocials(token),
+              authApi.getWithdrawWallet(token).catch(() => ({ wallet: null })),
             ]);
             if (predictionRes.prediction) setExistingPrediction(predictionRes.prediction.predictedPrice);
             setPredictionHistory(historyRes.predictions || []);
@@ -63,6 +72,10 @@ export default function ProfileContent() {
             if (socialsRes.socials) {
               setSocials(socialsRes.socials);
               setSocialForm(socialsRes.socials);
+            }
+            if (walletRes.wallet) {
+              setWithdrawWallet(walletRes.wallet);
+              setWalletInput(walletRes.wallet);
             }
           }
         } catch (err) {
@@ -88,6 +101,30 @@ export default function ProfileContent() {
       console.error("Failed to save socials:", err);
     } finally {
       setSavingSocials(false);
+    }
+  };
+
+  const handleSaveWallet = async () => {
+    const trimmed = walletInput.trim();
+    if (!trimmed) { setWalletError("Please enter a wallet address"); return; }
+    if (!/^0x[a-fA-F0-9]{40}$/.test(trimmed)) { setWalletError("Please enter a valid EVM wallet address (0x...)"); return; }
+    setSavingWallet(true);
+    setWalletError(null);
+    setWalletSaved(false);
+    try {
+      const token = await getAccessToken();
+      if (token) {
+        await authApi.updateWithdrawWallet(token, trimmed);
+        setWithdrawWallet(trimmed);
+        setEditingWallet(false);
+        setWalletSaved(true);
+        setTimeout(() => setWalletSaved(false), 3000);
+      }
+    } catch (err) {
+      console.error("Failed to save wallet:", err);
+      setWalletError("Failed to save wallet. Please try again.");
+    } finally {
+      setSavingWallet(false);
     }
   };
 
@@ -118,6 +155,9 @@ export default function ProfileContent() {
 
     return { totalPredictions, totalWins: wins.length, avgError, totalPrize: totalPrize.toFixed(2), tier, bestRank };
   }, [predictionHistory]);
+
+  const hasWinnings = parseFloat(stats.totalPrize) > 0;
+  const needsWallet = hasWinnings && !withdrawWallet;
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -170,6 +210,125 @@ export default function ProfileContent() {
           </div>
         </div>
       </div>
+
+      {/* Withdraw Wallet - Alert banner if winnings but no wallet */}
+      {needsWallet && !editingWallet && (
+        <div className="mb-8 relative">
+          <div className="absolute -inset-[1px] bg-gradient-to-r from-brand-sky/60 via-brand-blue/40 to-brand-sky/60 rounded-2xl animate-pulse"></div>
+          <div className="relative bg-background-secondary/80 backdrop-blur-sm rounded-2xl p-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-brand-sky/15 border border-brand-sky/25 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-6 h-6 text-brand-sky" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-white font-semibold">You have {stats.totalPrize} USDT in winnings!</p>
+                  <p className="text-silver-300 text-sm">Submit your EVM wallet address to receive your USDT rewards.</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setEditingWallet(true)}
+                className="px-5 py-2.5 bg-gradient-to-r from-brand-blue to-brand-teal text-white font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-brand-blue/25 flex-shrink-0"
+              >
+                Submit Wallet
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Withdraw Wallet - Edit form */}
+      {editingWallet && (
+        <div className="mb-8">
+          <div className="bg-background-secondary/30 backdrop-blur-sm border border-brand-blue/25 rounded-2xl p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-1 h-8 bg-gradient-to-b from-brand-sky/60 to-brand-sky/20 rounded-full"></div>
+              <h3 className="text-lg font-semibold text-white">Withdrawal Wallet</h3>
+            </div>
+            <p className="text-silver-300 text-sm mb-4">
+              Enter your EVM wallet address (Ethereum, Polygon, etc.) where you'd like to receive your USDT winnings. Rewards are sent weekly.
+            </p>
+            <div className="flex gap-3">
+              <input
+                type="text"
+                value={walletInput}
+                onChange={(e) => { setWalletInput(e.target.value); setWalletError(null); }}
+                placeholder="0x..."
+                className="flex-1 bg-background-primary/50 border border-white/10 rounded-xl px-4 py-3 text-white font-mono text-sm placeholder-silver-400 focus:outline-none focus:border-brand-blue/50 focus:ring-2 focus:ring-brand-blue/20 transition-all"
+              />
+              <button
+                onClick={handleSaveWallet}
+                disabled={savingWallet}
+                className="px-6 py-3 bg-gradient-to-r from-brand-blue to-brand-teal text-white font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-brand-blue/25 disabled:opacity-50 flex-shrink-0"
+              >
+                {savingWallet ? "Saving..." : "Save"}
+              </button>
+              <button
+                onClick={() => { setEditingWallet(false); setWalletInput(withdrawWallet || ""); setWalletError(null); }}
+                className="px-4 py-3 text-silver-300 hover:text-white border border-white/10 rounded-xl transition-colors flex-shrink-0"
+              >
+                Cancel
+              </button>
+            </div>
+            {walletError && (
+              <p className="mt-3 text-red-400 text-sm">{walletError}</p>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Withdraw Wallet - Saved state (shown inline when wallet exists and not editing) */}
+      {withdrawWallet && !editingWallet && (
+        <div className="mb-8">
+          <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-6 hover:border-white/10 transition-all duration-300">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-1 h-8 bg-gradient-to-b from-brand-teal/60 to-brand-teal/20 rounded-full"></div>
+                <div>
+                  <p className="text-xs text-silver-300 uppercase tracking-wider mb-1">Withdrawal Wallet</p>
+                  <p className="text-white font-mono text-sm">{withdrawWallet}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                {walletSaved && (
+                  <span className="text-brand-teal text-sm font-medium">Saved</span>
+                )}
+                <button
+                  onClick={() => setEditingWallet(true)}
+                  className="px-4 py-2 bg-brand-blue/10 hover:bg-brand-blue/20 text-brand-blue border border-brand-blue/30 rounded-lg text-sm font-medium transition-colors"
+                >
+                  Change
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* No winnings, no wallet - gentle prompt */}
+      {!hasWinnings && !withdrawWallet && !editingWallet && (
+        <div className="mb-8">
+          <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-1 h-8 bg-gradient-to-b from-brand-blue/60 to-brand-blue/20 rounded-full"></div>
+                <div>
+                  <p className="text-sm text-white font-medium">Withdrawal Wallet</p>
+                  <p className="text-xs text-silver-300">Set up your wallet now so winnings are sent automatically when you win.</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setEditingWallet(true)}
+                className="px-4 py-2 bg-brand-blue/10 hover:bg-brand-blue/20 text-brand-blue border border-brand-blue/30 rounded-lg text-sm font-medium transition-colors flex-shrink-0"
+              >
+                Set Up
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Stats Grid */}
       <div className="grid grid-cols-3 gap-4 mb-8">

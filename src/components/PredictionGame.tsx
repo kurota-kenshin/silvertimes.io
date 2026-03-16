@@ -519,135 +519,82 @@ export default function PredictionGame() {
         />
       )}
 
-      {/* Background effects - matching home page pattern */}
+      {/* Subtle background glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/3 w-[500px] h-[500px] bg-blue-400/5 rounded-full blur-3xl"></div>
-        <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-brand-blue/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/3 left-0 w-[400px] h-[400px] bg-brand-sky/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand-blue/[0.04] rounded-full blur-3xl"></div>
       </div>
 
-      {/* Hero Section */}
+      {/* Hero - clean, compact, centered */}
       <div className="relative z-10 pt-20 pb-6 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-10">
-            {/* Badge pill */}
-            <div className="inline-block px-4 py-1.5 bg-brand-blue/15 border border-brand-blue/25 rounded-full mb-6">
-              <span className="text-xs font-medium text-brand-blue uppercase tracking-wider">
-                The Silver Oracle
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
-              Predict the Monday Price.
-              <br />
-              <span className="bg-gradient-to-r from-brand-blue via-brand-teal to-brand-sky bg-clip-text text-transparent">
-                Win USDT.
-              </span>
-            </h1>
-            <p className="text-base lg:text-lg text-silver-400 max-w-2xl mx-auto leading-relaxed">
-              Submit your prediction before Thursday 11:59 PM. Results locked Monday 12:00 PM using LBMA oracles.
-            </p>
-          </div>
+        <div className="max-w-5xl mx-auto text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-3 leading-tight">
+            Predict the Monday Price.{" "}
+            <span className="bg-gradient-to-r from-brand-blue to-brand-teal bg-clip-text text-transparent">Win USDT.</span>
+          </h1>
+          <p className="text-silver-300 max-w-xl mx-auto mb-8">
+            Submit before Thursday 11:59 PM. Results Monday 12:00 PM (LBMA).
+          </p>
 
-          {/* Stats Row - premium card style */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-            {/* Live Price */}
-            <div className="group relative">
-              <div className="absolute -inset-0.5 bg-gradient-to-br from-brand-blue/15 to-brand-teal/25 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
-              <div className="relative bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-6 group-hover:border-white/10 transition-all duration-300">
-                <div className="w-1 h-10 bg-gradient-to-b from-brand-blue/60 to-brand-blue/20 rounded-full mb-4"></div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs text-silver-400 uppercase tracking-wider font-medium">Current Spot Price</span>
-                  <div className={`w-2 h-2 rounded-full ${isLoading ? "bg-brand-sky animate-pulse" : error ? "bg-silver-500" : "bg-brand-teal animate-pulse shadow-sm shadow-brand-teal/50"}`}></div>
-                </div>
-                <div className="text-3xl lg:text-4xl font-bold text-white">${silverPrice.toFixed(2)}</div>
-                <div className="text-xs text-silver-300 mt-1">USD/oz LBMA</div>
+          {/* Stats - horizontal, like the home page hero bottom bar */}
+          <div className="border-t border-b border-white/[0.06] py-5">
+            <div className="flex items-center justify-center gap-10 md:gap-16 flex-wrap">
+              <div className="text-center">
+                <div className="text-2xl md:text-3xl font-bold text-white">${silverPrice.toFixed(2)}</div>
+                <div className="text-[11px] text-silver-400 mt-1 uppercase tracking-wider">Spot Price</div>
               </div>
-            </div>
-
-            {/* Countdown */}
-            <div className="group relative">
-              <div className="absolute -inset-0.5 bg-gradient-to-br from-brand-teal/15 to-brand-sky/25 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
-              <div className="relative bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-6 group-hover:border-white/10 transition-all duration-300">
-                <div className="w-1 h-10 bg-gradient-to-b from-brand-teal/60 to-brand-teal/20 rounded-full mb-4"></div>
-                <div className="text-xs text-silver-400 uppercase tracking-wider font-medium mb-2">Prediction Lock-in</div>
-                <div className="flex items-baseline gap-1 text-white">
-                  <span className="text-2xl md:text-3xl lg:text-4xl font-bold">{String(countdown.days).padStart(2, "0")}</span>
-                  <span className="text-silver-300 text-sm">d</span>
-                  <span className="text-xl md:text-2xl lg:text-3xl font-bold ml-1">{String(countdown.hours).padStart(2, "0")}</span>
-                  <span className="text-silver-300 text-sm">h</span>
-                  <span className="text-xl md:text-2xl lg:text-3xl font-bold ml-1">{String(countdown.minutes).padStart(2, "0")}</span>
-                  <span className="text-silver-300 text-sm">m</span>
+              <div className="text-center">
+                <div className="text-2xl md:text-3xl font-bold text-brand-sky tabular-nums">
+                  {String(countdown.days).padStart(2, "0")}d {String(countdown.hours).padStart(2, "0")}h {String(countdown.minutes).padStart(2, "0")}m
                 </div>
-                <div className="text-xs text-silver-300 mt-1">Until Thursday 23:59 UTC</div>
+                <div className="text-[11px] text-silver-400 mt-1 uppercase tracking-wider">Until Lock-in</div>
               </div>
-            </div>
-
-            {/* Participants */}
-            <div className="group relative">
-              <div className="absolute -inset-0.5 bg-gradient-to-br from-brand-sky/15 to-brand-blue/25 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
-              <div className="relative bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-6 group-hover:border-white/10 transition-all duration-300">
-                <div className="w-1 h-10 bg-gradient-to-b from-brand-sky/60 to-brand-sky/20 rounded-full mb-4"></div>
-                <div className="text-xs text-silver-400 uppercase tracking-wider font-medium mb-2">This Week's Oracles</div>
-                <div className="text-3xl lg:text-4xl font-bold text-white">{currentRound?.totalParticipants || 0}</div>
-                <div className="text-xs text-silver-300 mt-1">Predictions submitted</div>
+              <div className="text-center">
+                <div className="text-2xl md:text-3xl font-bold text-white">{currentRound?.totalParticipants || 0}</div>
+                <div className="text-[11px] text-silver-400 mt-1 uppercase tracking-wider">Oracles</div>
               </div>
-            </div>
-
-            {/* Community Sentiment */}
-            <div className="group relative">
-              <div className="absolute -inset-0.5 bg-gradient-to-br from-brand-blue/15 to-brand-teal/25 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
-              <div className="relative bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-6 group-hover:border-white/10 transition-all duration-300">
-                <div className="w-1 h-10 bg-gradient-to-b from-brand-blue/60 to-brand-teal/20 rounded-full mb-4"></div>
-                <div className="text-xs text-silver-400 uppercase tracking-wider font-medium mb-2">Community Avg</div>
-                <div className="text-3xl lg:text-4xl font-bold text-white">
-                  {avgPrediction ? `$${avgPrediction.toFixed(2)}` : "-"}
+              {avgPrediction && (
+                <div className="text-center">
+                  <div className="text-2xl md:text-3xl font-bold text-white">${avgPrediction.toFixed(2)}</div>
+                  <div className="text-[11px] text-silver-400 mt-1 uppercase tracking-wider">Community Avg</div>
                 </div>
-                <div className="text-xs text-silver-300 mt-1">
-                  {avgPrediction && currentPrice ? (
-                    <span className={((avgPrediction - currentPrice) / currentPrice) > 0 ? "text-brand-teal" : "text-silver-400"}>
-                      {((avgPrediction - currentPrice) / currentPrice * 100).toFixed(1)}% vs spot
-                    </span>
-                  ) : "Awaiting predictions"}
-                </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Tab Bar - with visual weight */}
+      {/* Tab Bar */}
       <div className="relative z-10 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="bg-background-secondary/20 backdrop-blur-sm rounded-t-xl border border-white/5 border-b-0 px-2">
-            <div className="flex gap-0">
-              {(["predict", "chart", "leaderboard", "rules", ...(authenticated ? ["profile" as const] : [])] as const).map((tab) => (
+        <div className="max-w-5xl mx-auto border-b border-white/[0.06]">
+          <div className="flex gap-0">
+            {(["predict", "chart", "leaderboard", "rules", ...(authenticated ? ["profile" as const] : [])] as const).map((tab) => {
+              const hasRedDot =
+                (tab === "predict" && authenticated && !existingPrediction) ||
+                (tab === "profile" && authenticated);
+              return (
                 <button
                   key={tab}
                   onClick={() => setPageTab(tab)}
-                  className={`relative px-5 py-4 text-sm font-medium transition-all duration-300 border-b-2 -mb-px ${
+                  className={`relative px-5 py-3.5 text-sm font-medium transition-colors border-b-2 -mb-px ${
                     pageTab === tab
                       ? "text-white border-brand-blue"
-                      : "text-silver-300 border-transparent hover:text-silver-300 hover:bg-white/3"
+                      : "text-silver-400 border-transparent hover:text-white"
                   }`}
                 >
-                  {/* Active tab glow */}
-                  {pageTab === tab && (
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-brand-blue shadow-lg shadow-brand-blue/50"></div>
-                  )}
                   {tab === "predict" ? "Predict" : tab === "chart" ? "Chart & Analysis" : tab === "leaderboard" ? "Leaderboard" : tab === "rules" ? "Rules & Prizes" : "Profile"}
+                  {hasRedDot && pageTab !== tab && (
+                    <span className="absolute top-2.5 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                  )}
                 </button>
-              ))}
-            </div>
+              );
+            })}
           </div>
-          {/* Connecting border line */}
-          <div className="h-px bg-white/5"></div>
         </div>
       </div>
 
       {/* Tab Content */}
       <div className="relative z-10 px-4 py-8">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-5xl mx-auto">
 
           {/* ===== PREDICT TAB ===== */}
           {pageTab === "predict" && (
