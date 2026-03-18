@@ -10,11 +10,20 @@ import GetSTTModal from "./GetSTTModal";
 export default function NavEthena() {
   const { currentPrice, isLoading, fetchData } = useSilverPriceStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { ready, authenticated, login } = usePrivy();
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  const navLinks = [
+    { to: "/", label: "Home" },
+    { to: "/prediction", label: "Prediction" },
+    { to: "/about", label: "About" },
+    { to: "/blog", label: "Blog" },
+    { to: "/docs", label: "Docs" },
+  ];
 
   return (
     <>
@@ -33,41 +42,20 @@ export default function NavEthena() {
               </Link>
             </div>
 
-            {/* Center Navigation */}
+            {/* Center Navigation - desktop */}
             <div className="hidden lg:flex items-center gap-1">
-              <Link
-                to="/"
-                className="px-3 py-1.5 text-sm text-white hover:text-silver-200 transition-colors rounded-lg hover:bg-white/5"
-              >
-                Home
-              </Link>
-              <Link
-                to="/prediction"
-                className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
-              >
-                Prediction
-              </Link>
-              <Link
-                to="/about"
-                className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
-              >
-                About
-              </Link>
-              <Link
-                to="/blog"
-                className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
-              >
-                Blog
-              </Link>
-              <Link
-                to="/docs"
-                className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
-              >
-                Docs
-              </Link>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className="px-3 py-1.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
 
-            {/* Right side - Stats & Profile */}
+            {/* Right side */}
             <div className="flex items-center gap-2">
               <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 bg-background-primary/50 rounded-lg border border-white/5">
                 <div className="flex items-center gap-1.5">
@@ -93,7 +81,7 @@ export default function NavEthena() {
                 </span>
               </div>
 
-              {/* Sign In Button - only when not authenticated */}
+              {/* Sign In - only when not authenticated */}
               {ready && !authenticated && (
                 <button
                   onClick={login}
@@ -102,9 +90,52 @@ export default function NavEthena() {
                   Sign In
                 </button>
               )}
+
+              {/* Hamburger - mobile */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden p-2 text-silver-300 hover:text-white transition-colors"
+                aria-label="Menu"
+              >
+                {mobileMenuOpen ? (
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                )}
+              </button>
             </div>
           </div>
         </div>
+
+        {/* Mobile menu */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden bg-background-secondary/95 backdrop-blur-xl border-b border-white/10">
+            <div className="px-6 py-4 space-y-1">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block px-3 py-2.5 text-sm text-silver-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              {ready && !authenticated && (
+                <button
+                  onClick={() => { login(); setMobileMenuOpen(false); }}
+                  className="w-full mt-2 px-4 py-2.5 bg-brand-blue hover:bg-brand-blue/90 text-white rounded-lg font-medium transition-colors text-sm"
+                >
+                  Sign In
+                </button>
+              )}
+            </div>
+          </div>
+        )}
       </nav>
     </>
   );

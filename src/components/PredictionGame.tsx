@@ -566,7 +566,7 @@ export default function PredictionGame() {
       {/* Tab Bar */}
       <div className="relative z-10 px-4">
         <div className="max-w-5xl mx-auto border-b border-white/[0.06]">
-          <div className="flex gap-0">
+          <div className="flex gap-0 overflow-x-auto scrollbar-hide -mb-px">
             {(["predict", "chart", "leaderboard", "rules", ...(authenticated ? ["profile" as const] : [])] as const).map((tab) => {
               const hasRedDot =
                 (tab === "predict" && authenticated && !existingPrediction) ||
@@ -575,13 +575,13 @@ export default function PredictionGame() {
                 <button
                   key={tab}
                   onClick={() => setPageTab(tab)}
-                  className={`relative px-5 py-3.5 text-sm font-medium transition-colors border-b-2 -mb-px ${
+                  className={`relative px-4 md:px-5 py-3.5 text-sm font-medium transition-colors border-b-2 whitespace-nowrap flex-shrink-0 ${
                     pageTab === tab
                       ? "text-white border-brand-blue"
                       : "text-silver-400 border-transparent hover:text-white"
                   }`}
                 >
-                  {tab === "predict" ? "Predict" : tab === "chart" ? "Chart & Analysis" : tab === "leaderboard" ? "Leaderboard" : tab === "rules" ? "Rules & Prizes" : "Profile"}
+                  {tab === "predict" ? "Predict" : tab === "chart" ? "Chart" : tab === "leaderboard" ? "Leaderboard" : tab === "rules" ? "Prizes" : "Profile"}
                   {hasRedDot && pageTab !== tab && (
                     <span className="absolute top-2.5 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
                   )}
