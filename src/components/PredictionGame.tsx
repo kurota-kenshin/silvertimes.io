@@ -331,12 +331,12 @@ export default function PredictionGame() {
   const nextDeadline = useMemo(() => {
     const now = new Date();
     const dayOfWeek = now.getDay();
-    let daysUntilThursday = (4 - dayOfWeek + 7) % 7;
-    if (daysUntilThursday === 0 && now.getHours() >= 23) daysUntilThursday = 7;
-    const thursday = new Date(now);
-    thursday.setDate(now.getDate() + daysUntilThursday);
-    thursday.setHours(23, 59, 0, 0);
-    return thursday;
+    let daysUntilSaturday = (6 - dayOfWeek + 7) % 7;
+    if (daysUntilSaturday === 0 && now.getHours() >= 23) daysUntilSaturday = 7;
+    const saturday = new Date(now);
+    saturday.setDate(now.getDate() + daysUntilSaturday);
+    saturday.setHours(23, 59, 0, 0);
+    return saturday;
   }, []);
 
   const countdown = useCountdown(nextDeadline);
@@ -532,7 +532,7 @@ export default function PredictionGame() {
             <span className="bg-gradient-to-r from-brand-blue to-brand-teal bg-clip-text text-transparent">Win USDT.</span>
           </h1>
           <p className="text-silver-300 max-w-xl mx-auto mb-8">
-            Submit before Thursday 11:59 PM. Results Monday 12:00 PM (LBMA).
+            Submit before Saturday 11:59 PM. Results Monday 12:00 PM (LBMA).
           </p>
 
           {/* Stats - horizontal, like the home page hero bottom bar */}
@@ -1129,7 +1129,7 @@ export default function PredictionGame() {
                   <div className="space-y-5 text-sm text-silver-300">
                     <div className="flex items-start gap-4 group/item">
                       <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-brand-blue/20 to-brand-blue/5 text-brand-blue text-xs font-bold flex items-center justify-center flex-shrink-0 border border-brand-blue/20 group-hover/item:shadow-sm group-hover/item:shadow-brand-blue/10 transition-all duration-300">1</span>
-                      <span className="pt-1">Submit your prediction Mon 12:00 PM - Thu 11:59 PM (London time)</span>
+                      <span className="pt-1">Submit your prediction Mon 12:00 PM - Sat 11:59 PM (London time)</span>
                     </div>
                     <div className="flex items-start gap-4 group/item">
                       <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-brand-blue/20 to-brand-blue/5 text-brand-blue text-xs font-bold flex items-center justify-center flex-shrink-0 border border-brand-blue/20 group-hover/item:shadow-sm group-hover/item:shadow-brand-blue/10 transition-all duration-300">2</span>
