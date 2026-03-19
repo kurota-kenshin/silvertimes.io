@@ -106,7 +106,7 @@ const useCountdown = (targetDate: Date) => {
 
 // Share overlay
 const ShareOverlay = ({ price, onClose, userName, onShare }: { price: string; onClose: () => void; userName: string; onShare: () => void }) => {
-  const shareText = `I just predicted Silver at $${price} on SilverTimes. Think you can beat me?`;
+  const shareText = `I just predicted Silver at $${price} on @SilvertimesSTT. Think you can beat me?`;
   const shareUrl = "https://silvertimes.io/prediction";
 
   const handleShare = (platform: string) => {
@@ -748,10 +748,6 @@ export default function PredictionGame() {
                           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
                           Follow on X
                         </a>
-                        <a href="https://www.linkedin.com/company/silvertimes/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-b from-brand-blue/12 to-brand-blue/5 border border-brand-blue/20 rounded-xl text-brand-blue text-sm font-medium hover:border-brand-blue/30 hover:shadow-sm hover:shadow-brand-blue/10 transition-all duration-300">
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
-                          LinkedIn
-                        </a>
                       </div>
                     </div>
 
@@ -791,7 +787,7 @@ export default function PredictionGame() {
                     )}
 
                     {/* Social handles suggestion */}
-                    {authenticated && userSocials && !userSocials.twitterHandle && !userSocials.telegramHandle && !userSocials.linkedinHandle && (
+                    {authenticated && userSocials && !userSocials.twitterHandle && !userSocials.telegramHandle && (
                       <Link to="/profile" className="mt-4 block p-3 bg-gradient-to-r from-brand-blue/8 to-brand-teal/5 border border-brand-blue/25 rounded-xl hover:border-brand-blue/25 transition-all duration-300">
                         <div className="flex items-center gap-3">
                           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-blue/20 to-brand-blue/10 flex items-center justify-center flex-shrink-0">
@@ -801,7 +797,7 @@ export default function PredictionGame() {
                           </div>
                           <div>
                             <p className="text-xs text-brand-blue font-medium">Add your social handles</p>
-                            <p className="text-[10px] text-silver-300">Connect X, Telegram, or LinkedIn</p>
+                            <p className="text-[10px] text-silver-300">Connect X or Telegram</p>
                           </div>
                         </div>
                       </Link>
@@ -1161,9 +1157,35 @@ export default function PredictionGame() {
                     </div>
                   </div>
                   <div className="space-y-4 text-sm text-silver-300">
-                    <div className="flex items-start gap-4 p-3 bg-background-primary/30 rounded-xl border border-white/5">
-                      <span className="text-brand-sky font-bold w-16 flex-shrink-0">Top 20</span>
-                      <span>Share 100 USDT weekly</span>
+                    <div className="flex items-center justify-between p-3 bg-background-primary/30 rounded-xl border border-white/5">
+                      <span className="text-brand-sky font-bold">1st Place</span>
+                      <span className="text-white font-semibold">20 USDT</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-background-primary/30 rounded-xl border border-white/5">
+                      <span className="text-brand-sky font-bold">2nd Place</span>
+                      <span className="text-white font-semibold">15 USDT</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-background-primary/30 rounded-xl border border-white/5">
+                      <span className="text-brand-sky font-bold">3rd Place</span>
+                      <span className="text-white font-semibold">10 USDT</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-background-primary/30 rounded-xl border border-white/5">
+                      <div>
+                        <span className="text-brand-teal font-bold">4th - 10th Place</span>
+                        <span className="text-xs text-silver-400 ml-2">(7 winners)</span>
+                      </div>
+                      <span className="text-white font-semibold">5 USDT each</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-background-primary/30 rounded-xl border border-white/5">
+                      <div>
+                        <span className="text-brand-teal font-bold">11th - 20th Place</span>
+                        <span className="text-xs text-silver-400 ml-2">(10 winners)</span>
+                      </div>
+                      <span className="text-white font-semibold">2 USDT each</span>
+                    </div>
+                    <div className="flex items-center justify-between pt-3 border-t border-white/5">
+                      <span className="text-silver-400 font-medium">Total Weekly Prize Pool</span>
+                      <span className="text-brand-teal font-bold">100 USDT</span>
                     </div>
                     <div className="flex items-start gap-4 p-3 bg-background-primary/30 rounded-xl border border-white/5">
                       <span className="text-brand-teal font-bold w-16 flex-shrink-0">All</span>
@@ -1197,7 +1219,6 @@ export default function PredictionGame() {
                       <li>Connect an EVM wallet (one submission per wallet per round)</li>
                       <li>Join <a href="https://t.me/SilverTimesToken" target="_blank" rel="noopener noreferrer" className="text-brand-blue hover:text-brand-teal transition-colors duration-300">Telegram</a></li>
                       <li>Follow <a href="https://x.com/SilvertimesSTT" target="_blank" rel="noopener noreferrer" className="text-brand-blue hover:text-brand-teal transition-colors duration-300">@SilvertimesSTT</a> on X</li>
-                      <li>Follow on <a href="https://www.linkedin.com/company/silvertimes/" target="_blank" rel="noopener noreferrer" className="text-brand-blue hover:text-brand-teal transition-colors duration-300">LinkedIn</a></li>
                     </ul>
                     <p className="text-xs text-silver-300 italic pt-2">Silver Times may verify eligibility at any time.</p>
                   </div>

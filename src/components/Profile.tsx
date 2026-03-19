@@ -9,17 +9,7 @@ export default function Profile() {
     if (ready && !authenticated) login();
   }, [ready, authenticated, login]);
 
-  if (!ready) {
-    return (
-      <section className="relative bg-background-primary py-32 px-4 min-h-screen">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-silver-300">Loading...</p>
-        </div>
-      </section>
-    );
-  }
-
-  if (!authenticated) {
+  if (!ready || !authenticated) {
     return (
       <section className="relative bg-background-primary py-32 px-4 min-h-screen">
         <div className="absolute inset-0 pointer-events-none">
