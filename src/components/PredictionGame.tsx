@@ -186,43 +186,43 @@ const DynamicTimeline = () => {
     thisMonday.setDate(now.getDate() + daysFromMonday);
     thisMonday.setHours(12, 0, 0, 0);
 
-    const thisThursday = new Date(thisMonday);
-    thisThursday.setDate(thisMonday.getDate() + 3);
-    thisThursday.setHours(23, 59, 59, 999);
+    const thisSaturday = new Date(thisMonday);
+    thisSaturday.setDate(thisMonday.getDate() + 5);
+    thisSaturday.setHours(23, 59, 59, 999);
 
     const nextMonday = new Date(thisMonday);
     nextMonday.setDate(thisMonday.getDate() + 7);
     nextMonday.setHours(12, 0, 0, 0);
 
-    const nextThursday = new Date(nextMonday);
-    nextThursday.setDate(nextMonday.getDate() + 3);
-    nextThursday.setHours(23, 59, 59, 999);
+    const nextSaturday = new Date(nextMonday);
+    nextSaturday.setDate(nextMonday.getDate() + 5);
+    nextSaturday.setHours(23, 59, 59, 999);
 
     const timelineStart = thisMonday;
-    const timelineEnd = nextThursday;
+    const timelineEnd = nextSaturday;
     const totalSpan = timelineEnd.getTime() - timelineStart.getTime();
 
-    const thisThursdayPercent = ((thisThursday.getTime() - timelineStart.getTime()) / totalSpan) * 100;
+    const thisSaturdayPercent = ((thisSaturday.getTime() - timelineStart.getTime()) / totalSpan) * 100;
     const nextMondayPercent = ((nextMonday.getTime() - timelineStart.getTime()) / totalSpan) * 100;
     const elapsed = now.getTime() - timelineStart.getTime();
     const progressPercent = Math.max(0, Math.min(100, (elapsed / totalSpan) * 100));
-    const isSubmissionOpen = (now >= thisMonday && now <= thisThursday) || (now >= nextMonday && now <= nextThursday);
+    const isSubmissionOpen = (now >= thisMonday && now <= thisSaturday) || (now >= nextMonday && now <= nextSaturday);
 
     const dayMarkers: { label: string; date: number; position: number; isOpen: boolean; isResultDay: boolean; isDeadline: boolean }[] = [];
     const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-    for (let i = 0; i <= 10; i++) {
+    for (let i = 0; i <= 12; i++) {
       const date = new Date(thisMonday);
       date.setDate(thisMonday.getDate() + i);
       const dayIndex = (1 + i) % 7;
       const actualDayIndex = dayIndex === 0 ? 6 : dayIndex - 1;
       const position = ((date.getTime() - timelineStart.getTime()) / totalSpan) * 100;
-      const isOpen = (i >= 0 && i <= 3) || (i >= 7 && i <= 10);
+      const isOpen = (i >= 0 && i <= 5) || (i >= 7 && i <= 12);
       if (position >= 0 && position <= 100) {
-        dayMarkers.push({ label: days[actualDayIndex], date: date.getDate(), position, isOpen, isResultDay: i === 7, isDeadline: i === 3 });
+        dayMarkers.push({ label: days[actualDayIndex], date: date.getDate(), position, isOpen, isResultDay: i === 7, isDeadline: i === 5 });
       }
     }
 
-    return { progressPercent, thisThursdayPercent, nextMondayPercent, isSubmissionOpen, dayMarkers, thisMonday, nextThursday };
+    return { progressPercent, thisSaturdayPercent, nextMondayPercent, isSubmissionOpen, dayMarkers, thisMonday, nextSaturday };
   }, [currentTime]);
 
   const formatDate = (date: Date) => date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
@@ -239,17 +239,17 @@ const DynamicTimeline = () => {
               {timelineData.isSubmissionOpen ? "Submissions Open" : "Submissions Closed - Awaiting Results"}
             </span>
           </div>
-          <span className="text-xs text-silver-300">{formatDate(timelineData.thisMonday)} - {formatDate(timelineData.nextThursday)}</span>
+          <span className="text-xs text-silver-300">{formatDate(timelineData.thisMonday)} - {formatDate(timelineData.nextSaturday)}</span>
         </div>
 
         {/* Timeline Bar */}
         <div className="relative h-3 mb-2">
           <div className="absolute inset-0 rounded-full bg-background-primary/60 border border-white/5"></div>
-          <div className="absolute top-0 left-0 h-full rounded-l-full bg-gradient-to-r from-brand-teal/60 to-brand-teal/50" style={{ width: `${timelineData.thisThursdayPercent}%` }}></div>
-          <div className="absolute top-0 h-full bg-gradient-to-r from-silver-600/30 to-silver-500/20" style={{ left: `${timelineData.thisThursdayPercent}%`, width: `${timelineData.nextMondayPercent - timelineData.thisThursdayPercent}%` }}></div>
+          <div className="absolute top-0 left-0 h-full rounded-l-full bg-gradient-to-r from-brand-teal/60 to-brand-teal/50" style={{ width: `${timelineData.thisSaturdayPercent}%` }}></div>
+          <div className="absolute top-0 h-full bg-gradient-to-r from-silver-600/30 to-silver-500/20" style={{ left: `${timelineData.thisSaturdayPercent}%`, width: `${timelineData.nextMondayPercent - timelineData.thisSaturdayPercent}%` }}></div>
           <div className="absolute top-0 h-full rounded-r-full bg-gradient-to-r from-brand-teal/60 to-brand-teal/50" style={{ left: `${timelineData.nextMondayPercent}%`, width: `${100 - timelineData.nextMondayPercent}%` }}></div>
 
-          <div className="absolute top-1/2 -translate-y-1/2 z-10" style={{ left: `${timelineData.thisThursdayPercent}%` }}>
+          <div className="absolute top-1/2 -translate-y-1/2 z-10" style={{ left: `${timelineData.thisSaturdayPercent}%` }}>
             <div className="w-0.5 h-5 -ml-px bg-gradient-to-b from-brand-sky to-brand-sky/20"></div>
           </div>
           <div className="absolute top-1/2 -translate-y-1/2 z-10" style={{ left: `${timelineData.nextMondayPercent}%` }}>
