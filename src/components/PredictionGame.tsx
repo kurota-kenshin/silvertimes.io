@@ -66,6 +66,23 @@ function calculateRSI(data: { price: number }[], period = 14): (number | null)[]
   return result;
 }
 
+const formatWeekDateRange = (weekIdentifier: string): string => {
+  const match = weekIdentifier.match(/^(\d{4})-W(\d{2})$/);
+  if (!match) return weekIdentifier;
+  const year = parseInt(match[1]);
+  const week = parseInt(match[2]);
+  // ISO week: week 1 contains the first Thursday of the year
+  // Monday of week 1 = Jan 4 adjusted to Monday
+  const jan4 = new Date(year, 0, 4);
+  const dayOfWeek = jan4.getDay() || 7; // Convert Sunday=0 to 7
+  const monday = new Date(jan4);
+  monday.setDate(jan4.getDate() - dayOfWeek + 1 + (week - 1) * 7);
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+  const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  return `${weekIdentifier} (${fmt(monday)} – ${fmt(sunday)})`;
+};
+
 const formatAddress = (user: { walletAddress?: string; email?: string }) => {
   if (user.walletAddress) return `${user.walletAddress.slice(0, 6)}...${user.walletAddress.slice(-4)}`;
   if (user.email) return user.email.length > 20 ? `${user.email.slice(0, 17)}...` : user.email;
@@ -297,6 +314,7 @@ export default function PredictionGame() {
   const [reasoning, setReasoning] = useState("");
   const [activeTab, setActiveTab] = useState<"accuracy" | "weekly">("accuracy");
   const [selectedWeek, setSelectedWeek] = useState("");
+  const [weekDropdownOpen, setWeekDropdownOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -395,6 +413,10 @@ export default function PredictionGame() {
       await predictionsApi.submit(token, priceValue);
       setSubmitSuccess(true);
       setExistingPrediction(priceValue);
+      // X conversion tracking
+      if (typeof window !== 'undefined' && (window as any).twq) {
+        (window as any).twq('event', 'tw-raht0-rb1pg', {});
+      }
     } catch (err: any) {
       setSubmitError(err.message || "Failed to submit prediction");
     } finally { setIsSubmitting(false); }
@@ -444,7 +466,7 @@ export default function PredictionGame() {
   useEffect(() => {
     const fetchWeeklyWinners = async () => {
       if (!selectedWeek) return;
-      try { const res = await predictionsApi.getLeaderboard("weekly", selectedWeek); setWeeklyWinners(res.leaders as WeeklyWinner[]); }
+      try { const res = await predictionsApi.getLeaderboard("weekly", selectedWeek, 20); setWeeklyWinners(res.leaders as WeeklyWinner[]); }
       catch { setWeeklyWinners([]); }
     };
     if (activeTab === "weekly") fetchWeeklyWinners();
@@ -1006,10 +1028,34 @@ export default function PredictionGame() {
 
                 {/* Week Selector */}
                 {activeTab === "weekly" && (
-                  <div className="mb-4">
-                    <select value={selectedWeek} onChange={(e) => setSelectedWeek(e.target.value)} className="bg-background-primary/50 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-blue/30 focus:ring-2 focus:ring-brand-blue/10 transition-all duration-300">
-                      {completedRounds.length === 0 ? <option value="">No completed rounds yet</option> : completedRounds.map((round) => <option key={round.weekIdentifier} value={round.weekIdentifier}>{round.weekIdentifier}</option>)}
-                    </select>
+                  <div className="mb-4 relative">
+                    <button
+                      onClick={() => setWeekDropdownOpen(!weekDropdownOpen)}
+                      onBlur={() => setTimeout(() => setWeekDropdownOpen(false), 150)}
+                      className="flex items-center justify-between gap-3 bg-background-primary/50 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white hover:border-white/20 focus:outline-none focus:border-brand-teal/30 focus:ring-2 focus:ring-brand-teal/10 transition-all duration-300 min-w-[280px]"
+                    >
+                      <span>{selectedWeek ? formatWeekDateRange(selectedWeek) : "No completed rounds yet"}</span>
+                      <svg className={`w-4 h-4 text-silver-400 transition-transform duration-200 ${weekDropdownOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    {weekDropdownOpen && completedRounds.length > 0 && (
+                      <div className="absolute z-50 mt-1 w-full bg-background-secondary border border-white/10 rounded-xl shadow-xl shadow-black/30 overflow-hidden">
+                        <div className="max-h-[300px] overflow-y-auto">
+                          {completedRounds.map((round) => (
+                            <button
+                              key={round.weekIdentifier}
+                              onClick={() => { setSelectedWeek(round.weekIdentifier); setWeekDropdownOpen(false); }}
+                              className={`w-full text-left px-4 py-2.5 text-sm transition-all duration-150 ${
+                                selectedWeek === round.weekIdentifier
+                                  ? "bg-brand-teal/15 text-brand-teal"
+                                  : "text-silver-300 hover:bg-white/5 hover:text-white"
+                              }`}
+                            >
+                              {formatWeekDateRange(round.weekIdentifier)}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
 

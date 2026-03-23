@@ -229,9 +229,9 @@ export const predictionsApi = {
       { token }
     ),
 
-  getLeaderboard: (type: 'accuracy' | 'weekly', weekId?: string) =>
+  getLeaderboard: (type: 'accuracy' | 'weekly', weekId?: string, limit?: number) =>
     apiRequest<{ leaders: AccuracyLeader[] | WeeklyWinner[] }>(
-      `/predictions/leaderboard?type=${type}${weekId ? `&weekId=${weekId}` : ''}`
+      `/predictions/leaderboard?type=${type}${weekId ? `&weekId=${weekId}` : ''}${limit ? `&limit=${limit}` : ''}`
     ),
 
   getCompletedRounds: (limit = 10) =>
