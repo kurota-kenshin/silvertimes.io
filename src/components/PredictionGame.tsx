@@ -415,7 +415,7 @@ export default function PredictionGame() {
       setExistingPrediction(priceValue);
       // X conversion tracking
       if (typeof window !== 'undefined' && (window as any).twq) {
-        (window as any).twq('event', 'tw-raht0-rb1pg', {});
+        (window as any).twq('event', 'tw-raht0-rb8y5', {});
       }
     } catch (err: any) {
       setSubmitError(err.message || "Failed to submit prediction");
