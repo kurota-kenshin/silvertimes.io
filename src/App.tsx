@@ -5,6 +5,7 @@ import HeroCorrect from "./components/HeroCorrect";
 import YouTubeSection from "./components/YouTubeSection";
 import ValueProposition from "./components/ValueProposition";
 import TokenBacking from "./components/TokenBacking";
+import ComparisonTable from "./components/ComparisonTable";
 import MarketChart from "./components/MarketChart";
 import HowItWorks from "./components/HowItWorks";
 import Tokenomics from "./components/Tokenomics";
@@ -40,6 +41,7 @@ function HomePage() {
       <YouTubeSection />
       <ValueProposition />
       <TokenBacking />
+      <ComparisonTable />
       <MarketChart />
       <HowItWorks />
       <Tokenomics />
