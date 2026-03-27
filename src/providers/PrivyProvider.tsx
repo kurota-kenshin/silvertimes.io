@@ -16,7 +16,7 @@ export function PrivyProvider({ children }: PrivyProviderProps) {
         appearance: {
           theme: 'dark',
           accentColor: '#3B82F6',
-          logo: '/logo.png',
+          logo: '/ST_ICON_DARK@2x.png',
         },
         embeddedWallets: {
           ethereum: {
