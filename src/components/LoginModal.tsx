@@ -51,11 +51,6 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
 
   if (!isOpen) return null;
 
-  const handleGoogle = () => {
-    onClose();
-    login({ loginMethods: ["google"] });
-  };
-
   const handleMetaMask = () => {
     onClose();
     login({ loginMethods: ["wallet"] });
