@@ -46,11 +46,6 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
 
   if (!isOpen) return null;
 
-  const handleGoogle = () => {
-    onClose();
-    login({ loginMethods: ["google"] });
-  };
-
   const handleMetaMask = () => {
     onClose();
     login({ loginMethods: ["wallet"] });
@@ -122,7 +117,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
               <span className="text-[#23D985] text-[10px] font-medium ml-auto whitespace-nowrap">Official Wallet Partner</span>
             )}
           </button>
-          
+
           {/* MetaMask */}
           <button
             onClick={handleMetaMask}
