@@ -5,6 +5,7 @@ interface ImportMetaEnv {
   readonly VITE_METALS_API_USER_ID: string
   readonly VITE_PRIVY_APP_ID: string
   readonly VITE_API_URL: string
+  readonly VITE_WALLETCONNECT_PROJECT_ID: string
 }
 
 interface ImportMeta {

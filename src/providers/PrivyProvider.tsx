@@ -17,6 +17,7 @@ export function PrivyProvider({ children }: PrivyProviderProps) {
           theme: 'dark',
           accentColor: '#3B82F6',
           logo: '/ST_ICON_DARK@2x.png',
+          walletList: ['wallet_connect_qr', 'detected_ethereum_wallets', 'metamask', 'coinbase_wallet', 'rainbow', 'phantom'],
         },
         embeddedWallets: {
           ethereum: {

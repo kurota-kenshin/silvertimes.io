@@ -1,55 +1,55 @@
 import { usePrivy } from "@privy-io/react-auth";
-import { useCallback } from "react";
+import { useLoginWithSiwe } from "@privy-io/react-auth";
+import { useCallback, useState } from "react";
+import { connectKuCoinWallet, signMessage } from "../utils/kucoinWallet";
 
 interface LoginModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-function detectKuCoinProvider(): Promise<any | null> {
-  return new Promise((resolve) => {
-    const providers: any[] = [];
-
-    function handleProvider(event: any) {
-      const detail = event.detail;
-      if (
-        detail?.info?.rdns === "com.kucoin.wallet" ||
-        detail?.info?.name?.toLowerCase().includes("kucoin")
-      ) {
-        resolve(detail.provider);
-      }
-      providers.push(detail);
-    }
-
-    window.addEventListener("eip6963:announceProvider", handleProvider);
-    window.dispatchEvent(new Event("eip6963:requestProvider"));
-
-    // Give extensions time to respond
-    setTimeout(() => {
-      window.removeEventListener("eip6963:announceProvider", handleProvider);
-      resolve(null);
-    }, 300);
-  });
-}
-
 export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
-  const { login, connectWallet } = usePrivy();
+  const { login } = usePrivy();
+  const { generateSiweMessage, loginWithSiwe } = useLoginWithSiwe();
+  const [isConnecting, setIsConnecting] = useState(false);
 
   const handleKuCoinWallet = useCallback(async () => {
-    onClose();
-    const kucoinProvider = await detectKuCoinProvider();
+    setIsConnecting(true);
+    try {
+      // 1. Connect to KuCoin via WalletConnect (shows QR modal targeting KuCoin)
+      const { address, provider } = await connectKuCoinWallet();
 
-    if (kucoinProvider) {
-      // KuCoin extension detected — trigger Privy login with wallet method
-      // Privy will auto-detect the EIP-6963 provider
-      login({ loginMethods: ["wallet"] });
-    } else {
-      // No extension — open wallet connect QR so user can scan with KuCoin mobile
-      connectWallet({ walletList: ["wallet_connect_qr"] });
+      // 2. Generate SIWE message from Privy
+      const message = await generateSiweMessage({
+        address,
+        chainId: "eip155:1",
+      });
+
+      // 3. Sign the message with KuCoin wallet
+      const signature = await signMessage(provider, address, message);
+
+      // 4. Authenticate with Privy using the SIWE signature
+      await loginWithSiwe({
+        signature,
+        message,
+        walletClientType: "kucoin_wallet",
+        connectorType: "wallet_connect_v2",
+      });
+
+      onClose();
+    } catch (error) {
+      console.error("KuCoin wallet connection failed:", error);
+    } finally {
+      setIsConnecting(false);
     }
-  }, [onClose, login, connectWallet]);
+  }, [generateSiweMessage, loginWithSiwe, onClose]);
 
   if (!isOpen) return null;
+
+  const handleGoogle = () => {
+    onClose();
+    login({ loginMethods: ["google"] });
+  };
 
   const handleMetaMask = () => {
     onClose();
@@ -76,7 +76,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-        onClick={onClose}
+        onClick={isConnecting ? undefined : onClose}
       />
 
       {/* Modal */}
@@ -84,7 +84,8 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors text-silver-400 hover:text-white"
+          disabled={isConnecting}
+          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors text-silver-400 hover:text-white disabled:opacity-50"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -106,21 +107,27 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
           {/* KuCoin Web3 Wallet - Featured */}
           <button
             onClick={handleKuCoinWallet}
-            className="w-full flex items-center gap-3 px-4 py-3 bg-white/[0.03] border border-[#23D985]/40 rounded-xl hover:bg-[#23D985]/10 transition-all group"
+            disabled={isConnecting}
+            className="w-full flex items-center gap-3 px-4 py-3 bg-white/[0.03] border border-[#23D985]/40 rounded-xl hover:bg-[#23D985]/10 transition-all group disabled:opacity-60"
           >
             <img
               src="https://assets.staticimg.com/cms/media/3gfl2DgVUqjJ8FnkC7QxhvPmXmPgpt42FrAqklVMr.png"
               alt="KuCoin"
               className="w-9 h-9 rounded-lg flex-shrink-0"
             />
-            <span className="text-white font-medium text-sm whitespace-nowrap">KuCoin Web3 Wallet</span>
-            <span className="text-[#23D985] text-[10px] font-medium ml-auto whitespace-nowrap">Official Wallet Partner</span>
+            <span className="text-white font-medium text-sm whitespace-nowrap">
+              {isConnecting ? "Connecting..." : "KuCoin Web3 Wallet"}
+            </span>
+            {!isConnecting && (
+              <span className="text-[#23D985] text-[10px] font-medium ml-auto whitespace-nowrap">Official Wallet Partner</span>
+            )}
           </button>
-
+          
           {/* MetaMask */}
           <button
             onClick={handleMetaMask}
-            className="w-full flex items-center gap-3 px-4 py-3 bg-white/[0.03] border border-white/10 rounded-xl hover:bg-white/[0.06] transition-all"
+            disabled={isConnecting}
+            className="w-full flex items-center gap-3 px-4 py-3 bg-white/[0.03] border border-white/10 rounded-xl hover:bg-white/[0.06] transition-all disabled:opacity-40"
           >
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/3840px-MetaMask_Fox.svg.png"
@@ -133,7 +140,8 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
           {/* Coinbase Wallet */}
           <button
             onClick={handleCoinbaseWallet}
-            className="w-full flex items-center gap-3 px-4 py-3 bg-white/[0.03] border border-white/10 rounded-xl hover:bg-white/[0.06] transition-all"
+            disabled={isConnecting}
+            className="w-full flex items-center gap-3 px-4 py-3 bg-white/[0.03] border border-white/10 rounded-xl hover:bg-white/[0.06] transition-all disabled:opacity-40"
           >
             <div className="w-9 h-9 bg-[#0052FF] rounded-lg flex items-center justify-center flex-shrink-0">
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="white">
@@ -147,7 +155,8 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
           {/* Other wallets */}
           <button
             onClick={handleOtherWallets}
-            className="w-full flex items-center gap-3 px-4 py-3 bg-white/[0.03] border border-white/10 rounded-xl hover:bg-white/[0.06] transition-all"
+            disabled={isConnecting}
+            className="w-full flex items-center gap-3 px-4 py-3 bg-white/[0.03] border border-white/10 rounded-xl hover:bg-white/[0.06] transition-all disabled:opacity-40"
           >
             <div className="w-9 h-9 bg-silver-700 rounded-lg flex items-center justify-center flex-shrink-0">
               <svg className="w-5 h-5 text-silver-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -160,7 +169,8 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
           {/* Email or socials */}
           <button
             onClick={handleEmailSocials}
-            className="w-full flex items-center gap-3 px-4 py-3 bg-white/[0.03] border border-white/10 rounded-xl hover:bg-white/[0.06] transition-all"
+            disabled={isConnecting}
+            className="w-full flex items-center gap-3 px-4 py-3 bg-white/[0.03] border border-white/10 rounded-xl hover:bg-white/[0.06] transition-all disabled:opacity-40"
           >
             <div className="w-9 h-9 bg-silver-700 rounded-lg flex items-center justify-center flex-shrink-0">
               <svg className="w-5 h-5 text-silver-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
