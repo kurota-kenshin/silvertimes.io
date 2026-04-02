@@ -15,6 +15,7 @@ import {
   ReferenceArea,
 } from "recharts";
 import { usePrivy } from "@privy-io/react-auth";
+import { useLoginModal } from "./LoginModalProvider";
 import { useSilverPriceStore } from "../store/silverPriceStore";
 import {
   predictionsApi,
@@ -343,7 +344,8 @@ export default function PredictionGame() {
   const [_recentWinners, setRecentWinners] = useState<RecentWinners | null>(null);
   const [userSocials, setUserSocials] = useState<SocialHandles | null>(null);
 
-  const { ready, authenticated, login, getAccessToken, user } = usePrivy();
+  const { ready, authenticated, getAccessToken, user } = usePrivy();
+  const { openLoginModal } = useLoginModal();
   const { currentPrice, weeklyData: lbmaSilverData, isLoading, error, fetchData } = useSilverPriceStore();
 
   const nextDeadline = useMemo(() => {
@@ -402,7 +404,7 @@ export default function PredictionGame() {
   }, [authenticated, getAccessToken]);
 
   const handleSubmit = async () => {
-    if (!authenticated) { login(); return; }
+    if (!authenticated) { openLoginModal(); return; }
     const priceValue = parseFloat(prediction);
     if (isNaN(priceValue) || priceValue <= 0) { setSubmitError("Please enter a valid price"); return; }
     if (!reasoning.trim()) { setSubmitError("Please enter your reasoning"); return; }
@@ -673,11 +675,15 @@ export default function PredictionGame() {
                     <h3 className="text-xl font-bold text-white mb-2">Connect to Predict</h3>
                     <p className="text-sm text-silver-400 mb-6 leading-relaxed">Sign in with your wallet or email to submit a prediction.</p>
                     <button
-                      onClick={login}
+                      onClick={openLoginModal}
                       className="px-8 py-3.5 bg-gradient-to-r from-brand-blue to-brand-teal text-white font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-brand-blue/25 hover:shadow-xl hover:shadow-brand-blue/30 hover:scale-[1.02] active:scale-[0.98]"
                     >
                       Connect Wallet
                     </button>
+                    <div className="mt-5 flex flex-col items-center gap-1.5">
+                      <span className="text-xs text-silver-400 font-medium">Official Wallet Partner</span>
+                      <img src="/KuCoin_WEB3_svg_white.svg" alt="KuCoin Web3" className="h-8 opacity-80" />
+                    </div>
                   </div>
                 </div>
               )}

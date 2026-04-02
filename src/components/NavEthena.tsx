@@ -5,13 +5,15 @@ import {
   getFormattedAPY,
 } from "../store/silverPriceStore";
 import { usePrivy } from "@privy-io/react-auth";
+import { useLoginModal } from "./LoginModalProvider";
 import GetSTTModal from "./GetSTTModal";
 
 export default function NavEthena() {
   const { currentPrice, isLoading, fetchData } = useSilverPriceStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { ready, authenticated, login } = usePrivy();
+  const { ready, authenticated } = usePrivy();
+  const { openLoginModal } = useLoginModal();
 
   useEffect(() => {
     fetchData();
@@ -84,7 +86,7 @@ export default function NavEthena() {
               {/* Sign In - only when not authenticated */}
               {ready && !authenticated && (
                 <button
-                  onClick={login}
+                  onClick={openLoginModal}
                   className="px-4 py-1.5 bg-brand-blue hover:bg-brand-blue/90 text-white rounded-lg font-medium transition-colors text-sm"
                 >
                   Sign In
@@ -127,7 +129,7 @@ export default function NavEthena() {
               ))}
               {ready && !authenticated && (
                 <button
-                  onClick={() => { login(); setMobileMenuOpen(false); }}
+                  onClick={() => { openLoginModal(); setMobileMenuOpen(false); }}
                   className="w-full mt-2 px-4 py-2.5 bg-brand-blue hover:bg-brand-blue/90 text-white rounded-lg font-medium transition-colors text-sm"
                 >
                   Sign In

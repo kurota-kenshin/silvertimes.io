@@ -1,13 +1,19 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePrivy } from "@privy-io/react-auth";
+import { useLoginModal } from "./LoginModalProvider";
 import ProfileContent from "./ProfileContent";
 
 export default function Profile() {
-  const { ready, authenticated, login } = usePrivy();
+  const { ready, authenticated } = usePrivy();
+  const { openLoginModal } = useLoginModal();
+  const hasOpened = useRef(false);
 
   useEffect(() => {
-    if (ready && !authenticated) login();
-  }, [ready, authenticated, login]);
+    if (ready && !authenticated && !hasOpened.current) {
+      hasOpened.current = true;
+      openLoginModal();
+    }
+  }, [ready, authenticated, openLoginModal]);
 
   if (!ready || !authenticated) {
     return (
@@ -19,7 +25,7 @@ export default function Profile() {
           <h2 className="text-3xl font-bold text-white mb-4">Sign In Required</h2>
           <p className="text-silver-300 mb-8">Connect your wallet or sign in to view your profile.</p>
           <button
-            onClick={login}
+            onClick={openLoginModal}
             className="px-8 py-3 bg-gradient-to-r from-brand-blue to-brand-teal text-white font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-brand-blue/25"
           >
             Connect Wallet
