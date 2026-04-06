@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { usePrivy } from "@privy-io/react-auth";
-import { predictionsApi, authApi, RoundInfo, SocialHandles } from "../services/api";
+import { predictionsApi, authApi, RoundInfo, SocialHandles, ClaimEligibility, ClaimRecord } from "../services/api";
 
 export default function ProfileContent() {
   const [existingPrediction, setExistingPrediction] = useState<number | null>(null);
@@ -21,6 +21,13 @@ export default function ProfileContent() {
   const [savingWallet, setSavingWallet] = useState(false);
   const [walletError, setWalletError] = useState<string | null>(null);
   const [walletSaved, setWalletSaved] = useState(false);
+
+  // Claim state
+  const [claimEligibility, setClaimEligibility] = useState<ClaimEligibility | null>(null);
+  const [claimHistory, setClaimHistory] = useState<ClaimRecord[]>([]);
+  const [claimLoading, setClaimLoading] = useState(false);
+  const [claimError, setClaimError] = useState<string | null>(null);
+  const [claimSuccess, setClaimSuccess] = useState(false);
 
   const { authenticated, getAccessToken, user, logout } = usePrivy();
 
@@ -59,12 +66,14 @@ export default function ProfileContent() {
         try {
           const token = await getAccessToken();
           if (token) {
-            const [predictionRes, historyRes, roundRes, socialsRes, walletRes] = await Promise.all([
+            const [predictionRes, historyRes, roundRes, socialsRes, walletRes, eligibilityRes, claimsRes] = await Promise.all([
               predictionsApi.getMyPrediction(token),
               predictionsApi.getMyHistory(token, 20),
               predictionsApi.getCurrentRound(),
               authApi.getSocials(token),
               authApi.getWithdrawWallet(token).catch(() => ({ wallet: null })),
+              authApi.getClaimEligibility(token).catch(() => null),
+              authApi.getClaimHistory(token).catch(() => ({ claims: [] })),
             ]);
             if (predictionRes.prediction) setExistingPrediction(predictionRes.prediction.predictedPrice);
             setPredictionHistory(historyRes.predictions || []);
@@ -77,6 +86,8 @@ export default function ProfileContent() {
               setWithdrawWallet(walletRes.wallet);
               setWalletInput(walletRes.wallet);
             }
+            if (eligibilityRes) setClaimEligibility(eligibilityRes);
+            if (claimsRes.claims) setClaimHistory(claimsRes.claims);
           }
         } catch (err) {
           console.error("Failed to fetch user data:", err);
@@ -159,6 +170,39 @@ export default function ProfileContent() {
   const hasWinnings = parseFloat(stats.totalPrize) > 0;
   const needsWallet = hasWinnings && !withdrawWallet;
 
+  const handleClaim = async () => {
+    setClaimLoading(true);
+    setClaimError(null);
+    setClaimSuccess(false);
+    try {
+      const token = await getAccessToken();
+      if (!token) throw new Error("Not authenticated");
+      await authApi.submitClaim(token);
+      setClaimSuccess(true);
+      // Refresh eligibility and history
+      const [eligibility, claims] = await Promise.all([
+        authApi.getClaimEligibility(token),
+        authApi.getClaimHistory(token),
+      ]);
+      setClaimEligibility(eligibility);
+      setClaimHistory(claims.claims);
+    } catch (err) {
+      setClaimError(err instanceof Error ? err.message : "Claim failed");
+    } finally {
+      setClaimLoading(false);
+    }
+  };
+
+  const claimDisabledReason = useMemo(() => {
+    if (!claimEligibility) return null;
+    const { reasons } = claimEligibility;
+    if (reasons.hasActiveClaim) return "You have a pending claim being processed";
+    if (reasons.insufficientBalance) return "Minimum 10 USDT required to claim";
+    if (reasons.missingSocials) return "Set up all social media handles first";
+    if (reasons.missingWallet) return "Set up your withdrawal wallet first";
+    return null;
+  }, [claimEligibility]);
+
   return (
     <div className="max-w-4xl mx-auto">
       {/* Header */}
@@ -184,30 +228,75 @@ export default function ProfileContent() {
       <div className="group relative mb-8">
         <div className="absolute -inset-[1px] bg-gradient-to-r from-brand-teal/50 via-brand-blue/30 to-brand-teal/50 rounded-2xl"></div>
         <div className="relative bg-gradient-to-br from-brand-teal/15 via-background-secondary/80 to-brand-blue/10 backdrop-blur-sm rounded-2xl p-8">
-          <div className="flex items-start justify-between">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-1 h-12 bg-gradient-to-b from-brand-teal/80 to-brand-teal/20 rounded-full"></div>
+            <p className="text-xs text-silver-400 uppercase tracking-wider">Total Winnings</p>
+          </div>
+          <div className="flex items-end justify-between">
             <div>
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-1 h-12 bg-gradient-to-b from-brand-teal/80 to-brand-teal/20 rounded-full"></div>
-                <p className="text-xs text-silver-400 uppercase tracking-wider">Total Winnings</p>
-              </div>
               <p className="text-5xl font-bold bg-gradient-to-r from-brand-teal to-brand-sky bg-clip-text text-transparent">
-                {parseFloat(stats.totalPrize) > 0 ? `${stats.totalPrize} USDT` : "0 USDT"}
+                {(claimEligibility?.totalWinnings ?? parseFloat(stats.totalPrize)) > 0
+                  ? `${(claimEligibility?.totalWinnings ?? parseFloat(stats.totalPrize)).toFixed(2)} USDT`
+                  : "0 USDT"}
               </p>
               <p className="text-sm text-silver-300 mt-3">
                 {stats.totalWins} win{stats.totalWins !== 1 ? "s" : ""} from {stats.totalPredictions} prediction{stats.totalPredictions !== 1 ? "s" : ""}
               </p>
             </div>
-            <div className="text-right">
-              <div className="inline-block px-3 py-1.5 bg-brand-blue/15 border border-brand-blue/25 rounded-full mb-2">
-                <span className="text-xs text-brand-blue">Q2 2026 Distribution</span>
-              </div>
-              <div>
-                <Link to="/rewards-terms" className="text-xs text-brand-blue hover:text-brand-teal transition-colors">
-                  View Rewards T&C
-                </Link>
+            <Link to="/rewards-terms" className="text-xs text-silver-400 hover:text-brand-teal transition-colors">
+              Rewards T&C
+            </Link>
+          </div>
+
+          {/* Claim Section */}
+          {claimEligibility && (claimEligibility.availableBalance > 0 || claimEligibility.claimedWinnings > 0) && (
+            <div className="mt-6 pt-6 border-t border-white/10">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-6">
+                  <div>
+                    <p className="text-[10px] text-silver-400 uppercase tracking-wider mb-1">Available</p>
+                    <p className="text-xl font-bold text-white">{claimEligibility.availableBalance.toFixed(2)} <span className="text-sm text-silver-300 font-normal">USDT</span></p>
+                  </div>
+                  {claimEligibility.claimedWinnings > 0 && (
+                    <div>
+                      <p className="text-[10px] text-silver-400 uppercase tracking-wider mb-1">Claimed</p>
+                      <p className="text-xl font-bold text-silver-400">{claimEligibility.claimedWinnings.toFixed(2)} <span className="text-sm font-normal">USDT</span></p>
+                    </div>
+                  )}
+                </div>
+                <div className="flex flex-col items-end gap-1.5">
+                  <button
+                    onClick={handleClaim}
+                    disabled={!claimEligibility.canClaim || claimLoading}
+                    className={`px-8 py-3 font-semibold rounded-xl text-sm transition-all duration-300 ${
+                      claimEligibility.canClaim && !claimLoading
+                        ? "bg-gradient-to-r from-brand-teal to-brand-sky text-white shadow-lg shadow-brand-teal/20 hover:shadow-xl hover:shadow-brand-teal/30 hover:scale-[1.02] active:scale-[0.98]"
+                        : "bg-white/5 text-silver-500 cursor-not-allowed border border-white/5"
+                    }`}
+                  >
+                    {claimLoading ? (
+                      <span className="flex items-center gap-2">
+                        <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                        Processing
+                      </span>
+                    ) : claimEligibility.activeClaim ? "Claim Pending" : "Claim Rewards"}
+                  </button>
+                  {claimDisabledReason && !claimSuccess && (
+                    <p className="text-[10px] text-silver-500">{claimDisabledReason}</p>
+                  )}
+                  {claimError && (
+                    <p className="text-[10px] text-red-400">{claimError}</p>
+                  )}
+                  {claimSuccess && (
+                    <p className="text-[10px] text-brand-teal flex items-center gap-1">
+                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                      Submitted — processing within 1 hour
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
@@ -326,6 +415,55 @@ export default function ProfileContent() {
                 Set Up
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Claim History */}
+      {claimHistory.length > 0 && (
+        <div className="bg-background-secondary/30 backdrop-blur-sm border border-white/5 rounded-2xl p-6 mb-8 hover:border-white/10 transition-all duration-300">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-1 h-8 bg-gradient-to-b from-brand-teal/60 to-brand-teal/20 rounded-full"></div>
+            <h3 className="text-lg font-semibold text-white">Claim History</h3>
+          </div>
+          <div className="space-y-2">
+            <div className="grid grid-cols-4 gap-4 px-4 py-2 text-xs text-silver-300 font-medium">
+              <div>Date</div>
+              <div className="text-right">Amount</div>
+              <div className="text-right">Status</div>
+              <div className="text-right">Tx</div>
+            </div>
+            {claimHistory.map((claim) => (
+              <div key={claim._id} className="grid grid-cols-4 gap-4 px-4 py-3 bg-background-primary/30 rounded-lg border border-white/5">
+                <div className="text-sm text-white">
+                  {new Date(claim.createdAt).toLocaleDateString()}
+                </div>
+                <div className="text-sm text-brand-teal text-right font-semibold">
+                  {claim.amount.toFixed(2)} USDT
+                </div>
+                <div className="text-sm text-right">
+                  <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${
+                    claim.status === 'COMPLETED' ? 'bg-green-500/15 text-green-400' :
+                    claim.status === 'PENDING' ? 'bg-yellow-500/15 text-yellow-400' :
+                    claim.status === 'PROCESSING' ? 'bg-blue-500/15 text-blue-400' :
+                    'bg-red-500/15 text-red-400'
+                  }`}>
+                    {claim.status === 'PENDING' && <span className="w-1.5 h-1.5 bg-yellow-400 rounded-full animate-pulse"></span>}
+                    {claim.status === 'PROCESSING' && <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></span>}
+                    {claim.status}
+                  </span>
+                </div>
+                <div className="text-sm text-right">
+                  {claim.txHash ? (
+                    <a href={`https://etherscan.io/tx/${claim.txHash}`} target="_blank" rel="noopener noreferrer" className="text-brand-blue hover:text-brand-teal transition-colors font-mono text-xs">
+                      {claim.txHash.slice(0, 8)}...
+                    </a>
+                  ) : (
+                    <span className="text-silver-400">-</span>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       )}

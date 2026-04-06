@@ -169,6 +169,37 @@ export const accessApi = {
   },
 };
 
+// Claim types
+export interface ClaimRecord {
+  _id: string;
+  amount: number;
+  walletAddress: string;
+  status: 'PENDING' | 'PROCESSING' | 'COMPLETED' | 'FAILED';
+  txHash?: string;
+  failureReason?: string;
+  processedAt?: string;
+  createdAt: string;
+}
+
+export interface ClaimEligibility {
+  totalWinnings: number;
+  claimedWinnings: number;
+  availableBalance: number;
+  canClaim: boolean;
+  reasons: {
+    insufficientBalance: boolean;
+    missingSocials: boolean;
+    missingWallet: boolean;
+    hasActiveClaim: boolean;
+  };
+  activeClaim: {
+    id: string;
+    amount: number;
+    status: string;
+    createdAt: string;
+  } | null;
+}
+
 // Social handles interface
 export interface SocialHandles {
   twitterHandle?: string;
@@ -203,6 +234,18 @@ export const authApi = {
       body: { walletAddress },
       token,
     }),
+
+  getClaimEligibility: (token: string) =>
+    apiRequest<ClaimEligibility>('/auth/claim-eligibility', { token }),
+
+  submitClaim: (token: string) =>
+    apiRequest<{ success: boolean; claim: ClaimRecord }>('/auth/claim', {
+      method: 'POST',
+      token,
+    }),
+
+  getClaimHistory: (token: string) =>
+    apiRequest<{ claims: ClaimRecord[] }>('/auth/claims', { token }),
 };
 
 // Predictions API
