@@ -2643,7 +2643,516 @@ const silverJanuary2026BlowOffContent = (
   </>
 );
 
+const silverWeeklyFragmentedMarketContent = (
+  <>
+    {/* Report Header */}
+    <section className="mb-12">
+      <div className="bg-gradient-to-br from-yellow-500/20 to-amber-500/10 border border-yellow-500/30 rounded-2xl p-8 mb-8">
+        <div className="flex items-center gap-3 mb-2">
+          <span className="text-yellow-400 font-semibold">Silver Weekly Market Intelligence Report</span>
+        </div>
+        <p className="text-white font-bold text-lg">
+          Week of March 23–27, 2026
+        </p>
+      </div>
+    </section>
+
+    {/* Section 1 — Weekly Price Action */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Section 1 — Weekly Price Action: Three-Market Comparison
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Silver prices declined 4–5% this week (~$72.60 on Monday → ~$67.97 on Friday), driven by gold tumbling from $4,561/oz (March 25) to $4,408/oz (March 26) on easing geopolitical tensions. The decline was orderly — concentrated in paper (futures/ETF) markets — while physical premiums in China surged to extraordinary levels.
+      </p>
+
+      <h3 className="text-2xl font-semibold text-white mb-4">
+        Spot Price Comparison — London, New York, Shanghai
+      </h3>
+
+      <div className="overflow-x-auto mb-4">
+        <table className="w-full text-sm text-silver-300 border-collapse">
+          <thead>
+            <tr className="border-b border-white/10">
+              <th className="text-left py-3 px-4 text-white font-semibold">Date</th>
+              <th className="text-left py-3 px-4 text-white font-semibold">LBMA London (USD/oz)</th>
+              <th className="text-left py-3 px-4 text-white font-semibold">COMEX Spot (USD/oz)</th>
+              <th className="text-left py-3 px-4 text-white font-semibold">Shanghai SGE (RMB/kg → USD/oz)</th>
+              <th className="text-left py-3 px-4 text-white font-semibold">Shanghai Premium vs LBMA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">Mon Mar 23</td>
+              <td className="py-3 px-4">~$72.60 (est.)</td>
+              <td className="py-3 px-4">~$72.60</td>
+              <td className="py-3 px-4">—</td>
+              <td className="py-3 px-4">—</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">Tue Mar 24</td>
+              <td className="py-3 px-4">~$71.00 (est.)</td>
+              <td className="py-3 px-4">~$71.00</td>
+              <td className="py-3 px-4">—</td>
+              <td className="py-3 px-4">—</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">Wed Mar 25</td>
+              <td className="py-3 px-4">~$70.50 (est.)</td>
+              <td className="py-3 px-4">~$70.00</td>
+              <td className="py-3 px-4">18,420 → ~$79.50</td>
+              <td className="py-3 px-4">+$9.00</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">Thu Mar 26</td>
+              <td className="py-3 px-4">$67.290 (PM fix)</td>
+              <td className="py-3 px-4">$67.67 (close)</td>
+              <td className="py-3 px-4">17,765/17,338 → ~$80.00</td>
+              <td className="py-3 px-4">+$12.71</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">Fri Mar 27</td>
+              <td className="py-3 px-4">$67.80 (LBMA)</td>
+              <td className="py-3 px-4">$67.97</td>
+              <td className="py-3 px-4">17,147/17,459 → ~$79.77</td>
+              <td className="py-3 px-4">+$11.97</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4 font-semibold text-white">Weekly Change</td>
+              <td className="py-3 px-4 text-red-400">−6.7%</td>
+              <td className="py-3 px-4 text-red-400">−6.4%</td>
+              <td className="py-3 px-4">Shanghai stable</td>
+              <td className="py-3 px-4 text-yellow-400">Widened sharply</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p className="text-silver-400 text-sm italic mb-8">
+        Exchange rate ~7.25 RMB/USD used for Shanghai USD/oz conversion. Actual rate may vary slightly by source.
+      </p>
+
+      <h3 className="text-2xl font-semibold text-white mb-4">
+        Key Price Observations
+      </h3>
+      <p className="text-silver-300 leading-relaxed">
+        COMEX futures prices track LBMA with a small US logistics/inspection premium of ~+$0.38/oz and Shanghai (SGE) is consistently the most expensive market globally — running $10–13/oz above London throughout the week. The $12–13/oz Shanghai premium is historically extraordinary and signals that Chinese buyers are paying a significant premium to secure physical metal
+      </p>
+    </section>
+
+    {/* Section 2 — Futures Curve */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Section 2 — Futures Curve: Backwardation → Contango Shift
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        The COMEX silver futures curve flipped from backwardation (spot more expensive than futures) to mild contango (futures above spot) this week as March delivery contracts settled. This reflects improved near-term physical availability after the historic March delivery cycle.
+      </p>
+
+      <h3 className="text-2xl font-semibold text-white mb-4">
+        COMEX Silver Futures Curve — March 26, 2026
+      </h3>
+
+      <div className="overflow-x-auto mb-6">
+        <table className="w-full text-sm text-silver-300 border-collapse">
+          <thead>
+            <tr className="border-b border-white/10">
+              <th className="text-left py-3 px-4 text-white font-semibold">Contract</th>
+              <th className="text-left py-3 px-4 text-white font-semibold">Settlement Price (USD/oz)</th>
+              <th className="text-left py-3 px-4 text-white font-semibold">Premium to Spot (~$67.80)</th>
+              <th className="text-left py-3 px-4 text-white font-semibold">Market Structure</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">Apr 2026 (SIJ6)</td>
+              <td className="py-3 px-4">$69.495</td>
+              <td className="py-3 px-4">+$1.695</td>
+              <td className="py-3 px-4">Mild contango</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">May 2026 (SIK6)</td>
+              <td className="py-3 px-4">$69.770</td>
+              <td className="py-3 px-4">+$1.970</td>
+              <td className="py-3 px-4">Mild contango</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">Jun 2026 (SIM6)</td>
+              <td className="py-3 px-4">$70.330</td>
+              <td className="py-3 px-4">+$2.530</td>
+              <td className="py-3 px-4">Mild contango</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">Jul 2026 (SIN6)</td>
+              <td className="py-3 px-4">$70.270</td>
+              <td className="py-3 px-4">+$2.470</td>
+              <td className="py-3 px-4">Mild contango</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">Aug 2026 (SIQ6)</td>
+              <td className="py-3 px-4">$71.195</td>
+              <td className="py-3 px-4">+$3.395</td>
+              <td className="py-3 px-4">Slight steepening</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 className="text-2xl font-semibold text-white mb-4">
+        What the Curve Shift Means
+      </h3>
+      <ul className="space-y-3 text-silver-300">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>The reversal of backwardation signals that near-term physical tightness has eased — March delivery (10,526 contracts) has cleared</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>The contango is mild ($3.40/oz from spot to August = ~1.7%/6 months annualized) — not a market stress signal</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>If the August contract significantly steepens further above June, it signals the market expects sustained H2 2026 physical tightness</span>
+        </li>
+      </ul>
+    </section>
+
+    {/* Section 3 — Physical Inventories */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Section 3 — Physical Inventories: COMEX · SHFE · London
+      </h2>
+
+      <h3 className="text-2xl font-semibold text-white mb-4">
+        COMEX Registered Silver Inventory
+      </h3>
+
+      <div className="overflow-x-auto mb-8">
+        <table className="w-full text-sm text-silver-300 border-collapse">
+          <thead>
+            <tr className="border-b border-white/10">
+              <th className="text-left py-3 px-4 text-white font-semibold">Date</th>
+              <th className="text-left py-3 px-4 text-white font-semibold">Registered (million oz)</th>
+              <th className="text-left py-3 px-4 text-white font-semibold">Commentary</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">Feb 19, 2026</td>
+              <td className="py-3 px-4">~89 moz</td>
+              <td className="py-3 px-4">Pre-delivery peak</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">Mar 13, 2026</td>
+              <td className="py-3 px-4">~86 moz</td>
+              <td className="py-3 px-4">30-day cumulative drain</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">Mar 27, 2026</td>
+              <td className="py-3 px-4">77.17 moz</td>
+              <td className="py-3 px-4">CME Group Report — lowest level in this cycle</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4 font-semibold text-white">Change (Feb → Mar 27)</td>
+              <td className="py-3 px-4 text-red-400">−11.8 moz (−13.3%)</td>
+              <td className="py-3 px-4">Continued depletion; no replenishment signal</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 className="text-2xl font-semibold text-white mb-4">
+        March 2026 COMEX Delivery Crisis — In Numbers
+      </h3>
+
+      <div className="overflow-x-auto mb-8">
+        <table className="w-full text-sm text-silver-300 border-collapse">
+          <thead>
+            <tr className="border-b border-white/10">
+              <th className="text-left py-3 px-4 text-white font-semibold">Metric</th>
+              <th className="text-left py-3 px-4 text-white font-semibold">Value</th>
+              <th className="text-left py-3 px-4 text-white font-semibold">Significance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">March contracts standing for delivery</td>
+              <td className="py-3 px-4">10,526 contracts = 52.63 Moz</td>
+              <td className="py-3 px-4">Historical record for COMEX silver delivery</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">Registered inventory at delivery time</td>
+              <td className="py-3 px-4">~86.13 moz</td>
+              <td className="py-3 px-4">High demand vs. available supply</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">Paper-to-physical ratio</td>
+              <td className="py-3 px-4">4.6 : 1</td>
+              <td className="py-3 px-4">4.6 futures contracts for every 1 oz available</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">Next pressure point</td>
+              <td className="py-3 px-4">Apr/May 2026 contracts (~10 business days)</td>
+              <td className="py-3 px-4">Registered inventory still declining</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      {/* Editor's Note */}
+      <div className="bg-gradient-to-br from-yellow-500/10 to-amber-500/10 border border-yellow-500/30 rounded-2xl p-6">
+        <p className="text-yellow-400 font-semibold mb-2">⚠️ EDITOR'S NOTE</p>
+        <p className="text-silver-300 leading-relaxed">
+          We are seeing the continuous decline trend on Registered COMEX inventory. COMEX has now experienced fifteen consecutive months of physical silver drawdown. The 4.6:1 paper-to-physical ratio does NOT mean COMEX will default. Most futures contracts settle in cash. The structural imbalance is a pricing signal, not an imminent default risk.
+        </p>
+      </div>
+    </section>
+
+    {/* Section 4 — Physical Premiums */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Section 4 — Physical Premiums: Shanghai Premium Soars
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        The most striking development of the week was the explosive widening of Shanghai's silver premium over London to an extraordinary +$12.60/oz by March 27. This is historically rare and signals aggressive Chinese physical demand.
+      </p>
+
+      <h3 className="text-2xl font-semibold text-white mb-4">
+        Cross-Market Premium Analysis
+      </h3>
+
+      <div className="overflow-x-auto mb-8">
+        <table className="w-full text-sm text-silver-300 border-collapse">
+          <thead>
+            <tr className="border-b border-white/10">
+              <th className="text-left py-3 px-4 text-white font-semibold">Market Pair</th>
+              <th className="text-left py-3 px-4 text-white font-semibold">Premium / Discount</th>
+              <th className="text-left py-3 px-4 text-white font-semibold">Week's Change</th>
+              <th className="text-left py-3 px-4 text-white font-semibold">Significance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">Shanghai SGE vs LBMA London</td>
+              <td className="py-3 px-4">+$12.60/oz (Mar 27)</td>
+              <td className="py-3 px-4">Widened sharply from ~$9</td>
+              <td className="py-3 px-4">Chinese buyers aggressively outbidding the global market</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">COMEX vs LBMA London</td>
+              <td className="py-3 px-4">+$0.38/oz (Mar 26)</td>
+              <td className="py-3 px-4">Stable, within normal range</td>
+              <td className="py-3 px-4">US market relatively balanced vs London</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">Shanghai vs COMEX</td>
+              <td className="py-3 px-4">+$11.97/oz (Mar 27)</td>
+              <td className="py-3 px-4">Widening</td>
+              <td className="py-3 px-4">Buy London/COMEX → Sell Shanghai arbitrage window opens</td>
+            </tr>
+            <tr className="border-b border-white/5">
+              <td className="py-3 px-4">Apr futures vs Spot</td>
+              <td className="py-3 px-4">+$1.70/oz</td>
+              <td className="py-3 px-4">Backwardation ended</td>
+              <td className="py-3 px-4">Short-term physical tightness easing</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 className="text-2xl font-semibold text-white mb-4">
+        Why Is China Paying $12/oz Premium?
+      </h3>
+      <ul className="space-y-3 text-silver-300 mb-8">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Chinese industrial buyers (solar manufacturers, electronics, jewellery) are restocking ahead of Q2 seasonal demand — physical delivery needed now</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>CNY weakness vs USD amplifies import costs — Chinese buyers face an additional FX-driven premium on USD-priced global silver</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>The $12/oz premium more than covers international freight + insurance + import tariffs — buyers are willing to pay for speed and certainty</span>
+        </li>
+      </ul>
+
+      {/* Editor's Note */}
+      <div className="bg-gradient-to-br from-yellow-500/10 to-amber-500/10 border border-yellow-500/30 rounded-2xl p-6">
+        <p className="text-yellow-400 font-semibold mb-2">⚠️ EDITOR'S NOTE</p>
+        <p className="text-silver-300 leading-relaxed">
+          A $12/oz premium for silver is extraordinary. The scale of this silver premium suggests China's physical silver deficit is more severe than visible stock data indicates.
+        </p>
+      </div>
+    </section>
+
+    {/* Solar vs AI Demand Infographic */}
+    <section className="mb-12">
+      <div className="my-10">
+        <img
+          src="/press/press_5/image2.png"
+          alt="The Solar vs. AI Demand Tug-of-War"
+          className="w-full rounded-2xl border border-white/10"
+        />
+      </div>
+    </section>
+
+    {/* Section 7 — Change in Industrial vs. Investment Demand */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Section 7 — Change in Industrial vs. Investment Demand
+      </h2>
+
+      {/* Industrial Demand */}
+      <div className="mb-8">
+        <h3 className="text-2xl font-semibold text-white mb-4">
+          Industrial Demand: Solar Substitution — The Key 2026 Risk
+        </h3>
+        <p className="text-silver-300 leading-relaxed mb-4">
+          The most significant structural risk to silver industrial demand in 2026 is the solar sector's accelerated shift away from silver paste:
+        </p>
+        <ul className="space-y-3 text-silver-300">
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span><strong className="text-white">LONGi Green Energy (China):</strong> Announced Q2 2026 rollout of copper-based conductive paste to replace silver in PV cells — first major Chinese solar manufacturer to commit at scale.</span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span><strong className="text-white">JinkoSolar:</strong> Developing copper-plating and silver-coated copper technologies; commercial volumes not expected before 2027.</span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>Each PV panel uses 20–25mg of silver; copper substitution can reduce silver use by 50–80% per panel.</span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>Silver Institute estimated that Solar silver demand forecast to decline for the first time.</span>
+          </li>
+        </ul>
+      </div>
+
+      {/* Counter-Narrative */}
+      <div className="mb-8">
+        <h3 className="text-2xl font-semibold text-white mb-4">
+          Counter-Narrative: Green Energy & Tech — Silver's New Demand Engines
+        </h3>
+        <ul className="space-y-3 text-silver-300">
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span><strong className="text-white">AI data centers:</strong> Each high-performance GPU server rack requires approximately 0.5–2g of silver in circuit boards and connectors — at scale, this is an emerging structural demand source.</span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span><strong className="text-white">Electric vehicles:</strong> 25–50g silver per vehicle (wiring, electronics, battery connectors); with 18 million EVs sold globally in 2025, this represents significant silver demand.</span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span><strong className="text-white">5G infrastructure, military electronics, medical devices:</strong> Silver's conductive properties remain largely irreplaceable in high-frequency and precision applications</span>
+          </li>
+        </ul>
+      </div>
+
+      {/* Investment Demand */}
+      <div>
+        <h3 className="text-2xl font-semibold text-white mb-4">
+          Investment Demand — Structural change
+        </h3>
+        <p className="text-silver-300 leading-relaxed mb-4">
+          India's Securities and Exchange Board (SEBI) authorized equity mutual funds to invest up to 10% of their total assets in gold and silver ETFs. For India — a nation with deep cultural and financial ties to physical gold and silver — this is a structural shift, not a tactical one.
+        </p>
+        <p className="text-silver-300 leading-relaxed">
+          With Indian mutual funds now able to allocate up to 10% into silver ETFs, the potential new institutional flow into silver from India alone is enormous. Even at conservative estimates, if 10% of even a fraction of India's mutual fund industry (which is among the fastest-growing globally) allocates to silver, the demand impact would be measured in hundreds of tonnes annually.
+        </p>
+      </div>
+    </section>
+
+    {/* Conclusion */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Conclusion: Paper Calm, Physical Tension
+      </h2>
+
+      <div className="bg-gradient-to-br from-blue-500/10 to-violet-500/10 border border-white/10 rounded-2xl p-8">
+        <p className="text-silver-300 leading-relaxed mb-4">
+          The week of March 23–27 revealed a silver market that looks orderly on the surface but increasingly fragmented underneath. Prices declined sharply in London and New York as geopolitical risk premiums faded and paper positioning unwound, yet the physical market told a very different story. Shanghai's historically extreme $12+/oz premium underscores that global silver is not priced uniformly — and that real‑world demand, particularly in China, remains acute despite falling headline prices.
+        </p>
+        <p className="text-silver-300 leading-relaxed mb-4">
+          The shift in the COMEX futures curve from backwardation to mild contango suggests near‑term delivery stress has eased following the historic March contract settlement. However, this normalization should not be mistaken for structural relief. Registered COMEX inventories continue to decrease. The persistent paper‑to‑physical imbalance is a clear pricing signal that physical availability is becoming increasingly constrained.
+        </p>
+        <p className="text-silver-300 leading-relaxed mb-4">
+          At the same time, silver's demand profile is undergoing a transition. Solar substitution risks represent a genuine medium‑term headwind, but they are increasingly offset by emerging structural demand from AI infrastructure, electrification, and advanced electronics — sectors where silver's conductive properties remain difficult to replace. The policy shift allowing Indian mutual funds to allocate into silver ETFs adds a huge investment demand channel.
+        </p>
+        <p className="text-silver-300 leading-relaxed">
+          Taken together, this week reinforces a critical takeaway: silver is no longer a single, unified market. Paper prices may retreat quickly when macro sentiment shifts, but physical demand — particularly in Asia — is asserting itself with unprecedented force. Until these two worlds realign, volatility and regional price dislocations are likely to remain defining features of the silver market in 2026.
+        </p>
+      </div>
+    </section>
+
+    {/* Complete Source List */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">Complete Source List</h2>
+
+      <div className="bg-background-secondary/30 border border-white/10 rounded-2xl p-8">
+        <div className="space-y-2 text-sm text-silver-400">
+          <p>[1] COMEX Registered Silver Inventory 77,169,673 oz (March 27, 2026) — CME Group Silver Stocks Report (Silver_stocks.xls, Report Date: 3/27/2026)</p>
+          <p>[2] COMEX March delivery: 10,526 contracts = 52.63 Moz historical record — CME Group Daily Delivery Notices; JinLow Substack (March 2026)</p>
+          <p>[3] COMEX Registered ~89 Moz → 77 Moz (Feb–Mar 2026) — David Jensen Economic & PM Newsletter (Feb 19, 2026)</p>
+          <p>[4] COMEX silver futures Apr–Aug 2026 prices: SIJ6 $69.495 / SIK6 $69.770 / SIM6 $70.330 / SIN6 $70.270 / SIQ6 $71.195 — CMEGroup.com quotes page (March 26, 2026)</p>
+          <p>[5] COMEX March 2026 OI ~18 contracts (near zero) — MarketWatch / Wall Street Journal (March 27, 2026)</p>
+          <p>[6] COT week ending Mar 17: Large speculators net long ~21,900 contracts; Commercial short covering ~3,070 contracts — SilverSeek 'COT Silver Report — March 20, 2026' (data as of March 17, 2026)</p>
+          <p>[7] COMEX Total OI 429 Moz vs 77 Moz Registered (~5.6x ratio) — AInvest 'Silver ETFs See $6.38B Inflows' (2026)</p>
+          <p>[8] SHFE silver warehouse stock: 371.799 tonnes (March 2026) — CEICdata.com</p>
+          <p>[9] Shanghai Silver Benchmark Prices (AM/PM): 18,420 / 17,765 / 17,338 / 17,147 RMB/kg (March 25–27) — SGE official site (en.sge.com.cn)</p>
+          <p>[10] LBMA London Vault Silver: 27,065 tonnes (February 2026 end) — LBMA.org London Vault Data page</p>
+          <p>[11] LBMA Silver PM Fix: $67.290/oz (March 26, 2026) — LBMA Precious Metal Prices (lbma.org.uk)</p>
+          <p>[12] Silver all-time high $121.64/oz (January 2026) — Reuters (February 19, 2026)</p>
+          <p>[13] SLV AUM: $33.57 billion (March 27, 2026) — iShares/BlackRock SLV Fund Page</p>
+          <p>[14] SIVR AUM: $4.60 billion; premium +3.4% to NAV (March 2026) — Aberdeen Investments / TradingView</p>
+          <p>[15] PSLV AUM: $757.4 million (~March 9, 2026) — SprottETF.com</p>
+          <p>[16] Silver ETF inflows: SLV $2.3B YTD; SIVR $900M YTD — ETF.com 'Silver Hits New Record High' (2026)</p>
+          <p>[17] India NPS reform: $177 billion pension system permitted to invest in silver ETFs (December 10, 2025) — Bloomberg (Dec 10, 2025); PFRDA Master Circular</p>
+          <p>[18] India physical silver demand surged +192% YoY (2025) — Moneymetals.com (Dec 15, 2025) via Bloomberg</p>
+          <p>[19] India gold ETF inflows 2025: ₹276 billion (~$3.1 billion) — record annual — Moneymetals.com; Bloomberg</p>
+          <p>[20] Silver Institute 2026: demand broadly flat; solar demand to decline for first time — Silver Institute (silverinstitute.org, February 2026)</p>
+          <p>[21] LONGi Green Energy: Q2 2026 copper-based PV paste rollout at scale — Reuters Sustainability (February 2026)</p>
+          <p>[22] Silver surged 5% in 48 hours as green energy demand hit record levels (March 11, 2026) — Chronicle Journal 'Silver Prices Surge 5%' (March 11, 2026)</p>
+          <p>[23] Silver plunges {'>'}10% intraday amid Iran conflict (March 3, 2026) — Forbes 'Gold And Silver Prices Plunge Amid Iran Conflict' (March 3, 2026)</p>
+          <p>[24] US-Iran ceasefire talks (15-point proposal); Iran conflict oil disruptions — Times of India; Reuters (March 2026); WCAX (March 4, 2026)</p>
+          <p>[25] Air freight rates spike 40–60% due to Iran airspace closures — FreightWaves 'Air freight rates expected to spike' (March 2026)</p>
+          <p>[26] Red Sea shipping diversions (Cape routing); WEF economic impact — World Economic Forum 'The Global Price Tag of War in the Middle East' (March 2026)</p>
+          <p>[27] Gold fell $4,561 → $4,408/oz (March 25–26) — LBMA / Kitco.com gold fix data</p>
+          <p>[28] Gold-Silver Ratio approximately 63 (March 22, 2026) — LongtermTrends.com; Macrotrends.net</p>
+        </div>
+      </div>
+    </section>
+
+    {/* Disclaimer */}
+    <section className="mb-12">
+      <div className="border-t border-white/10 pt-8">
+        <p className="text-silver-500 text-sm italic">
+          DISCLAIMER: This report is for informational and educational purposes only. It does not constitute financial, investment, or trading advice. All market data reflects publicly available sources as of March 28, 2026. Past performance is not indicative of future results. Silver and precious metal investments carry risks including volatility, liquidity, and regulatory changes. Consult a licensed financial advisor before making investment decisions.
+        </p>
+      </div>
+    </section>
+  </>
+);
+
 export const blogPostsData: BlogPostData[] = [
+  {
+    id: "silver-weekly-two-silvers-one-price-problem",
+    title:
+      "Two Silvers, One Price Problem: A Fragmented Silver Market",
+    category: "Market Analysis",
+    date: "March 28, 2026",
+    mainImage: "/press/press_5/cover.png",
+    excerpt:
+      "Silver prices declined 4–5% this week as paper markets retreated, yet Shanghai premiums surged to an extraordinary +$12/oz. COMEX registered inventories hit cycle lows at 77 Moz while the futures curve flipped to contango. A fragmented market where paper calm masks physical tension.",
+    content: silverWeeklyFragmentedMarketContent,
+  },
   {
     id: "silver-war-premium-liquidity-crunch",
     title: "Monday Alpha: Silver's War Premium vs. The Liquidity Crunch",
