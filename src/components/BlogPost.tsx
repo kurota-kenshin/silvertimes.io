@@ -2643,6 +2643,587 @@ const silverJanuary2026BlowOffContent = (
   </>
 );
 
+const rwaMovingOnChainContent = (
+  <>
+    {/* Header Banner */}
+    <section className="mb-12">
+      <div className="bg-gradient-to-br from-violet-500/20 to-cyan-500/10 border border-violet-500/30 rounded-2xl p-8 mb-8">
+        <div className="flex items-center gap-3 mb-2">
+          <span className="text-violet-400 font-semibold">Education:</span>
+          <span className="text-white font-bold">RWA 101</span>
+        </div>
+        <p className="text-silver-300 leading-relaxed">
+          Why real world assets are moving on-chain
+        </p>
+      </div>
+    </section>
+
+    {/* Why Real World Assets Are Moving On-Chain */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Why Real World Assets Are Moving On-Chain
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        Real World Assets, often called RWAs, are becoming one of the most important trends in blockchain because they connect traditional assets with digital infrastructure. Instead of keeping ownership, trading, and settlement inside slow and fragmented legacy systems, tokenization puts real assets on-chain in a way that can improve liquidity, accessibility, transparency, and fractional ownership.
+      </p>
+      <p className="text-silver-300 leading-relaxed">
+        From commodities and government bonds to real estate and private credit, more assets are being tokenized because investors want easier access and more efficient markets. For many people, the appeal is simple: blockchain can make real assets easier to buy, easier to move, and easier to verify.
+      </p>
+    </section>
+
+    {/* What does moving on-chain mean? */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        What does moving on-chain mean?
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        When an asset moves on-chain, its ownership or economic exposure is represented by a token on a blockchain. That token can then be transferred, tracked, and in some cases used across digital financial applications with rules enforced by smart contracts.
+      </p>
+      <p className="text-silver-300 leading-relaxed">
+        This does not mean the real asset disappears or becomes purely digital. It means the asset is linked to a blockchain-based representation that can improve how it is accessed and managed.
+      </p>
+    </section>
+
+    {/* Infographic */}
+    <section className="mb-12">
+      <div className="my-10">
+        <img
+          src="/press/press_8/image1.png"
+          alt="Why RWAs Are Moving On-Chain"
+          className="w-full rounded-2xl border border-white/10"
+        />
+        <p className="text-silver-400 text-sm italic text-center mt-4">
+          Explaining the benefit of on-chain RWAs
+        </p>
+      </div>
+    </section>
+
+    {/* Better liquidity */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Better liquidity
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        One major reason real world assets are moving on-chain is liquidity. Traditional markets often involve limited trading windows, geographic restrictions, manual processes, and slow settlement, while tokenized assets can be traded more flexibly in digital markets.
+      </p>
+      <p className="text-silver-300 leading-relaxed">
+        This matters because many real assets are valuable but not easy to transact. Physical commodities, for example, often come with dealer spreads, storage concerns, and operational friction, while tokenized versions can make access faster and simpler for a wider group of investors.
+      </p>
+    </section>
+
+    {/* Greater accessibility */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Greater accessibility
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        Another driver is accessibility. In traditional markets, many real assets are hard to access for smaller investors because of minimum purchase sizes, account requirements, custody arrangements, or regional limitations.
+      </p>
+      <p className="text-silver-300 leading-relaxed mb-4">
+        Tokenization can lower those barriers by allowing assets to be represented digitally in smaller units and distributed through blockchain networks. In the SilverTimes materials, this idea appears in the emphasis on lower entry barriers, retail accessibility, and 24/7 borderless access through Ethereum-based infrastructure.+1
+      </p>
+      <p className="text-silver-300 leading-relaxed">
+        Accessibility is not only about cost. It is also about giving more people a path to participate in markets that previously felt too slow, too exclusive, or too operationally complex.
+      </p>
+    </section>
+
+    {/* More transparency */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        More transparency
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        Transparency is another major reason RWAs are moving on-chain. Traditional ownership records and reserve reporting can be slow, fragmented, and difficult for everyday investors to verify, but blockchain systems can provide clearer visibility into token issuance, transfers, and reserve-related reporting structures.
+      </p>
+      <p className="text-silver-300 leading-relaxed mb-4">
+        For tokenized assets, transparency often becomes a competitive advantage. SilverTimes highlights on-chain visibility, Proof of Reserves, audits, and transparent reserve validation as part of its value proposition, showing how tokenization can make trust easier to build when compared with opaque or dealer-driven markets.
+      </p>
+      <p className="text-silver-300 leading-relaxed">
+        This does not remove all risk, but it can make verification easier and more frequent. For investors, that is a meaningful shift from "trust and wait" to "trust, but verify."
+      </p>
+    </section>
+
+    {/* Fractional ownership */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Fractional ownership
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        Fractional ownership is one of the most practical benefits of tokenized real world assets. Instead of requiring investors to buy an entire large asset or commit significant capital upfront, tokenization allows ownership or exposure to be divided into smaller units.
+      </p>
+      <p className="text-silver-300 leading-relaxed mb-4">
+        That can make markets much more inclusive. Whether the asset is real estate, a treasury-backed instrument, or a precious metal product, fractional ownership lets more users participate without facing the full cost or operational burden of direct ownership.
+      </p>
+      <p className="text-silver-300 leading-relaxed">
+        This is especially relevant in precious metals, where physical ownership can involve premiums, storage, insurance, and logistics. SilverTimes positions tokenization as a way to reduce those frictions while giving users access to silver exposure in a more flexible format.
+      </p>
+    </section>
+
+    {/* Why this matters now */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Why this matters now
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        The shift is not only technological. It reflects a broader demand for financial systems that are more efficient, more open, and more interoperable with digital platforms. The SilverTimes whitepaper describes the tokenized RWA market as a fast-growing sector and presents tokenization as a bridge between traditional finance and blockchain-based infrastructure.
+      </p>
+      <p className="text-silver-300 leading-relaxed">
+        As more investors grow comfortable with digital wallets, stablecoins, and on-chain finance, tokenized real world assets become easier to understand and more useful in practice. That is why RWAs are no longer a niche concept; they are becoming a new distribution layer for real assets.
+      </p>
+    </section>
+
+    {/* The road ahead */}
+    <section className="mb-12">
+      <div className="bg-gradient-to-br from-blue-500/10 to-violet-500/10 border border-white/10 rounded-2xl p-8">
+        <h2 className="text-3xl font-bold text-white mb-6">
+          The road ahead
+        </h2>
+
+        <p className="text-silver-300 leading-relaxed mb-4">
+          Real world assets are moving on-chain because the old way of accessing many assets is inefficient for modern investors. Better liquidity, broader accessibility, stronger transparency, and fractional ownership make tokenization a compelling model for the next phase of finance.
+        </p>
+        <p className="text-silver-300 leading-relaxed">
+          For asset classes like silver, this shift is especially important because tokenization can address long-standing issues such as storage, entry cost, and limited market access. That is why tokenized commodities are becoming one of the most interesting categories within the broader RWA movement.
+        </p>
+      </div>
+    </section>
+  </>
+);
+
+const tokenizedSilverContent = (
+  <>
+    {/* Header Banner */}
+    <section className="mb-12">
+      <div className="bg-gradient-to-br from-violet-500/20 to-cyan-500/10 border border-violet-500/30 rounded-2xl p-8 mb-8">
+        <div className="flex items-center gap-3 mb-2">
+          <span className="text-violet-400 font-semibold">Education:</span>
+          <span className="text-white font-bold">Tokenized Silver</span>
+        </div>
+      </div>
+    </section>
+
+    {/* What Is Tokenized Silver? — Introduction */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        What Is Tokenized Silver?
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        For decades, investing in silver has been straightforward in theory—but inefficient in practice. You buy bullion, store it, insure it, and hope liquidity is there when you need to exit.
+      </p>
+      <p className="text-silver-300 leading-relaxed mb-4">
+        Today, that model is being challenged by a new concept gaining traction across financial markets: <strong className="text-white">tokenized silver</strong>.
+      </p>
+      <p className="text-silver-300 leading-relaxed">
+        Instead of owning heavy metal bars locked in vaults, investors can now hold digital tokens—each representing real, physical silver—on blockchain networks like Ethereum. It's not a speculative idea anymore. It's part of a broader shift toward <strong className="text-white">tokenized real-world assets (RWAs)</strong> that are reshaping how value moves globally.
+      </p>
+    </section>
+
+    {/* Tokenized Silver Hero Image */}
+    <section className="mb-12">
+      <div className="my-10">
+        <img
+          src="/press/press_7/image1.png"
+          alt="Tokenized Silver: Why Investors Are Moving from Physical Metal to Blockchain"
+          className="w-full rounded-2xl border border-white/10"
+        />
+      </div>
+    </section>
+
+    {/* What Is Tokenized Silver? — Definition */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        What Is Tokenized Silver?
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        At its core, <strong className="text-white">tokenized silver is a blockchain-based digital representation of physical silver</strong>, where each token corresponds to a fixed amount of real metal—often one ounce or one gram.
+      </p>
+      <p className="text-silver-300 leading-relaxed mb-4">
+        Unlike traditional "paper silver," these tokens are typically backed 1:1 by allocated bullion stored in secure vaults. That means when you hold a token, you're not just speculating—you're holding a <strong className="text-white">verifiable claim on real silver</strong>.
+      </p>
+      <p className="text-silver-300 leading-relaxed mb-4">
+        This structure effectively merges two worlds:
+      </p>
+
+      <ul className="space-y-3 text-silver-300">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>The <strong className="text-white">intrinsic value of a commodity</strong></span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>The <strong className="text-white">efficiency of blockchain infrastructure</strong></span>
+        </li>
+      </ul>
+    </section>
+
+    {/* Physical → Blockchain → Tokenized Diagram */}
+    <section className="mb-12">
+      <div className="my-10">
+        <img
+          src="/press/press_7/image2.png"
+          alt="Physical Silver, Blockchain, and Tokenized Silver"
+          className="w-full rounded-2xl border border-white/10"
+        />
+      </div>
+    </section>
+
+    {/* Why Tokenized Silver Is Emerging Now */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Why Tokenized Silver Is Emerging Now
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        The timing isn't accidental. Silver sits at a unique intersection of macroeconomic and technological trends.
+      </p>
+      <p className="text-silver-300 leading-relaxed mb-4">
+        On one side, it's a <strong className="text-white">store of value</strong>—historically used as money and a hedge against inflation. For the first half of the 20th century, silver functioned primarily as a monetary metal — underpinning coinage systems and trade across the globe.
+      </p>
+      <p className="text-silver-300 leading-relaxed mb-4">
+        On the other, it's a <strong className="text-white">critical industrial metal</strong>, essential in solar panels, electronics, and electric vehicles. Industrial demand for the precious metal reached a record 657 million ounces in 2025 — representing 59% of total global silver demand — and continues to grow as structural megatrends accelerate consumption.
+      </p>
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Despite silver's compelling fundamentals, traditional channels present barriers that exclude most global investors. Blockchain technology and the tokenization of real-world assets (RWAs) remove the traditional barrier to silver investment, and tokenization has provided an alternative way for traditional financial markets to enhance liquidity and accessibility.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        Put simply:
+      </p>
+
+      <blockquote className="border-l-4 border-blue-400 pl-6 py-2 mb-6">
+        <p className="text-white text-lg italic">
+          Investors want real assets—but with digital efficiency.
+        </p>
+      </blockquote>
+
+      <p className="text-silver-300 leading-relaxed">
+        Tokenized silver delivers exactly that.
+      </p>
+    </section>
+
+    {/* How Tokenized Silver Works */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        How Tokenized Silver Works (Behind the Scenes)
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        While the concept feels new, the mechanics are surprisingly logical.
+      </p>
+      <p className="text-silver-300 leading-relaxed mb-6">
+        First, physical silver is sourced and stored in regulated, insured vaults. Then, blockchain-based smart contracts issue tokens that represent ownership of that silver. These tokens can be traded, transferred, or redeemed.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        A typical lifecycle looks like this:
+      </p>
+
+      <ul className="space-y-3 text-silver-300">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span><strong className="text-white">Custody</strong> – Silver is securely stored and audited</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span><strong className="text-white">Token issuance</strong> – Digital tokens are minted on blockchain</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span><strong className="text-white">Trading</strong> – Investors buy/sell tokens 24/7</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span><strong className="text-white">Redemption</strong> – Tokens can be exchanged for physical silver (subject to conditions)</span>
+        </li>
+      </ul>
+
+      <p className="text-silver-300 leading-relaxed mt-6">
+        This system ensures that the token supply never exceeds the actual silver reserves—maintaining trust and price alignment.
+      </p>
+    </section>
+
+    {/* The Real Advantage */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        The Real Advantage: Removing Friction from Silver Investing
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        To understand why tokenized silver matters, it helps to look at what it replaces.
+      </p>
+      <p className="text-silver-300 leading-relaxed mb-4">
+        Traditional silver investing comes with hidden inefficiencies:
+      </p>
+
+      <ul className="space-y-3 text-silver-300 mb-6">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Dealer premiums</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Storage and insurance costs</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Limited liquidity</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>High minimum entry sizes</span>
+        </li>
+      </ul>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        Tokenization removes most of these barriers.
+      </p>
+      <p className="text-silver-300 leading-relaxed mb-4">
+        Investors can:
+      </p>
+
+      <ul className="space-y-3 text-silver-300 mb-6">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Buy <strong className="text-white">fractional amounts of silver</strong></span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Trade globally, <strong className="text-white">24/7</strong></span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Avoid physical storage entirely</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Access transparent, on-chain ownership records</span>
+        </li>
+      </ul>
+
+      <p className="text-silver-300 leading-relaxed">
+        In essence, tokenization transforms silver from a <strong className="text-white">logistics-heavy asset into a liquid financial instrument</strong>.
+      </p>
+    </section>
+
+    {/* Where SilverTimes Fits */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Where SilverTimes Fits Into This Shift
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        This is where platforms like <strong className="text-white">SilverTimes</strong> enter the picture.
+      </p>
+      <p className="text-silver-300 leading-relaxed mb-4">
+        SilverTimes is built around a simple but powerful idea: make silver as easy to access as digital assets—without losing its real-world backing.
+      </p>
+      <p className="text-silver-300 leading-relaxed mb-4">
+        According to its product framework:
+      </p>
+
+      <ul className="space-y-3 text-silver-300 mb-6">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Each token (STT) represents <strong className="text-white">1 ounce of silver</strong></span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Transactions are executed <strong className="text-white">on Ethereum</strong></span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>The system is designed to address <strong className="text-white">cost, storage, and liquidity inefficiencies</strong></span>
+        </li>
+      </ul>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        More importantly, SilverTimes doesn't rely solely on static bullion. Its hybrid structure combines:
+      </p>
+
+      <ul className="space-y-3 text-silver-300 mb-6">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Physical silver</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Futures exposure</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Bonds and cash for liquidity</span>
+        </li>
+      </ul>
+
+      <p className="text-silver-300 leading-relaxed">
+        This approach aims to balance <strong className="text-white">price tracking, redemption capability, and scalability</strong>—a key challenge in tokenized commodities.
+      </p>
+    </section>
+
+    {/* Tokenized vs Traditional Silver */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Tokenized Silver vs Traditional Silver: A Structural Shift
+      </h2>
+
+      <div className="my-10">
+        <img
+          src="/press/press_7/image3.png"
+          alt="Tokenized Silver vs Traditional Silver Comparison"
+          className="w-full rounded-2xl border border-white/10"
+        />
+      </div>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        The difference between tokenized and traditional silver isn't just convenience—it's structural.
+      </p>
+      <p className="text-silver-300 leading-relaxed mb-4">
+        Traditional silver is:
+      </p>
+
+      <ul className="space-y-3 text-silver-300 mb-6">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Physical</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Location-bound</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Illiquid in small sizes</span>
+        </li>
+      </ul>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        Tokenized silver is:
+      </p>
+
+      <ul className="space-y-3 text-silver-300 mb-6">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Digital</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Borderless</span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Instantly transferable</span>
+        </li>
+      </ul>
+
+      <p className="text-silver-300 leading-relaxed">
+        Instead of waiting for dealer quotes or market hours, investors can move in and out of positions in real time—just like crypto assets, but backed by tangible value.
+      </p>
+    </section>
+
+    {/* The Bigger Picture */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        The Bigger Picture: Silver in the Digital Asset Economy
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-4">
+        Tokenized silver is part of a much larger transformation.
+      </p>
+      <p className="text-silver-300 leading-relaxed mb-4">
+        As more real-world assets move onto blockchain rails—real estate, bonds, commodities—silver becomes one of the most logical assets to digitize. It's divisible, globally recognized, and already heavily traded.
+      </p>
+      <p className="text-silver-300 leading-relaxed mb-4">
+        More importantly, tokenized silver can evolve beyond simple ownership:
+      </p>
+
+      <ul className="space-y-3 text-silver-300 mb-6">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Used as <strong className="text-white">collateral in DeFi</strong></span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Integrated into <strong className="text-white">lending and yield strategies</strong></span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>Traded across <strong className="text-white">multiple blockchain ecosystems</strong></span>
+        </li>
+      </ul>
+
+      <p className="text-silver-300 leading-relaxed">
+        This is where traditional commodities start behaving like programmable assets.
+      </p>
+    </section>
+
+    {/* Final Thoughts */}
+    <section className="mb-12">
+      <div className="bg-gradient-to-br from-blue-500/10 to-violet-500/10 border border-white/10 rounded-2xl p-8">
+        <h2 className="text-3xl font-bold text-white mb-6">
+          Final Thoughts: From Metal to Market Infrastructure
+        </h2>
+
+        <p className="text-silver-300 leading-relaxed mb-4">
+          Tokenized silver isn't just a new product—it's a new format for owning value.
+        </p>
+        <p className="text-silver-300 leading-relaxed mb-4">
+          It keeps what matters about silver:
+        </p>
+
+        <ul className="space-y-3 text-silver-300 mb-6">
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>Scarcity</span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>Industrial relevance</span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>Inflation resistance</span>
+          </li>
+        </ul>
+
+        <p className="text-silver-300 leading-relaxed mb-4">
+          And removes what doesn't:
+        </p>
+
+        <ul className="space-y-3 text-silver-300 mb-6">
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>Storage friction</span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>Accessibility barriers</span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-blue-400 mt-1">•</span>
+            <span>Illiquidity</span>
+          </li>
+        </ul>
+
+        <p className="text-silver-300 leading-relaxed mb-4">
+          Platforms like SilverTimes are pushing this transition forward, turning silver from a static asset into something far more dynamic.
+        </p>
+        <p className="text-silver-300 leading-relaxed">
+          And as financial markets continue moving on-chain, the question is no longer <em>if</em> silver will be tokenized — but how quickly investors will adapt.
+        </p>
+      </div>
+    </section>
+  </>
+);
+
 const whatIsRwaContent = (
   <>
     {/* Introduction */}
@@ -3266,6 +3847,27 @@ const silverWeeklyFragmentedMarketContent = (
 );
 
 export const blogPostsData: BlogPostData[] = [
+  {
+    id: "rwa-101-why-real-world-assets-moving-on-chain",
+    title: "RWA 101 — Why Real World Assets Are Moving On-Chain",
+    category: "Education",
+    date: "May 6, 2026",
+    mainImage: "/press/press_8/cover.png",
+    excerpt:
+      "Real World Assets (RWAs) are becoming one of the most important trends in blockchain because they connect traditional assets with digital infrastructure. From commodities and government bonds to real estate and private credit, tokenization improves liquidity, accessibility, transparency, and fractional ownership.",
+    content: rwaMovingOnChainContent,
+  },
+  {
+    id: "tokenized-silver-physical-to-blockchain",
+    title:
+      "Tokenized Silver: Why Investors Are Moving from Physical Metal to Blockchain",
+    category: "Education",
+    date: "April 21, 2026",
+    mainImage: "/press/press_7/cover.png",
+    excerpt:
+      "For decades, investing in silver has been straightforward in theory—but inefficient in practice. Today, that model is being challenged by tokenized silver: digital tokens, each backed 1:1 by real bullion, that bring 24/7 liquidity, fractional ownership, and on-chain transparency to one of the world's oldest assets.",
+    content: tokenizedSilverContent,
+  },
   {
     id: "what-is-rwa-tokenized-real-world-assets",
     title: "What Is RWA? The Future of Tokenized Real World Assets",
