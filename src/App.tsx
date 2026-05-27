@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import NavEthena from "./components/NavEthena";
 import HeroCorrect from "./components/HeroCorrect";
+import HeroV2 from "./components/HeroV2";
+import YouTubeSectionV2 from "./components/YouTubeSectionV2";
 import YouTubeSection from "./components/YouTubeSection";
 import ValueProposition from "./components/ValueProposition";
 import TokenBacking from "./components/TokenBacking";
@@ -49,6 +51,22 @@ function HomePage() {
   );
 }
 
+// Secret preview of the redesigned homepage (pending review/approval).
+function HomePageV2() {
+  return (
+    <>
+      <HeroV2 />
+      <YouTubeSectionV2 />
+      <ValueProposition />
+      <TokenBacking />
+      <ComparisonTable />
+      <MarketChart />
+      <HowItWorks />
+      <Tokenomics />
+    </>
+  );
+}
+
 function App() {
   return (
     <Router>
@@ -57,6 +75,7 @@ function App() {
         <NavEthena />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/home-v2" element={<HomePageV2 />} />
           <Route path="/products" element={<SilverBarPurchase />} />
           <Route path="/prediction" element={<PredictionGame />} />
           <Route path="/profile" element={<Profile />} />
