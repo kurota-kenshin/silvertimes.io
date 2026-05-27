@@ -4,6 +4,8 @@ import NavEthena from "./components/NavEthena";
 import HeroCorrect from "./components/HeroCorrect";
 import HeroV2 from "./components/HeroV2";
 import YouTubeSectionV2 from "./components/YouTubeSectionV2";
+import ValuePropositionV2 from "./components/ValuePropositionV2";
+import TokenBackingV2 from "./components/TokenBackingV2";
 import YouTubeSection from "./components/YouTubeSection";
 import ValueProposition from "./components/ValueProposition";
 import TokenBacking from "./components/TokenBacking";
@@ -57,8 +59,8 @@ function HomePageV2() {
     <>
       <HeroV2 />
       <YouTubeSectionV2 />
-      <ValueProposition />
-      <TokenBacking />
+      <ValuePropositionV2 />
+      <TokenBackingV2 />
       <ComparisonTable />
       <MarketChart />
       <HowItWorks />
