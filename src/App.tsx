@@ -7,6 +7,8 @@ import YouTubeSectionV2 from "./components/YouTubeSectionV2";
 import ValuePropositionV2 from "./components/ValuePropositionV2";
 import TokenBackingV2 from "./components/TokenBackingV2";
 import ComparisonTableV2 from "./components/ComparisonTableV2";
+import ValueGrowthV2 from "./components/ValueGrowthV2";
+import FAQV2 from "./components/FAQV2";
 import YouTubeSection from "./components/YouTubeSection";
 import ValueProposition from "./components/ValueProposition";
 import TokenBacking from "./components/TokenBacking";
@@ -63,9 +65,8 @@ function HomePageV2() {
       <ValuePropositionV2 />
       <TokenBackingV2 />
       <ComparisonTableV2 />
-      <MarketChart />
-      <HowItWorks />
-      <Tokenomics />
+      <ValueGrowthV2 />
+      <FAQV2 />
     </>
   );
 }
