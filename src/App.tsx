@@ -6,6 +6,7 @@ import HeroV2 from "./components/HeroV2";
 import YouTubeSectionV2 from "./components/YouTubeSectionV2";
 import ValuePropositionV2 from "./components/ValuePropositionV2";
 import TokenBackingV2 from "./components/TokenBackingV2";
+import ComparisonTableV2 from "./components/ComparisonTableV2";
 import YouTubeSection from "./components/YouTubeSection";
 import ValueProposition from "./components/ValueProposition";
 import TokenBacking from "./components/TokenBacking";
@@ -61,7 +62,7 @@ function HomePageV2() {
       <YouTubeSectionV2 />
       <ValuePropositionV2 />
       <TokenBackingV2 />
-      <ComparisonTable />
+      <ComparisonTableV2 />
       <MarketChart />
       <HowItWorks />
       <Tokenomics />
