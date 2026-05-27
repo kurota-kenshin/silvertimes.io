@@ -9,6 +9,8 @@ import TokenBackingV2 from "./components/TokenBackingV2";
 import ComparisonTableV2 from "./components/ComparisonTableV2";
 import ValueGrowthV2 from "./components/ValueGrowthV2";
 import FAQV2 from "./components/FAQV2";
+import FooterV2 from "./components/FooterV2";
+import Transparency from "./components/Transparency";
 import YouTubeSection from "./components/YouTubeSection";
 import ValueProposition from "./components/ValueProposition";
 import TokenBacking from "./components/TokenBacking";
@@ -67,8 +69,19 @@ function HomePageV2() {
       <ComparisonTableV2 />
       <ValueGrowthV2 />
       <FAQV2 />
+      <FooterV2 />
     </>
   );
+}
+
+// The redesigned (v2) routes ship their own FooterV2, so the legacy global
+// footer is suppressed on them.
+const V2_ROUTES = ["/home-v2", "/transparency"];
+
+function SiteFooter() {
+  const { pathname } = useLocation();
+  if (V2_ROUTES.includes(pathname)) return null;
+  return <Footer />;
 }
 
 function App() {
@@ -80,6 +93,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/home-v2" element={<HomePageV2 />} />
+          <Route path="/transparency" element={<Transparency />} />
           <Route path="/products" element={<SilverBarPurchase />} />
           <Route path="/prediction" element={<PredictionGame />} />
           <Route path="/profile" element={<Profile />} />
@@ -92,7 +106,7 @@ function App() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />
         </Routes>
-        <Footer />
+        <SiteFooter />
         {/* <ContactButton /> */}
       </div>
     </Router>
