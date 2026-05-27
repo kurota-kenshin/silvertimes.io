@@ -14,8 +14,8 @@ const documents: Document[] = [
     id: "1",
     title: "SilverTimes Whitepaper",
     category: "Whitepaper",
-    year: "2025",
-    downloadUrl: "/docs/SilverTimes Token whitepaper_v6.pdf",
+    year: "2026",
+    downloadUrl: "/docs/SilverTimes_Token_whitepaper_v8.pdf",
     description:
       "Comprehensive overview of SilverTimes protocol and tokenomics",
   },
@@ -39,7 +39,7 @@ const documents: Document[] = [
 
 const categories = ["All categories", "Whitepaper", "Project Documents"];
 
-const years = ["All years", "2025"];
+const years = ["All years", "2026", "2025"];
 
 export default function Docs() {
   const [selectedCategory, setSelectedCategory] = useState("All categories");
