@@ -41,6 +41,12 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  /* background-clip:text only paints the gradient over the line-box, so with
+     tight line-heights descenders (y, g, p) fall below it and render
+     transparent — looking cropped. Extend the painted box downward and cancel
+     the height change so layout is untouched. */
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
 }
 
 /* Cinematic horizontal pan for the hero background video */

@@ -1,49 +1,37 @@
+import { useState } from "react";
 import type { ReactNode } from "react";
 import { Eyebrow, FadeUp, Grain, Reveal } from "./v2/cinematic";
 import FooterV2 from "./FooterV2";
 
-const POR_PDF = "/docs/Brinks_SilverTimes_Holding_Certificate_STT_Assets_Limited_1019.pdf";
 const AUDIT_PDF = "/docs/Beosin_Audit_Report_-_SilverTimes_202605061100.pdf";
+
+// Brink's issues a fresh holding certificate every month. Newest first —
+// add one entry per month and the page stays short: the latest is featured
+// and everything older collapses into the compact archive list below it.
+const porStatements: { period: string; href: string }[] = [
+  {
+    period: "May 2026",
+    href: "/docs/Brinks_SilverTimes_Holding_Certificate_STT_Assets_Limited_1019.pdf",
+  },
+];
 
 const badges = ["1:1 Backed", "Brink's, London", "Beosin Audited", "Monthly Proof-of-Reserves"];
 
-const documents: {
-  chip: string;
-  title: string;
-  desc: string;
-  meta: string;
-  href: string;
-  icon: ReactNode;
-}[] = [
-  {
-    chip: "Proof of Reserve",
-    title: "Brink's Holding Certificate",
-    desc: "Independent custody confirmation of the physical silver backing $STT, securely held at Brink's in London.",
-    meta: "Brink's · London",
-    href: POR_PDF,
-    icon: (
-      <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-        <path d="M7 3.5h7l4 4V20a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z" />
-        <path d="M13.5 3.5V8H18" />
-        <circle cx="11.5" cy="13.5" r="2.2" />
-        <path d="M10 15.4 9 19l2.5-1.4L14 19l-1-3.6" />
-      </svg>
-    ),
-  },
-  {
-    chip: "Smart Contract Audit",
-    title: "Beosin Audit Report",
-    desc: "Full third-party security audit of the $STT smart contracts, with an annual report and monthly reviews.",
-    meta: "Beosin · May 2026",
-    href: AUDIT_PDF,
-    icon: (
-      <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 3 5 5.6V11c0 4.2 3 7.5 7 9 4-1.5 7-4.8 7-9V5.6L12 3Z" />
-        <path d="m9 11.8 2 2 4-4.2" />
-      </svg>
-    ),
-  },
-];
+const porIcon = (
+  <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M7 3.5h7l4 4V20a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z" />
+    <path d="M13.5 3.5V8H18" />
+    <circle cx="11.5" cy="13.5" r="2.2" />
+    <path d="M10 15.4 9 19l2.5-1.4L14 19l-1-3.6" />
+  </svg>
+);
+
+const auditIcon = (
+  <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 3 5 5.6V11c0 4.2 3 7.5 7 9 4-1.5 7-4.8 7-9V5.6L12 3Z" />
+    <path d="m9 11.8 2 2 4-4.2" />
+  </svg>
+);
 
 const commitments = [
   { title: "Secure Storage", desc: "Physical silver stored at Brink's in London, with monthly storage slips for complete transparency." },
@@ -57,6 +45,160 @@ function SectionLabel({ children }: { children: ReactNode }) {
     <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-teal">
       {children}
     </span>
+  );
+}
+
+const arrowIcon = (
+  <svg className="h-4 w-4 transition-transform group-hover/row:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5h5v5m0-5L10 14M9 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-3" />
+  </svg>
+);
+
+// Card shell — shared gradient-border / hover-glow chrome used by both docs.
+function DocCard({
+  icon,
+  chip,
+  title,
+  desc,
+  children,
+}: {
+  icon: ReactNode;
+  chip: string;
+  title: string;
+  desc: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="group relative h-full">
+      <div className="pointer-events-none absolute -inset-2 rounded-[1.7rem] bg-gradient-to-br from-brand-blue/15 via-brand-teal/10 to-transparent opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
+      <div className="relative h-full rounded-[1.35rem] bg-gradient-to-br from-white/[0.14] via-white/[0.04] to-transparent p-px">
+        <div className="relative flex h-full flex-col rounded-[1.3rem] bg-background-secondary/70 p-8 backdrop-blur-sm">
+          <div className="flex items-center justify-between">
+            <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-gradient-to-br from-brand-blue/20 to-brand-teal/5 text-brand-sky">
+              {icon}
+            </div>
+            <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-silver-300">
+              {chip}
+            </span>
+          </div>
+          <h3 className="mb-2 mt-7 text-xl font-semibold text-white">{title}</h3>
+          <p className="text-sm leading-relaxed text-silver-400">{desc}</p>
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// One tappable statement row — used for both the featured latest and archive.
+function StatementRow({
+  period,
+  href,
+  featured = false,
+}: {
+  period: string;
+  href: string;
+  featured?: boolean;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`group/row flex items-center justify-between rounded-xl px-4 transition-colors ${
+        featured
+          ? "border border-white/10 bg-white/[0.03] py-3.5 hover:border-brand-teal/40 hover:bg-brand-blue/[0.07]"
+          : "py-2.5 hover:bg-white/[0.04]"
+      }`}
+    >
+      <span className="flex items-center gap-3">
+        {featured && (
+          <span className="rounded-md bg-brand-teal/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-brand-teal">
+            Latest
+          </span>
+        )}
+        <span className={`text-sm ${featured ? "font-medium text-white" : "text-silver-300"}`}>
+          {period}
+        </span>
+      </span>
+      <span className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-sky transition-colors group-hover/row:text-white">
+        View PDF
+        {arrowIcon}
+      </span>
+    </a>
+  );
+}
+
+// Proof-of-Reserve card: latest certificate featured, older months tucked
+// into a collapsible, scrollable archive so the page never runs long.
+function ProofOfReserveCard() {
+  const [open, setOpen] = useState(false);
+  const [latest, ...archive] = porStatements;
+
+  return (
+    <DocCard
+      icon={porIcon}
+      chip="Proof of Reserve"
+      title="Brink's Holding Certificate"
+      desc="Independent custody confirmation of the physical silver backing $STT, securely held at Brink's in London — issued fresh every month."
+    >
+      <div className="mt-auto pt-7">
+        {latest && <StatementRow period={latest.period} href={latest.href} featured />}
+
+        {archive.length > 0 && (
+          <>
+            <button
+              onClick={() => setOpen((v) => !v)}
+              className="mt-3 flex w-full items-center justify-center gap-1.5 text-xs font-medium text-silver-400 transition-colors hover:text-white"
+            >
+              {open
+                ? "Hide previous statements"
+                : `View ${archive.length} previous statement${archive.length > 1 ? "s" : ""}`}
+              <svg
+                className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            {open && (
+              <div className="mt-2 max-h-52 divide-y divide-white/5 overflow-y-auto rounded-xl border border-white/8 bg-background-primary/30 px-1">
+                {archive.map((s) => (
+                  <StatementRow key={s.period} period={s.period} href={s.href} />
+                ))}
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </DocCard>
+  );
+}
+
+function AuditCard() {
+  return (
+    <DocCard
+      icon={auditIcon}
+      chip="Smart Contract Audit"
+      title="Beosin Audit Report"
+      desc="Full third-party security audit of the $STT smart contracts, with an annual report and monthly reviews."
+    >
+      <div className="mt-auto flex items-center justify-between pt-7">
+        <span className="text-xs text-silver-500">Beosin · May 2026</span>
+        <a
+          href={AUDIT_PDF}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group/row inline-flex items-center gap-1.5 text-sm font-medium text-brand-sky transition-colors hover:text-white"
+        >
+          View PDF
+          {arrowIcon}
+        </a>
+      </div>
+    </DocCard>
   );
 }
 
@@ -107,44 +249,13 @@ export default function Transparency() {
             <SectionLabel>Attestations &amp; Reports</SectionLabel>
           </FadeUp>
 
-          <div className="grid gap-5 sm:grid-cols-2">
-            {documents.map((doc, i) => (
-              <FadeUp key={doc.title} delay={i * 0.08} y={28} className="h-full">
-                <a
-                  href={doc.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative block h-full"
-                >
-                  <div className="pointer-events-none absolute -inset-2 rounded-[1.7rem] bg-gradient-to-br from-brand-blue/15 via-brand-teal/10 to-transparent opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
-                  <div className="relative h-full rounded-[1.35rem] bg-gradient-to-br from-white/[0.14] via-white/[0.04] to-transparent p-px">
-                    <div className="relative flex h-full flex-col rounded-[1.3rem] bg-background-secondary/70 p-8 backdrop-blur-sm">
-                      <div className="flex items-center justify-between">
-                        <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-gradient-to-br from-brand-blue/20 to-brand-teal/5 text-brand-sky">
-                          {doc.icon}
-                        </div>
-                        <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-silver-300">
-                          {doc.chip}
-                        </span>
-                      </div>
-
-                      <h3 className="mb-2 mt-7 text-xl font-semibold text-white">{doc.title}</h3>
-                      <p className="text-sm leading-relaxed text-silver-400">{doc.desc}</p>
-
-                      <div className="mt-auto flex items-center justify-between pt-7">
-                        <span className="text-xs text-silver-500">{doc.meta}</span>
-                        <span className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-sky transition-colors group-hover:text-white">
-                          View PDF
-                          <svg className="h-4 w-4 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5h5v5m0-5L10 14M9 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-3" />
-                          </svg>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </FadeUp>
-            ))}
+          <div className="grid items-start gap-5 sm:grid-cols-2">
+            <FadeUp y={28} className="h-full">
+              <ProofOfReserveCard />
+            </FadeUp>
+            <FadeUp delay={0.08} y={28} className="h-full">
+              <AuditCard />
+            </FadeUp>
           </div>
         </div>
 
