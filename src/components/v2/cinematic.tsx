@@ -55,7 +55,7 @@ export function Reveal({
     : { initial: "hidden" as const, animate: "show" as const };
 
   return (
-    <motion.span className="block overflow-hidden pb-[0.06em]" {...trigger}>
+    <motion.span className="block overflow-hidden pb-[0.22em] mb-[-0.16em]" {...trigger}>
       <motion.span
         className={`block ${className}`}
         variants={{

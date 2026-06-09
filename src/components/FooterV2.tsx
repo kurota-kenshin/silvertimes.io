@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import { Grain } from "./v2/cinematic";
 
-const productLinks = [{ label: "How It Works", to: "/docs" }];
+const productLinks = [
+  { label: "How It Works", to: "/docs" },
+  { label: "Silver Prediction", to: "/prediction" },
+];
 
 const companyLinks = [
   { label: "About Us", to: "/about" },
