@@ -1,26 +1,16 @@
 import { Grain } from "./v2/cinematic";
 import FooterV2 from "./FooterV2";
-import DailyHero from "./prediction-v2/DailyHero";
-import ResultReveal from "./prediction-v2/ResultReveal";
-import PredictionCard from "./prediction-v2/PredictionCard";
-import ClaimPanel from "./prediction-v2/ClaimPanel";
-import StreakPanel from "./prediction-v2/StreakPanel";
-import Leaderboards from "./prediction-v2/Leaderboards";
-import HowItWorks from "./prediction-v2/HowItWorks";
-import RecentWinners from "./prediction-v2/RecentWinners";
+import { DailyGameProvider } from "./prediction-v2/DailyGameContext";
+import GameConsole from "./prediction-v2/GameConsole";
 
 export default function PredictionV2() {
   return (
-    <div className="relative min-h-screen bg-background-primary text-white">
+    <div className="relative min-h-screen bg-background-primary pt-14 text-white">
       <Grain />
-      <DailyHero />
-      <ResultReveal />
-      <PredictionCard />
-      <ClaimPanel />
-      <StreakPanel />
-      <Leaderboards />
-      <RecentWinners />
-      <HowItWorks />
+      <div className="pointer-events-none absolute left-1/2 top-0 h-[36vh] w-[60vw] -translate-x-1/2 rounded-full bg-brand-blue/[0.06] blur-[150px]" />
+      <DailyGameProvider>
+        <GameConsole />
+      </DailyGameProvider>
       <FooterV2 />
     </div>
   );

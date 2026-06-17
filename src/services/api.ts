@@ -384,6 +384,8 @@ export const dailyPredictionApi = {
     apiRequest<DailyLeader[]>(`/prediction/daily/leaderboard?window=${window}`),
   winners: () =>
     apiRequest<DailyWinnersResponse | null>('/prediction/daily/winners'),
+  predictions: () =>
+    apiRequest<{ price: number }[]>('/prediction/daily/predictions'),
   claimEligibility: (token: string) =>
     apiRequest<DailyClaimEligibility | null>('/auth/daily-claim/eligibility', { token }),
   claim: (token: string) =>

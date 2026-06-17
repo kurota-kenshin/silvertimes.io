@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
-import { usePrivy } from "@privy-io/react-auth";
 import { FadeUp } from "../v2/cinematic";
-import { dailyPredictionApi, type DailyMeState } from "../../services/api";
+import { useDailyGame } from "./DailyGameContext";
 
 const Flame = () => (
   <svg
@@ -22,42 +20,39 @@ function multiplier(streak: number) {
 }
 
 export default function StreakPanel() {
-  const { authenticated, getAccessToken } = usePrivy();
-  const [s, setS] = useState<DailyMeState | null>(null);
-  useEffect(() => {
-    (async () => {
-      if (!authenticated) return;
-      const token = await getAccessToken();
-      if (token) setS(await dailyPredictionApi.me(token).catch(() => null));
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authenticated]);
+  const { me } = useDailyGame();
 
   const stats = [
-    { label: "Current streak", value: s ? `${s.dailyStreak} days` : "—" },
-    { label: "Multiplier", value: s ? `${multiplier(s.dailyStreak).toFixed(2)}×` : "—" },
-    { label: "Total points", value: s ? s.points.toLocaleString() : "—" },
-    { label: "Longest streak", value: s ? `${s.longestDailyStreak} days` : "—" },
+    { label: "Current streak", value: me ? `${me.dailyStreak} days` : "—" },
+    {
+      label: "Multiplier",
+      value: me ? `${multiplier(me.dailyStreak).toFixed(2)}×` : "—",
+    },
+    { label: "Total points", value: me ? me.points.toLocaleString() : "—" },
+    {
+      label: "Longest streak",
+      value: me ? `${me.longestDailyStreak} days` : "—",
+    },
   ];
 
   return (
-    <section className="relative px-6 py-16 sm:px-10 lg:px-16">
-      <div className="mx-auto max-w-5xl">
-        <FadeUp className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((st, i) => (
-            <div
-              key={st.label}
-              className="rounded-2xl border border-white/10 bg-white/[0.03] p-6"
-            >
-              {i === 0 && <div className="mb-3 text-brand-sky"><Flame /></div>}
-              <div className="text-2xl font-semibold text-white">{st.value}</div>
-              <div className="mt-1 text-xs uppercase tracking-[0.16em] text-silver-500">
-                {st.label}
-              </div>
+    <FadeUp className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {stats.map((st, i) => (
+        <div
+          key={st.label}
+          className="rounded-2xl border border-white/10 bg-white/[0.03] p-6"
+        >
+          {i === 0 && (
+            <div className="mb-3 text-brand-sky">
+              <Flame />
             </div>
-          ))}
-        </FadeUp>
-      </div>
-    </section>
+          )}
+          <div className="text-2xl font-semibold text-white">{st.value}</div>
+          <div className="mt-1 text-xs uppercase tracking-[0.16em] text-silver-500">
+            {st.label}
+          </div>
+        </div>
+      ))}
+    </FadeUp>
   );
 }

@@ -17,8 +17,8 @@ export default function RecentWinners() {
   if (!data?.winners?.length) return null;
 
   return (
-    <section className="relative px-6 py-20 sm:px-10 lg:px-16">
-      <div className="mx-auto max-w-3xl">
+    <section className="relative">
+      <div>
         <FadeUp>
           <p className="text-xs uppercase tracking-[0.22em] text-silver-500">
             Latest winners · {data.round.roundKey}
