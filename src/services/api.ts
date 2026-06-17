@@ -297,3 +297,98 @@ export const predictionsApi = {
   getRecentWinners: () =>
     apiRequest<{ winners: RecentWinners | null }>('/predictions/recent-winners'),
 };
+
+// ---- Daily prediction game ----
+export interface DailyRoundInfo {
+  _id: string;
+  roundKey: string;
+  targetDate: string;
+  submissionOpen: string;
+  submissionClose: string;
+  status: 'open' | 'locked' | 'completed' | 'voided';
+  actualPrice?: number;
+  totalParticipants: number;
+  prizePerWinner: number;
+  winnersCount: number;
+}
+
+export interface DailyEntryInfo {
+  _id: string;
+  roundKey: string;
+  predictedPrice: number;
+  error?: number;
+  rank?: number;
+  percentile?: number;
+  points?: number;
+  prizeUsdt?: number;
+  streakAtEntry: number;
+  submittedAt: string;
+}
+
+export interface DailyMeState {
+  round: DailyRoundInfo | null;
+  entry: DailyEntryInfo | null;
+  points: number;
+  dailyStreak: number;
+  longestDailyStreak: number;
+  dailyWinnings: number;
+  dailyClaimedWinnings: number;
+}
+
+export interface DailyLeader {
+  _id?: string;
+  walletAddress?: string;
+  email?: string;
+  points: number;
+  wins?: number;
+  dailyStreak?: number;
+}
+
+export interface DailyWinnersResponse {
+  round: DailyRoundInfo;
+  winners: Array<{
+    rank?: number;
+    prizeUsdt?: number;
+    predictedPrice: number;
+    userId?: { walletAddress?: string; email?: string };
+  }>;
+}
+
+export interface DailyClaimEligibility {
+  dailyWinnings: number;
+  dailyClaimedWinnings: number;
+  availableBalance: number;
+  canClaim: boolean;
+  reasons: {
+    insufficientBalance: boolean;
+    missingWallet: boolean;
+    hasActiveClaim: boolean;
+  };
+  activeClaim: { id: string; amount: number; status: string } | null;
+}
+
+export const dailyPredictionApi = {
+  current: () => apiRequest<DailyRoundInfo>('/prediction/daily/current'),
+  me: (token: string) => apiRequest<DailyMeState>('/prediction/daily/me', { token }),
+  predict: (token: string, predictedPrice: number) =>
+    apiRequest<DailyEntryInfo>('/prediction/daily/predict', {
+      method: 'POST',
+      token,
+      body: { predictedPrice },
+    }),
+  result: (roundKey: string) =>
+    apiRequest<{ round: DailyRoundInfo; myEntry: DailyEntryInfo | null } | null>(
+      `/prediction/daily/result/${roundKey}`,
+    ),
+  leaderboard: (window: 'daily' | 'weekly' | 'alltime') =>
+    apiRequest<DailyLeader[]>(`/prediction/daily/leaderboard?window=${window}`),
+  winners: () =>
+    apiRequest<DailyWinnersResponse | null>('/prediction/daily/winners'),
+  claimEligibility: (token: string) =>
+    apiRequest<DailyClaimEligibility | null>('/auth/daily-claim/eligibility', { token }),
+  claim: (token: string) =>
+    apiRequest<{ success: boolean; claim: { amount: number } }>('/auth/daily-claim', {
+      method: 'POST',
+      token,
+    }),
+};

@@ -21,6 +21,7 @@ import Tokenomics from "./components/Tokenomics";
 import Footer from "./components/Footer";
 import SilverBarPurchase from "./components/SilverBarPurchase";
 import PredictionGame from "./components/PredictionGame";
+import PredictionV2 from "./components/PredictionV2";
 // import PasswordGate from "./components/PasswordGate";
 import Profile from "./components/Profile";
 import RewardsTerms from "./components/RewardsTerms";
@@ -76,7 +77,7 @@ function HomePageV2() {
 
 // The redesigned (v2) routes ship their own FooterV2, so the legacy global
 // footer is suppressed on them.
-const V2_ROUTES = ["/home-v2", "/transparency"];
+const V2_ROUTES = ["/home-v2", "/transparency", "/prediction-v2"];
 
 function SiteFooter() {
   const { pathname } = useLocation();
@@ -96,6 +97,7 @@ function App() {
           <Route path="/transparency" element={<Transparency />} />
           <Route path="/products" element={<SilverBarPurchase />} />
           <Route path="/prediction" element={<PredictionGame />} />
+          <Route path="/prediction-v2" element={<PredictionV2 />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/rewards-terms" element={<RewardsTerms />} />
           <Route path="/about" element={<AboutUs />} />
