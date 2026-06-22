@@ -37,6 +37,19 @@ export default function PredictionCard() {
   const streak = me?.dailyStreak ?? 0;
   const pot = (round?.prizePerWinner ?? 5) * (round?.winnersCount ?? 5);
 
+  const targetLabel = useMemo(
+    () =>
+      round
+        ? new Date(round.targetDate).toLocaleDateString("en-GB", {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            timeZone: "Europe/London",
+          })
+        : "",
+    [round],
+  );
+
   const crowdAvg = useMemo(
     () =>
       crowd.length
@@ -105,10 +118,11 @@ export default function PredictionCard() {
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand-teal" />
               </span>
               <span className="text-xs text-silver-400">
-                Silver now{" "}
+                Silver:{" "}
                 <span className="font-mono text-white">
                   {currentPrice ? `$${currentPrice.toFixed(2)}` : "—"}
-                </span>
+                </span>{" "}
+                USD / oz
               </span>
             </div>
             <span className="text-sm text-silver-400">
@@ -117,8 +131,12 @@ export default function PredictionCard() {
             </span>
           </div>
 
-          <p className="mt-8 text-center text-xs uppercase tracking-[0.2em] text-silver-500">
-            Your call for tomorrow's close (USD/oz)
+          <p className="mt-8 text-center text-xs tracking-[0.15em] text-silver-500">
+            LBMA Silver Price
+            <span className="mx-2 text-silver-700">|</span>
+            {targetLabel}
+            <span className="mx-2 text-silver-700">|</span>
+            12:00 GMT+0
           </p>
 
           {/* Big stepper input */}
@@ -210,10 +228,10 @@ export default function PredictionCard() {
               {closed
                 ? "Round closed"
                 : saving
-                  ? "Locking…"
+                  ? "Submitting…"
                   : me?.entry
                     ? "Update prediction"
-                    : "Lock it in"}
+                    : "Submit"}
             </span>
             {/* shimmer */}
             <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-black/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
@@ -223,8 +241,11 @@ export default function PredictionCard() {
             <p className="mt-4 text-center text-sm text-silver-400">{msg}</p>
           )}
           <p className="mt-5 text-center text-xs text-silver-600">
-            {round?.totalParticipants ?? 0} predictions in · top 5 closest each win
-            5 USDT
+            Closest guess wins
+            <span className="mx-2 text-silver-700">|</span>
+            Ties broken by earliest entry
+            <span className="mx-2 text-silver-700">|</span>
+            Last submit counts
           </p>
         </div>
       </div>
