@@ -1,33 +1,38 @@
 import { FadeUp, Reveal } from "../v2/cinematic";
 
-const rules = [
+const rules: { t: string; d: string; note?: string }[] = [
   {
-    t: "One prediction a day",
-    d: "Every trading day (Mon–Fri) there's a single round: predict the silver price at 12:00 noon London the next trading day.",
+    t: "One Prediction a Day",
+    d: 'Predict the silver price at 12:00 (GMT+0; "Result Time") for the next trading day (Mon–Fri). One round daily.',
+    note: "Source: Licensed LBMA feeds. Rounds voided if benchmark unavailable.",
   },
   {
-    t: "Cutoff at midnight",
-    d: "Submissions for a round close at 00:00 London on the target day. You can edit your prediction freely until then.",
+    t: "Cutoff Before Target",
+    d: "Submissions close 1 hour before the Result Time. Edit freely until the cutoff.",
   },
   {
-    t: "Closest five win USDT",
-    d: "When the price settles at noon, the 5 closest predictions each win 5 USDT (25 USDT a day). Ties are broken by who submitted first.",
+    t: "Top 5 Win USDT",
+    d: "The 5 closest predictions each win 5 USDT. Ties go to the earliest entry (editing resets your time).",
   },
   {
-    t: "Everyone earns points",
-    d: "Points reward how close you were — a perfect call is 1,000, and you always earn at least a participation bonus just for playing.",
+    t: "Daily Rewards",
+    d: "Winner rewards are automatically added to your balance daily once results are out. Track them in your profile.",
   },
   {
-    t: "Streaks multiply points",
-    d: "Play on consecutive trading days to build a streak. It multiplies your points up to 2× at a 21-day streak. Weekends don't break it.",
+    t: "Request Payout",
+    d: 'Click "Withdraw" to queue your transfer, and your BEP-20 USDT will be sent directly to your wallet.',
   },
   {
-    t: "Leaderboards",
-    d: "Compete on the daily, weekly, and all-time leaderboards, ranked by points.",
+    t: "Earn Points Daily",
+    d: "Earn up to 1,000 points based on accuracy. Everyone gets a participation bonus just for playing.",
   },
   {
-    t: "Claim on BSC",
-    d: "USDT winnings are paid on BNB Smart Chain. No minimum to withdraw — just set a wallet and press Claim.",
+    t: "Multiply Your Streaks",
+    d: "Play daily to build a streak and multiply points up to 2× at 21 days. Weekends don't break streaks.",
+  },
+  {
+    t: "Climb the Leaderboards",
+    d: "Compete on daily, weekly, and all-time leaderboards ranked by total points.",
   },
 ];
 
@@ -49,6 +54,11 @@ export default function Rules() {
                 <p className="mt-1 text-sm leading-relaxed text-silver-400">
                   {r.d}
                 </p>
+                {r.note && (
+                  <p className="mt-2 text-xs leading-relaxed text-silver-600">
+                    {r.note}
+                  </p>
+                )}
               </div>
             </div>
           </FadeUp>

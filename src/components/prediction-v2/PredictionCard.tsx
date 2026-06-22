@@ -44,7 +44,7 @@ export default function PredictionCard() {
             weekday: "long",
             day: "numeric",
             month: "long",
-            timeZone: "Europe/London",
+            timeZone: "UTC",
           })
         : "",
     [round],
