@@ -38,7 +38,7 @@ export default function ClaimPanel({ embedded = false }: { embedded?: boolean })
       const token = await getAccessToken();
       if (!token) throw new Error("Not authenticated");
       await dailyPredictionApi.claim(token);
-      setMsg("Claim submitted — USDT is on its way on BSC.");
+      setMsg("Withdrawal submitted — USDT is on its way on BSC.");
       await load();
       await refresh();
     } catch (e) {
@@ -61,18 +61,18 @@ export default function ClaimPanel({ embedded = false }: { embedded?: boolean })
         disabled={busy || !elig.canClaim}
         className="rounded-full bg-white px-7 py-3 text-sm font-semibold text-black transition-transform enabled:hover:scale-[1.03] disabled:opacity-40"
       >
-        {busy ? "Submitting…" : "Claim to my wallet"}
+        {busy ? "Submitting…" : "Withdraw"}
       </button>
       {!elig.canClaim && elig.reasons?.missingWallet && (
         <p className="text-sm text-silver-400">
-          Set a withdrawal wallet in your profile first.
+          Set your wallet before withdrawing
         </p>
       )}
       {!elig.canClaim &&
         !elig.reasons?.missingWallet &&
         elig.availableBalance <= 0 && (
           <p className="text-sm text-silver-400">
-            No winnings to claim yet — finish in the top 5 to earn USDT.
+            No winnings yet — finish in the top 5 to earn USDT.
           </p>
         )}
       {msg && <p className="text-sm text-silver-400">{msg}</p>}

@@ -4,23 +4,23 @@ import ClaimPanel from "./ClaimPanel";
 const steps = [
   {
     n: "01",
-    t: "Finish in the top 5",
-    d: "Each trading day the 5 closest predictions win 5 USDT. Your winnings build up in your balance.",
+    t: "Rank in the Top 5",
+    d: "Be one of the top 5 closest predictions each trading day to win 5 USDT. Winnings accumulate in your balance.",
   },
   {
     n: "02",
-    t: "Set your withdrawal wallet",
-    d: "Add a BSC (BNB Smart Chain) wallet address in your profile. That's the only requirement — no minimum, no social handles.",
+    t: "Add Your Wallet",
+    d: "Add your BSC (BNB Smart Chain) address to your profile.",
   },
   {
     n: "03",
-    t: "Press Claim",
-    d: "Hit Claim and we queue a payout. Nothing is sent automatically — you're always in control.",
+    t: "Request Payout",
+    d: 'Click "Withdraw" to queue your transfer.',
   },
   {
     n: "04",
-    t: "Receive USDT on BSC",
-    d: "We transfer BEP-20 USDT to your wallet and you'll see the transaction hash in your claim history.",
+    t: "Receive Your Rewards",
+    d: "BEP-20 USDT will be sent directly to your wallet.",
   },
 ];
 
@@ -28,7 +28,7 @@ export default function HowToClaim() {
   return (
     <section className="relative">
       <h3 className="text-[clamp(1.5rem,3.5vw,2.2rem)] font-bold leading-[1.05]">
-        <Reveal>How to claim</Reveal>
+        <Reveal>My Rewards</Reveal>
       </h3>
 
       <ClaimPanel embedded />
