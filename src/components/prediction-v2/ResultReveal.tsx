@@ -1,44 +1,11 @@
-import { useEffect, useState } from "react";
-import { usePrivy } from "@privy-io/react-auth";
 import { FadeUp, Reveal } from "../v2/cinematic";
-import { dailyPredictionApi } from "../../services/api";
+import type { LatestResult } from "./useLatestResult";
 
-interface MyResult {
-  error: number;
-  percentile: number;
-  points: number;
-  prize?: number;
-}
-
-export default function ResultReveal() {
-  const { authenticated } = usePrivy();
-  const [result, setResult] = useState<MyResult | null>(null);
-
-  useEffect(() => {
-    (async () => {
-      if (!authenticated) return;
-      const winners = await dailyPredictionApi.winners().catch(() => null);
-      if (!winners?.round) return;
-      const r = await dailyPredictionApi
-        .result(winners.round.roundKey)
-        .catch(() => null);
-      if (
-        r?.myEntry &&
-        r.round.actualPrice != null &&
-        r.myEntry.error != null
-      ) {
-        setResult({
-          error: r.myEntry.error,
-          percentile: r.myEntry.percentile ?? 100,
-          points: r.myEntry.points ?? 0,
-          prize: r.myEntry.prizeUsdt,
-        });
-      }
-    })();
-    // getAccessToken intentionally omitted; runs on auth change
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authenticated]);
-
+export default function ResultReveal({
+  result,
+}: {
+  result: LatestResult | null;
+}) {
   if (!result) return null;
 
   return (

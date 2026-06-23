@@ -5,6 +5,8 @@ import DailyChart from "./DailyChart";
 import Leaderboards from "./Leaderboards";
 import HowToClaim from "./HowToClaim";
 import Rules from "./Rules";
+import WinPopup from "./WinPopup";
+import { useLatestResult } from "./useLatestResult";
 
 type Tab = "play" | "chart" | "leaderboard" | "claim" | "rules";
 const TABS: { key: Tab; label: string }[] = [
@@ -17,9 +19,11 @@ const TABS: { key: Tab; label: string }[] = [
 
 export default function GameConsole() {
   const [tab, setTab] = useState<Tab>("play");
+  const latestResult = useLatestResult();
 
   return (
     <div className="relative z-10">
+      <WinPopup result={latestResult} onClaim={() => setTab("claim")} />
       {/* Status bar + tabs stick together just below the fixed site nav (~54px). */}
       <div className="sticky top-14 z-30">
         <StatusBar />
@@ -44,7 +48,7 @@ export default function GameConsole() {
 
       {/* Tab body */}
       <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8">
-        {tab === "play" && <PlayTab />}
+        {tab === "play" && <PlayTab result={latestResult} />}
         {tab === "chart" && <DailyChart />}
         {tab === "leaderboard" && <Leaderboards />}
         {tab === "claim" && <HowToClaim />}

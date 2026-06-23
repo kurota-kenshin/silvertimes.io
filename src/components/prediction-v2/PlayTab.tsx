@@ -5,6 +5,7 @@ import PredictionCard from "./PredictionCard";
 import ResultReveal from "./ResultReveal";
 import StreakPanel from "./StreakPanel";
 import RecentWinners from "./RecentWinners";
+import type { LatestResult } from "./useLatestResult";
 
 function useCountdown(target?: string) {
   const [now, setNow] = useState(() => Date.now());
@@ -23,7 +24,7 @@ function useCountdown(target?: string) {
   }, [now, target]);
 }
 
-export default function PlayTab() {
+export default function PlayTab({ result }: { result: LatestResult | null }) {
   const { round } = useDailyGame();
   const countdown = useCountdown(round?.submissionClose);
 
@@ -56,7 +57,7 @@ export default function PlayTab() {
 
       {/* Supporting blocks */}
       <div className="mt-16 space-y-14">
-        <ResultReveal />
+        <ResultReveal result={result} />
         <StreakPanel />
         <RecentWinners />
       </div>
