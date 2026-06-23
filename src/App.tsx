@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import NavEthena from "./components/NavEthena";
 import HeroCorrect from "./components/HeroCorrect";
 import HeroV2 from "./components/HeroV2";
@@ -59,7 +59,7 @@ function HomePage() {
   );
 }
 
-// Secret preview of the redesigned homepage (pending review/approval).
+// Redesigned homepage — now the primary site homepage at "/".
 function HomePageV2() {
   return (
     <>
@@ -76,8 +76,8 @@ function HomePageV2() {
 }
 
 // The redesigned (v2) routes ship their own FooterV2, so the legacy global
-// footer is suppressed on them.
-const V2_ROUTES = ["/home-v2", "/transparency", "/prediction-v2"];
+// footer is suppressed on them. The legacy "-v1" routes keep the global footer.
+const V2_ROUTES = ["/", "/transparency", "/prediction"];
 
 function SiteFooter() {
   const { pathname } = useLocation();
@@ -92,12 +92,15 @@ function App() {
       <div className="min-h-screen bg-background-primary">
         <NavEthena />
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/home-v2" element={<HomePageV2 />} />
+          <Route path="/" element={<HomePageV2 />} />
+          <Route path="/home-v1" element={<HomePage />} />
+          {/* Old preview URLs now redirect to the canonical paths. */}
+          <Route path="/home-v2" element={<Navigate to="/" replace />} />
           <Route path="/transparency" element={<Transparency />} />
           <Route path="/products" element={<SilverBarPurchase />} />
-          <Route path="/prediction" element={<PredictionGame />} />
-          <Route path="/prediction-v2" element={<PredictionV2 />} />
+          <Route path="/prediction" element={<PredictionV2 />} />
+          <Route path="/prediction-v1" element={<PredictionGame />} />
+          <Route path="/prediction-v2" element={<Navigate to="/prediction" replace />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/rewards-terms" element={<RewardsTerms />} />
           <Route path="/about" element={<AboutUs />} />
