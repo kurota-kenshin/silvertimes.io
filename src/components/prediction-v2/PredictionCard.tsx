@@ -59,14 +59,36 @@ export default function PredictionCard() {
     [crowd],
   );
 
-  // The current round's submission has closed, so getCurrentRound() has rolled
-  // forward to the next trading day. Submissions now enter that next round.
-  const isNextRound = useMemo(() => {
+  // The post-lock, pre-result window: between a trading day's submission close
+  // (11:00 UTC) and its noon Result Time (12:00 UTC). Only in this hour has
+  // "today's" round locked while the next round is open — so this is the only
+  // time to show the "locked, now predicting for the next round" notice. After
+  // payout everyone already knows they're playing the next day, so it must
+  // disappear. Computed inline (not memoized) so it re-evaluates as time passes.
+  const inLockWindow = (() => {
     if (!round) return false;
-    const today = new Date().toISOString().slice(0, 10);
-    const target = new Date(round.targetDate).toISOString().slice(0, 10);
-    return target > today;
-  }, [round]);
+    const now = new Date();
+    const dow = now.getUTCDay();
+    if (dow < 1 || dow > 5) return false; // no round locks on weekends
+    const settle = new Date(round.targetDate);
+    const lock = new Date(round.submissionClose);
+    const settleAt = Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate(),
+      settle.getUTCHours(),
+      settle.getUTCMinutes(),
+    );
+    const lockAt = Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate(),
+      lock.getUTCHours(),
+      lock.getUTCMinutes(),
+    );
+    const t = now.getTime();
+    return t >= lockAt && t < settleAt;
+  })();
 
   const entryTimeLabel = useMemo(() => {
     if (!me?.entry?.submittedAt) return "";
@@ -99,7 +121,7 @@ export default function PredictionCard() {
       if (!token) throw new Error("Not authenticated");
       await dailyPredictionApi.predict(token, val);
       await refresh();
-      if (isNextRound) {
+      if (inLockWindow) {
         setMsg(null);
         setSecuredOpen(true);
       } else {
@@ -155,7 +177,7 @@ export default function PredictionCard() {
             </span>
           </div>
 
-          {isNextRound && (
+          {inLockWindow && (
             <div className="mt-6 flex items-start gap-2.5 rounded-xl border border-brand-sky/25 bg-brand-sky/[0.06] px-4 py-3 text-left">
               <svg
                 className="mt-0.5 h-4 w-4 shrink-0 text-brand-sky"
