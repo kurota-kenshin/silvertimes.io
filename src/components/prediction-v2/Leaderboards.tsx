@@ -4,7 +4,7 @@ import { dailyPredictionApi, type DailyLeader } from "../../services/api";
 
 type Win = "daily" | "weekly" | "alltime";
 const TABS: { key: Win; label: string }[] = [
-  { key: "daily", label: "Today" },
+  { key: "daily", label: "Last round" },
   { key: "weekly", label: "This week" },
   { key: "alltime", label: "All time" },
 ];

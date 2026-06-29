@@ -81,6 +81,10 @@ export default function StatusBar() {
           </span>
         </div>
         <div className="flex items-center gap-6 sm:gap-8">
+          <Stat
+            label="Players"
+            value={(round?.totalParticipants ?? 0).toLocaleString()}
+          />
           <Stat label="Points" value={(me?.points ?? 0).toLocaleString()} />
           <Stat
             label="Multiplier"

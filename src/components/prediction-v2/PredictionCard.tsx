@@ -204,6 +204,21 @@ export default function PredictionCard() {
                 </span>{" "}
                 {round.totalParticipants === 1 ? "player" : "players"} in
               </span>
+            ) : round && !closed ? (
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-sky/25 bg-brand-sky/[0.06] px-3 py-1 text-xs text-brand-sky">
+                <svg
+                  className="h-3.5 w-3.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.7}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M13 2 4.5 13H11l-1 9 8.5-11H12l1-9Z" />
+                </svg>
+                Be the first to predict
+              </span>
             ) : null}
             {crowdAvg ? (
               <span className="rounded-full border border-white/10 bg-white/[0.02] px-3 py-1 text-xs text-silver-500">
