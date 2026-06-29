@@ -81,18 +81,24 @@ export default function WinPopup({
     if (v === "win")
       return {
         roundKey: "demo",
+        predictedPrice: 31.88,
+        actualPrice: 32.0,
         error: 0.12,
         percentile: 2,
         points: 940,
+        rank: 2,
         prize: 5,
         isWinner: true,
       };
     if (v === "lose")
       return {
         roundKey: "demo",
+        predictedPrice: 30.16,
+        actualPrice: 32.0,
         error: 1.84,
         percentile: 47,
         points: 210,
+        rank: 119,
         isWinner: false,
       };
     return null;

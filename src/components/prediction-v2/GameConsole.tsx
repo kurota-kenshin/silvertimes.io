@@ -50,7 +50,7 @@ export default function GameConsole() {
       <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8">
         {tab === "play" && <PlayTab result={latestResult} />}
         {tab === "chart" && <DailyChart />}
-        {tab === "leaderboard" && <Leaderboards />}
+        {tab === "leaderboard" && <Leaderboards result={latestResult} />}
         {tab === "claim" && <HowToClaim />}
         {tab === "rules" && <Rules />}
       </div>

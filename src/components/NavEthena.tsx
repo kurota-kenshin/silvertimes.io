@@ -12,12 +12,21 @@ export default function NavEthena() {
   const { currentPrice, isLoading, fetchData } = useSilverPriceStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { ready, authenticated } = usePrivy();
+  const [accountOpen, setAccountOpen] = useState(false);
+  const { ready, authenticated, user, logout } = usePrivy();
   const { openLoginModal } = useLoginModal();
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  const accountLabel = (() => {
+    const email = user?.email?.address;
+    const wallet = user?.wallet?.address;
+    if (email) return email;
+    if (wallet) return `${wallet.slice(0, 6)}…${wallet.slice(-4)}`;
+    return "Account";
+  })();
 
   const navLinks = [
     { to: "/", label: "Home" },
@@ -91,6 +100,71 @@ export default function NavEthena() {
                 >
                   Sign In
                 </button>
+              )}
+
+              {/* Account menu - when authenticated (all breakpoints) */}
+              {ready && authenticated && (
+                <div className="relative">
+                  <button
+                    onClick={() => setAccountOpen((o) => !o)}
+                    className="flex items-center gap-2 rounded-lg border border-white/10 bg-background-primary/50 px-2.5 py-1.5 text-sm text-silver-200 transition-colors hover:border-white/20 hover:text-white sm:px-3"
+                  >
+                    <svg
+                      className="h-4 w-4 text-brand-teal"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={1.7}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <circle cx="12" cy="8" r="4" />
+                      <path d="M5.5 21a6.5 6.5 0 0 1 13 0" />
+                    </svg>
+                    <span className="hidden max-w-[140px] truncate sm:inline">
+                      {accountLabel}
+                    </span>
+                    <svg
+                      className={`h-3.5 w-3.5 transition-transform ${accountOpen ? "rotate-180" : ""}`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {accountOpen && (
+                    <>
+                      <button
+                        aria-hidden
+                        tabIndex={-1}
+                        onClick={() => setAccountOpen(false)}
+                        className="fixed inset-0 z-40 cursor-default"
+                      />
+                      <div className="absolute right-0 z-50 mt-2 w-60 rounded-xl border border-white/10 bg-background-secondary/95 p-1.5 shadow-2xl backdrop-blur-xl">
+                        <div className="truncate px-3 py-2 text-xs text-silver-500">
+                          {accountLabel}
+                        </div>
+                        <Link
+                          to="/profile"
+                          onClick={() => setAccountOpen(false)}
+                          className="block rounded-lg px-3 py-2 text-sm text-silver-200 transition-colors hover:bg-white/5 hover:text-white"
+                        >
+                          Profile &amp; withdrawal wallet
+                        </Link>
+                        <button
+                          onClick={() => {
+                            setAccountOpen(false);
+                            logout();
+                          }}
+                          className="block w-full rounded-lg px-3 py-2 text-left text-sm text-silver-300 transition-colors hover:bg-white/5 hover:text-white"
+                        >
+                          Log out
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
               )}
 
               {/* Hamburger - mobile */}

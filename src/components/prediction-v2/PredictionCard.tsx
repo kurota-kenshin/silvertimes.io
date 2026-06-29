@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { usePrivy } from "@privy-io/react-auth";
 import { EASE } from "../v2/cinematic";
 import { useLoginModal } from "../LoginModalProvider";
@@ -20,6 +20,7 @@ export default function PredictionCard() {
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
   const [crowd, setCrowd] = useState<number[]>([]);
+  const [securedOpen, setSecuredOpen] = useState(false);
 
   useEffect(() => {
     if (me?.entry) setPrice(String(me.entry.predictedPrice));
@@ -58,6 +59,23 @@ export default function PredictionCard() {
     [crowd],
   );
 
+  // The current round's submission has closed, so getCurrentRound() has rolled
+  // forward to the next trading day. Submissions now enter that next round.
+  const isNextRound = useMemo(() => {
+    if (!round) return false;
+    const today = new Date().toISOString().slice(0, 10);
+    const target = new Date(round.targetDate).toISOString().slice(0, 10);
+    return target > today;
+  }, [round]);
+
+  const entryTimeLabel = useMemo(() => {
+    if (!me?.entry?.submittedAt) return "";
+    return new Date(me.entry.submittedAt).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }, [me?.entry?.submittedAt]);
+
   const step = (delta: number) => {
     const base = Number(price || currentPrice || 0);
     const next = Math.max(0, base + delta);
@@ -81,7 +99,12 @@ export default function PredictionCard() {
       if (!token) throw new Error("Not authenticated");
       await dailyPredictionApi.predict(token, val);
       await refresh();
-      setMsg("Locked in. You can edit any time before cutoff.");
+      if (isNextRound) {
+        setMsg(null);
+        setSecuredOpen(true);
+      } else {
+        setMsg("Locked in. You can edit any time before cutoff.");
+      }
     } catch (e) {
       setMsg(e instanceof Error ? e.message : "Failed");
     } finally {
@@ -90,6 +113,7 @@ export default function PredictionCard() {
   };
 
   return (
+    <>
     <motion.div
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -131,6 +155,28 @@ export default function PredictionCard() {
             </span>
           </div>
 
+          {isNextRound && (
+            <div className="mt-6 flex items-start gap-2.5 rounded-xl border border-brand-sky/25 bg-brand-sky/[0.06] px-4 py-3 text-left">
+              <svg
+                className="mt-0.5 h-4 w-4 shrink-0 text-brand-sky"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.7}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="5" y="11" width="14" height="9" rx="2" />
+                <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+              </svg>
+              <p className="text-xs leading-relaxed text-silver-300">
+                Today&apos;s round is locked. You&apos;re now predicting for{" "}
+                <span className="text-white">{targetLabel}</span> — submit to
+                enter the next round.
+              </p>
+            </div>
+          )}
+
           <p className="mt-8 text-center text-xs tracking-[0.15em] text-silver-500">
             LBMA Silver Price
             <span className="mx-2 text-silver-700">|</span>
@@ -171,6 +217,18 @@ export default function PredictionCard() {
               +
             </button>
           </div>
+
+          {me?.entry && (
+            <p className="mt-4 text-center text-sm text-silver-400">
+              Your guess{" "}
+              <span className="font-mono text-white">
+                ${Number(me.entry.predictedPrice).toFixed(2)}
+              </span>
+              {entryTimeLabel ? (
+                <span className="text-silver-600"> · submitted {entryTimeLabel}</span>
+              ) : null}
+            </p>
+          )}
 
           {/* Quick context chips */}
           <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
@@ -286,5 +344,78 @@ export default function PredictionCard() {
         </div>
       </div>
     </motion.div>
+
+    <AnimatePresence>
+      {securedOpen && (
+        <motion.div
+          className="fixed inset-0 z-[120] flex items-center justify-center p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3, ease: EASE }}
+        >
+          <div
+            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+            onClick={() => setSecuredOpen(false)}
+          />
+          <motion.div
+            initial={{ opacity: 0, y: 24, scale: 0.94 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 16, scale: 0.96 }}
+            transition={{ type: "spring", stiffness: 240, damping: 22 }}
+            className="relative w-full max-w-sm"
+          >
+            <div className="rounded-[1.9rem] bg-gradient-to-br from-white/25 via-white/[0.07] to-transparent p-px">
+              <div className="relative overflow-hidden rounded-[1.85rem] bg-background-secondary/90 p-8 text-center backdrop-blur-xl">
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
+                <div className="mt-1 flex justify-center">
+                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-brand-sky/30 to-brand-blue/20 ring-1 ring-white/15">
+                    <svg
+                      className="h-7 w-7 text-brand-sky"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                </div>
+                <h3 className="mt-4 text-2xl font-bold leading-tight">
+                  Guess secured for the{" "}
+                  <span className="gradient-text">next round</span>
+                </h3>
+                <p className="mt-3 text-sm text-silver-400">
+                  Today&apos;s round is locked — your prediction
+                  {me?.entry ? (
+                    <>
+                      {" "}
+                      of{" "}
+                      <span className="font-mono text-white">
+                        ${Number(me.entry.predictedPrice).toFixed(2)}
+                      </span>
+                    </>
+                  ) : null}{" "}
+                  has been entered into the round on{" "}
+                  <span className="text-white">{targetLabel}</span>.
+                </p>
+                <p className="mt-2 text-sm text-silver-500">
+                  You&apos;re officially in. Good luck!
+                </p>
+                <button
+                  onClick={() => setSecuredOpen(false)}
+                  className="mt-7 w-full rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-black transition-transform hover:scale-[1.01]"
+                >
+                  Got it
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+    </>
   );
 }

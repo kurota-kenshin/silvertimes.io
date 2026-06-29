@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FadeUp, Reveal } from "../v2/cinematic";
 import { dailyPredictionApi, type DailyLeader } from "../../services/api";
+import type { LatestResult } from "./useLatestResult";
 
 type Win = "daily" | "weekly" | "alltime";
 const TABS: { key: Win; label: string }[] = [
@@ -21,7 +22,11 @@ function mask(l: DailyLeader) {
   return "Anonymous";
 }
 
-export default function Leaderboards() {
+export default function Leaderboards({
+  result,
+}: {
+  result?: LatestResult | null;
+}) {
   const [tab, setTab] = useState<Win>("daily");
   const [rows, setRows] = useState<DailyLeader[]>([]);
   useEffect(() => {
@@ -30,6 +35,10 @@ export default function Leaderboards() {
       .then(setRows)
       .catch(() => setRows([]));
   }, [tab]);
+
+  // Your own entry from the last settled round — shown on the "Last round" tab
+  // so you can always see your guess and standing even outside the top 25.
+  const showYou = tab === "daily" && !!result;
 
   return (
     <section className="relative">
@@ -51,6 +60,45 @@ export default function Leaderboards() {
           </button>
         ))}
       </FadeUp>
+      {showYou && result && (
+        <FadeUp
+          delay={0.12}
+          className="mt-6 rounded-2xl border border-brand-sky/30 bg-brand-sky/[0.06] px-6 py-4"
+        >
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-3">
+              <span className="rounded-full bg-brand-sky/20 px-2.5 py-0.5 text-xs font-semibold text-brand-sky">
+                You
+              </span>
+              <span className="text-sm text-silver-300">
+                Your guess{" "}
+                <span className="font-mono text-white">
+                  ${result.predictedPrice.toFixed(2)}
+                </span>
+                <span className="mx-2 text-silver-700">·</span>
+                actual{" "}
+                <span className="font-mono text-white">
+                  ${result.actualPrice.toFixed(2)}
+                </span>
+              </span>
+            </div>
+            <div className="flex items-center gap-3 pl-9 sm:pl-0 sm:text-right">
+              <span className="font-mono text-sm text-brand-sky">
+                {result.points.toLocaleString()} pts
+              </span>
+              {result.isWinner ? (
+                <span className="text-xs text-brand-teal">
+                  Won ${result.prize} USDT
+                </span>
+              ) : result.rank ? (
+                <span className="text-xs text-silver-500">
+                  Rank #{result.rank}
+                </span>
+              ) : null}
+            </div>
+          </div>
+        </FadeUp>
+      )}
       <FadeUp
         delay={0.15}
         className="mt-6 overflow-hidden rounded-2xl border border-white/10"

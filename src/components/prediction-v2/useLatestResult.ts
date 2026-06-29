@@ -4,9 +4,12 @@ import { dailyPredictionApi } from "../../services/api";
 
 export interface LatestResult {
   roundKey: string;
+  predictedPrice: number;
+  actualPrice: number;
   error: number;
   percentile: number;
   points: number;
+  rank?: number;
   prize?: number;
   isWinner: boolean;
 }
@@ -38,9 +41,12 @@ export function useLatestResult(): LatestResult | null {
       if (r?.myEntry && r.round.actualPrice != null && r.myEntry.error != null) {
         setResult({
           roundKey: r.round.roundKey,
+          predictedPrice: r.myEntry.predictedPrice,
+          actualPrice: r.round.actualPrice,
           error: r.myEntry.error,
           percentile: r.myEntry.percentile ?? 100,
           points: r.myEntry.points ?? 0,
+          rank: r.myEntry.rank,
           prize: r.myEntry.prizeUsdt,
           isWinner: (r.myEntry.prizeUsdt ?? 0) > 0,
         });
