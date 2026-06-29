@@ -338,6 +338,7 @@ export interface DailyMeState {
 export interface DailyLeader {
   _id?: string;
   walletAddress?: string;
+  withdrawWalletAddress?: string;
   email?: string;
   points: number;
   wins?: number;

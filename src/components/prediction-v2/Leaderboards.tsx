@@ -9,10 +9,15 @@ const TABS: { key: Win; label: string }[] = [
   { key: "alltime", label: "All time" },
 ];
 
+function shortWallet(addr: string) {
+  return `${addr.slice(0, 6)}…${addr.slice(-4)}`;
+}
+
 function mask(l: DailyLeader) {
+  // Prefer email, then the wallet the user bound, then the embedded login wallet.
   if (l.email) return l.email.replace(/(.{2}).*(@.*)/, "$1***$2");
-  if (l.walletAddress)
-    return `${l.walletAddress.slice(0, 6)}…${l.walletAddress.slice(-4)}`;
+  if (l.withdrawWalletAddress) return shortWallet(l.withdrawWalletAddress);
+  if (l.walletAddress) return shortWallet(l.walletAddress);
   return "Anonymous";
 }
 
