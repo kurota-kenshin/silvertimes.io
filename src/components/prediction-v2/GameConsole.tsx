@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import StatusBar from "./StatusBar";
 import PlayTab from "./PlayTab";
 import DailyChart from "./DailyChart";
@@ -20,6 +21,14 @@ const TABS: { key: Tab; label: string }[] = [
 export default function GameConsole() {
   const [tab, setTab] = useState<Tab>("play");
   const latestResult = useLatestResult();
+
+  // Allow deep-linking to a tab, e.g. /prediction?tab=claim (used by the
+  // nav account menu for withdrawal-wallet management).
+  const [searchParams] = useSearchParams();
+  useEffect(() => {
+    const t = searchParams.get("tab");
+    if (t && TABS.some((x) => x.key === t)) setTab(t as Tab);
+  }, [searchParams]);
 
   return (
     <div className="relative z-10">

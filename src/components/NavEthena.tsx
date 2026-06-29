@@ -146,11 +146,11 @@ export default function NavEthena() {
                           {accountLabel}
                         </div>
                         <Link
-                          to="/profile"
+                          to="/prediction?tab=claim"
                           onClick={() => setAccountOpen(false)}
                           className="block rounded-lg px-3 py-2 text-sm text-silver-200 transition-colors hover:bg-white/5 hover:text-white"
                         >
-                          Profile &amp; withdrawal wallet
+                          Withdrawal wallet &amp; claim
                         </Link>
                         <button
                           onClick={() => {
