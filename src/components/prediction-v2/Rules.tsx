@@ -34,6 +34,10 @@ const rules: { t: string; d: string; note?: string }[] = [
     t: "Climb the Leaderboards",
     d: "Compete on daily, weekly, and all-time leaderboards ranked by total points.",
   },
+  {
+    t: "Fair Play Enforcement",
+    d: "To ensure fairness, each participant is strictly limited to one account and one submission per round. If any multi-accounting or abnormal user behavior is detected, the associated accounts will be suspended.",
+  },
 ];
 
 export default function Rules() {
