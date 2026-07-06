@@ -138,9 +138,18 @@ export default function Leaderboards({
                   </span>
                 ) : null}
               </div>
-              <span className="font-mono text-sm text-brand-sky">
-                {r.points.toLocaleString()} pts
-              </span>
+              <div className="flex items-center gap-4">
+                {tab === "daily" && r.predictedPrice != null && (
+                  <span
+                    className={`font-mono text-sm ${isMe ? "text-white" : "text-silver-400"}`}
+                  >
+                    ${r.predictedPrice.toFixed(2)}
+                  </span>
+                )}
+                <span className="font-mono text-sm text-brand-sky">
+                  {r.points.toLocaleString()} pts
+                </span>
+              </div>
             </div>
           );
         })}

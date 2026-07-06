@@ -344,6 +344,7 @@ export interface DailyLeader {
   points: number;
   wins?: number;
   dailyStreak?: number;
+  predictedPrice?: number; // only meaningful on the single-round daily window
 }
 
 export interface DailyWinnersResponse {
