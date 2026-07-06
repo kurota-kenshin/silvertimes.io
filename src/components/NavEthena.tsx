@@ -41,7 +41,7 @@ export default function NavEthena() {
       <GetSTTModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <nav className="fixed top-0 left-0 right-0 z-50">
         <div className="bg-background-secondary/60 backdrop-blur-xl border-b border-white/10 px-6 py-3">
-          <div className="flex items-center justify-between">
+          <div className="relative flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center gap-2">
               <Link to="/">
@@ -53,8 +53,10 @@ export default function NavEthena() {
               </Link>
             </div>
 
-            {/* Center Navigation - desktop */}
-            <div className="hidden lg:flex items-center gap-1">
+            {/* Center Navigation - desktop. Absolutely centered on the page
+                midline — with justify-between it would drift left because the
+                right-side widgets are wider than the logo. */}
+            <div className="hidden lg:flex items-center gap-1 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
               {navLinks.map((link) => (
                 <Link
                   key={link.to}
