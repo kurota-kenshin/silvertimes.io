@@ -37,11 +37,12 @@ function useCountdown(target?: string) {
   return useMemo(() => {
     if (!target) return null;
     const diff = new Date(target).getTime() - now;
-    if (diff <= 0) return { d: 0, h: 0, m: 0 };
+    if (diff <= 0) return { d: 0, h: 0, m: 0, s: 0 };
     return {
       d: Math.floor(diff / 8.64e7),
       h: Math.floor((diff % 8.64e7) / 3.6e6),
       m: Math.floor((diff % 3.6e6) / 6e4),
+      s: Math.floor((diff % 6e4) / 1e3),
     };
   }, [now, target]);
 }
@@ -176,8 +177,10 @@ export default function DailyChart() {
               <p className="text-[10px] uppercase tracking-[0.2em] text-silver-600">
                 Closes in
               </p>
-              <p className="mt-1 font-mono text-sm text-silver-200">
-                {cd.d} Days {cd.h} Hrs {cd.m} Mins
+              <p className="mt-1 font-mono text-xl font-semibold tabular-nums text-brand-sky sm:text-2xl">
+                {cd.d > 0 && <>{cd.d}d </>}
+                {String(cd.h).padStart(2, "0")}:{String(cd.m).padStart(2, "0")}:
+                {String(cd.s).padStart(2, "0")}
               </p>
             </div>
           )}
@@ -268,9 +271,10 @@ export default function DailyChart() {
                     stroke="#6596FE"
                     strokeWidth={1.5}
                     label={{
-                      value: "You",
-                      fill: "#90E0EF",
-                      fontSize: 11,
+                      value: `You $${myPrediction.toFixed(2)}`,
+                      fill: "#ffffff",
+                      fontSize: 12,
+                      fontWeight: 700,
                       position: "insideLeft",
                     }}
                   />
@@ -289,7 +293,7 @@ export default function DailyChart() {
               </AreaChart>
             </ResponsiveContainer>
           </div>
-          <div className="mt-4 flex flex-wrap gap-5 text-xs text-silver-500">
+          <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-silver-500">
             <span className="flex items-center gap-2">
               <span className="h-2 w-3 rounded-sm bg-brand-sky" /> Silver price
             </span>
@@ -299,8 +303,8 @@ export default function DailyChart() {
               {predictions.length === 1 ? "" : "s"}
             </span>
             {myPrediction ? (
-              <span className="flex items-center gap-2">
-                <span className="h-2 w-3 rounded-sm bg-brand-blue" /> Your
+              <span className="flex items-center gap-2 rounded-full border border-brand-blue/40 bg-brand-blue/10 px-3 py-1 text-sm font-semibold text-white">
+                <span className="h-2.5 w-3.5 rounded-sm bg-brand-blue" /> Your
                 prediction ${myPrediction.toFixed(2)}
               </span>
             ) : null}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FadeUp, Reveal } from "../v2/cinematic";
 import { dailyPredictionApi, type DailyLeader } from "../../services/api";
+import { useDailyGame } from "./DailyGameContext";
 import type { LatestResult } from "./useLatestResult";
 
 type Win = "daily" | "weekly" | "alltime";
@@ -29,6 +30,8 @@ export default function Leaderboards({
 }) {
   const [tab, setTab] = useState<Win>("daily");
   const [rows, setRows] = useState<DailyLeader[]>([]);
+  const { me } = useDailyGame();
+  const myId = me?.userId;
   useEffect(() => {
     dailyPredictionApi
       .leaderboard(tab)
@@ -106,25 +109,41 @@ export default function Leaderboards({
         {rows.length === 0 && (
           <div className="p-8 text-center text-silver-500">No entries yet.</div>
         )}
-        {rows.map((r, i) => (
-          <div
-            key={(r._id ?? "") + i}
-            className="flex items-center justify-between border-b border-white/5 px-6 py-4 last:border-0"
-          >
-            <div className="flex items-center gap-4">
-              <span className="w-6 text-sm text-silver-500">{i + 1}</span>
-              <span className="text-sm text-white">{mask(r)}</span>
-              {r.dailyStreak ? (
-                <span className="text-xs text-silver-600">
-                  {r.dailyStreak}d streak
+        {rows.map((r, i) => {
+          const isMe = !!myId && String(r._id) === myId;
+          return (
+            <div
+              key={(r._id ?? "") + i}
+              className={`flex items-center justify-between border-b border-white/5 px-6 py-4 last:border-0 ${
+                isMe
+                  ? "border-l-2 border-l-brand-sky bg-brand-sky/[0.08]"
+                  : ""
+              }`}
+            >
+              <div className="flex items-center gap-4">
+                <span
+                  className={`w-6 text-sm ${isMe ? "font-semibold text-brand-sky" : "text-silver-500"}`}
+                >
+                  {i + 1}
                 </span>
-              ) : null}
+                <span className="text-sm text-white">{mask(r)}</span>
+                {isMe && (
+                  <span className="rounded-full bg-brand-sky/20 px-2.5 py-0.5 text-xs font-semibold text-brand-sky">
+                    You
+                  </span>
+                )}
+                {r.dailyStreak ? (
+                  <span className="text-xs text-silver-600">
+                    {r.dailyStreak}d streak
+                  </span>
+                ) : null}
+              </div>
+              <span className="font-mono text-sm text-brand-sky">
+                {r.points.toLocaleString()} pts
+              </span>
             </div>
-            <span className="font-mono text-sm text-brand-sky">
-              {r.points.toLocaleString()} pts
-            </span>
-          </div>
-        ))}
+          );
+        })}
       </FadeUp>
     </section>
   );

@@ -328,6 +328,7 @@ export interface DailyEntryInfo {
 export interface DailyMeState {
   round: DailyRoundInfo | null;
   entry: DailyEntryInfo | null;
+  userId?: string;
   points: number;
   dailyStreak: number;
   longestDailyStreak: number;
