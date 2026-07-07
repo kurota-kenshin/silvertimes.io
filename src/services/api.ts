@@ -379,9 +379,10 @@ export const dailyPredictionApi = {
       token,
       body: { predictedPrice },
     }),
-  result: (roundKey: string) =>
+  result: (roundKey: string, token?: string) =>
     apiRequest<{ round: DailyRoundInfo; myEntry: DailyEntryInfo | null } | null>(
       `/prediction/daily/result/${roundKey}`,
+      { token },
     ),
   leaderboard: (window: 'daily' | 'weekly' | 'alltime') =>
     apiRequest<DailyLeader[]>(`/prediction/daily/leaderboard?window=${window}`),

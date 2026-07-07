@@ -22,7 +22,7 @@ export interface LatestResult {
  * pass the value down so the result endpoint is only hit a single time.
  */
 export function useLatestResult(): LatestResult | null {
-  const { authenticated } = usePrivy();
+  const { authenticated, getAccessToken } = usePrivy();
   const [result, setResult] = useState<LatestResult | null>(null);
 
   useEffect(() => {
@@ -34,8 +34,11 @@ export function useLatestResult(): LatestResult | null {
     (async () => {
       const winners = await dailyPredictionApi.winners().catch(() => null);
       if (!winners?.round) return;
+      // myEntry is only returned for authenticated calls — without the token
+      // the popup and "You" card never activate.
+      const token = await getAccessToken().catch(() => null);
       const r = await dailyPredictionApi
-        .result(winners.round.roundKey)
+        .result(winners.round.roundKey, token ?? undefined)
         .catch(() => null);
       if (cancelled) return;
       if (r?.myEntry && r.round.actualPrice != null && r.myEntry.error != null) {
