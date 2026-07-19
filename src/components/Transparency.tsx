@@ -15,7 +15,7 @@ const porStatements: { period: string; href: string }[] = [
   },
 ];
 
-const badges = ["1:1 Backed", "Brink's, London", "Beosin Audited", "Monthly Proof-of-Reserves"];
+const badges = ["1:1 Backed", "Brink's, Hong Kong", "Beosin Audited", "Monthly Proof-of-Reserves"];
 
 const porIcon = (
   <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
@@ -34,9 +34,9 @@ const auditIcon = (
 );
 
 const commitments = [
-  { title: "Secure Storage", desc: "Physical silver stored at Brink's in London, with monthly storage slips for complete transparency." },
-  { title: "Independent Audits", desc: "Security audits conducted by Beosin, with an annual report and monthly reviews." },
-  { title: "Proof-of-Reserves", desc: "1:1 backing verifiable on demand through Proof-of-Reserves and live on-chain dashboards." },
+  { title: "Secure Storage", desc: "Physical silver stored at Brink's in Hong Kong, with monthly storage slips for complete transparency." },
+  { title: "Independent Audits", desc: "Security audits conducted by Beosin, with an annual report." },
+  { title: "Proof-of-Reserves", desc: "1:1 backing verifiable on demand through Proof-of-Reserves." },
   { title: "Open-Source Contracts", desc: "$STT runs on Ethereum using open-source, audited smart contracts — verifiable by anyone." },
 ];
 
@@ -139,8 +139,8 @@ function ProofOfReserveCard() {
     <DocCard
       icon={porIcon}
       chip="Proof of Reserve"
-      title="Brink's Holding Certificate"
-      desc="Independent custody confirmation of the physical silver backing $STT, securely held at Brink's in London — issued fresh every month."
+      title="SilverTimes Transparency Report"
+      desc="Independent custody confirmation of the physical silver backing $STT, securely held at Brink's in Hong Kong — issued fresh every month."
     >
       <div className="mt-auto pt-7">
         {latest && <StatementRow period={latest.period} href={latest.href} featured />}
@@ -226,7 +226,7 @@ export default function Transparency() {
           <FadeUp scroll={false} delay={0.18} className="mt-7 max-w-2xl">
             <p className="text-[clamp(1rem,2vw,1.25rem)] font-light leading-relaxed text-silver-300">
               Every $STT is backed 1:1 by real silver — and you never have to take our
-              word for it. Custody, audits, and reserves are open to inspection.
+              word for it. Custody and reserves are open to inspection.
             </p>
           </FadeUp>
 
