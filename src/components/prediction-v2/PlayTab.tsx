@@ -45,7 +45,7 @@ export default function PlayTab({ result }: { result: LatestResult | null }) {
         </h2>
         <FadeUp delay={0.15}>
           <p className="mt-5 text-sm text-silver-400">
-            Predict Daily Silver Price &amp; Win USDT
+            Predict Daily Silver Price &amp; Win STT
           </p>
         </FadeUp>
       </div>

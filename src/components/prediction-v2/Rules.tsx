@@ -11,8 +11,8 @@ const rules: { t: string; d: string; note?: string }[] = [
     d: "Submissions close 1 hour before the Result Time. Edit freely until the cutoff.",
   },
   {
-    t: "Top 5 Win USDT",
-    d: "The 5 closest predictions each win 5 USDT. Ties go to the earliest entry (editing resets your time).",
+    t: "Top 5 Win STT",
+    d: "The 5 closest predictions each win 0.1 STT. Ties go to the earliest entry (editing resets your time).",
   },
   {
     t: "Daily Rewards",
@@ -20,7 +20,7 @@ const rules: { t: string; d: string; note?: string }[] = [
   },
   {
     t: "Request Payout",
-    d: 'Click "Withdraw" to queue your transfer, and your BEP-20 USDT will be sent directly to your wallet.',
+    d: 'Click "Withdraw" to queue your transfer, and your BEP-20 STT will be sent directly to your wallet.',
   },
   {
     t: "Earn Points Daily",

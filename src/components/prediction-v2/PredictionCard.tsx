@@ -36,7 +36,12 @@ export default function PredictionCard() {
   const closed =
     !!round && new Date(round.submissionClose).getTime() <= Date.now();
   const streak = me?.dailyStreak ?? 0;
-  const pot = (round?.prizePerWinner ?? 5) * (round?.winnersCount ?? 5);
+  // Prizes are shown in STT (0.1 STT per winner). The backend still books
+  // winnings in USDT until the payout migration, so this is display-side only.
+  const STT_PER_WINNER = 0.1;
+  const pot = Number(
+    (STT_PER_WINNER * (round?.winnersCount ?? 5)).toFixed(1),
+  );
 
   const targetLabel = useMemo(
     () =>
@@ -325,10 +330,9 @@ export default function PredictionCard() {
                 <path d="M12 12v3M9 19h6M10 19l.5-4M14 19l-.5-4" />
               </svg>
               <span className="text-sm text-silver-300">
-                <span className="font-semibold text-white">{pot} USDT</span> pool
+                <span className="font-semibold text-white">{pot} STT</span> pool
                 <span className="mx-2 text-silver-700">·</span>
-                {round?.winnersCount ?? 5} winners × {round?.prizePerWinner ?? 5}{" "}
-                USDT
+                {round?.winnersCount ?? 5} winners × {STT_PER_WINNER} STT
               </span>
             </div>
           </div>

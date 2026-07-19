@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FadeUp } from "../v2/cinematic";
 import { dailyPredictionApi, type DailyWinnersResponse } from "../../services/api";
+import { sttPrizeLabel } from "./prize";
 
 function maskWinner(w: DailyWinnersResponse["winners"][number]) {
   if (w.userId?.email) return w.userId.email.replace(/(.{2}).*(@.*)/, "$1***$2");
@@ -37,7 +38,7 @@ export default function RecentWinners() {
                 #{w.rank} · {maskWinner(w)}
               </span>
               <span className="text-sm text-brand-sky">
-                {w.prizeUsdt ?? 5} USDT
+                {sttPrizeLabel(w.prizeUsdt)}
               </span>
             </div>
           ))}

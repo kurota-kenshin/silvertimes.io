@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FadeUp, Reveal } from "../v2/cinematic";
 import { dailyPredictionApi, type DailyLeader } from "../../services/api";
 import { useDailyGame } from "./DailyGameContext";
+import { sttPrizeLabel } from "./prize";
 import type { LatestResult } from "./useLatestResult";
 
 type Win = "daily" | "weekly" | "alltime";
@@ -91,7 +92,7 @@ export default function Leaderboards({
               </span>
               {result.isWinner ? (
                 <span className="text-xs text-brand-teal">
-                  Won ${result.prize} USDT
+                  Won {sttPrizeLabel(result.prize)}
                 </span>
               ) : result.rank ? (
                 <span className="text-xs text-silver-500">
