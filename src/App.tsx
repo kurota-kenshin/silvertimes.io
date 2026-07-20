@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import NavEthena from "./components/NavEthena";
+import { AirdropBanner, CoinstoreListingPopup } from "./components/CoinstorePromo";
 import HeroCorrect from "./components/HeroCorrect";
 import HeroV2 from "./components/HeroV2";
 import YouTubeSectionV2 from "./components/YouTubeSectionV2";
@@ -64,6 +65,7 @@ function HomePageV2() {
   return (
     <>
       <HeroV2 />
+      <AirdropBanner />
       <YouTubeSectionV2 />
       <ValuePropositionV2 />
       <TokenBackingV2 />
@@ -91,6 +93,7 @@ function App() {
       <ScrollToTop />
       <div className="min-h-screen bg-background-primary">
         <NavEthena />
+        <CoinstoreListingPopup />
         <Routes>
           <Route path="/" element={<HomePageV2 />} />
           <Route path="/home-v1" element={<HomePage />} />

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import StatusBar from "./StatusBar";
+import { AirdropBanner } from "../CoinstorePromo";
 import PlayTab from "./PlayTab";
 import DailyChart from "./DailyChart";
 import Leaderboards from "./Leaderboards";
@@ -54,6 +55,8 @@ export default function GameConsole() {
           </div>
         </div>
       </div>
+
+      <AirdropBanner />
 
       {/* Tab body */}
       <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8">
