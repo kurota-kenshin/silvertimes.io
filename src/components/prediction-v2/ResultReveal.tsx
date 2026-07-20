@@ -1,5 +1,5 @@
 import { FadeUp, Reveal } from "../v2/cinematic";
-import { sttPrizeLabel } from "./prize";
+import { prizeLabel, useSttLive } from "./prize";
 import type { LatestResult } from "./useLatestResult";
 
 export default function ResultReveal({
@@ -7,6 +7,7 @@ export default function ResultReveal({
 }: {
   result: LatestResult | null;
 }) {
+  const sttIsLive = useSttLive();
   if (!result) return null;
 
   return (
@@ -26,7 +27,7 @@ export default function ResultReveal({
         {result.prize ? (
           <FadeUp delay={0.2}>
             <p className="mt-5 text-brand-sky">
-              You won {sttPrizeLabel(result.prize)} — claim it below.
+              You won {prizeLabel(result.prize, sttIsLive)} — claim it below.
             </p>
           </FadeUp>
         ) : (

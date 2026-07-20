@@ -1,11 +1,12 @@
 import { FadeUp, Reveal } from "../v2/cinematic";
 import ClaimPanel from "./ClaimPanel";
+import { useSttLive } from "./prize";
 
-const steps = [
+const getSteps = (stt: boolean) => [
   {
     n: "01",
     t: "Rank in the Top 5",
-    d: "Be one of the top 5 closest predictions each trading day to win 5 USDT. Winnings accumulate in your balance.",
+    d: `Be one of the top 5 closest predictions each trading day to win ${stt ? "0.1 STT" : "5 USDT"}. Winnings accumulate in your balance.`,
   },
   {
     n: "02",
@@ -20,11 +21,12 @@ const steps = [
   {
     n: "04",
     t: "Receive Your Rewards",
-    d: "BEP-20 USDT will be sent directly to your wallet.",
+    d: "USDT (BEP-20) will be sent directly to your wallet. STT (ERC-20) coming soon.",
   },
 ];
 
 export default function HowToClaim() {
+  const steps = getSteps(useSttLive());
   return (
     <section className="relative">
       <h3 className="text-[clamp(1.5rem,3.5vw,2.2rem)] font-bold leading-[1.05]">

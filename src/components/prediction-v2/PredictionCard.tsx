@@ -5,6 +5,7 @@ import { EASE } from "../v2/cinematic";
 import { useLoginModal } from "../LoginModalProvider";
 import { dailyPredictionApi } from "../../services/api";
 import { useDailyGame } from "./DailyGameContext";
+import { STT_PER_WIN, useSttLive } from "./prize";
 import { useSilverPriceStore } from "../../store/silverPriceStore";
 
 function multiplier(streak: number) {
@@ -36,12 +37,13 @@ export default function PredictionCard() {
   const closed =
     !!round && new Date(round.submissionClose).getTime() <= Date.now();
   const streak = me?.dailyStreak ?? 0;
-  // Prizes are shown in STT (0.1 STT per winner). The backend still books
-  // winnings in USDT until the payout migration, so this is display-side only.
-  const STT_PER_WINNER = 0.1;
-  const pot = Number(
-    (STT_PER_WINNER * (round?.winnersCount ?? 5)).toFixed(1),
-  );
+  // Until the STT cutover the chip shows the USDT prize from the round doc;
+  // afterwards it shows 0.1 STT per winner (display-side only until the
+  // backend payout migration).
+  const sttIsLive = useSttLive();
+  const perWinner = sttIsLive ? STT_PER_WIN : (round?.prizePerWinner ?? 5);
+  const prizeUnit = sttIsLive ? "STT" : "USDT";
+  const pot = Number((perWinner * (round?.winnersCount ?? 5)).toFixed(1));
 
   const targetLabel = useMemo(
     () =>
@@ -330,9 +332,9 @@ export default function PredictionCard() {
                 <path d="M12 12v3M9 19h6M10 19l.5-4M14 19l-.5-4" />
               </svg>
               <span className="text-sm text-silver-300">
-                <span className="font-semibold text-white">{pot} STT</span> pool
+                <span className="font-semibold text-white">{pot} {prizeUnit}</span> pool
                 <span className="mx-2 text-silver-700">·</span>
-                {round?.winnersCount ?? 5} winners × {STT_PER_WINNER} STT
+                {round?.winnersCount ?? 5} winners × {perWinner} {prizeUnit}
               </span>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import { FadeUp, Reveal } from "../v2/cinematic";
+import { useSttLive } from "./prize";
 
-const rules: { t: string; d: string; note?: string }[] = [
+const getRules = (stt: boolean): { t: string; d: string; note?: string }[] => [
   {
     t: "One Prediction a Day",
     d: 'Predict the silver price at 12:00 (GMT+0; "Result Time") for the next trading day (Mon–Fri). One round daily.',
@@ -11,8 +12,8 @@ const rules: { t: string; d: string; note?: string }[] = [
     d: "Submissions close 1 hour before the Result Time. Edit freely until the cutoff.",
   },
   {
-    t: "Top 5 Win STT",
-    d: "The 5 closest predictions each win 0.1 STT. Ties go to the earliest entry (editing resets your time).",
+    t: stt ? "Top 5 Win STT" : "Top 5 Win USDT",
+    d: `The 5 closest predictions each win ${stt ? "0.1 STT" : "5 USDT"}. Ties go to the earliest entry (editing resets your time).`,
   },
   {
     t: "Daily Rewards",
@@ -20,7 +21,7 @@ const rules: { t: string; d: string; note?: string }[] = [
   },
   {
     t: "Request Payout",
-    d: 'Click "Withdraw" to queue your transfer, and your BEP-20 STT will be sent directly to your wallet.',
+    d: `Click "Withdraw" to queue your transfer, and your rewards${stt ? " — USDT (BEP-20) or STT (ERC-20, coming soon)" : " (BEP-20 USDT)"} will be sent directly to your wallet.`,
   },
   {
     t: "Earn Points Daily",
@@ -41,6 +42,7 @@ const rules: { t: string; d: string; note?: string }[] = [
 ];
 
 export default function Rules() {
+  const rules = getRules(useSttLive());
   return (
     <section className="relative">
       <h3 className="text-[clamp(1.5rem,3.5vw,2.2rem)] font-bold leading-[1.05]">

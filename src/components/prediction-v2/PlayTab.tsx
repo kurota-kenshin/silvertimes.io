@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Eyebrow, FadeUp, Reveal } from "../v2/cinematic";
 import { useDailyGame } from "./DailyGameContext";
 import PredictionCard from "./PredictionCard";
+import { useSttLive } from "./prize";
 import ResultReveal from "./ResultReveal";
 import StreakPanel from "./StreakPanel";
 import RecentWinners from "./RecentWinners";
@@ -27,6 +28,7 @@ function useCountdown(target?: string) {
 export default function PlayTab({ result }: { result: LatestResult | null }) {
   const { round } = useDailyGame();
   const countdown = useCountdown(round?.submissionClose);
+  const sttIsLive = useSttLive();
 
   return (
     <div className="relative">
@@ -45,7 +47,7 @@ export default function PlayTab({ result }: { result: LatestResult | null }) {
         </h2>
         <FadeUp delay={0.15}>
           <p className="mt-5 text-sm text-silver-400">
-            Predict Daily Silver Price &amp; Win STT
+            Predict Daily Silver Price &amp; Win {sttIsLive ? "STT" : "USDT"}
           </p>
         </FadeUp>
       </div>

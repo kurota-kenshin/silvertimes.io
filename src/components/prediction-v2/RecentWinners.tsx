@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FadeUp } from "../v2/cinematic";
 import { dailyPredictionApi, type DailyWinnersResponse } from "../../services/api";
-import { sttPrizeLabel } from "./prize";
+import { prizeLabel, useSttLive } from "./prize";
 
 function maskWinner(w: DailyWinnersResponse["winners"][number]) {
   if (w.userId?.email) return w.userId.email.replace(/(.{2}).*(@.*)/, "$1***$2");
@@ -11,6 +11,7 @@ function maskWinner(w: DailyWinnersResponse["winners"][number]) {
 }
 
 export default function RecentWinners() {
+  const sttIsLive = useSttLive();
   const [data, setData] = useState<DailyWinnersResponse | null>(null);
   useEffect(() => {
     dailyPredictionApi.winners().then(setData).catch(() => {});
@@ -38,7 +39,7 @@ export default function RecentWinners() {
                 #{w.rank} · {maskWinner(w)}
               </span>
               <span className="text-sm text-brand-sky">
-                {sttPrizeLabel(w.prizeUsdt)}
+                {prizeLabel(w.prizeUsdt, sttIsLive)}
               </span>
             </div>
           ))}

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FadeUp, Reveal } from "../v2/cinematic";
 import { dailyPredictionApi, type DailyLeader } from "../../services/api";
 import { useDailyGame } from "./DailyGameContext";
-import { sttPrizeLabel } from "./prize";
+import { prizeLabel, useSttLive } from "./prize";
 import type { LatestResult } from "./useLatestResult";
 
 type Win = "daily" | "weekly" | "alltime";
@@ -32,6 +32,7 @@ export default function Leaderboards({
   const [tab, setTab] = useState<Win>("daily");
   const [rows, setRows] = useState<DailyLeader[]>([]);
   const { me } = useDailyGame();
+  const sttIsLive = useSttLive();
   const myId = me?.userId;
   useEffect(() => {
     dailyPredictionApi
@@ -92,7 +93,7 @@ export default function Leaderboards({
               </span>
               {result.isWinner ? (
                 <span className="text-xs text-brand-teal">
-                  Won {sttPrizeLabel(result.prize)}
+                  Won {prizeLabel(result.prize, sttIsLive)}
                 </span>
               ) : result.rank ? (
                 <span className="text-xs text-silver-500">

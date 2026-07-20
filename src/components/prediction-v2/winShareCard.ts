@@ -1,5 +1,5 @@
 import type { LatestResult } from "./useLatestResult";
-import { sttPrizeLabel } from "./prize";
+import { prizeLabel, sttLive } from "./prize";
 
 /**
  * Renders a branded 1200x675 win card on an offscreen canvas so winners can
@@ -166,7 +166,7 @@ export async function renderWinCard(result: LatestResult): Promise<WinCard> {
   }
 
   // Headline with brand gradient
-  const headline = `Won ${sttPrizeLabel(result.prize)}`;
+  const headline = `Won ${prizeLabel(result.prize)}`;
   ctx.font = `800 108px ${FONT}`;
   const grad = ctx.createLinearGradient(64, 0, 820, 0);
   grad.addColorStop(0, SKY);
@@ -234,7 +234,13 @@ export async function renderWinCard(result: LatestResult): Promise<WinCard> {
   ctx.textAlign = "right";
   ctx.fillStyle = SILVER;
   ctx.font = `500 24px ${FONT}`;
-  ctx.fillText("Guess the close · Top 5 win 0.1 STT daily", W - 66, H - 68);
+  ctx.fillText(
+    sttLive()
+      ? "Guess the close · Top 5 win 0.1 STT daily"
+      : "Guess the close · Top 5 win 5 USDT daily",
+    W - 66,
+    H - 68,
+  );
   ctx.textAlign = "left";
 
   const blob = await new Promise<Blob>((resolve, reject) => {

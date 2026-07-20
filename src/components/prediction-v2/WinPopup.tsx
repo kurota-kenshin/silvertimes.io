@@ -4,13 +4,13 @@ import { usePrivy } from "@privy-io/react-auth";
 import { EASE } from "../v2/cinematic";
 import type { LatestResult } from "./useLatestResult";
 import { renderWinCard, type WinCard } from "./winShareCard";
-import { sttPrizeLabel } from "./prize";
+import { prizeLabel, useSttLive } from "./prize";
 import { predictionsApi } from "../../services/api";
 
 const SHARE_URL = "https://www.silvertimes.io/prediction";
 
 function shareText(r: LatestResult) {
-  return `I called the silver price and won ${sttPrizeLabel(r.prize)} on SilverTimes. Predicted $${r.predictedPrice.toFixed(2)}, actual $${r.actualPrice.toFixed(2)} — $${r.error.toFixed(2)} off. Play the daily game: ${SHARE_URL}`;
+  return `I called the silver price and won ${prizeLabel(r.prize)} on SilverTimes. Predicted $${r.predictedPrice.toFixed(2)}, actual $${r.actualPrice.toFixed(2)} — $${r.error.toFixed(2)} off. Play the daily game: ${SHARE_URL}`;
 }
 
 const SEEN_PREFIX = "st_daily_winpopup_";
@@ -85,6 +85,7 @@ export default function WinPopup({
   const [card, setCard] = useState<WinCard | null>(null);
   const [shareHint, setShareHint] = useState<string | null>(null);
   const { getAccessToken } = usePrivy();
+  const sttIsLive = useSttLive();
 
   // Dev/demo override: ?winpopup=win or ?winpopup=lose force-opens the popup
   // with mock data so it can be previewed without a live settled round.
@@ -323,7 +324,7 @@ export default function WinPopup({
                     </div>
                     <h2 className="mt-4 text-[clamp(1.8rem,5vw,2.6rem)] font-bold leading-[1.05]">
                       You won{" "}
-                      <span className="gradient-text">{sttPrizeLabel(active.prize)}</span>
+                      <span className="gradient-text">{prizeLabel(active.prize, sttIsLive)}</span>
                     </h2>
                     <p className="mt-4 text-sm text-silver-400">
                       You were{" "}
