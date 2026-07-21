@@ -15,7 +15,7 @@ const documents: Document[] = [
     title: "SilverTimes Whitepaper",
     category: "Whitepaper",
     year: "2026",
-    downloadUrl: "/docs/SilverTimes_Token_whitepaper_v8.pdf",
+    downloadUrl: "/docs/SilverTimes_Token_whitepaper_v9.2.pdf",
     description:
       "Comprehensive overview of SilverTimes protocol and tokenomics",
   },

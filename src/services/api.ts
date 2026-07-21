@@ -392,9 +392,13 @@ export const dailyPredictionApi = {
     apiRequest<{ price: number }[]>('/prediction/daily/predictions'),
   claimEligibility: (token: string) =>
     apiRequest<DailyClaimEligibility | null>('/auth/daily-claim/eligibility', { token }),
-  claim: (token: string) =>
-    apiRequest<{ success: boolean; claim: { amount: number } }>('/auth/daily-claim', {
+  claim: (token: string, currency: 'usdt' | 'stt' = 'usdt') =>
+    apiRequest<{
+      success: boolean;
+      claim: { amount: number; token: string; tokenAmount: number };
+    }>('/auth/daily-claim', {
       method: 'POST',
       token,
+      body: { currency },
     }),
 };

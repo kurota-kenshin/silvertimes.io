@@ -3,12 +3,16 @@ import type { ReactNode } from "react";
 import { Eyebrow, FadeUp, Grain, Reveal } from "./v2/cinematic";
 import FooterV2 from "./FooterV2";
 
-const AUDIT_PDF = "/docs/Beosin_Audit_Report_-_SilverTimes_202605061100.pdf";
+const AUDIT_PDF = "/docs/Beosin_Audit_Report_SilverTimes_Post_TGE_20260716.pdf";
 
 // Brink's issues a fresh holding certificate every month. Newest first —
 // add one entry per month and the page stays short: the latest is featured
 // and everything older collapses into the compact archive list below it.
 const porStatements: { period: string; href: string }[] = [
+  {
+    period: "June 2026",
+    href: "/docs/SilverTimes_Transparency_Report_STT-TR-2026-JUN.pdf",
+  },
   {
     period: "May 2026",
     href: "/docs/Brinks_SilverTimes_Holding_Certificate_STT_Assets_Limited_1019.pdf",
@@ -187,7 +191,7 @@ function AuditCard() {
       desc="Full third-party security audit of the $STT smart contracts, with an annual report and monthly reviews."
     >
       <div className="mt-auto flex items-center justify-between pt-7">
-        <span className="text-xs text-silver-500">Beosin · May 2026</span>
+        <span className="text-xs text-silver-500">Beosin · Post-TGE · July 2026</span>
         <a
           href={AUDIT_PDF}
           target="_blank"

@@ -21,7 +21,7 @@ const getSteps = (stt: boolean) => [
   {
     n: "04",
     t: "Receive Your Rewards",
-    d: "USDT (BEP-20) will be sent directly to your wallet. STT (ERC-20) coming soon.",
+    d: "Your choice of USDT (BEP-20 on BSC) or STT (ERC-20 on Ethereum) will be sent directly to your wallet.",
   },
 ];
 

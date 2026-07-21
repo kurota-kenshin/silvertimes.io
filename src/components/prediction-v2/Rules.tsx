@@ -21,7 +21,7 @@ const getRules = (stt: boolean): { t: string; d: string; note?: string }[] => [
   },
   {
     t: "Request Payout",
-    d: `Click "Withdraw" to queue your transfer, and your rewards${stt ? " — USDT (BEP-20) or STT (ERC-20, coming soon)" : " (BEP-20 USDT)"} will be sent directly to your wallet.`,
+    d: `Click "Withdraw" to queue your transfer, and your rewards${stt ? " — USDT (BEP-20) or STT (ERC-20)" : " (BEP-20 USDT)"} will be sent directly to your wallet.`,
   },
   {
     t: "Earn Points Daily",

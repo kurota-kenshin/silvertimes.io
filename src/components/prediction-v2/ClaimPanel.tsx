@@ -89,8 +89,12 @@ export default function ClaimPanel({ embedded = false }: { embedded?: boolean })
     try {
       const token = await getAccessToken();
       if (!token) throw new Error("Not authenticated");
-      await dailyPredictionApi.claim(token);
-      setMsg("Withdrawal submitted — USDT is on its way on BSC.");
+      await dailyPredictionApi.claim(token, currency);
+      setMsg(
+        currency === "stt"
+          ? "Withdrawal submitted — STT is on its way on Ethereum."
+          : "Withdrawal submitted — USDT is on its way on BSC.",
+      );
       await load();
       await refresh();
     } catch (e) {
@@ -131,19 +135,14 @@ export default function ClaimPanel({ embedded = false }: { embedded?: boolean })
       </div>
       <button
         onClick={claim}
-        disabled={busy || !elig.canClaim || currency === "stt"}
+        disabled={busy || !elig.canClaim}
         className="rounded-full bg-white px-7 py-3 text-sm font-semibold text-black transition-transform enabled:hover:scale-[1.03] disabled:opacity-40"
       >
-        {currency === "stt"
-          ? "STT Coming Soon"
-          : busy
-            ? "Submitting…"
-            : "Withdraw"}
+        {busy ? "Submitting…" : "Withdraw"}
       </button>
       {currency === "stt" && (
         <p className="text-sm text-silver-400">
-          STT claiming (ERC-20 on Ethereum) is coming soon — withdraw USDT on
-          BSC now, or hold your balance and claim it as STT once live.
+          STT is sent as ERC-20 on Ethereum to your withdrawal wallet.
         </p>
       )}
       {!wallet && (
@@ -188,9 +187,9 @@ export default function ClaimPanel({ embedded = false }: { embedded?: boolean })
               Withdrawal wallet (BSC · Ethereum)
             </p>
             <p className="mt-1 text-xs text-silver-400">
-              BEP-20 USDT will be sent to this address on BSC; STT (ERC-20)
-              will use the same address on Ethereum once live. That's the only
-              requirement — no minimum, no social handles.
+              USDT is sent to this address on BSC (BEP-20); STT on Ethereum
+              (ERC-20). That's the only requirement — no minimum, no social
+              handles.
             </p>
             <div className="mt-3 flex flex-col gap-2 sm:flex-row">
               <input

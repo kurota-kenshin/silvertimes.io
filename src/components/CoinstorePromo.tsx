@@ -6,12 +6,37 @@ const COINSTORE_URL = "https://www.coinstore.com/SignUp?invitCode=VBcva5";
 const BANNER_URL = COINSTORE_URL;
 const POPUP_SEEN_KEY = "st_coinstore_listing_popup_seen";
 
+// Campaign go-live: Friday 24 Jul 2026, 00:00 GMT+8 (exact time TBC — adjust
+// this single constant when confirmed). Both the popup and the banner stay
+// hidden before this instant and appear automatically at it, no redeploy.
+const PROMO_LIVE_AT = Date.UTC(2026, 6, 23, 16, 0, 0);
+
+function promoLive(): boolean {
+  return Date.now() >= PROMO_LIVE_AT;
+}
+
+/** Re-renders at the go-live instant so the promo appears without a reload. */
+function usePromoLive(): boolean {
+  const [live, setLive] = useState(promoLive());
+  useEffect(() => {
+    if (live) return;
+    const t = setTimeout(
+      () => setLive(true),
+      Math.max(50, PROMO_LIVE_AT - Date.now() + 50),
+    );
+    return () => clearTimeout(t);
+  }, [live]);
+  return live;
+}
+
 /**
  * Ad strip for the STT trading airdrop. Placed in-page per the campaign
  * spec: on the homepage below the hero, and on the prediction page between
  * the tab bar and the tab content. Whole strip is a link.
  */
 export function AirdropBanner() {
+  const live = usePromoLive();
+  if (!live) return null;
   return (
     <a
       href={BANNER_URL}
@@ -41,8 +66,10 @@ export function AirdropBanner() {
  */
 export function CoinstoreListingPopup() {
   const [open, setOpen] = useState(false);
+  const live = usePromoLive();
 
   useEffect(() => {
+    if (!live) return;
     try {
       if (sessionStorage.getItem(POPUP_SEEN_KEY)) return;
     } catch {
@@ -50,7 +77,7 @@ export function CoinstoreListingPopup() {
     }
     const t = setTimeout(() => setOpen(true), 700);
     return () => clearTimeout(t);
-  }, []);
+  }, [live]);
 
   const dismiss = () => {
     try {
