@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-const COINSTORE_URL = "https://www.coinstore.com/SignUp?invitCode=VBcva5";
-// 24 Jul 2026: swap to the X (Twitter) pin-post link once published.
-const BANNER_URL = COINSTORE_URL;
+// Popup CTA (Coinstore referral).
+const COINSTORE_URL = "https://www.coinstore.com/signup?invitCode=o5B2zZ";
+// Banner link: null until the airdrop post goes live (24 Jul ~7pm HKT). While
+// null the banner shows as a non-clickable image; set this to the post URL to
+// make the whole strip a link — no other change needed.
+const BANNER_URL: string | null = null;
 const POPUP_SEEN_KEY = "st_coinstore_listing_popup_seen";
 
-// Campaign go-live: Friday 24 Jul 2026, 00:00 GMT+8 (exact time TBC — adjust
-// this single constant when confirmed). Both the popup and the banner stay
-// hidden before this instant and appear automatically at it, no redeploy.
-const PROMO_LIVE_AT = Date.UTC(2026, 6, 23, 16, 0, 0);
+// Campaign go-live: Friday 24 Jul 2026, 15:00 GMT+8 (07:00 UTC). Both the
+// popup and the banner stay hidden before this instant and appear
+// automatically at it, no redeploy.
+const PROMO_LIVE_AT = Date.UTC(2026, 6, 24, 7, 0, 0);
 
 function promoLive(): boolean {
   return Date.now() >= PROMO_LIVE_AT;
@@ -32,11 +35,27 @@ function usePromoLive(): boolean {
 /**
  * Ad strip for the STT trading airdrop. Placed in-page per the campaign
  * spec: on the homepage below the hero, and on the prediction page between
- * the tab bar and the tab content. Whole strip is a link.
+ * the tab bar and the tab content. Clickable once BANNER_URL is set; until
+ * then it displays as a plain image (link arrives at ~7pm HKT on 24 Jul).
  */
 export function AirdropBanner() {
   const live = usePromoLive();
   if (!live) return null;
+  const imgs = (
+    <>
+      <img
+        src="/promo/airdrop-banner-desktop.png"
+        alt="Win 1 oz silver — STT trading airdrop on Coinstore"
+        className="mx-auto hidden w-full sm:block"
+      />
+      <img
+        src="/promo/airdrop-banner-mobile.png"
+        alt="Win 1 oz silver — STT trading airdrop on Coinstore"
+        className="w-full sm:hidden"
+      />
+    </>
+  );
+  if (!BANNER_URL) return <div className="block bg-[#05060c]">{imgs}</div>;
   return (
     <a
       href={BANNER_URL}
@@ -45,16 +64,7 @@ export function AirdropBanner() {
       className="block bg-[#05060c]"
       aria-label="Win 1 oz silver — STT trading airdrop on Coinstore"
     >
-      <img
-        src="/promo/airdrop-banner-desktop.jpg"
-        alt="Win 1 oz silver — STT trading airdrop on Coinstore"
-        className="mx-auto hidden w-full sm:block"
-      />
-      <img
-        src="/promo/airdrop-banner-mobile.jpg"
-        alt="Win 1 oz silver — STT trading airdrop on Coinstore"
-        className="w-full sm:hidden"
-      />
+      {imgs}
     </a>
   );
 }
