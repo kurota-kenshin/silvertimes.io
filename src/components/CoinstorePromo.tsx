@@ -3,10 +3,9 @@ import { AnimatePresence, motion } from "framer-motion";
 
 // Popup CTA (Coinstore referral).
 const COINSTORE_URL = "https://www.coinstore.com/signup?invitCode=o5B2zZ";
-// Banner link: null until the airdrop post goes live (24 Jul ~7pm HKT). While
-// null the banner shows as a non-clickable image; set this to the post URL to
-// make the whole strip a link — no other change needed.
-const BANNER_URL: string | null = null;
+// Banner link — STT airdrop post on X.
+const BANNER_URL: string | null =
+  "https://x.com/SilvertimesSTT/status/2080609269280370691";
 const POPUP_SEEN_KEY = "st_coinstore_listing_popup_seen";
 
 // Campaign go-live: Friday 24 Jul 2026, 15:00 GMT+8 (07:00 UTC). Both the
@@ -41,30 +40,53 @@ function usePromoLive(): boolean {
 export function AirdropBanner() {
   const live = usePromoLive();
   if (!live) return null;
-  const imgs = (
+  const cta = (extra: string) => (
+    <span className={`flex items-center gap-1.5 rounded-full bg-white font-semibold text-black ${extra}`}>
+      Join Now
+      <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+        <path d="M5 12h14M13 6l6 6-6 6" />
+      </svg>
+    </span>
+  );
+  const inner = (
     <>
-      <img
-        src="/promo/airdrop-banner-desktop.png"
-        alt="Win 1 oz silver — STT trading airdrop on Coinstore"
-        className="mx-auto hidden w-full sm:block"
-      />
-      <img
-        src="/promo/airdrop-banner-mobile.png"
-        alt="Win 1 oz silver — STT trading airdrop on Coinstore"
-        className="w-full sm:hidden"
-      />
+      {/* Desktop: full artwork with the CTA overlaid in the dark gap between
+          the Coinstore logo and the parachutes. */}
+      <div className="relative hidden sm:block">
+        <img
+          src="/promo/airdrop-banner-desktop.png"
+          alt="Win 1 oz silver — STT trading airdrop on Coinstore"
+          className="mx-auto w-full"
+        />
+        <span className="pointer-events-none absolute left-[73.5%] top-1/2 -translate-x-1/2 -translate-y-1/2">
+          {cta("px-5 py-1.5 text-xs shadow-lg shadow-black/40")}
+        </span>
+      </div>
+      {/* Mobile: artwork stays clean; the CTA gets its own slim bar beneath
+          it (the ~78px strip has no room for a non-clashing overlay). */}
+      <div className="sm:hidden">
+        <img
+          src="/promo/airdrop-banner-mobile.png"
+          alt="Win 1 oz silver — STT trading airdrop on Coinstore"
+          className="w-full"
+        />
+        <div className="flex items-center justify-center border-t border-white/10 py-2">
+          {cta("px-4 py-1 text-[11px]")}
+        </div>
+      </div>
     </>
   );
-  if (!BANNER_URL) return <div className="block bg-[#05060c]">{imgs}</div>;
+  const className = "block bg-[#05060c]";
+  if (!BANNER_URL) return <div className={className}>{inner}</div>;
   return (
     <a
       href={BANNER_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className="block bg-[#05060c]"
+      className={className}
       aria-label="Win 1 oz silver — STT trading airdrop on Coinstore"
     >
-      {imgs}
+      {inner}
     </a>
   );
 }
