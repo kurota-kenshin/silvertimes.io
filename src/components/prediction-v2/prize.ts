@@ -12,6 +12,14 @@ export const STT_CUTOVER_AT = Date.UTC(2026, 6, 21, 11, 0, 0);
 export const STT_PER_WIN = 0.1;
 const USDT_PER_WIN = 5;
 
+/**
+ * Season kill-switch. When true the daily prediction game is closed for the
+ * season: the price input and Submit button are disabled (greyed) and a
+ * season-ended notice replaces the call to action. Flip back to false to
+ * reopen the game next season.
+ */
+export const SEASON_ENDED = true;
+
 export function sttLive(now = Date.now()): boolean {
   return now >= STT_CUTOVER_AT;
 }

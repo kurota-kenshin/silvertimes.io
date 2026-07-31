@@ -5,7 +5,7 @@ import { EASE } from "../v2/cinematic";
 import { useLoginModal } from "../LoginModalProvider";
 import { dailyPredictionApi } from "../../services/api";
 import { useDailyGame } from "./DailyGameContext";
-import { STT_PER_WIN, useSttLive } from "./prize";
+import { SEASON_ENDED, STT_PER_WIN, useSttLive } from "./prize";
 import { useSilverPriceStore } from "../../store/silverPriceStore";
 
 function multiplier(streak: number) {
@@ -35,7 +35,8 @@ export default function PredictionCard() {
   }, [round?.roundKey]);
 
   const closed =
-    !!round && new Date(round.submissionClose).getTime() <= Date.now();
+    SEASON_ENDED ||
+    (!!round && new Date(round.submissionClose).getTime() <= Date.now());
   const streak = me?.dailyStreak ?? 0;
   // Until the STT cutover the chip shows the USDT prize from the round doc;
   // afterwards it shows 0.1 STT per winner (display-side only until the
@@ -184,7 +185,7 @@ export default function PredictionCard() {
             </span>
           </div>
 
-          {inLockWindow && (
+          {!SEASON_ENDED && inLockWindow && (
             <div className="mt-6 flex items-start gap-2.5 rounded-xl border border-brand-sky/25 bg-brand-sky/[0.06] px-4 py-3 text-left">
               <svg
                 className="mt-0.5 h-4 w-4 shrink-0 text-brand-sky"
@@ -339,6 +340,20 @@ export default function PredictionCard() {
             </div>
           </div>
 
+          {/* Season-ended notice — replaces the call to action once the game
+              is closed for the season. */}
+          {SEASON_ENDED && (
+            <div className="mt-8 rounded-xl border border-brand-sky/25 bg-brand-sky/[0.06] px-5 py-4 text-center">
+              <p className="text-sm font-semibold text-white">
+                The Silver Price Prediction for this season has officially
+                ended!
+              </p>
+              <p className="mt-1.5 text-xs leading-relaxed text-silver-300">
+                Congrats to all the winners who nailed their forecasts!
+              </p>
+            </div>
+          )}
+
           {/* Lock in */}
           <motion.button
             whileTap={{ scale: 0.98 }}
@@ -347,13 +362,15 @@ export default function PredictionCard() {
             className="group relative mt-8 w-full overflow-hidden rounded-full bg-white px-7 py-4 text-sm font-semibold text-black transition-transform enabled:hover:scale-[1.01] disabled:opacity-40"
           >
             <span className="relative z-10">
-              {closed
-                ? "Round closed"
-                : saving
-                  ? "Submitting…"
-                  : me?.entry
-                    ? "Update prediction"
-                    : "Submit"}
+              {SEASON_ENDED
+                ? "Season ended"
+                : closed
+                  ? "Round closed"
+                  : saving
+                    ? "Submitting…"
+                    : me?.entry
+                      ? "Update prediction"
+                      : "Submit"}
             </span>
             {/* shimmer */}
             <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-black/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
