@@ -3846,7 +3846,510 @@ const silverWeeklyFragmentedMarketContent = (
   </>
 );
 
+// Blog post content for "Silver Insight: Beginning of the Next Bull Run"
+const silverInsightNextBullRunContent = (
+  <>
+    {/* Summary Banner */}
+    <section className="mb-12">
+      <div className="bg-gradient-to-br from-blue-500/20 to-violet-500/10 border border-blue-500/30 rounded-2xl p-8 mb-8">
+        <div className="flex items-center gap-3 mb-4">
+          <span className="text-blue-400 font-semibold">Outlook:</span>
+          <span className="text-white font-bold">
+            Constructive multi-year setup
+          </span>
+        </div>
+        <p className="text-silver-300 leading-relaxed">
+          Silver's decline from its January 2026 peak was driven by monetary
+          policy repricing and the unwinding of speculative leverage, not by
+          deterioration in the physical supply and demand balance. The metal
+          reached a nominal all-time high of $121.67 per ounce on 29 January
+          2026 and trades near $60 as of late July 2026, a decline of
+          approximately 50%. Over the same period, the physical market recorded
+          a sixth consecutive annual supply deficit.
+        </p>
+        <p className="text-silver-300 leading-relaxed mt-4">
+          This note sets out three structural forces supporting a constructive
+          multi-year outlook, and the conditions under which that outlook would
+          fail.
+        </p>
+      </div>
+    </section>
+
+    {/* The Correction Was Monetary, Not Physical */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        The Correction Was Monetary, Not Physical
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Three identifiable mechanisms drove the drawdown, and none concerns
+        silver's supply and demand balance.
+      </p>
+
+      <ul className="space-y-4 text-silver-300 mb-6">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">
+              Interest rate expectations repriced sharply.
+            </strong>{" "}
+            The nomination of a hawkish Federal Reserve chair on 30 January 2026
+            triggered a rapid revision of rate expectations, and silver declined
+            over 30% within days. By June 2026, FOMC participants were debating
+            rate increases rather than reductions, with inflation recorded at
+            4.2% in May (Bureau of Labor Statistics). Silver is a non-yielding
+            asset and is directly sensitive to rising real yields.
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">
+              Geopolitical escalation operated through the inflation channel
+              rather than the safe-haven channel.
+            </strong>{" "}
+            Conflict is conventionally assumed to support precious metals. In the
+            first half of 2026 the transmission ran in the opposite direction:
+            escalation lifted oil above $90 per barrel, which raised inflation
+            expectations, which caused markets to price out rate cuts, which
+            strengthened the dollar and lifted real yields.
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">
+              Speculative leverage unwound.
+            </strong>{" "}
+            Exchanges raised margin requirements following a rally that had
+            delivered a 147% gain in 2025. Positioning accumulated during that
+            advance was liquidated over a compressed period.
+          </span>
+        </li>
+      </ul>
+
+      <p className="text-silver-300 leading-relaxed">
+        The distinction between monetary and physical drivers is the foundation
+        of the analysis that follows.
+      </p>
+    </section>
+
+    {/* Force One */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Force One: Cumulative Depletion of Above-Ground Inventory
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Six consecutive years of supply deficits have drawn above-ground silver
+        inventory to its tightest level in several decades.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        The Silver Institute's April 2026 World Silver Survey records a
+        cumulative shortfall of approximately 762 million ounces across 2021 to
+        2025. CME Group notes that this multi-year deficit approximates a full
+        year of global mine production, met from stockpiles rather than from new
+        supply (Silver Institute; CME Group).
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        The annual profile has changed materially over that period. The 2025
+        deficit was 40.3 million ounces and the 2026 deficit is projected at 46.3
+        million ounces, against total global demand of approximately 1.07 to 1.09
+        billion ounces (Silver Institute, World Silver Survey 2026). Measured
+        against a five-year average near 150 million ounces per annum, the
+        current annual shortfall is a fraction of the 2021 to 2023 range.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        The mechanism at work is cumulative rather than annual. Metal consumed
+        over the past five years has been plated onto photovoltaic cells and
+        embedded in electronic assemblies, and does not return to market at
+        prevailing prices. A smaller annual deficit continues to deepen the
+        shortfall, from an inventory position already reduced by close to a year
+        of mine output.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed">
+        The material consequence is a reduction in the market's capacity to
+        absorb demand surprises. A tight market with a depleted buffer responds
+        to incremental demand through price rather than through inventory
+        release. That is a structurally different market from 2019,
+        notwithstanding the smaller annual gap.
+      </p>
+    </section>
+
+    {/* Force Two */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Force Two: Supply Responds Slowly to Price
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Silver mine supply is structurally constrained in its capacity to
+        respond to higher prices.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        The USGS reports that silver is predominantly extracted as a byproduct of
+        lead-zinc, copper and gold mining (USGS). CME Group estimates that over
+        70% of global supply is produced as a byproduct, rendering supply mostly
+        inelastic in the short term (CME Group). Capital allocation decisions at
+        byproduct operations are governed by the economics of the primary metal
+        rather than by the silver price.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Recent output data is consistent with this characterisation. Record
+        prices in 2025 produced a 3% increase in global mine output, to 846.6
+        million ounces (Silver Institute). Recycling rose 2% to a twelve-year
+        high of 197.6 million ounces, though refinery bottlenecks constrained the
+        volume of scrap reaching end-buyers (Silver Institute).
+      </p>
+
+      <p className="text-silver-300 leading-relaxed">
+        Price signals alone do not readily overcome constraints of this kind.
+      </p>
+    </section>
+
+    {/* Force Three */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Force Three: Substitution Is Reshaping Industrial Demand, and It Has a
+        Floor
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Industrial silver demand is being reduced by price-induced substitution,
+        and that substitution is bounded by the material properties of the metal.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Industrial applications consumed 657.4 million ounces in 2025,
+        representing over half of total global demand (Silver Institute). The
+        figure is a decline from a record 679 million ounces in 2024, and HSBC
+        forecasts further reductions to 642 million ounces in 2026 and 618
+        million ounces in 2027, attributing the trend to accelerated
+        manufacturer efforts to reduce silver loadings in response to elevated
+        prices.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Two properties of that trend define its significance.
+      </p>
+
+      <ul className="space-y-4 text-silver-300 mb-6">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">
+              Substitution is a response to scarcity pricing.
+            </strong>{" "}
+            Manufacturers do not allocate engineering resources to removing an
+            input that is inexpensive and abundant. The reduction in silver
+            loadings is the mechanism by which a tight market clears, and its
+            scale indicates the degree of tightness that prompted redesign of
+            photovoltaic cells and automotive contacts.
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Substitution is bounded.</strong>{" "}
+            Silver's conductivity is a material property rather than a design
+            preference. A minimum paste loading exists below which a photovoltaic
+            cell ceases to function, and the industry has been approaching that
+            threshold for approximately a decade. Once substitution saturates,
+            demand growth reverts to unit growth.
+          </span>
+        </li>
+      </ul>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Unit growth is supported across three verticals:
+      </p>
+
+      <ul className="space-y-4 text-silver-300 mb-6">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Solar photovoltaics.</strong> Solar's
+            share of industrial silver demand expanded from 11% in 2014 to 29% in
+            2024 (Silver Institute). Accounting for continued thrifting, IEA
+            models project that accelerated global deployment maintains long-term
+            solar-linked silver demand well above historic baselines (IEA).
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Automotive electrification.</strong>{" "}
+            The Silver Institute forecasts a 3.4% compound annual growth rate in
+            automotive silver demand through 2031. Electric vehicles utilise 67%
+            to 79% more silver than internal combustion engines and are projected
+            to become the primary source of automotive demand by 2027 (Silver
+            Institute).
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Computing infrastructure.</strong>{" "}
+            Expansion of global IT power capacity and AI infrastructure
+            represents an incremental multi-year draw on physical silver (Silver
+            Institute).
+          </span>
+        </li>
+      </ul>
+    </section>
+
+    {/* Investment Demand and the Emerging-Market Shift */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Investment Demand and the Emerging-Market Shift
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Retail investment demand is growing while jewellery demand contracts, and
+        the composition of incremental buying is shifting toward emerging
+        markets.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Physical coin and bar demand rose 14% in 2025 and is projected to
+        increase a further 18% in 2026 (Silver Institute; LBMA). Jewellery demand
+        is forecast to decline to 157 million ounces from 189 million ounces in
+        2025 (HSBC), indicating that elevated prices affect demand categories
+        asymmetrically.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        The geographic composition of investment demand carries particular
+        relevance. Analysts have observed that silver is gaining traction among
+        lower- and middle-income buyers in emerging markets who have been priced
+        out of physical gold, with household demand increasing notably in India
+        and China.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        The practical barriers in these markets are measurable. A household
+        seeking precious-metal exposure faces import duties, dealer premiums over
+        spot, goods and services tax on physical purchases, storage costs, and
+        purity verification on resale. These costs represent a substantially
+        larger proportion of a $200 allocation than of a $200,000 allocation.
+        Fractional allocated exposure therefore functions as an access mechanism
+        rather than a convenience.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed">
+        Market size amplifies the effect of allocation shifts. The physical
+        silver market is small relative to other asset classes, and modest
+        changes in institutional or retail allocation can produce
+        disproportionate price movement. LBMA's Q1 2026 commentary noted that
+        silver responded to gold's macro drivers with heightened sensitivity, a
+        characteristic that operates in both directions.
+      </p>
+    </section>
+
+    {/* Conditions Under Which This Thesis Fails */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Conditions Under Which This Thesis Fails
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        The following developments would materially weaken or invalidate the
+        analysis above.
+      </p>
+
+      <ol className="space-y-4 text-silver-300 mb-6 list-decimal list-inside">
+        <li className="pl-1">
+          <strong className="text-white">Sustained monetary tightening.</strong>{" "}
+          The market expects the rate will be increased in short term. A
+          sustained high Fed rate combined with dollar strength through 2027
+          would suppress prices irrespective of physical conditions. This is the
+          most probable route to a correct fundamental assessment producing an
+          incorrect price outcome.
+        </li>
+        <li className="pl-1">
+          <strong className="text-white">Supply expansion from 2027.</strong>{" "}
+          Mine output is forecast to remain broadly flat in 2026 at approximately
+          848 million ounces before rising more materially to approximately 868
+          million ounces in 2027 (HSBC). Output exceeding that level would
+          indicate that byproduct constraints are easing faster than Force Two
+          assumes, and 2027 should be treated as the year in which that force
+          weakens.
+        </li>
+        <li className="pl-1">
+          <strong className="text-white">
+            Substitution without saturation.
+          </strong>{" "}
+          Silver loadings per photovoltaic cell continuing to decline through
+          2027 without approaching a physical floor would invalidate the central
+          argument of Force Three.
+        </li>
+        <li className="pl-1">
+          <strong className="text-white">Further deficit contraction.</strong> A
+          2027 shortfall narrowing materially below the 46.3 million ounces
+          projected for 2026 would weaken the cumulative depletion argument
+          (Silver Institute). HSBC's James Steel has argued that moderating
+          deficits will not be sufficient to propel silver sharply higher for
+          prolonged periods, and the bank's published forecasts reflect that
+          position.
+        </li>
+        <li className="pl-1">
+          <strong className="text-white">Recycling throughput.</strong>{" "}
+          Resolution of refinery bottlenecks would add supply more rapidly than
+          mine output can.
+        </li>
+      </ol>
+
+      <p className="text-silver-300 leading-relaxed">
+        For calibration, institutional year-end forecasts for 2026 cluster around
+        $79 to $81 per ounce (LBMA analyst survey; J.P. Morgan), with HSBC at $70
+        and considerable dispersion across the survey. Silver Times maintains a
+        constructive outlook relative to spot. Credible institutions publish
+        forecasts both above and below this range.
+      </p>
+    </section>
+
+    {/* Conclusion */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">Conclusion</h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        The structural setup supports a constructive multi-year outlook. If the
+        structural factors remain the same, a mild bull run is expected to take
+        off in Silver.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Three conditions underpin that view: a depleted above-ground buffer
+        following six consecutive deficit years, mine supply that responds slowly
+        to price through 2026, and industrial demand in which price-induced
+        substitution is bounded by the physical properties of the metal.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed">
+        However, investors should be cautious to the volatility this market has
+        demonstrated. Between early August 2025 and late January 2026, silver
+        rose from approximately $37 to $121.67. Between January and July 2026 it
+        declined approximately 50%. Both movements occurred within twelve months.
+        Position sizing and trading on leverage should assume that drawdowns of
+        comparable magnitude will recur.
+      </p>
+    </section>
+
+    {/* Disclosures */}
+    <section className="mb-12">
+      <div className="bg-background-secondary/30 border border-white/10 rounded-2xl p-6">
+        <h3 className="text-lg font-semibold text-white mb-3">Disclosures</h3>
+        <p className="text-silver-400 text-sm leading-relaxed mb-4">
+          <strong className="text-silver-300">Issuer interest.</strong> Silver
+          Times issues a digital token fully backed by allocated physical silver.
+          The firm therefore holds a direct commercial interest in silver price
+          appreciation and in investor participation in this asset class. This
+          document is a marketing communication published by an interested party.
+          It is not independent investment research and should not be relied upon
+          as such.
+        </p>
+        <p className="text-silver-400 text-sm leading-relaxed mb-4">
+          <strong className="text-silver-300">Not investment advice.</strong>{" "}
+          Precious metals are volatile assets and past performance does not
+          indicate future results. Silver declined approximately 50% between
+          January and July 2026. The structural factors discussed in this
+          document are drawn from third-party industry reports (Silver Institute,
+          LBMA, CME Group, USGS, IEA, HSBC) current as of the dates cited and
+          subject to periodic revision. Nothing in this document constitutes
+          financial, legal or tax advice, or a recommendation to buy or sell any
+          asset. Readers should conduct independent research and consult a
+          qualified adviser.
+        </p>
+        <p className="text-silver-400 text-sm leading-relaxed">
+          <strong className="text-silver-300">Distribution.</strong> This
+          communication is not directed at any person in any jurisdiction where
+          its publication or availability would contravene local law or
+          regulation.
+        </p>
+      </div>
+    </section>
+
+    {/* References */}
+    <section className="mb-12">
+      <h2 className="text-3xl font-bold text-white mb-6">References</h2>
+
+      <div className="bg-background-secondary/30 border border-white/10 rounded-2xl p-8">
+        <ul className="space-y-3 text-silver-400 text-sm">
+          <li>
+            <a
+              href="https://www.silverinstitute.org/world-silver-survey/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:text-blue-300"
+            >
+              The Silver Institute — World Silver Survey 2026
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.lbma.org.uk/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:text-blue-300"
+            >
+              London Bullion Market Association (LBMA)
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.cmegroup.com/markets/metals/precious/silver.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:text-blue-300"
+            >
+              CME Group — Silver
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.usgs.gov/centers/national-minerals-information-center/silver-statistics-and-information"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:text-blue-300"
+            >
+              U.S. Geological Survey (USGS) — Silver Statistics and Information
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.iea.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:text-blue-300"
+            >
+              International Energy Agency (IEA)
+            </a>
+          </li>
+          <li>HSBC Global Research — precious metals forecasts</li>
+          <li>Bureau of Labor Statistics — Consumer Price Index, May 2026</li>
+        </ul>
+      </div>
+    </section>
+  </>
+);
+
 export const blogPostsData: BlogPostData[] = [
+  {
+    id: "silver-insight-beginning-next-bull-run",
+    title: "Silver Insight: Beginning of the Next Bull Run",
+    category: "Market Analysis",
+    date: "August 4, 2026",
+    mainImage: "/press/press_9/cover.png",
+    excerpt:
+      "Silver's ~50% decline from its January 2026 peak was monetary, not physical — the metal recorded a sixth consecutive annual supply deficit over the same period. We set out three structural forces supporting a constructive multi-year outlook, and the specific conditions under which that outlook would fail.",
+    content: silverInsightNextBullRunContent,
+  },
   {
     id: "rwa-101-why-real-world-assets-moving-on-chain",
     title: "RWA 101 — Why Real World Assets Are Moving On-Chain",
@@ -3941,7 +4444,14 @@ export default function BlogPost() {
     if (post) {
       // Define meta content based on post ID
       const metaContent =
-        post.id === "silver-war-premium-liquidity-crunch"
+        post.id === "silver-insight-beginning-next-bull-run"
+          ? {
+              title:
+                "SilverTimes - Silver Insight: Beginning of the Next Bull Run",
+              description:
+                "Silver's ~50% decline from its January 2026 peak was monetary, not physical. Three structural forces support a constructive multi-year outlook — and the conditions under which it would fail.",
+            }
+          : post.id === "silver-war-premium-liquidity-crunch"
           ? {
               title: "SilverTimes - Monday Alpha: Silver's War Premium vs. The Liquidity Crunch",
               description:
