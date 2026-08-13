@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { analyticsApi } from "../services/api";
 
 // Popup CTA (Coinstore referral).
 const COINSTORE_URL = "https://www.coinstore.com/signup?invitCode=o5B2zZ";
@@ -39,6 +40,10 @@ function usePromoLive(): boolean {
  */
 export function AirdropBanner() {
   const live = usePromoLive();
+  // Impression: fire once when the banner becomes visible.
+  useEffect(() => {
+    if (live) analyticsApi.track("airdrop_banner_view");
+  }, [live]);
   if (!live) return null;
   const cta = (extra: string) => (
     <span className={`flex items-center gap-1.5 rounded-full bg-white font-semibold text-black ${extra}`}>
@@ -83,6 +88,7 @@ export function AirdropBanner() {
       href={BANNER_URL}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() => analyticsApi.track("airdrop_banner_click")}
       className={className}
       aria-label="Win 1 oz silver — STT trading airdrop on Coinstore"
     >
@@ -107,11 +113,14 @@ export function CoinstoreListingPopup() {
     } catch {
       // storage unavailable — still show once for this page load
     }
-    const t = setTimeout(() => setOpen(true), 700);
+    const t = setTimeout(() => {
+      setOpen(true);
+      analyticsApi.track("coinstore_popup_view");
+    }, 700);
     return () => clearTimeout(t);
   }, [live]);
 
-  const dismiss = () => {
+  const close = () => {
     try {
       sessionStorage.setItem(POPUP_SEEN_KEY, "1");
     } catch {
@@ -120,11 +129,23 @@ export function CoinstoreListingPopup() {
     setOpen(false);
   };
 
+  // Dismissal (X / backdrop / "Maybe later" / Escape) — records why.
+  const dismiss = (via: string) => {
+    analyticsApi.track("coinstore_popup_dismiss", { via });
+    close();
+  };
+
+  // Buy Now / artwork — records the conversion, then closes.
+  const buy = () => {
+    analyticsApi.track("coinstore_popup_buy_click");
+    close();
+  };
+
   // Escape to close
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") dismiss();
+      if (e.key === "Escape") dismiss("escape");
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -143,7 +164,7 @@ export function CoinstoreListingPopup() {
         >
           <div
             className="absolute inset-0 bg-black/80 backdrop-blur-md"
-            onClick={dismiss}
+            onClick={() => dismiss("backdrop")}
           />
           <motion.div
             initial={{ opacity: 0, y: 28, scale: 0.94 }}
@@ -155,7 +176,7 @@ export function CoinstoreListingPopup() {
             <div className="rounded-[1.4rem] bg-gradient-to-br from-white/25 via-white/[0.07] to-transparent p-px">
               <div className="relative overflow-hidden rounded-[1.35rem] bg-background-secondary/95 backdrop-blur-xl">
                 <button
-                  onClick={dismiss}
+                  onClick={() => dismiss("close_x")}
                   aria-label="Close"
                   className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-silver-300 transition-colors hover:bg-black/70 hover:text-white"
                 >
@@ -168,7 +189,7 @@ export function CoinstoreListingPopup() {
                   href={COINSTORE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={dismiss}
+                  onClick={buy}
                   className="block"
                 >
                   <img
@@ -183,13 +204,13 @@ export function CoinstoreListingPopup() {
                     href={COINSTORE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={dismiss}
+                    onClick={buy}
                     className="rounded-full bg-white px-10 py-3.5 text-sm font-semibold text-black transition-transform hover:scale-[1.02]"
                   >
                     Buy Now
                   </a>
                   <button
-                    onClick={dismiss}
+                    onClick={() => dismiss("maybe_later")}
                     className="px-4 py-3.5 text-sm text-silver-500 transition-colors hover:text-white"
                   >
                     Maybe later

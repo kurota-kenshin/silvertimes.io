@@ -402,3 +402,50 @@ export const dailyPredictionApi = {
       body: { currency },
     }),
 };
+
+// ---- Product analytics (anonymous) ----
+// Fire-and-forget events to our own API + DB (promo popup / banner, etc.).
+// Anonymous: a random sessionId in localStorage, no wallet / no PII.
+const ANALYTICS_SESSION_KEY = 'st_analytics_sid';
+
+function analyticsSessionId(): string {
+  try {
+    let sid = localStorage.getItem(ANALYTICS_SESSION_KEY);
+    if (!sid) {
+      sid =
+        (crypto as Crypto | undefined)?.randomUUID?.() ??
+        `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      localStorage.setItem(ANALYTICS_SESSION_KEY, sid);
+    }
+    return sid;
+  } catch {
+    return 'anon';
+  }
+}
+
+export const analyticsApi = {
+  /** Record an event. Never throws, never blocks the UI. */
+  track(name: string, meta?: Record<string, unknown>): void {
+    try {
+      const body = JSON.stringify({
+        name,
+        sessionId: analyticsSessionId(),
+        path: typeof location !== 'undefined' ? location.pathname : undefined,
+        referrer:
+          typeof document !== 'undefined'
+            ? document.referrer || undefined
+            : undefined,
+        meta,
+      });
+      // keepalive lets the beacon complete even if a click navigates away.
+      void fetch(`${API_URL}/analytics/event`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body,
+        keepalive: true,
+      }).catch(() => {});
+    } catch {
+      // analytics must never surface into the UI
+    }
+  },
+};
