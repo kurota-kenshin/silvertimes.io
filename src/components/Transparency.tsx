@@ -10,6 +10,10 @@ const AUDIT_PDF = "/docs/Beosin_Audit_Report_SilverTimes_Post_TGE_20260716.pdf";
 // and everything older collapses into the compact archive list below it.
 const porStatements: { period: string; href: string }[] = [
   {
+    period: "July 2026",
+    href: "/docs/SilverTimes_Transparency_Report_STT-TR-2026-JUL.pdf",
+  },
+  {
     period: "June 2026",
     href: "/docs/SilverTimes_Transparency_Report_STT-TR-2026-JUN.pdf",
   },
