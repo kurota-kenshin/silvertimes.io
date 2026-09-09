@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import { Grain } from "./v2/cinematic";
+import { SHOW_SILVER_PREDICTION } from "../config/features";
 
 const productLinks = [
   { label: "How It Works", to: "/docs" },
-  { label: "Silver Prediction", to: "/prediction" },
+  ...(SHOW_SILVER_PREDICTION
+    ? [{ label: "Silver Prediction", to: "/prediction" }]
+    : []),
 ];
 
 const companyLinks = [

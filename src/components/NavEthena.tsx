@@ -7,6 +7,7 @@ import {
 import { usePrivy } from "@privy-io/react-auth";
 import { useLoginModal } from "./LoginModalProvider";
 import GetSTTModal from "./GetSTTModal";
+import { SHOW_SILVER_PREDICTION } from "../config/features";
 
 export default function NavEthena() {
   const { currentPrice, isLoading, fetchData } = useSilverPriceStore();
@@ -30,7 +31,9 @@ export default function NavEthena() {
 
   const navLinks = [
     { to: "/", label: "Home" },
-    { to: "/prediction", label: "Prediction" },
+    ...(SHOW_SILVER_PREDICTION
+      ? [{ to: "/prediction", label: "Prediction" }]
+      : []),
     { to: "/about", label: "About" },
     { to: "/blog", label: "Blog" },
     { to: "/docs", label: "Docs" },
@@ -147,13 +150,15 @@ export default function NavEthena() {
                         <div className="truncate px-3 py-2 text-xs text-silver-500">
                           {accountLabel}
                         </div>
-                        <Link
-                          to="/prediction?tab=claim"
-                          onClick={() => setAccountOpen(false)}
-                          className="block rounded-lg px-3 py-2 text-sm text-silver-200 transition-colors hover:bg-white/5 hover:text-white"
-                        >
-                          Withdrawal wallet &amp; claim
-                        </Link>
+                        {SHOW_SILVER_PREDICTION && (
+                          <Link
+                            to="/prediction?tab=claim"
+                            onClick={() => setAccountOpen(false)}
+                            className="block rounded-lg px-3 py-2 text-sm text-silver-200 transition-colors hover:bg-white/5 hover:text-white"
+                          >
+                            Withdrawal wallet &amp; claim
+                          </Link>
+                        )}
                         <button
                           onClick={() => {
                             setAccountOpen(false);

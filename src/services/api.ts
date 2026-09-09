@@ -464,6 +464,12 @@ export const stakingApi = {
   confirmDeposit: (token: string, body: { intentId: string; txHash: string }) =>
     apiRequest<any>('/staking/confirm', { method: 'POST', body, token }),
 
+  cancelIntent: (token: string, intentId: string) =>
+    apiRequest<any>(`/staking/intent/${intentId}/cancel`, {
+      method: 'POST',
+      token,
+    }),
+
   claim: (token: string, positionId: string) =>
     apiRequest<any>(`/staking/positions/${positionId}/claim`, {
       method: 'POST',

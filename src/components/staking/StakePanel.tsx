@@ -81,6 +81,8 @@ export default function StakePanel({
 
   const wallet = wallets[0];
   const remaining = me?.remainingStt ?? MAX_STAKE_PER_WALLET_STT;
+  const held = me?.heldStt ?? 0;
+  const staked = me?.stakedTotalStt ?? 0;
   const poolOpen = config?.pool.isOpen ?? true;
 
   const maxForThisStake = Math.min(MAX_STAKE_PER_WALLET_STT, remaining);
@@ -101,6 +103,10 @@ export default function StakePanel({
       return;
     }
 
+    // Held so an abandoned flow can release its quota hold immediately rather
+    // than leaving the allowance eaten until the intent's TTL expires.
+    let intentId: string | null = null;
+
     try {
       setPhase("intent");
       const token = await getAccessToken();
@@ -111,6 +117,7 @@ export default function StakePanel({
         termDays: term,
         walletAddress: wallet.address,
       });
+      intentId = intent.intentId;
 
       setPhase("sending");
       const provider = await wallet.getEthereumProvider();
@@ -148,7 +155,22 @@ export default function StakePanel({
         "Your transfer was sent but is still confirming. It will be credited automatically — check back shortly.",
       );
     } catch (err: any) {
-      setError(err?.message || "Staking failed. Please try again.");
+      // Give the hold back now. A rejected wallet prompt or a failed send
+      // would otherwise cost the user their allowance for the full TTL.
+      if (intentId) {
+        try {
+          const token = await getAccessToken();
+          if (token) await stakingApi.cancelIntent(token, intentId);
+          await onStaked();
+        } catch {
+          // Best effort — the expiry sweeper is the backstop.
+        }
+      }
+      setError(
+        /user rejected|denied/i.test(err?.message || "")
+          ? "Transaction cancelled. Your allowance has been released."
+          : err?.message || "Staking failed. Please try again.",
+      );
       setPhase("idle");
     }
   }
@@ -220,6 +242,24 @@ export default function StakePanel({
                     <span className="text-xs tabular-nums text-silver-500">
                       {fmtStt(remaining, 2)} STT left of {MAX_STAKE_PER_WALLET_STT}
                     </span>
+                  </div>
+
+                  <div className="mt-1.5 space-y-1 text-[11px] leading-relaxed text-silver-500">
+                    {staked > 0 && (
+                      <div>
+                        <span className="tabular-nums text-silver-400">
+                          {fmtStt(staked, 2)} STT
+                        </span>{" "}
+                        staked in open positions
+                      </div>
+                    )}
+                    {held > 0 && (
+                      <div className="text-brand-teal/80">
+                        <span className="tabular-nums">{fmtStt(held, 2)} STT</span>{" "}
+                        reserved by a stake you did not finish — released
+                        automatically within 30 minutes.
+                      </div>
+                    )}
                   </div>
 
                   <div className="mt-4 flex items-center gap-3">

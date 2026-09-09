@@ -26,6 +26,7 @@ import PredictionV2 from "./components/PredictionV2";
 import SilverYield from "./components/SilverYield";
 import PasswordGate from "./components/PasswordGate";
 import StakingPage from "./components/staking/StakingPage";
+import { SHOW_SILVER_PREDICTION } from "./config/features";
 import Profile from "./components/Profile";
 import RewardsTerms from "./components/RewardsTerms";
 import AboutUs from "./components/AboutUs";
@@ -112,8 +113,21 @@ function App() {
           <Route path="/home-v2" element={<Navigate to="/" replace />} />
           <Route path="/transparency" element={<Transparency />} />
           <Route path="/products" element={<SilverBarPurchase />} />
-          <Route path="/prediction" element={<PredictionV2 />} />
-          <Route path="/prediction-v1" element={<PredictionGame />} />
+          {/* Silver Prediction is temporarily hidden — see config/features.ts.
+              While hidden, every prediction route redirects home so nobody
+              lands on a game that has been taken down. */}
+          <Route
+            path="/prediction"
+            element={
+              SHOW_SILVER_PREDICTION ? <PredictionV2 /> : <Navigate to="/" replace />
+            }
+          />
+          <Route
+            path="/prediction-v1"
+            element={
+              SHOW_SILVER_PREDICTION ? <PredictionGame /> : <Navigate to="/" replace />
+            }
+          />
           <Route path="/prediction-v2" element={<Navigate to="/prediction" replace />} />
           <Route path="/earn" element={<SilverYield />} />
           {/* Secret staking campaign: unlisted route, password-gated. */}
