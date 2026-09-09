@@ -3,9 +3,17 @@ import { accessApi, accessTokenManager } from '../services/api';
 
 interface PasswordGateProps {
   children: ReactNode;
+  /** What the visitor is unlocking. Defaults to the prediction game. */
+  description?: string;
+  /** Label on the submit button. */
+  action?: string;
 }
 
-export default function PasswordGate({ children }: PasswordGateProps) {
+export default function PasswordGate({
+  children,
+  description = 'Enter the password to access the prediction game',
+  action = 'Access Game',
+}: PasswordGateProps) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -65,7 +73,7 @@ export default function PasswordGate({ children }: PasswordGateProps) {
                 Early Access
               </h2>
               <p className="text-text-secondary text-sm">
-                Enter the password to access the prediction game
+                {description}
               </p>
             </div>
 
@@ -90,7 +98,7 @@ export default function PasswordGate({ children }: PasswordGateProps) {
                 disabled={isLoading || !password}
                 className="w-full py-3 bg-accent-primary hover:bg-accent-secondary text-white font-semibold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isLoading ? 'Verifying...' : 'Access Game'}
+                {isLoading ? 'Verifying...' : action}
               </button>
             </form>
 

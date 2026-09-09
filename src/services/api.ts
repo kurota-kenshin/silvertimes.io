@@ -449,3 +449,30 @@ export const analyticsApi = {
     }
   },
 };
+
+// Staking API (secret /staking campaign)
+export const stakingApi = {
+  getConfig: () => apiRequest<any>('/staking/config'),
+
+  getMe: (token: string) => apiRequest<any>('/staking/me', { token }),
+
+  createIntent: (
+    token: string,
+    body: { amountStt: number; termDays: number; walletAddress: string },
+  ) => apiRequest<any>('/staking/intent', { method: 'POST', body, token }),
+
+  confirmDeposit: (token: string, body: { intentId: string; txHash: string }) =>
+    apiRequest<any>('/staking/confirm', { method: 'POST', body, token }),
+
+  claim: (token: string, positionId: string) =>
+    apiRequest<any>(`/staking/positions/${positionId}/claim`, {
+      method: 'POST',
+      token,
+    }),
+
+  unstake: (token: string, positionId: string) =>
+    apiRequest<any>(`/staking/positions/${positionId}/unstake`, {
+      method: 'POST',
+      token,
+    }),
+};

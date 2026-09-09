@@ -24,7 +24,8 @@ import SilverBarPurchase from "./components/SilverBarPurchase";
 import PredictionGame from "./components/PredictionGame";
 import PredictionV2 from "./components/PredictionV2";
 import SilverYield from "./components/SilverYield";
-// import PasswordGate from "./components/PasswordGate";
+import PasswordGate from "./components/PasswordGate";
+import StakingPage from "./components/staking/StakingPage";
 import Profile from "./components/Profile";
 import RewardsTerms from "./components/RewardsTerms";
 import AboutUs from "./components/AboutUs";
@@ -80,12 +81,21 @@ function HomePageV2() {
 
 // The redesigned (v2) routes ship their own FooterV2, so the legacy global
 // footer is suppressed on them. The legacy "-v1" routes keep the global footer.
-const V2_ROUTES = ["/", "/transparency", "/prediction", "/earn"];
+const V2_ROUTES = ["/", "/transparency", "/prediction", "/earn", "/staking"];
 
 function SiteFooter() {
   const { pathname } = useLocation();
   if (V2_ROUTES.includes(pathname)) return null;
   return <Footer />;
+}
+
+// Routes where the Coinstore promo popup would be off-message.
+const NO_PROMO_ROUTES = ["/staking"];
+
+function SitePromo() {
+  const { pathname } = useLocation();
+  if (NO_PROMO_ROUTES.includes(pathname)) return null;
+  return <CoinstoreListingPopup />;
 }
 
 function App() {
@@ -94,7 +104,7 @@ function App() {
       <ScrollToTop />
       <div className="min-h-screen bg-background-primary">
         <NavEthena />
-        <CoinstoreListingPopup />
+        <SitePromo />
         <Routes>
           <Route path="/" element={<HomePageV2 />} />
           <Route path="/home-v1" element={<HomePage />} />
@@ -106,6 +116,18 @@ function App() {
           <Route path="/prediction-v1" element={<PredictionGame />} />
           <Route path="/prediction-v2" element={<Navigate to="/prediction" replace />} />
           <Route path="/earn" element={<SilverYield />} />
+          {/* Secret staking campaign: unlisted route, password-gated. */}
+          <Route
+            path="/staking"
+            element={
+              <PasswordGate
+                description="Enter the password to access STT staking"
+                action="Access Staking"
+              >
+                <StakingPage />
+              </PasswordGate>
+            }
+          />
           <Route path="/profile" element={<Profile />} />
           <Route path="/rewards-terms" element={<RewardsTerms />} />
           <Route path="/about" element={<AboutUs />} />
