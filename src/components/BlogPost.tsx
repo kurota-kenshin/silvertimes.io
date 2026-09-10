@@ -4339,7 +4339,506 @@ const silverInsightNextBullRunContent = (
   </>
 );
 
+const centralBankReserveAssetsContent = (
+  <>
+    {/* Opening */}
+    <section className="mb-12">
+      <div className="bg-gradient-to-br from-blue-500/20 to-violet-500/10 border border-blue-500/30 rounded-2xl p-8 mb-8">
+        <div className="flex items-center gap-3 mb-4">
+          <span className="text-blue-400 font-semibold">In brief:</span>
+          <span className="text-white font-bold">
+            Reserve managers changed what they hold, and who holds it
+          </span>
+        </div>
+        <p className="text-silver-300 leading-relaxed">
+          What central banks did over the past three years, and what it means
+          for anyone who holds metal through someone else.
+        </p>
+      </div>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        In 2023, something happened quietly in the US Treasury market that
+        didn't make headlines. Private investors overtook central banks as the
+        largest foreign owners of US government debt — $4.4 trillion against
+        $3.8 trillion.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        It wasn't a one-off. Central banks' share of foreign-held Treasuries has
+        fallen from 59% in 2020 to roughly 41% today.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Over the same stretch, those same institutions bought gold at about
+        twice their historic rate. Roughly 1,000 tonnes a year for four
+        consecutive years, against an average near 500 tonnes in the preceding
+        decade.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        By the end of 2025, gold made up 27% of global official reserves against
+        22% for US Treasuries — the first crossover since the mid-1990s. The
+        ECB, which published that figure, is careful to note that much of the
+        shift reflects gold's price rather than fresh allocation. Gold rose
+        around 30% in 2024 and 60% in 2025, which mechanically inflates its
+        share. Adjusted back to end-2023 prices, Treasuries would still lead.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        That caveat is fair, and it's worth stating plainly. But strip the price
+        effect out entirely and the flows still point one way. The institutions
+        whose job is reserve management have been steadily reducing their
+        exposure to US government debt, and steadily adding metal.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed">
+        They have also been doing something else, which has drawn far less
+        attention. They have been changing who holds it.
+      </p>
+    </section>
+
+    {/* Part one */}
+    <section className="mb-12">
+      <div className="mb-8">
+        <img
+          src="/press/press_10/part-one-buying.jpeg"
+          alt="Part one: buying the metal"
+          className="w-full rounded-2xl border border-white/10"
+        />
+      </div>
+
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Part one: buying the metal
+      </h2>
+
+      <h3 className="text-xl font-semibold text-white mb-4">
+        The composition shift
+      </h3>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Start with the measure that can't be explained away by prices, because
+        both sides of the ratio move together.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Of all foreign-held US Treasuries, the share belonging to official
+        institutions — central banks and sovereign funds — has gone from 59% in
+        2020, to 49% by mid-2023, to 47% by mid-2024, to about 41% today.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        The most recent twelve months show the same thing in dollars. Between
+        June 2025 and June 2026, total foreign holdings of Treasuries rose by
+        $205 billion, to $9,299 billion. Foreign official holdings fell by $114
+        billion, to $3,778 billion.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-8">
+        Private money more than filled the gap. The reserve managers stepped
+        back.
+      </p>
+
+      <h3 className="text-xl font-semibold text-white mb-4">
+        China is the clearest case
+      </h3>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        China's Treasury holdings went from $731 billion to $633 billion in
+        twelve months, a 13% reduction, and the line only moves one way.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Over the same period, the People's Bank of China bought gold for 22
+        consecutive months. August alone was 20.2 tonnes, its largest single
+        month since October 2023. Roughly 80 tonnes so far in 2026, taking total
+        holdings to about 2,387 tonnes.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-8">
+        One institution. Two reserve assets. Moving in opposite directions,
+        month after month, in data anyone can download.
+      </p>
+
+      <h3 className="text-xl font-semibold text-white mb-4">
+        A plateau, not a ramp
+      </h3>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        It would be easy to write that central bank buying is accelerating. It
+        isn't, and the honest version is more interesting.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Purchases ran at roughly 1,080 tonnes in 2022, 1,050 in 2023, and 1,045
+        in 2024, before easing to around 863 tonnes in 2025. The first half of
+        2026 brought 345 tonnes — the weakest first half since 2022, dragged
+        down not by reluctant buyers but by forced sellers, with Russia and
+        Turkey liquidating gold to cover budget shortfalls.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        What matters is the level, not the slope. Buying has held near 1,000
+        tonnes a year while the gold price roughly tripled. Demand that doesn't
+        fall away as price rises is demand driven by something other than price.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-8">
+        The second quarter of 2026 made the point sharply. Central banks added a
+        record 289 tonnes, up 62% year on year and five times the revised
+        first-quarter figure of 57 tonnes — during a quarter when gold fell
+        roughly 16%. Buying into a rally is momentum. Buying into a drawdown is
+        conviction.
+      </p>
+
+      <h3 className="text-xl font-semibold text-white mb-4">
+        It is no longer a China story
+      </h3>
+
+      <ul className="space-y-4 text-silver-300 mb-6">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Poland</strong> has bought 90 tonnes
+            this year, holds 640 tonnes, and is working toward a stated target
+            of 700 tonnes, around 28% of its total reserves.
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">The Czech National Bank</strong> has
+            now bought gold for 41 consecutive months, reaching 84 tonnes, with
+            a public commitment to hold 100 tonnes by 2028. Governor Aleš Michl
+            frames the decision as portfolio mathematics rather than politics —
+            gold's low correlation with other reserve assets reduces the
+            volatility of the bank's results. The same bank examined Bitcoin as
+            a reserve asset and declined for now, citing volatility.
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">The Bank of Korea</strong> made its
+            first gold allocation in thirteen years, and announced plans to buy
+            domestically refined metal.
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">The Bank of Namibia</strong> is
+            targeting an increase from 1% to 3% of reserves by March 2027,
+            sourcing from a local miner.
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Bank Negara Malaysia</strong> and{" "}
+            <strong className="text-white">the Central Bank of Bolivia</strong>{" "}
+            are new entrants.
+          </span>
+        </li>
+      </ul>
+
+      <p className="text-silver-300 leading-relaxed mb-8">
+        The World Gold Council's 2026 survey drew 76 responses, the highest in
+        its nine-year history. 89% expect global official gold reserves to rise
+        over the next twelve months. A record 45% plan to increase their own.
+        74% expect a lower US dollar share of global reserves within five years.
+      </p>
+
+      <h3 className="text-xl font-semibold text-white mb-4">
+        And silver, precisely
+      </h3>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Silver is not an IMF-recognised reserve asset, and it would be wrong to
+        claim central banks are stockpiling it. But the edges are moving.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        According to reporting on Russia's 2025–27 federal budget, silver was
+        named alongside gold, platinum and palladium in an allocation of 51.5
+        billion rubles, roughly $535 million. That sits with the State Fund
+        rather than central bank reserves — and it's worth noting the Bank of
+        Russia has been a net seller of gold this year, around 50 tonnes, to
+        cover its budget.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Saudi Arabia is the more revealing case. Its central bank took roughly
+        $40 million of silver exposure through exchange-traded funds — about
+        932,000 shares of iShares Silver Trust and 203,700 shares of Global X
+        Silver Miners, per SEC filings. Not metal. A fund share. Its own reserve
+        metal remains gold, roughly 320 tonnes of it.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed">
+        Hold that thought. A sovereign wanted silver exposure and reached for a
+        paper claim, accepting the counterparty layer that came with it.
+      </p>
+    </section>
+
+    {/* Part two */}
+    <section className="mb-12">
+      <div className="mb-8">
+        <img
+          src="/press/press_10/part-two-moving.jpeg"
+          alt="Part two: moving the metal"
+          className="w-full rounded-2xl border border-white/10"
+        />
+      </div>
+
+      <h2 className="text-3xl font-bold text-white mb-6">
+        Part two: moving the metal
+      </h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Buying more of an asset whose entire purpose is to work when the
+        financial system doesn't raises an obvious follow-up question. Can you
+        actually reach it?
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Between March and August 2026, the Dutch central bank moved 86 tonnes of
+        gold out of New York and Ottawa and into London, worth roughly $11.7
+        billion. New York's share of Dutch reserves fell from 31.3% to 18.5%.
+        DNB's stated reason was crisis preparedness amid increasing geopolitical
+        unrest, noting that gold held in New York and Ottawa could not be used
+        as quickly or directly in a crisis.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        The Banque de France had already replaced 129 tonnes held at the New
+        York Fed, between July 2025 and January 2026.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-8">
+        The survey data shows the same pattern at scale. Over the past twelve
+        months, 9% of central banks increased domestic storage, up from 5% the
+        year before. 10% diversified their overseas storage locations — up from
+        just 2%.
+      </p>
+
+      <h3 className="text-xl font-semibold text-white mb-4">
+        What this is, and what it isn't
+      </h3>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        This is not a simple repatriation story, and it's worth being accurate
+        about that.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        More central banks diversified overseas than brought metal home. The
+        Dutch moved from New York to London: one custodian to another. Most
+        Czech gold still sits at the Bank of England, which remains the single
+        most popular vaulting location at 57%, ahead of domestic storage at 49%.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-8">
+        What is being reduced is concentration and counterparty dependence, not
+        foreign storage as such.
+      </p>
+
+      <h3 className="text-xl font-semibold text-white mb-4">
+        Germany shows the real mechanism
+      </h3>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Germany still holds about 1,236 tonnes at the New York Federal Reserve,
+        roughly 37% of its reserves. The Bundesbank has consistently and
+        publicly described the Fed as a trustworthy, reliable partner. The
+        domestic debate has not gone away regardless.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        That tells you what the argument is actually about. It isn't whether the
+        Fed is trustworthy. It's about who gets to decide.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-8">
+        The precedent behind the question is recent. Around $300 billion of
+        Russian central bank assets were frozen in February 2022, and in
+        December 2025 that freeze was made indefinite.
+      </p>
+
+      <h3 className="text-xl font-semibold text-white mb-4">
+        Venezuela, where it stopped being theoretical
+      </h3>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Venezuela has requested the return of roughly $4 billion of its gold
+        from the Bank of England. It has been blocked since 2018, after the UK
+        declined to recognise the country's government.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        The metal exists. The owner is named. The answer was no.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed">
+        Note the jurisdiction. This is not a story about one country's politics.
+        There is no amount of ownership that substitutes for access.
+      </p>
+    </section>
+
+    {/* SilverTimes Token */}
+    <section className="mb-12">
+      <div className="mb-8">
+        <img
+          src="/press/press_10/tokenized-vs-traditional.jpeg"
+          alt="Tokenized silver compared with traditional silver ownership"
+          className="w-full rounded-2xl border border-white/10"
+        />
+      </div>
+
+      <h2 className="text-3xl font-bold text-white mb-6">SilverTimes Token</h2>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        Central banks didn't abandon custodians. They changed which custodian,
+        which jurisdiction, and how quickly they could reach the metal. That's
+        the test. Not whether someone holds your metal, but whether you know
+        who, where, and on what terms you can get it back.
+      </p>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        SilverTimes answers it in one line each.
+      </p>
+
+      <ul className="space-y-4 text-silver-300 mb-8">
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">Jurisdiction — Hong Kong.</strong> A
+            free port with no VAT, no GST and no sales tax on LBMA Good Delivery
+            silver, no capital gains tax, and duty-free import and export. This
+            matters more for silver than for gold, because consumption taxes and
+            import duties fall hardest on the white metals, where
+            value-to-weight is low. Hong Kong's bullion market dates back to
+            1910 and remains Asia's most active physical trading centre.
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">
+              Custody — Brink's Hong Kong.
+            </strong>{" "}
+            Not a vault you've never heard of, in a jurisdiction you'd have to
+            look up.
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">
+              Verification — published monthly.
+            </strong>{" "}
+            Brink's issues a statement each month showing daily inventory
+            movement. We publish it in full on this site. Not a summary, not an
+            attestation letter. The vault's own record, every month.
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="text-blue-400 mt-1">•</span>
+          <span>
+            <strong className="text-white">
+              Redemption — any working day.
+            </strong>{" "}
+            Holders can take physical delivery of a good delivery bar of 1,000
+            ounces on any business day. The right is not a quarterly window, not
+            a discretionary process, and not subject to approval.
+          </span>
+        </li>
+      </ul>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        And the part central banks can't do: you hold the token yourself. Not
+        the metal — nobody self-custodies a tonne of silver. The title. No
+        broker, no platform who has to say yes before you can move it.
+      </p>
+
+      <div className="bg-gradient-to-br from-blue-500/10 to-violet-500/5 border border-blue-500/20 rounded-2xl p-8 mb-8">
+        <p className="text-white text-lg font-semibold leading-relaxed">
+          The Netherlands needed six months to move its gold. You need a
+          business day.
+        </p>
+      </div>
+
+      <p className="text-silver-300 leading-relaxed mb-6">
+        SilverTimes Token trades on CoinStore and Uniswap.
+      </p>
+
+      <div className="flex flex-col sm:flex-row gap-4">
+        <a
+          href="https://www.coinstore.com/spot/STTUSDT"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-500 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-600"
+        >
+          Trade $STT on Coinstore
+        </a>
+        <a
+          href="https://app.uniswap.org/explore/pools/ethereum/0xdf6f11d5fc5159ee707eb8f17463d53d1fa6ba78ffccc1edbcec93ef319b48c0"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/15 px-6 py-3 font-semibold text-silver-200 transition-colors hover:border-white/30 hover:text-white"
+        >
+          Trade $STT on Uniswap
+        </a>
+      </div>
+    </section>
+
+    {/* Sources and method */}
+    <section className="mb-12">
+      <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-8">
+        <h2 className="text-xl font-bold text-white mb-4">
+          Sources and method
+        </h2>
+
+        <p className="text-silver-400 text-sm leading-relaxed mb-4">
+          US Treasury International Capital data, Table 5 (June 2026), and
+          Treasury's annual surveys of foreign portfolio holdings of US
+          securities (2023 and 2024). The official share of foreign-held
+          Treasuries for June 2025 and June 2026 is calculated as foreign
+          official holdings divided by total foreign holdings from TIC Table 5.
+          Reserve composition figures from the ECB, The International Role of
+          the Euro, June 2025 and June 2026. Central bank purchase and survey
+          data from the World Gold Council's Gold Demand Trends and 2026 Central
+          Bank Gold Reserves Survey. Storage and repatriation figures from De
+          Nederlandsche Bank and the World Gold Council. Chinese holdings from
+          SAFE. Saudi ETF positions from SEC filings.
+        </p>
+
+        <p className="text-silver-400 text-sm leading-relaxed mb-4">
+          TIC data records holdings by custody location rather than by
+          nationality of owner, which means holdings booked through financial
+          centres may be attributed to the wrong country.
+        </p>
+
+        <p className="text-silver-500 text-sm leading-relaxed">
+          This article is for information only and is not investment advice.
+          Precious metals prices fluctuate and the value of any holding can fall
+          as well as rise.
+        </p>
+      </div>
+    </section>
+  </>
+);
+
 export const blogPostsData: BlogPostData[] = [
+  {
+    id: "precious-metals-reserve-assets-central-banks",
+    title: "Precious metals: Reserve assets for central banks",
+    category: "Market Analysis",
+    date: "10 September 2026",
+    mainImage: "/press/press_10/cover.png",
+    excerpt:
+      "Central banks have cut their share of foreign-held US Treasuries from 59% to 41% while buying gold at twice their historic rate. Less noticed: they have also been changing who holds the metal, and how quickly they can reach it. What that means for anyone holding metal through someone else.",
+    content: centralBankReserveAssetsContent,
+  },
   {
     id: "silver-insight-beginning-next-bull-run",
     title: "Silver Insight: Beginning of the Next Bull Run",
@@ -4435,6 +4934,40 @@ export const blogPostsData: BlogPostData[] = [
   },
 ];
 
+/**
+ * Hand-written share copy for posts whose social text differs from the
+ * on-page excerpt. Anything not listed falls back to the post's own title and
+ * excerpt — previously an unlisted post silently inherited another post's tags.
+ */
+const META_OVERRIDES: Record<string, { title: string; description: string }> = {
+  "silver-insight-beginning-next-bull-run": {
+    title: "SilverTimes - Silver Insight: Beginning of the Next Bull Run",
+    description:
+      "Silver's ~50% decline from its January 2026 peak was monetary, not physical. Three structural forces support a constructive multi-year outlook — and the conditions under which it would fail.",
+  },
+  "silver-war-premium-liquidity-crunch": {
+    title:
+      "SilverTimes - Monday Alpha: Silver's War Premium vs. The Liquidity Crunch",
+    description:
+      "Iran conflict escalation drives energy prices higher. We analyze the near-term liquidity concerns, Fed policy dilemma, and technical setup.",
+  },
+  "silver-january-2026-blow-off-reset": {
+    title: "SilverTimes - Anatomy of the January 2026 Blow-Off and Reset",
+    description:
+      "Silver hit $121.75 before crashing 36% in a single session. We dissect the debasement trade, the Warsh Shock, and what the structural deficit means for the consolidation ahead.",
+  },
+  "silver-market-brief-100-horizon": {
+    title: "SilverTimes - Silver Market Brief EP1",
+    description:
+      "Silver price continues to surge in 2026. Read on for our January Silver Market Brief.",
+  },
+  "the-great-silver-paradigm-shift": {
+    title: "SilverTimes - The Great Silver Paradigm Shift",
+    description:
+      "2025 was the year silver broke free. This report offers retail investors and industry observers a data-driven understanding of why silver has evolved into the world's most critical strategic metal.",
+  },
+};
+
 export default function BlogPost() {
   const { postId } = useParams<{ postId: string }>();
   const post = blogPostsData.find((p) => p.id === postId);
@@ -4442,38 +4975,13 @@ export default function BlogPost() {
   // Update meta tags for social sharing
   useEffect(() => {
     if (post) {
-      // Define meta content based on post ID
-      const metaContent =
-        post.id === "silver-insight-beginning-next-bull-run"
-          ? {
-              title:
-                "SilverTimes - Silver Insight: Beginning of the Next Bull Run",
-              description:
-                "Silver's ~50% decline from its January 2026 peak was monetary, not physical. Three structural forces support a constructive multi-year outlook — and the conditions under which it would fail.",
-            }
-          : post.id === "silver-war-premium-liquidity-crunch"
-          ? {
-              title: "SilverTimes - Monday Alpha: Silver's War Premium vs. The Liquidity Crunch",
-              description:
-                "Iran conflict escalation drives energy prices higher. We analyze the near-term liquidity concerns, Fed policy dilemma, and technical setup.",
-            }
-          : post.id === "silver-january-2026-blow-off-reset"
-          ? {
-              title: "SilverTimes - Anatomy of the January 2026 Blow-Off and Reset",
-              description:
-                "Silver hit $121.75 before crashing 36% in a single session. We dissect the debasement trade, the Warsh Shock, and what the structural deficit means for the consolidation ahead.",
-            }
-          : post.id === "silver-market-brief-100-horizon"
-          ? {
-              title: "SilverTimes - Silver Market Brief EP1",
-              description:
-                "Silver price continues to surge in 2026. Read on for our January Silver Market Brief.",
-            }
-          : {
-              title: "SilverTimes - The Great Silver Paradigm Shift",
-              description:
-                "2025 was the year silver broke free. This report offers retail investors and industry observers a data-driven understanding of why silver has evolved into the world's most critical strategic metal.",
-            };
+      // Share copy defaults to the post's own title and excerpt, so every
+      // post — including new ones — gets correct tags. The map below holds
+      // only the older posts whose share text differs from their excerpt.
+      const metaContent = META_OVERRIDES[post.id] ?? {
+        title: `SilverTimes - ${post.title}`,
+        description: post.excerpt,
+      };
 
       // Update title
       document.title = metaContent.title;

@@ -8,6 +8,12 @@ const __dirname = path.dirname(__filename);
 // Blog posts metadata for OG tags - add new blog posts here
 const blogPosts = [
   {
+    route: '/blog/precious-metals-reserve-assets-central-banks',
+    title: 'SilverTimes - Precious metals: Reserve assets for central banks',
+    description: 'Central banks cut their share of foreign-held US Treasuries from 59% to 41% while buying gold at twice their historic rate — and quietly changed who holds the metal. What that means for anyone holding metal through someone else.',
+    image: 'https://www.silvertimes.io/press/press_10/cover.png',
+  },
+  {
     route: '/blog/the-great-silver-paradigm-shift',
     title: 'SilverTimes - The Great Silver Paradigm Shift',
     description: "2025 was the year silver broke free. This report offers retail investors and industry observers a data-driven understanding of why silver has evolved into the world's most critical strategic metal.",
