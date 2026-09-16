@@ -7,7 +7,6 @@ import StakingHero from "./StakingHero";
 import TermCards from "./TermCards";
 import StakePanel from "./StakePanel";
 import PositionsPanel from "./PositionsPanel";
-import ParametersSheet from "./ParametersSheet";
 import RiskNotes from "./RiskNotes";
 import type { MyStaking, StakingConfig, TermDays } from "./staking";
 
@@ -59,7 +58,6 @@ export default function StakingPage() {
       <TermCards term={term} onSelect={setTerm} />
       <StakePanel config={config} me={me} term={term} onStaked={reload} />
       <PositionsPanel me={me} onChanged={reload} />
-      <ParametersSheet />
       <RiskNotes treasuryAddress={config?.treasuryAddress ?? ""} />
 
       <FooterV2 />

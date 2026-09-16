@@ -26,7 +26,11 @@ export default function RiskNotes({
     },
     {
       title: "The reward pool is finite",
-      body: "Rewards are reserved the moment you stake. Once the 14.28 STT pool is fully committed, staking closes. Positions already open are unaffected and pay out as agreed.",
+      body: "Rewards are reserved the moment you stake. Once the pool is fully committed, staking closes. Positions already open are unaffected and pay out as agreed.",
+    },
+    {
+      title: "First come, first served",
+      body: "Rewards are allocated in the order stakes are confirmed. There is no ballot and no waiting list — once the pool is committed, later stakes are not accepted.",
     },
   ];
 

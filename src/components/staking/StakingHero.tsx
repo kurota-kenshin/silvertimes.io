@@ -1,6 +1,12 @@
 import { Eyebrow, FadeUp, Reveal } from "../v2/cinematic";
 import PoolMeter from "./PoolMeter";
-import { MAX_STAKE_PER_WALLET_STT, MIN_STAKE_STT, fmtRate, type PoolState } from "./staking";
+import {
+  MAX_STAKE_PER_WALLET_STT,
+  MIN_STAKE_STT,
+  committedPct,
+  fmtRate,
+  type PoolState,
+} from "./staking";
 
 function Rate({ bps, term, accent }: { bps: number; term: string; accent: string }) {
   return (
@@ -70,13 +76,12 @@ export default function StakingHero({
 
               <div className="mt-3 flex items-baseline gap-2">
                 <span className="text-[2.75rem] font-semibold leading-none tracking-tight tabular-nums text-white">
-                  {pool ? pool.availableRewardStt.toFixed(2) : "—"}
+                  {pool ? `${committedPct(pool).toFixed(1)}%` : "—"}
                 </span>
-                <span className="text-base text-silver-400">STT left</span>
+                <span className="text-base text-silver-400">committed</span>
               </div>
-
               <div className="mt-6">
-                <PoolMeter pool={pool} compact />
+                <PoolMeter pool={pool} />
               </div>
 
               <dl className="mt-7 space-y-3 border-t border-white/[0.07] pt-5 text-sm">

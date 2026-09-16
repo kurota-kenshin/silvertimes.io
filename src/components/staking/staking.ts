@@ -125,3 +125,10 @@ export interface StakeIntentResponse {
   rewardStt: number;
   expiresAt: string;
 }
+
+/** Share of the reward pool already committed or held, 0-100. */
+export function committedPct(pool: PoolState): number {
+  const used = pool.committedRewardStt + pool.heldRewardStt;
+  if (pool.totalRewardStt <= 0) return 0;
+  return Math.min(100, (used / pool.totalRewardStt) * 100);
+}
