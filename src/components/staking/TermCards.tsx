@@ -93,7 +93,7 @@ export default function TermCards({
                       {fmtRate(APR_BPS[t])}
                     </div>
                     <div className="mt-1.5 text-[10px] uppercase tracking-[0.14em] text-silver-500">
-                      fixed rate
+                      fixed APR
                     </div>
                   </div>
                 </div>

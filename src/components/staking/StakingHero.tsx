@@ -60,9 +60,9 @@ export default function StakingHero({
 
             <FadeUp delay={0.24} scroll={false}>
               <div className="mt-9 flex items-start gap-10">
-                <Rate bps={1000} term="30-day rate" accent="text-brand-teal" />
+                <Rate bps={1000} term="30-day APR" accent="text-brand-teal" />
                 <div className="h-12 w-px bg-white/10" />
-                <Rate bps={1500} term="90-day rate" accent="text-brand-sky" />
+                <Rate bps={1500} term="90-day APR" accent="text-brand-sky" />
               </div>
             </FadeUp>
           </div>

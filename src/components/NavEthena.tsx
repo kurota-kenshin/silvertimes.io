@@ -31,6 +31,7 @@ export default function NavEthena() {
 
   const navLinks = [
     { to: "/", label: "Home" },
+    { to: "/staking", label: "Staking" },
     ...(SHOW_SILVER_PREDICTION
       ? [{ to: "/prediction", label: "Prediction" }]
       : []),

@@ -50,7 +50,7 @@ export default function PositionsPanel({
     <section className="relative px-6 py-14 sm:px-10 lg:px-16">
       <div className="mx-auto max-w-5xl">
         <h2 className="text-[clamp(1.6rem,3.2vw,2.4rem)] font-semibold leading-tight tracking-tight text-white">
-          <Reveal>Your positions</Reveal>
+          <Reveal>Your Active Stakes</Reveal>
         </h2>
 
         {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
@@ -75,7 +75,7 @@ export default function PositionsPanel({
                         <span className="text-sm text-silver-400">STT</span>
                       </div>
                       <div className="mt-2 text-[10px] uppercase tracking-[0.14em] text-silver-500">
-                        {p.termDays}-day term · {fmtRate(p.aprBps)}
+                        {p.termDays}-day term · {fmtRate(p.aprBps)} APR
                       </div>
                     </div>
 
