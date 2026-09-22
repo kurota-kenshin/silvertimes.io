@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import NavEthena from "./components/NavEthena";
-import { AirdropBanner, CoinstoreListingPopup } from "./components/CoinstorePromo";
+import { CoinstoreListingPopup } from "./components/CoinstorePromo";
+import StakingBanner from "./components/StakingBanner";
 import HeroCorrect from "./components/HeroCorrect";
 import HeroV2 from "./components/HeroV2";
 import YouTubeSectionV2 from "./components/YouTubeSectionV2";
@@ -67,7 +68,7 @@ function HomePageV2() {
   return (
     <>
       <HeroV2 />
-      <AirdropBanner />
+      <StakingBanner />
       <YouTubeSectionV2 />
       <ValuePropositionV2 />
       <TokenBackingV2 />
