@@ -1,8 +1,10 @@
-import { useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { usePrivy, useWallets } from "@privy-io/react-auth";
 import { FadeUp, Reveal } from "../v2/cinematic";
 import { stakingApi } from "../../services/api";
 import {
+  AMOUNT_DECIMAL_PLACES,
+  AMOUNT_STEP,
   MAX_STAKE_PER_WALLET_STT,
   MIN_STAKE_STT,
   fmtDate,
@@ -21,10 +23,28 @@ const STT_DECIMALS = 18;
 function encodeTransfer(to: string, amountStt: number): string {
   const selector = "a9059cbb";
   const addr = to.toLowerCase().replace(/^0x/, "").padStart(64, "0");
-  // Two decimal places of STT, scaled to 18 decimals, without float error.
-  const units =
-    BigInt(Math.round(amountStt * 100)) * 10n ** BigInt(STT_DECIMALS - 2);
+  // Scale via the fixed-decimal string, not float arithmetic: at 4 dp
+  // 4.9964 * 10000 yields 49964.00000000001, which would encode the wrong
+  // amount and fail the backend's exact on-chain comparison.
+  const scaled = BigInt(
+    amountStt.toFixed(AMOUNT_DECIMAL_PLACES).replace(".", ""),
+  );
+  const units = scaled * 10n ** BigInt(STT_DECIMALS - AMOUNT_DECIMAL_PLACES);
   return `0x${selector}${addr}${units.toString(16).padStart(64, "0")}`;
+}
+
+
+/** ERC-20 balanceOf(address) calldata. */
+function encodeBalanceOf(owner: string): string {
+  return `0x70a08231${owner.toLowerCase().replace(/^0x/, "").padStart(64, "0")}`;
+}
+
+/** wei (18dp) -> STT, truncated to the precision the backend accepts. */
+function weiToStt(hex: string): number {
+  const wei = BigInt(hex === "0x" ? "0x0" : hex);
+  const scale = 10n ** BigInt(STT_DECIMALS - AMOUNT_DECIMAL_PLACES);
+  // Truncate rather than round: never offer more than the wallet can send.
+  return Number(wei / scale) / 10 ** AMOUNT_DECIMAL_PLACES;
 }
 
 type Phase = "idle" | "intent" | "sending" | "verifying" | "done";
@@ -78,6 +98,8 @@ export default function StakePanel({
   const [amount, setAmount] = useState(10);
   const [phase, setPhase] = useState<Phase>("idle");
   const [error, setError] = useState<string | null>(null);
+  // null while unknown (not connected, or the balance call failed).
+  const [walletStt, setWalletStt] = useState<number | null>(null);
 
   const wallet = wallets[0];
   const remaining = me?.remainingStt ?? MAX_STAKE_PER_WALLET_STT;
@@ -85,16 +107,58 @@ export default function StakePanel({
   const staked = me?.stakedTotalStt ?? 0;
   const poolOpen = config?.pool.isOpen ?? true;
 
-  const maxForThisStake = Math.min(MAX_STAKE_PER_WALLET_STT, remaining);
+  // Read the connected wallet's STT balance. Without this the slider offers
+  // the full quota regardless of holdings, so a user can pick an amount the
+  // transfer cannot cover and only discover it after paying gas.
+  useEffect(() => {
+    let cancelled = false;
+    if (!wallet) {
+      setWalletStt(null);
+      return;
+    }
+    (async () => {
+      try {
+        const provider = await wallet.getEthereumProvider();
+        const hex: string = await provider.request({
+          method: "eth_call",
+          params: [
+            { to: STT_ADDRESS, data: encodeBalanceOf(wallet.address) },
+            "latest",
+          ],
+        });
+        if (!cancelled) setWalletStt(weiToStt(hex));
+      } catch {
+        // Leave it unknown rather than guessing — the cap simply falls back
+        // to the quota, and the backend still verifies the real transfer.
+        if (!cancelled) setWalletStt(null);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [wallet, phase]);
+
+  const quotaMax = Math.min(MAX_STAKE_PER_WALLET_STT, remaining);
+  // Cap by what the wallet actually holds, when we know it.
+  const maxForThisStake =
+    walletStt === null ? quotaMax : Math.min(quotaMax, walletStt);
   const dustAllowance = remaining > 0 && remaining < MIN_STAKE_STT;
+  const notEnoughStt =
+    walletStt !== null && !dustAllowance && remaining >= MIN_STAKE_STT && walletStt < MIN_STAKE_STT;
 
   const reward = useMemo(() => previewReward(amount, term), [amount, term]);
   const maturity = useMemo(() => previewMaturity(term), [term]);
 
+  useEffect(() => {
+    if (amount > maxForThisStake) {
+      setAmount(Math.floor(maxForThisStake * 10 ** AMOUNT_DECIMAL_PLACES) / 10 ** AMOUNT_DECIMAL_PLACES);
+    }
+  }, [maxForThisStake]);
+
   const amountValid =
     amount >= MIN_STAKE_STT &&
     amount <= maxForThisStake &&
-    Math.abs(amount * 100 - Math.round(amount * 100)) < 1e-9;
+    Number(amount.toFixed(AMOUNT_DECIMAL_PLACES)) === amount;
 
   async function handleStake() {
     setError(null);
@@ -213,6 +277,20 @@ export default function StakePanel({
                   Connect wallet
                 </button>
               </div>
+            ) : notEnoughStt ? (
+              <Notice>
+                This wallet holds{" "}
+                <span className="tabular-nums text-white">
+                  {fmtStt(walletStt ?? 0, 4)} STT
+                </span>
+                , below the {MIN_STAKE_STT.toFixed(2)} STT minimum. Add STT to{" "}
+                <span className="tabular-nums text-white">
+                  {wallet
+                    ? `${wallet.address.slice(0, 6)}...${wallet.address.slice(-4)}`
+                    : "this wallet"}
+                </span>{" "}
+                to stake.
+              </Notice>
             ) : dustAllowance ? (
               <Notice>
                 You have{" "}
@@ -240,11 +318,31 @@ export default function StakePanel({
                       Amount
                     </label>
                     <span className="text-xs tabular-nums text-silver-500">
-                      {fmtStt(remaining, 2)} STT left of {MAX_STAKE_PER_WALLET_STT}
+                      {fmtStt(maxForThisStake, 4)} STT max
                     </span>
                   </div>
 
                   <div className="mt-1.5 space-y-1 text-[11px] leading-relaxed text-silver-500">
+                    {walletStt !== null && (
+                      <div>
+                        <span className="tabular-nums text-silver-400">
+                          {fmtStt(walletStt, 4)} STT
+                        </span>{" "}
+                        in your wallet
+                        {walletStt < quotaMax && (
+                          <span className="text-silver-600">
+                            {" "}
+                            — this is your limit
+                          </span>
+                        )}
+                      </div>
+                    )}
+                    <div>
+                      <span className="tabular-nums text-silver-400">
+                        {fmtStt(remaining, 2)} STT
+                      </span>{" "}
+                      of your {MAX_STAKE_PER_WALLET_STT} STT allowance left
+                    </div>
                     {staked > 0 && (
                       <div>
                         <span className="tabular-nums text-silver-400">
@@ -269,7 +367,7 @@ export default function StakePanel({
                       inputMode="decimal"
                       min={MIN_STAKE_STT}
                       max={maxForThisStake}
-                      step={0.01}
+                      step={AMOUNT_STEP}
                       value={amount}
                       disabled={busy}
                       onChange={(e) => setAmount(Number(e.target.value))}
@@ -279,7 +377,10 @@ export default function StakePanel({
                       type="button"
                       disabled={busy}
                       onClick={() =>
-                        setAmount(Math.floor(maxForThisStake * 100) / 100)
+                        setAmount(
+                        Math.floor(maxForThisStake * 10 ** AMOUNT_DECIMAL_PLACES) /
+                          10 ** AMOUNT_DECIMAL_PLACES,
+                      )
                       }
                       className="shrink-0 rounded-lg border border-white/15 px-4 py-2.5 text-xs font-medium text-silver-200 transition-colors hover:border-white/30 hover:text-white"
                     >
@@ -291,7 +392,7 @@ export default function StakePanel({
                     type="range"
                     min={MIN_STAKE_STT}
                     max={maxForThisStake}
-                    step={0.01}
+                    step={AMOUNT_STEP}
                     value={amount}
                     disabled={busy}
                     onChange={(e) => setAmount(Number(e.target.value))}
@@ -300,7 +401,7 @@ export default function StakePanel({
                   />
                   <div className="mt-2 flex justify-between text-[11px] tabular-nums text-silver-600">
                     <span>{MIN_STAKE_STT.toFixed(2)} min</span>
-                    <span>{fmtStt(maxForThisStake, 2)} max</span>
+                    <span>{fmtStt(maxForThisStake, 4)} max</span>
                   </div>
 
                   {/*

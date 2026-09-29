@@ -5,10 +5,18 @@ import FooterV2 from "./FooterV2";
 
 const AUDIT_PDF = "/docs/Beosin_Audit_Report_SilverTimes_Post_TGE_20260716.pdf";
 
+// $STT is live on Ethereum mainnet; the explorer link is real, not pending.
+const STT_CONTRACT = "0x9f13a262ac5be07a8e6eac09d01daf00be5e0fce";
+const ETHERSCAN_TOKEN_URL = `https://etherscan.io/token/${STT_CONTRACT}`;
+
 // Brink's issues a fresh holding certificate every month. Newest first —
 // add one entry per month and the page stays short: the latest is featured
 // and everything older collapses into the compact archive list below it.
 const porStatements: { period: string; href: string }[] = [
+  {
+    period: "August 2026",
+    href: "/docs/SilverTimes_Transparency_Report_STT-TR-2026-AUG.pdf",
+  },
   {
     period: "July 2026",
     href: "/docs/SilverTimes_Transparency_Report_STT-TR-2026-JUL.pdf",
@@ -267,7 +275,7 @@ export default function Transparency() {
           </div>
         </div>
 
-        {/* On-chain reserves — reserved for the HashKey explorer */}
+        {/* On-chain — $STT is a live ERC-20 on Ethereum, verifiable on Etherscan. */}
         <div className="relative z-10 mx-auto mt-24 max-w-5xl px-6 sm:px-10 lg:mt-28 lg:px-16">
           <FadeUp className="mb-8">
             <SectionLabel>On-chain</SectionLabel>
@@ -281,37 +289,65 @@ export default function Transparency() {
                     Track every $STT on-chain
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-silver-400">
-                    View live $STT mint, redeem, and transfer activity on the HashKey Chain
-                    explorer. Full on-chain reserve visibility is being wired up.
+                    $STT is an ERC-20 token on Ethereum. Every mint, redeem and
+                    transfer is public and permanent — inspect the contract,
+                    holders and full transfer history on Etherscan.
                   </p>
                 </div>
-                <span className="inline-flex cursor-not-allowed items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-5 py-2.5 text-sm font-medium text-silver-400">
-                  View on HashKey Explorer
-                  <span className="rounded-full bg-brand-teal/15 px-2 py-0.5 text-[10px] uppercase tracking-wider text-brand-teal">
-                    Soon
-                  </span>
-                </span>
+                <a
+                  href={ETHERSCAN_TOKEN_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:border-white/30 hover:bg-white/[0.1]"
+                >
+                  View on Etherscan
+                  <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M7 17 17 7M9 7h8v8" />
+                  </svg>
+                </a>
               </div>
 
-              {/* Reserved space: skeleton transaction feed */}
               <div className="mt-8 overflow-hidden rounded-xl border border-white/8 bg-background-primary/40">
-                <div className="grid grid-cols-[1.5fr_1fr_1fr_1fr] gap-4 border-b border-white/8 px-5 py-3 text-[10px] font-semibold uppercase tracking-wider text-silver-600">
-                  <span>Transaction</span>
-                  <span>Type</span>
-                  <span>Amount</span>
-                  <span className="text-right">Time</span>
-                </div>
-                {[0, 1, 2].map((r) => (
-                  <div key={r} className="grid grid-cols-[1.5fr_1fr_1fr_1fr] items-center gap-4 px-5 py-4">
-                    <span className="h-3 w-3/4 animate-pulse rounded bg-white/[0.06]" />
-                    <span className="h-3 w-1/2 animate-pulse rounded bg-white/[0.06]" />
-                    <span className="h-3 w-1/2 animate-pulse rounded bg-white/[0.06]" />
-                    <span className="ml-auto h-3 w-2/3 animate-pulse rounded bg-white/[0.06]" />
+                <dl className="divide-y divide-white/[0.06]">
+                  <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-4">
+                    <dt className="text-[11px] font-semibold uppercase tracking-wider text-silver-600">
+                      Network
+                    </dt>
+                    <dd className="text-sm text-silver-200">Ethereum mainnet</dd>
                   </div>
-                ))}
-                <p className="border-t border-white/8 px-5 py-3 text-center text-xs text-silver-600">
-                  Live $STT transactions — coming soon
-                </p>
+                  <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-4">
+                    <dt className="text-[11px] font-semibold uppercase tracking-wider text-silver-600">
+                      Standard
+                    </dt>
+                    <dd className="text-sm text-silver-200">ERC-20 · 18 decimals</dd>
+                  </div>
+                  <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-4">
+                    <dt className="text-[11px] font-semibold uppercase tracking-wider text-silver-600">
+                      Contract
+                    </dt>
+                    <dd className="break-all text-left text-xs text-silver-200 sm:text-right sm:text-sm">
+                      <a
+                        href={ETHERSCAN_TOKEN_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="tabular-nums underline decoration-white/20 underline-offset-4 transition-colors hover:text-white hover:decoration-white/50"
+                      >
+                        {STT_CONTRACT}
+                      </a>
+                    </dd>
+                  </div>
+                </dl>
+                <div className="flex flex-wrap gap-x-6 gap-y-2 border-t border-white/8 px-5 py-3 text-xs text-silver-500">
+                  <a href={`${ETHERSCAN_TOKEN_URL}#balances`} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">
+                    Holders
+                  </a>
+                  <a href={`${ETHERSCAN_TOKEN_URL}#tokenTxns`} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">
+                    Transfers
+                  </a>
+                  <a href={`https://etherscan.io/address/${STT_CONTRACT}#code`} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">
+                    Contract source
+                  </a>
+                </div>
               </div>
             </div>
           </FadeUp>

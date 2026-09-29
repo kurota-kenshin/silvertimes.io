@@ -8,6 +8,10 @@ export const APR_BPS: Record<TermDays, number> = { 30: 1000, 90: 1500 };
 export const MIN_STAKE_STT = 1;
 export const MAX_STAKE_PER_WALLET_STT = 10;
 
+/** Precision the backend accepts for a stake amount. Mirrors AMOUNT_DECIMAL_PLACES. */
+export const AMOUNT_DECIMAL_PLACES = 4;
+export const AMOUNT_STEP = 0.0001;
+
 const DAY_MS = 24 * 60 * 60 * 1000;
 
 /** Simple pro-rated interest. Deliberately not compounded — see the spec. */
