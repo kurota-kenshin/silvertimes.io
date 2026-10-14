@@ -10,15 +10,49 @@ const LABEL: Record<Trade["status"], { text: string; tone: string }> = {
   REFUNDED: { text: "Refunded", tone: "text-silver-300" },
 };
 
-export default function TradeHistory({ trades }: { trades: Trade[] }) {
+export default function TradeHistory({
+  trades,
+  onRefresh,
+  refreshing,
+}: {
+  trades: Trade[];
+  onRefresh: () => Promise<void>;
+  refreshing: boolean;
+}) {
   if (!trades.length) return null;
+
+  const inFlight = trades.some(
+    (t) => t.status === "PENDING" || t.status === "SWAPPING" || t.status === "REFUNDING",
+  );
 
   return (
     <section className="relative px-6 py-14 sm:px-10 lg:px-16">
       <div className="mx-auto max-w-5xl">
-        <h2 className="text-[clamp(1.6rem,3.2vw,2.4rem)] font-semibold leading-tight tracking-tight text-white">
-          <Reveal>Your swaps</Reveal>
-        </h2>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <h2 className="text-[clamp(1.6rem,3.2vw,2.4rem)] font-semibold leading-tight tracking-tight text-white">
+            <Reveal>Your swaps</Reveal>
+          </h2>
+
+          <div className="flex items-center gap-4">
+            {inFlight && (
+              <span className="flex items-center gap-2 text-xs text-silver-500">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-teal opacity-75" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand-teal" />
+                </span>
+                Checking for updates
+              </span>
+            )}
+            <button
+              type="button"
+              onClick={onRefresh}
+              disabled={refreshing}
+              className="rounded-full border border-white/15 px-4 py-1.5 text-xs font-medium text-silver-200 transition-colors hover:border-white/30 hover:text-white disabled:opacity-50"
+            >
+              {refreshing ? "Refreshing..." : "Refresh"}
+            </button>
+          </div>
+        </div>
 
         <div className="mt-8 space-y-3">
           {trades.map((t, i) => {
@@ -39,7 +73,14 @@ export default function TradeHistory({ trades }: { trades: Trade[] }) {
                     </div>
                   </div>
 
-                  <div className={`text-sm ${s.tone}`}>{s.text}</div>
+                  <div className={`text-sm ${s.tone}`}>
+                    {s.text}
+                    {t.status === "SWAPPING" && (
+                      <span className="ml-2 text-xs text-silver-600">
+                        usually under a minute
+                      </span>
+                    )}
+                  </div>
 
                   <div className="ml-auto flex gap-4 text-xs">
                     {t.txHashOut && (

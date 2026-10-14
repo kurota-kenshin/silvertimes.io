@@ -16,6 +16,7 @@ export default function SwapPage() {
   const [config, setConfig] = useState<SwapConfig | null>(null);
   const [trades, setTrades] = useState<Trade[]>([]);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
 
   const reload = useCallback(async () => {
     setConfig(await swapApi.getConfig());
@@ -43,6 +44,43 @@ export default function SwapPage() {
     };
   }, [reload]);
 
+  // Settlement happens in the background after the page submits, so a trade
+  // is PENDING when we first see it. Without polling the user stares at
+  // "Swapping" until they think to reload.
+  const inFlight = trades.some(
+    (t) => t.status === "PENDING" || t.status === "SWAPPING" || t.status === "REFUNDING",
+  );
+
+  useEffect(() => {
+    if (!inFlight) return;
+    let cancelled = false;
+    // Stop after 15 minutes rather than polling a tab forever; the refresh
+    // button covers anything slower than that.
+    const stopAt = Date.now() + 15 * 60 * 1000;
+
+    const id = setInterval(() => {
+      if (cancelled || Date.now() > stopAt) {
+        clearInterval(id);
+        return;
+      }
+      reload().catch(() => undefined);
+    }, 5000);
+
+    return () => {
+      cancelled = true;
+      clearInterval(id);
+    };
+  }, [inFlight, reload]);
+
+  const refresh = useCallback(async () => {
+    setRefreshing(true);
+    try {
+      await reload();
+    } finally {
+      setRefreshing(false);
+    }
+  }, [reload]);
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-background-primary pt-14 text-white">
       <Grain />
@@ -50,7 +88,7 @@ export default function SwapPage() {
       <div className="pointer-events-none absolute right-0 top-[46vh] h-[36vh] w-[40vw] rounded-full bg-brand-teal/[0.05] blur-[150px]" />
 
       <SwapCard config={config} loading={loading} onSwapped={reload} />
-      <TradeHistory trades={trades} />
+      <TradeHistory trades={trades} onRefresh={refresh} refreshing={refreshing} />
       <SwapRiskNotes treasuryAddress={config?.treasuryAddress ?? ""} />
 
       <FooterV2 />
