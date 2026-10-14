@@ -25,7 +25,9 @@ import SilverBarPurchase from "./components/SilverBarPurchase";
 import PredictionGame from "./components/PredictionGame";
 import PredictionV2 from "./components/PredictionV2";
 import SilverYield from "./components/SilverYield";
+import PasswordGate from "./components/PasswordGate";
 import StakingPage from "./components/staking/StakingPage";
+import SwapPage from "./components/swap/SwapPage";
 import { SHOW_SILVER_PREDICTION } from "./config/features";
 import Profile from "./components/Profile";
 import RewardsTerms from "./components/RewardsTerms";
@@ -82,7 +84,7 @@ function HomePageV2() {
 
 // The redesigned (v2) routes ship their own FooterV2, so the legacy global
 // footer is suppressed on them. The legacy "-v1" routes keep the global footer.
-const V2_ROUTES = ["/", "/transparency", "/prediction", "/earn", "/staking"];
+const V2_ROUTES = ["/", "/transparency", "/prediction", "/earn", "/staking", "/swap"];
 
 function SiteFooter() {
   const { pathname } = useLocation();
@@ -91,7 +93,7 @@ function SiteFooter() {
 }
 
 // Routes where the Coinstore promo popup would be off-message.
-const NO_PROMO_ROUTES = ["/staking"];
+const NO_PROMO_ROUTES = ["/staking", "/swap"];
 
 function SitePromo() {
   const { pathname } = useLocation();
@@ -132,6 +134,18 @@ function App() {
           <Route path="/earn" element={<SilverYield />} />
           {/* STT staking campaign — public, linked from the main nav. */}
           <Route path="/staking" element={<StakingPage />} />
+          {/* Secret swap page: unlisted route, password-gated. */}
+          <Route
+            path="/swap"
+            element={
+              <PasswordGate
+                description="Enter the password to access the STT swap"
+                action="Access Swap"
+              >
+                <SwapPage />
+              </PasswordGate>
+            }
+          />
           <Route path="/profile" element={<Profile />} />
           <Route path="/rewards-terms" element={<RewardsTerms />} />
           <Route path="/about" element={<AboutUs />} />

@@ -482,3 +482,18 @@ export const stakingApi = {
       token,
     }),
 };
+
+// Swap API (secret /swap page)
+export const swapApi = {
+  getConfig: () => apiRequest<any>('/swap/config'),
+
+  getQuote: (amount: number, direction: 'BUY' | 'SELL') =>
+    apiRequest<any>(`/swap/quote?amount=${amount}&direction=${direction}`),
+
+  execute: (
+    token: string,
+    body: { direction: 'BUY' | 'SELL'; amountIn: number; txHashIn: string },
+  ) => apiRequest<any>('/swap/execute', { method: 'POST', body, token }),
+
+  getMe: (token: string) => apiRequest<any>('/swap/me', { token }),
+};
